@@ -1,0 +1,48 @@
+{
+  "hero": {
+    "eyebrow": "Think . design . scale .",
+    "headlineDark": "From first idea to lasting impact, we're with you",
+    "headlineAccent": "every step of the way.",
+    "body": "We combine research, strategy, design and emerging technologies to help businesses solve complex challenges, build scalable systems and create experiences people genuinely enjoy using.",
+    "primaryCta": { "label": "Start a Project", "href": "/contact" },
+    "secondaryCta": { "label": "Explore Our Capabilities", "href": "#capabilities" }
+  },
+
+  "capabilitiesIntro": {
+    "eyebrow": "Capabilities",
+    "headingPlain": "We build digital foundations for",
+    "headingAccent": "Industry Leaders."
+  },
+
+  "photoStrips": [
+    { "id": "strip-1", "afterStepId": "clarify", "src": "/services/strip-brainstorm.jpg", "alt": "Team brainstorming session with sticky notes on a wall" },
+    { "id": "strip-2", "afterStepId": "shape", "src": "/services/strip-meeting.jpg", "alt": "Team meeting around a table" },
+    { "id": "strip-3", "afterStepId": "build-iterate", "src": "/services/strip-presentation.jpg", "alt": "Presentation showing a Q4 growth chart" }
+  ],
+
+  "sectorGrid": {
+    "eyebrow": null,
+    "heading": "Different industries.",
+    "headingAccent": "Shared principles.",
+    "subheading": "We unite with big brands and startups in various industries to create award-winning work.",
+    "sectors": [
+      {
+        "sector": "Fintech",
+        "clients": ["Discover", "Stripe", "CreditKarma", "STC Bank", "MoneyLion", "Marqeta", "Quicken", "Lulo Bank", "Earnin", "Fundbox", "StreetBeat", "Q2"]
+      },
+      {
+        "sector": "B2B & Enterprise Software",
+        "clients": ["Slack", "ADP", "VMware", "Okta", "Splunk", "Nutanix", "Zenefits", "Comscore", "Papaya", "TeamViewer", "Cornerstone", "WorkBoard", "AppDynamics"]
+      },
+      {
+        "sector": "Technology",
+        "clients": ["Google", "Amazon", "Snapchat", "Facebook", "Cisco", "Speedtest.net"]
+      },
+      {
+        "sector": "Healthcare & Life Sciences",
+        "clients": ["Medidata", "Medable", "Hint", "Endpoint", "Neurolign", "Quartzy"]
+      }
+    ],
+    "cta": { "label": "See all Work", "href": "/work" }
+  }
+}

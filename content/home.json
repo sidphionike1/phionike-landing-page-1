@@ -1,0 +1,218 @@
+{
+  "nav": {
+    "logo": "PHIONIKE",
+    "links": [
+      { "label": "Home", "href": "/" },
+      { "label": "About", "href": "/about" },
+      { "label": "Work", "href": "/work" },
+      { "label": "Services", "href": "/services" },
+      { "label": "Process & AI", "href": "/process-ai" }
+    ],
+    "cta": { "label": "Get in Touch", "href": "/contact" }
+  },
+
+  "hero": {
+    "eyebrow": "Products, Brands and Experiences",
+    "headlineDark": "Products, Brands, and Experiences",
+    "headlineAccent": "that move people forward",
+    "body": "We partner with startups and evolving brands to craft product experiences, visual systems, and AI-enabled workflows that scale with ambition.",
+    "primaryCta": { "label": "View our Work", "href": "/work" },
+    "secondaryCta": { "label": "Our Services", "href": "/services" },
+    "shapes": [
+      { "id": "orange", "color": "#E65124", "role": "primary" },
+      { "id": "mustard", "color": "#F2A93B", "role": "secondary" },
+      { "id": "cobalt", "color": "#2538F5", "role": "secondary" },
+      { "id": "lavender", "color": "#EAE8FC", "role": "accent" }
+    ],
+    "microTag": "Design & Strategy Studio"
+  },
+
+  "valueProp": {
+    "heading": "We help brands and products grow through thoughtful design and digital experiences.",
+    "body": "Our approach blends research, branding, product thinking, and AI-assisted workflows to help teams move from ambiguity to scalable experiences — creating products and systems that are thoughtful, adaptable, and built for long-term growth.",
+    "cta": { "label": "View our approach", "href": "/approach" }
+  },
+
+  "trustedBy": {
+    "eyebrow": "Clients",
+    "heading": "Trusted by organisations that demand substance.",
+    "logos": [
+      { "name": "OREN", "logoSrc": "/logos/oren.svg" },
+      { "name": "Wavelength", "logoSrc": "/logos/wavelength.svg" },
+      { "name": "Brandintelle", "logoSrc": "/logos/brandintelle.svg" },
+      { "name": "ISLA", "logoSrc": "/logos/isla.svg" },
+      { "name": "XICP", "logoSrc": "/logos/xicp.svg" },
+      { "name": "Farmfields", "logoSrc": "/logos/farmfields.svg" }
+    ]
+  },
+
+  "metrics": [
+    { "value": "300M+", "label": "Users Impacted" },
+    { "value": "2.5M+", "label": "Designs Delivered" },
+    { "value": "20+", "label": "Happy Clients" }
+  ],
+
+  "processSteps": {
+    "mobileEyebrowNumber": "04",
+    "mobileHeading": "Scale your projects to reach enterprise perfection",
+    "steps": [
+      {
+        "id": "step-1",
+        "number": "01",
+        "heading": "Start with the right problem",
+        "caption": "Clarify — untangle ambiguity, align on constraints.",
+        "subheading": "Discover user needs"
+      },
+      {
+        "id": "step-2",
+        "number": "02",
+        "heading": "Find work that's relevant to you",
+        "caption": "Map opportunity spaces, turn assumptions into insights.",
+        "subheading": "Shape the opportunity"
+      },
+      {
+        "id": "step-3",
+        "number": "03",
+        "heading": "Build from zero to one",
+        "caption": "Prototype fast, validate early, iterate in the open.",
+        "subheading": "Build & Iterate"
+      }
+    ]
+  },
+
+  "aiBand": {
+    "eyebrow": "Process & AI",
+    "heading": "AI that serves the work, not the other way around.",
+    "supportLine": "Turn assumptions into insights",
+    "body": "We use AI deliberately — as a research accelerator, a synthesis tool, and a pressure-test for ideas. Never as a replacement for the human judgement that makes design worth doing.",
+    "cta": { "label": "Explore our Process & AI", "href": "/process-ai" }
+  },
+
+  "venn": {
+    "eyebrow": "Where We Create Impact",
+    "heading": "Not every product needs the same help",
+    "subheading": "we meet you where you are",
+    "supportCopy": "Explore the clients and projects behind each discipline.",
+    "disciplines": [
+      { "id": "discover", "label": "Discover & Define", "mobileLabel": "Clarify" },
+      { "id": "build", "label": "Build from 0 \u2192 1", "mobileLabel": "0 \u2192 1" },
+      { "id": "redesign", "label": "Redesign & Reposition", "mobileLabel": "Build & Iterate" },
+      { "id": "scale", "label": "Scale & Partner", "mobileLabel": "Scale" }
+    ],
+    "sectors": [
+      { "id": "ecommerce", "label": "Ecommerce" },
+      { "id": "fintech", "label": "Fintech" },
+      { "id": "government", "label": "Government" },
+      { "id": "saas", "label": "SaaS" },
+      { "id": "education", "label": "Education" },
+      { "id": "sustainability", "label": "Sustainability" },
+      { "id": "nonprofit", "label": "Non-Profit" },
+      { "id": "healthcare", "label": "Healthcare" }
+    ],
+    "stats": [
+      { "value": "4", "label": "core disciplines" },
+      { "value": "8", "label": "industry sectors" },
+      { "value": "140+", "label": "projects delivered" }
+    ],
+    "cta": { "label": "See All Work", "href": "/work" }
+  },
+
+  "portfolio": {
+    "eyebrow": "Find work that's relevant to you",
+    "heading": "Browse projects by industry or service",
+    "filters": ["All", "Industry", "Service", "Challenge"],
+    "items": [
+      {
+        "id": "oren-01",
+        "title": "Oren - Smart Ring App",
+        "tagline": "Great design isn't defined by the number of screens delivered.",
+        "sectors": ["healthcare", "saas"],
+        "discipline": "build",
+        "variant": "darkPhoneTriple",
+        "mockupSrc": "/portfolio/oren-triple-dark.png"
+      },
+      {
+        "id": "oren-02",
+        "title": "Oren - Smart Ring App",
+        "tagline": "Great design isn't defined by the number of screens delivered. It's measured by the experiences it creates and the value it brings to businesses.",
+        "sectors": ["healthcare"],
+        "discipline": "discover",
+        "variant": "standard",
+        "mockupSrc": "/portfolio/oren-dashboard-1.png"
+      },
+      {
+        "id": "oren-03",
+        "title": "Oren - Smart Ring App",
+        "tagline": "Great design isn't defined by the number of screens delivered.",
+        "sectors": ["healthcare", "fintech"],
+        "discipline": "redesign",
+        "variant": "standard",
+        "mockupSrc": "/portfolio/oren-dashboard-2.png"
+      },
+      {
+        "id": "oren-04",
+        "title": "Oren - Smart Ring App",
+        "tagline": "Great design isn't defined by the number of screens delivered. It's measured by the value it brings to businesses.",
+        "sectors": ["saas"],
+        "discipline": "scale",
+        "variant": "standard",
+        "mockupSrc": "/portfolio/oren-dashboard-3.png"
+      },
+      {
+        "id": "oren-05",
+        "title": "Oren - Smart Ring App",
+        "tagline": "Great design isn't defined by the number of screens delivered.",
+        "sectors": ["ecommerce"],
+        "discipline": "discover",
+        "variant": "standard",
+        "mockupSrc": "/portfolio/oren-dashboard-4.png"
+      }
+    ]
+  },
+
+  "showreel": {
+    "title": "Studio Showreel 2026",
+    "duration": "02:34",
+    "posterSrc": "/showreel/poster.jpg",
+    "videoUrl": "/showreel/reel.mp4",
+    "caption": "A glimpse into how we think, who we work with, and what we make together across industries, disciplines, and scales of impact.",
+    "cta": { "label": "See the work", "href": "/work" },
+    "hiddenOnMobile": true
+  },
+
+  "editorial": {
+    "imageSrc": "/editorial/team-photo.jpg",
+    "alt": "The Phionike studio team collaborating in the studio",
+    "hiddenOnMobile": true
+  },
+
+  "footerCta": {
+    "heading": "Have a project in mind? We'd love to hear about it.",
+    "primaryCta": { "label": "Get in Touch", "href": "/contact" },
+    "secondaryCta": { "label": "Learn About Us", "href": "/about" }
+  },
+
+  "footer": {
+    "description": "Research-led, multi-industry, and values-driven. We design products, brands, and experiences that move people forward.",
+    "location": "London, United Kingdom",
+    "copyright": "\u00a9 2026 Phionike Studio Ltd. Registered in India.",
+    "contact": {
+      "email": "hello@phionike.studio",
+      "phone": "+44 (0) 7700 000 000"
+    },
+    "navLinks": [
+      { "label": "Home", "href": "/" },
+      { "label": "About", "href": "/about" },
+      { "label": "Work", "href": "/work" },
+      { "label": "Process & AI", "href": "/process-ai" },
+      { "label": "Services", "href": "/services" },
+      { "label": "Contact", "href": "/contact" }
+    ],
+    "social": [
+      { "platform": "LinkedIn", "href": "https://linkedin.com" },
+      { "platform": "Instagram", "href": "https://instagram.com" },
+      { "platform": "Dribbble", "href": "https://dribbble.com" }
+    ],
+    "teamPhotoSrc": "/footer/team-thumbnail.jpg"
+  }
+}

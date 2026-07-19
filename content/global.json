@@ -1,0 +1,102 @@
+{
+  "nav": {
+    "logo": "PHIONIKE",
+    "links": [
+      { "label": "Home", "href": "/" },
+      { "label": "About", "href": "/about" },
+      { "label": "Work", "href": "/work" },
+      { "label": "Services", "href": "/services" },
+      { "label": "Process & AI", "href": "/process-ai" }
+    ],
+    "cta": { "label": "Get in Touch", "href": "/contact" }
+  },
+
+  "footerCta": {
+    "heading": "Have a project in mind? We'd love to hear about it.",
+    "primaryCta": { "label": "Get in Touch", "href": "/contact" },
+    "secondaryCta": { "label": "Learn About Us", "href": "/about" }
+  },
+
+  "footer": {
+    "description": "Research-led, multi-industry, and values-driven. We design products, brands, and experiences that move people forward.",
+    "location": "London, United Kingdom",
+    "copyright": "\u00a9 2026 Phionike Studio Ltd.",
+    "contact": {
+      "email": "hello@phionike.studio",
+      "phone": "+44 (0) 7700 000 000"
+    },
+    "navLinks": [
+      { "label": "Home", "href": "/" },
+      { "label": "About", "href": "/about" },
+      { "label": "Work", "href": "/work" },
+      { "label": "Process & AI", "href": "/process-ai" },
+      { "label": "Services", "href": "/services" },
+      { "label": "Contact", "href": "/contact" }
+    ],
+    "social": [
+      { "platform": "LinkedIn", "href": "https://linkedin.com" },
+      { "platform": "Instagram", "href": "https://instagram.com" },
+      { "platform": "Dribbble", "href": "https://dribbble.com" }
+    ],
+    "teamPhotoSrc": "/footer/team-thumbnail.jpg"
+  },
+
+  "processSteps": [
+    {
+      "id": "clarify",
+      "number": "01",
+      "icon": "Search",
+      "heroLabel": "Clarify",
+      "vennLabel": "Discover & Define",
+      "heading": "Understand the right problem before building the solution.",
+      "shortDescription": "Define the problem and align on goals",
+      "longDescription": "Every successful product begins with clarity. We uncover user needs, business goals and hidden opportunities to create a strong foundation for every decision that follows.",
+      "whatWeDo": ["User Research", "Discovery Workshops", "Stakeholder Interviews", "Product Strategy", "Opportunity Mapping"],
+      "clientOutcomes": ["Clear product direction", "Aligned stakeholders", "Reduced uncertainty", "Prioritised roadmap"],
+      "bandColor": "cobalt",
+      "textColor": "white"
+    },
+    {
+      "id": "shape",
+      "number": "02",
+      "icon": "PenTool",
+      "heroLabel": "Shape",
+      "vennLabel": "Build from 0 \u2192 1",
+      "heading": "Turn insights into experiences people can understand and use.",
+      "shortDescription": "Design the strategy and map the path forward",
+      "longDescription": "Ideas become tangible through structure, exploration and validation. We design intuitive journeys, test assumptions and shape concepts into meaningful experiences.",
+      "whatWeDo": ["UX Design", "Information Architecture", "User Flows", "Wireframes", "Interactive Prototypes"],
+      "clientOutcomes": ["Validated concepts", "Better user experience", "Faster decision making", "Reduced development risk"],
+      "bandColor": "lavender",
+      "textColor": "charcoal"
+    },
+    {
+      "id": "build-iterate",
+      "number": "03",
+      "icon": "Hammer",
+      "heroLabel": "Build & Iterate",
+      "vennLabel": "Redesign & Reposition",
+      "heading": "Design, refine and improve through continuous learning.",
+      "shortDescription": "Develop, test, and refine the solution",
+      "longDescription": "We craft polished interfaces and scalable design systems, validating every iteration through feedback, usability testing and close collaboration.",
+      "whatWeDo": ["UI Design", "Design Systems", "Interaction Design", "Prototyping", "Usability Testing"],
+      "clientOutcomes": ["Development ready designs", "Consistent user experience", "Faster product delivery", "Continuous improvement"],
+      "bandColor": "terracotta",
+      "textColor": "white"
+    },
+    {
+      "id": "scale",
+      "number": "04",
+      "icon": "TrendingUp",
+      "heroLabel": "Scale",
+      "vennLabel": "Scale & Partner",
+      "heading": "Create systems that support long term growth.",
+      "shortDescription": "Grow impact and expand to new markets",
+      "longDescription": "Great products don't stop at launch. We help teams scale confidently by evolving products, strengthening design systems and optimising experiences over time.",
+      "whatWeDo": ["Product Evolution", "Design System Governance", "Process Optimisation", "AI Integration", "Experience Optimisation"],
+      "clientOutcomes": ["Scalable design foundation", "Increased team efficiency", "Better product adoption", "Long term product growth"],
+      "bandColor": "mustard",
+      "textColor": "charcoal"
+    }
+  ]
+}
