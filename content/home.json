@@ -187,7 +187,9 @@
   },
 
   "footerCta": {
-    "heading": "Have a project in mind? We'd love to hear about it.",
+    "eyebrow": "Ready to work together?",
+    "headingLine1": "Have a project in mind?",
+    "italicHeadingLine": "We'd love to hear about it.",
     "primaryCta": { "label": "Get in Touch", "href": "/contact" },
     "secondaryCta": { "label": "Learn About Us", "href": "/about" }
   },

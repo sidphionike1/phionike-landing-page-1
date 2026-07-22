@@ -61,10 +61,17 @@ export function SiteFooter({
     <>
       <section className="bg-ink px-5 py-20 text-primary-foreground">
         <div className="mx-auto max-w-4xl text-center">
-          <p className="text-xs uppercase">Ready to work together?</p>
-          <h2 className="mx-auto mt-6 max-w-2xl font-serif text-5xl leading-none md:text-7xl">
-            {cta.heading}
-          </h2>
+          <p className="text-xs uppercase">{cta.eyebrow}</p>
+          <div className="mx-auto mt-6 max-w-2xl">
+            <h2 className="font-serif text-5xl leading-none md:text-7xl">
+              {cta.headingLine1}
+            </h2>
+            {cta.italicHeadingLine && (
+              <p className="mt-2 font-serif text-5xl italic leading-none md:text-7xl text-primary">
+                {cta.italicHeadingLine}
+              </p>
+            )}
+          </div>
           <div className="mt-10 grid gap-4 sm:grid-cols-2">
             <Link
               href={cta.primaryCta.href}
