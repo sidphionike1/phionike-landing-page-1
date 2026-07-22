@@ -1,0 +1,315 @@
+# PHIONIKE — /about Page Technical Build Spec
+Stack: Next.js 14 (App Router) · Tailwind CSS · Framer Motion · Lucide React
+Companion doc to `phionike-technical-spec.md` (Home), `phionike-services-technical-spec.md`
+(Services), and `phionike-work-technical-spec.md` (Work). Shared tokens,
+data-layer pattern, and rendering strategy are not repeated in full here.
+
+---
+
+## 0. Cross-Page Architecture Fix (applies retroactively to Home/Services/Work)
+
+**Navbar active-state is currently hardcoded.** All prior specs describe the
+"Home" link as the one with the active indicator. That was only ever correct
+on the Home page. Fix: `Navbar` takes an `activePage` prop
+(`'home' | 'about' | 'work' | 'services' | 'process-ai'`), and the active-
+indicator underline renders on whichever link matches. Update the Home,
+Services, and Work implementations to pass this prop rather than hardcoding
+"Home" as active — this was a gap in every prior spec, not just this one.
+
+---
+
+## 1. Hero (corrected — right column is not abstract shapes)
+
+**Copy corrections vs. v1 prompt:**
+- Add missing eyebrow: "About Phionike"
+  (`text-xs uppercase tracking-[0.2em] text-neutral-400`).
+- Headline needs multi-span coloring, not flat charcoal: "We design with "
+  (charcoal) + "purpose." (terracotta) + " We build for " (charcoal) +
+  "impact." (terracotta).
+- Add missing body paragraph: "We partner with ambitious businesses to
+  create products, brands and experiences that solve meaningful problems
+  through strategy, design and technology."
+- Secondary CTA needs a label — v1 left it unnamed. Reference reads "Let's
+  Talk" (the capture shows "Lest Talk" — an obvious typo, correct it, don't ship it).
+
+**Right-side visual — full rebuild, not "abstract shapes":**
+v1's "abstract geometric forms or logo stamp placeholders" doesn't match the
+reference at all. What's actually there is a **dense full-bleed photo-mosaic
+strip** — many small square tiles (roughly uniform, aspect-square) mixing
+real team headshots with flat solid-color filler squares (orange, cobalt,
+lavender, mustard), spanning the page's full width beneath the hero text
+block, not confined to a 5-column right column.
+
+Build as: `grid grid-cols-8 sm:grid-cols-12 md:grid-cols-16 gap-2` (or
+similar fine-grained column count), each cell `aspect-square rounded-md
+overflow-hidden`. Populate with a data array mixing `{ type: 'photo', src }`
+and `{ type: 'color', value }` entries — same "resolve once, store as data"
+principle as the team grid below (§3), not randomized at render time.
+
+**bg-color for filler tiles, bg-image for photo tiles.**
+
+---
+
+## 2. Core Value Prop Matrix (corrected — missing all body copy)
+
+Eyebrow (missing from v1): "Our Philosophy".
+Heading with partial coloring (missing from v1): "Built on values," in
+cobalt, "not trends" in muted neutral-500 — not a flat single-color heading.
+
+**All 6 values need their actual body copy, entirely absent from v1:**
+
+| # | Title | Body |
+|---|---|---|
+| 1 | People First | People always come before products, profits or opinions. We challenge assumptions, ask better questions and design for the people who will ultimately use what we create. |
+| 2 | Design with Integrity | Integrity isn't a value we aspire to — it's the foundation of every decision. We communicate honestly, design responsibly and always do what's right for the user and our partners. |
+| 3 | Partnerships Over Projects | We don't believe in transactional relationships. We work alongside our clients, celebrate their successes and navigate challenges together as one team. |
+| 4 | Stay Curious | Curiosity drives innovation. We continuously explore new ideas, emerging technologies and better ways to solve problems while never losing sight of the people we're designing for. |
+| 5 | Build with Purpose | We embrace experimentation, iterate fearlessly and aren't afraid to challenge convention. Every idea, no matter how bold, must solve a real problem. |
+| 6 | Design for Everyone | Accessibility and inclusivity are fundamental — not optional. We believe great design is usable, equitable and representative of the diverse people it serves. |
+
+Each item gets a short colored underline/accent bar beneath the title
+(`w-10 h-0.5 mt-3`, color cycling per item across the 4 accent tokens).
+
+`grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-12` per v1's column count —
+that part was correct.
+
+**bg-color only.**
+
+---
+
+## 3. Meet the Team — Bento Grid (corrected — this is the section to get exact)
+
+Eyebrow: "The Team" (terracotta). Heading: "The people behind the products
+you love." A supporting group photo (people sitting on steps) sits to the
+right of this intro block, treated as a standalone editorial image, not part
+of the grid below.
+
+### This is not a uniform 4-column card grid — and it's not true CSS masonry either
+
+v1 specifies one repeating card component (`aspect-[3/4.2]`, bio-vs-hover-
+name binary state). The reference shows a genuinely mixed-content **bento
+grid**: different tile types, different sizes, some tiles with no team
+content at all. Naming this "masonry" (as commonly meant — CSS multi-column
+auto-flow producing uniform-width, variable-height single-content-type
+columns, the same technique used for the Portfolio grid on Home/Services/
+Work) is the wrong implementation target. What's needed is a CSS Grid with
+**explicit per-tile column/row spans**, mixing multiple distinct tile types:
+
+**Tile types observed in the reference:**
+1. `photoOnly` — a headshot, no caption at all.
+2. `bioText` — flat color background, no photo, name + role + full bio paragraph.
+3. `photoCaption` — headshot with a dark gradient overlay + name/role caption at the base.
+4. `nameOnly` — flat color background, name + role only, no bio, no photo.
+5. `decorativeFill` — flat color block, zero content. Pure visual rhythm/spacing.
+6. `decorativeBar` — a thin, full-row-width rounded color bar, zero content — a rhythm break between rows, not a card at all.
+
+**Sizing:** tiles vary — some `col-span-1 row-span-2` (tall), some
+`col-span-2 row-span-1` (wide bars), most `col-span-1 row-span-1` (square).
+Base grid: `grid grid-cols-2 md:grid-cols-4 auto-rows-[180px] gap-6`, each
+tile's exact span set explicitly per its data entry (see schema below) — not
+derived from content length or computed automatically.
+
+### The randomization problem (this is the part worth being careful about)
+
+If this needs to grow with a real, API-driven team roster later — and per
+the site's established JSON-now/API-later pattern, it should — you can't
+hand-place 12 fixed grid positions in JSX; that breaks the first time
+headcount changes. But generating the tile-type/size assignment with
+`Math.random()` inside the component at render time will cause a **Next.js
+hydration mismatch**: the server renders one random arrangement during SSR,
+the client re-renders a different random arrangement on hydration, producing
+either a visible layout flash or a hydration error in the console.
+
+**Fix: resolve the arrangement once, at data-authoring time, and store the
+result as plain fields on each record — never compute it inside the
+component.** Each team member's JSON entry carries its own `tileType` and
+`gridSpan` already decided. Decorative filler/bar tiles are separate entries
+in the same array (not tied to a person), interspersed by whoever authors
+the content. If/when this becomes a real CMS-backed roster, the CMS entry
+schema should include these same fields (perhaps with a sensible default
+`tileType`/`gridSpan` computed **server-side at content-ingestion time**, not
+client-side at render time) — same principle, different point in the pipeline.
+
+```ts
+type TeamTile =
+  | {
+      kind: 'member';
+      id: string;
+      name: string;
+      role: string;
+      bio?: string;              // present for bioText and photoOnly-with-hover-reveal tiles
+      photoSrc?: string;
+      tileType: 'photoOnly' | 'bioText' | 'photoCaption' | 'nameOnly';
+      gridSpan: { col: 1 | 2; row: 1 | 2 };
+      bgColor?: 'cobalt' | 'terracotta' | 'lavender' | 'mustard'; // for non-photo tiles
+    }
+  | {
+      kind: 'decorativeFill' | 'decorativeBar';
+      id: string;
+      gridSpan: { col: 1 | 2; row: 1 | 2 };
+      bgColor: 'cobalt' | 'terracotta' | 'lavender' | 'mustard';
+    };
+```
+
+**Per-type interaction behavior:**
+- `photoOnly` — static, no hover state (matches reference: several photo
+  tiles show no caption at all, hover or not).
+- `bioText` / `nameOnly` — static, content is always visible, no hover mechanic.
+- `photoCaption` — static caption always visible over the gradient overlay;
+  optionally, a `group-hover:` micro-interaction (subtle scale on the photo,
+  `group-hover:scale-105`) for polish, but no curtain/reveal mechanic is
+  actually needed here since the caption isn't hidden by default.
+- `decorativeFill` / `decorativeBar` — no interaction, `aria-hidden="true"`
+  (these carry no information, shouldn't be announced to screen readers or
+  receive focus).
+
+This replaces v1's single "bio-shown vs. hover-reveal-curtain" binary
+entirely — the reference doesn't show evidence of a hidden-then-revealed
+bio anywhere; every tile's content (or lack of it) appears to be static.
+
+**Content-QA flag (same bug pattern as the Work page's testimonials):** every
+visible name in the capture reads "Marcus Thorne, UI/UX Designer" —
+repeated across all 8 team tiles — while the bio paragraph beneath still
+refers to "Roopam" in the first person. This is the same name/bio mismatch
+already flagged on the Work page's reviews section, which suggests it's a
+**systemic issue in this project's dummy content generation**, not a one-off.
+Recommend a single content-QA pass across the whole site's placeholder data
+before real copy goes in, rather than fixing it independently per page. The
+JSON fixture below uses distinct, internally-consistent placeholder names
+rather than repeating "Marcus Thorne" eight times, since shipping a visibly
+repeated name obviously isn't the intent.
+
+**Mixed: bg-color for text/filler/bar tiles, bg-image required for every
+photo tile (photoOnly and photoCaption types).**
+
+---
+
+## 4. Life at Phionike (corrected — alternating bands, not a 2×2 grid)
+
+v1 specifies "a symmetrical 2x2 grid matrix." The reference is **four
+full-width alternating photo/text bands**, zig-zagging left/right, not a
+grid at all:
+
+- Eyebrow (missing from v1): "Our Culture"
+- A full-width establishing photo (bright studio space) sits above the first
+  band — also missing from v1.
+- Band 1 — "We Learn Together": photo left, text block right (`bg-terracotta`).
+- Band 2 — "We Build Together": text block left (`bg-lavender`), photo right.
+- Band 3 — "We Grow Together": photo left, text block right (`bg-cobalt`).
+- Band 4 — "We Care Deeply": text block left (`bg-mustard`), photo right.
+
+Each band: `grid grid-cols-1 md:grid-cols-2`, photo `aspect-[4/3] md:aspect-auto
+h-full object-cover`, text block padded generously (`p-10 md:p-16`) with
+heading + paragraph. Alternate `md:order-2` on the photo per band to achieve
+the zig-zag, rather than building 4 different layout variants.
+
+**Text-contrast rule, consistent with the Services page correction:** mustard
+and lavender are light backgrounds — use dark charcoal text on those two
+bands. Cobalt and terracotta are saturated enough for white text.
+
+**bg-image required** for the establishing shot and all 4 band photos.
+
+---
+
+## 5. Footer CTA + Footer (reuse — do not re-spec)
+
+Same correction as Services and Work: v1 treats the phone number as a
+headline-level "brand detail hook." It's the same shared `FooterCTA` +
+`Footer` from `global.json`. Import, don't rebuild. Set `activePage="about"`
+on the shared `Navbar` per §0.
+
+---
+
+## 6. Data Architecture
+
+`content/about.json` — page-specific only:
+
+```json
+{
+  "hero": {
+    "eyebrow": "About Phionike",
+    "headlineParts": [
+      { "text": "We design with ", "accent": false },
+      { "text": "purpose.", "accent": true },
+      { "text": " We build for ", "accent": false },
+      { "text": "impact.", "accent": true }
+    ],
+    "body": "We partner with ambitious businesses to create products, brands and experiences that solve meaningful problems through strategy, design and technology.",
+    "primaryCta": { "label": "View Our Work", "href": "/work" },
+    "secondaryCta": { "label": "Let's Talk", "href": "/contact" },
+    "mosaicTiles": [
+      { "type": "photo", "src": "/about/mosaic/1.jpg" },
+      { "type": "color", "value": "terracotta" },
+      { "type": "photo", "src": "/about/mosaic/2.jpg" }
+    ]
+  },
+  "values": {
+    "eyebrow": "Our Philosophy",
+    "headingPlain": "Built on values,",
+    "headingAccent": "not trends",
+    "items": [
+      { "title": "People First", "body": "People always come before products, profits or opinions. We challenge assumptions, ask better questions and design for the people who will ultimately use what we create.", "accentColor": "cobalt" },
+      { "title": "Design with Integrity", "body": "Integrity isn't a value we aspire to \u2014 it's the foundation of every decision. We communicate honestly, design responsibly and always do what's right for the user and our partners.", "accentColor": "terracotta" },
+      { "title": "Partnerships Over Projects", "body": "We don't believe in transactional relationships. We work alongside our clients, celebrate their successes and navigate challenges together as one team.", "accentColor": "lavender" },
+      { "title": "Stay Curious", "body": "Curiosity drives innovation. We continuously explore new ideas, emerging technologies and better ways to solve problems while never losing sight of the people we're designing for.", "accentColor": "mustard" },
+      { "title": "Build with Purpose", "body": "We embrace experimentation, iterate fearlessly and aren't afraid to challenge convention. Every idea, no matter how bold, must solve a real problem.", "accentColor": "cobalt" },
+      { "title": "Design for Everyone", "body": "Accessibility and inclusivity are fundamental \u2014 not optional. We believe great design is usable, equitable and representative of the diverse people it serves.", "accentColor": "terracotta" }
+    ]
+  },
+  "team": {
+    "eyebrow": "The Team",
+    "heading": "The people behind the products you love",
+    "introPhotoSrc": "/about/team-intro.jpg",
+    "tiles": [
+      { "kind": "member", "id": "m1", "name": "Sofia Reyes", "role": "UI/UX Designer", "photoSrc": "/about/team/sofia.jpg", "tileType": "photoOnly", "gridSpan": { "col": 1, "row": 2 } },
+      { "kind": "member", "id": "m2", "name": "Daniel Osei", "role": "Product Strategist", "bio": "Daniel loves design and is often found observing design books, products and services to learn from them. He comes from a background of engineering and design, so he understands well how to blend form and function.", "tileType": "bioText", "bgColor": "terracotta", "gridSpan": { "col": 1, "row": 1 } },
+      { "kind": "decorativeFill", "id": "d1", "bgColor": "lavender", "gridSpan": { "col": 1, "row": 1 } },
+      { "kind": "member", "id": "m3", "name": "Priya Nair", "role": "Brand Designer", "photoSrc": "/about/team/priya.jpg", "tileType": "photoCaption", "gridSpan": { "col": 1, "row": 1 } },
+      { "kind": "member", "id": "m4", "name": "Marcus Chen", "role": "Front-End Engineer", "photoSrc": "/about/team/marcus.jpg", "tileType": "photoOnly", "gridSpan": { "col": 1, "row": 1 } },
+      { "kind": "member", "id": "m5", "name": "Elena Vasquez", "role": "UX Researcher", "photoSrc": "/about/team/elena.jpg", "tileType": "photoCaption", "bgColor": "mustard", "gridSpan": { "col": 1, "row": 1 } },
+      { "kind": "decorativeFill", "id": "d2", "bgColor": "terracotta", "gridSpan": { "col": 1, "row": 1 } },
+      { "kind": "member", "id": "m6", "name": "Tobias Hart", "role": "Design Systems Lead", "photoSrc": "/about/team/tobias.jpg", "tileType": "photoCaption", "bgColor": "lavender", "gridSpan": { "col": 1, "row": 1 } },
+      { "kind": "decorativeBar", "id": "b1", "bgColor": "cobalt", "gridSpan": { "col": 2, "row": 1 } },
+      { "kind": "member", "id": "m7", "name": "Grace Kim", "role": "Product Designer", "role2": null, "photoSrc": "/about/team/grace-team.jpg", "bio": "Grace loves design and is often found observing design books, products and services to learn from them.", "tileType": "photoCaption", "bgColor": "mustard", "gridSpan": { "col": 1, "row": 1 } },
+      { "kind": "decorativeBar", "id": "b2", "bgColor": "cobalt", "gridSpan": { "col": 2, "row": 1 } }
+    ],
+    "_contentQA": "Reference capture repeats 'Marcus Thorne, UI/UX Designer' across all 8 tiles, with bio text still referencing 'Roopam' — same name/bio mismatch bug already flagged on the Work page's testimonials. Fixture above uses distinct, internally-consistent placeholder identities instead of replicating the repeated-name bug."
+  },
+  "culture": {
+    "eyebrow": "Our Culture",
+    "heading": "Life at Phionike is a balance of rigor and play",
+    "introPhotoSrc": "/about/culture-intro.jpg",
+    "bands": [
+      { "id": "learn", "title": "We Learn Together", "body": "Every project teaches us something new. We encourage experimentation, knowledge sharing and exploring better ways to solve problems.", "photoSrc": "/about/culture/learn.jpg", "bgColor": "terracotta", "textColor": "white", "photoSide": "left" },
+      { "id": "build", "title": "We Build Together", "body": "Design is never a solo effort. We collaborate across disciplines, challenge ideas respectfully and celebrate every milestone as one team.", "photoSrc": "/about/culture/build.jpg", "bgColor": "lavender", "textColor": "charcoal", "photoSide": "right" },
+      { "id": "grow", "title": "We Grow Together", "body": "Growth isn't measured only by projects delivered, but by the people we become. We invest in learning, mentorship and creating opportunities to improve every day.", "photoSrc": "/about/culture/grow.jpg", "bgColor": "cobalt", "textColor": "white", "photoSide": "left" },
+      { "id": "care", "title": "We Care Deeply", "body": "We care about our teammates, our partners and the people who use what we build. Empathy isn't just part of our process \u2014 it's part of our culture.", "photoSrc": "/about/culture/care.jpg", "bgColor": "mustard", "textColor": "charcoal", "photoSide": "right" }
+    ]
+  }
+}
+```
+
+---
+
+## 7. Mobile / Responsive — Open Item
+
+No mobile capture provided yet. The bento team grid is the piece most likely
+to need a real rebuild rather than a reflow — a hand-varied-span grid
+doesn't collapse gracefully to a single column by just changing `grid-cols`.
+Reasonable default until a capture arrives: collapse every tile to
+`col-span-1 row-span-1` on mobile (uniform single-column stack, spans
+ignored below `md:`), which is safe but is explicitly a placeholder, not a
+confirmed design. Flag for the same reason as prior pages' open mobile items
+— don't let this quietly become "final."
+
+---
+
+## 8. Rendering & Performance
+
+- Server Components by default. Nothing on this page needs `useState`/
+  `useScroll` — the team grid's hover micro-interactions are pure
+  `group-hover:` CSS, no client JS required.
+- All photo tiles (mosaic, team, culture bands): `next/image`, lazy, never
+  `priority` — consistent with every other page.
+- Since the bento arrangement is pre-resolved data (§3), rendering the team
+  grid is a trivial `.map()` — no client-side layout computation at all.

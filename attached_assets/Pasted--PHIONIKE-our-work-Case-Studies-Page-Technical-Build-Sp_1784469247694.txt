@@ -1,0 +1,299 @@
+# PHIONIKE — /our-work (Case Studies) Page Technical Build Spec
+Stack: Next.js 14 (App Router) · Tailwind CSS · Framer Motion · Lucide React
+Companion doc to `phionike-technical-spec.md` (Home) and
+`phionike-services-technical-spec.md` (Services). Shared tokens, data-layer
+pattern, and rendering strategy are not repeated in full here.
+
+---
+
+## 0. Cross-Page Architecture — Read This First
+
+**A. Reuse, don't rebuild, three things already built for other pages:**
+- Navbar, Footer, FooterCTA — identical to Home/Services, from `global.json`.
+- `PortfolioFilterGrid` — this page's card grid is the **same masonry
+  component** built for Home, with the same `darkPhoneTriple` variant rule
+  (pinned/sorted first or last per the existing convention — see §3). Do not
+  build a second grid component with different filter semantics.
+- The 4-discipline data (`processSteps` in `global.json`) — this page needs
+  a **third rendering mode** of the same array. Recap: Home renders it as
+  overlapping Venn pills, Home-mobile and Services render `heroLabel` as
+  cards, and this page renders `vennLabel` as a flat 4-column list with no
+  diagram at all. Same data, three presentations — the component that reads
+  `processSteps` should support a `variant: 'venn' | 'cards' | 'list'` prop
+  rather than three separate hardcoded implementations.
+
+**B. Open decision — sector taxonomy is now inconsistent across three pages.**
+This page's hero shows decorative tags "Enterprise," "Retail," "SAAS,"
+"Education." The Home Venn's sectors use "Government," "Ecommerce,"
+"Sustainability," "Non-Profit," "Healthcare," "Fintech," "SaaS," "Education."
+The Services sector grid uses "B2B & Enterprise Software." These very likely
+overlap ("Enterprise" ≈ "B2B & Enterprise Software"; "Retail" ≈ "Ecommerce")
+but are phrased three different ways. **Do not silently reconcile this by
+guessing which wording is canonical** — flagging it here the same way the
+Services page's process-vocabulary collision was flagged. Recommend: pick one
+master `sectors` array for `global.json` (id + canonical label + optional
+short label for tight spaces like hero tags), and have all three pages'
+sector references point at it. Until that's decided, this page's fixture
+below uses its own screenshot-accurate wording as a placeholder, clearly
+separable from the shared list.
+
+---
+
+## 1. Hero — Header + Filter Chips (corrected)
+
+**Copy corrections vs. v1 prompt:**
+- Add the missing eyebrow above the headline: "Our Work"
+  (`text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400`) —
+  not present in the v1 prompt at all.
+- Headline: "Every project begins with a challenge." — matches v1.
+- CTA row sits directly beneath the headline (not beside it in a separate
+  column as v1's two-column split implied) — primary solid pill "Explore
+  Case Studies" + Lucide `ArrowUpRight`, secondary text link "Start a Project".
+- The "Find work that's relevant to you." sub-line (with "relevant"
+  italicized) and "Browse projects by industry, service or the challenge
+  you're looking to solve." sit **below the CTA row**, directly above the
+  filter controls — not next to the headline as v1's two-column grid
+  described.
+
+**Decorative hero tag cluster (missing entirely from v1 — new content):**
+A small cluster of colored rounded-square tags scattered near the top of the
+hero, visually similar in spirit to Home's abstract shape composition but
+carrying real sector labels instead of plain shapes:
+- "Enterprise" — `bg-[#E65124]` (or a distinct orange/red per §0-B pending
+  taxonomy decision)
+- "Retail" — a second warm accent tone
+- "SAAS" — `bg-[#2538F5]` cobalt
+- "Education" — `bg-[#EAE8FC]` lavender, dark text for contrast
+
+Treat these as **decorative only** — do not wire them to the functional
+filter state below; conflating a decorative hero accent with live filter
+controls is exactly the kind of thing that creates confusing UX (a tag that
+looks clickable but does something different than the real filter row).
+
+**Filter row (corrected — v1 specified the wrong categories):**
+Do not implement flat chips reading "All, Fintech, Enterprise, Retail, SAAS,
+Education." Reuse the **exact `All / Industry / Service / Challenge`
+dropdown-filter pattern** already built for `PortfolioFilterGrid` on Home and
+Services. This page's grid is the same component with the same filter
+semantics — the v1 prompt's chip list should be discarded entirely, not
+merged with the dropdown pattern.
+
+**bg-color only** for hero and tag cluster — no images.
+
+---
+
+## 2. Portfolio Grid (corrected — reuse existing component)
+
+Same masonry `PortfolioFilterGrid` component from Home/Services:
+`columns-1 md:columns-2 lg:columns-3 gap-6`, `layout` prop for filter re-flow,
+`darkPhoneTriple` variant among the standard cards. v1 described this as a
+"symmetrical 3-column configuration" — the reference is masonry/staggered,
+matching the established component, not a new symmetric grid. Do not rebuild
+this section from scratch; import the component and pass this page's
+`portfolio.items` array (§5) as props.
+
+**Correction to v1 §3 ("Deep Product Showcase"):** the dark 3-phone Oren
+mockup is **not** a separate full-bleed page section here either — same
+correction already made for Home and Services. It's the `darkPhoneTriple`
+card inside this grid. Delete v1's §3 as a standalone section entirely.
+
+---
+
+## 3. Discipline List Section (corrected — not a Venn diagram)
+
+Heading block: eyebrow "Where We Create Impact", H2 "Not every product needs
+the same help", sub "we meet you where you are" — matches v1's copy.
+
+**What actually renders is a flat 4-column list, not the overlapping-circle
+Venn diagram v1 describes in full (sticky pin, dual circles, absolute pill
+buttons, right-column stacked timeline cards — none of that is on this
+page).** Build as:
+
+`grid grid-cols-1 md:grid-cols-4 gap-8` with a thin vertical divider between
+columns (`md:divide-x md:divide-neutral-200`). Each column: a small colored
+dot bullet + label, reading from the shared `processSteps` array's
+`vennLabel` field:
+- Discover & Define
+- Build from 0 → 1
+- Redesign & Reposition
+- Scale & Partner
+
+(Standardize on the `global.json` canonical wording — "Build from 0 → 1" and
+"&" — rather than this page's slightly different on-screen phrasing "Built
+from 0-1" / "and". One source of truth, per §0-A.)
+
+No sticky/pin mechanic, no `useScroll`, no absolute-positioned circles or
+pills, no right-column card stack. This section is static and cheap — keep
+it that way; resist importing the Home page's Venn mechanics here "for
+consistency," since the reference clearly doesn't call for it.
+
+**bg-color only.**
+
+---
+
+## 4. "Design Measured by Outcomes" Statement Section (corrected — split from reviews)
+
+v1 folded this into a small eyebrow tag directly above the testimonials
+heading. It's actually its own standalone section:
+- Heading: "Design measured by outcomes, not outputs."
+  (`text-3xl md:text-4xl font-bold tracking-tight`)
+- Body: "Great design isn't defined by the number of screens delivered. It's
+  measured by the experiences it creates and the value it brings to
+  businesses." (`text-neutral-600 max-w-2xl`)
+
+Note this reuses the same copy already used as the caption beneath the
+`darkPhoneTriple` portfolio card on Home/Services — pull it from the same
+content field rather than retyping it a third time (see §5).
+
+**bg-color only.**
+
+---
+
+## 5. Testimonials / "Trusted by Ambitious Teams" (theater-curtain hover)
+
+Separate section, own heading — not sharing the eyebrow from §4:
+- Heading: "Trusted by ambitious teams."
+- Sub: "We've partnered with startups and enterprises to solve meaningful
+  challenges."
+
+**4-column grid** (`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6`),
+matches v1's spec. Card mechanics (idle text → hover reveals full-bleed
+reviewer photo + curtain-slide white text overlay) are well-specified in v1
+and can be built largely as written:
+- Idle: `aspect-[3/4.2] rounded-[2.2rem] bg-white border p-8`, quote text +
+  author name/role in charcoal.
+- Hidden photo layer: `absolute inset-0 object-cover opacity-0 scale-105`,
+  `group-hover:opacity-100 group-hover:scale-100`.
+- Curtain overlay: `translate-y-full opacity-0` → `group-hover:translate-y-0
+  group-hover:opacity-100`, dark gradient + white text.
+
+**Content-QA flag (real bug in the source data, not a spec correction):**
+the quote bodies are written in third person about people whose names don't
+match the card captions — "Roopam loves design..." captioned "Paulina
+Sabini," "Maya enjoys exploring..." captioned "Peter Liu." Only the
+Alexander Grant card is internally consistent, and the Liam/Lyra Johnson
+pairing is a near-miss. This is very likely uncorrected template placeholder
+text. **Do not ship this mismatch** — either write real testimonials before
+launch, or at minimum make the dummy quotes first-person and internally
+consistent with their captions. The fixture in §5's JSON preserves the
+visual pairing (position-for-position, matching what's on screen) purely so
+the layout can be built and previewed — flag it back before this goes live.
+
+Corrected author data (role + company were present on screen but missing
+from v1's prompt, which only listed bare names):
+- Paulina Sabini — CEO, Take 2 Films
+- Peter Liu — Art Director, Creative Hub *(v1 had this misspelled "Peter Lu")*
+- Alexander Grant — UX Researcher, Innovate Tech
+- Lyra Johnson — Front-End Developer, Tech Solutions
+
+**Mixed: bg-color for card chrome, bg-image required for reviewer portraits.**
+
+---
+
+## 6. Footer CTA + Footer (reuse — do not re-spec)
+
+Same correction as Services: v1 treats "+44 7000 000000" as a hero-level
+contact statement. It's the same shared `FooterCTA` + `Footer` components
+from `global.json` — same heading, same two buttons, same footer columns,
+same team photo. Import, don't rebuild.
+
+---
+
+## 7. Data Architecture
+
+`content/work.json` — page-specific only, everything shared stays in
+`global.json`:
+
+```json
+{
+  "hero": {
+    "eyebrow": "Our Work",
+    "headline": "Every project begins with a challenge.",
+    "primaryCta": { "label": "Explore Case Studies", "href": "#portfolio" },
+    "secondaryCta": { "label": "Start a Project", "href": "/contact" },
+    "subheadItalic": "relevant",
+    "subhead": "Find work that's relevant to you.",
+    "body": "Browse projects by industry, service or the challenge you're looking to solve.",
+    "decorativeTags": [
+      { "label": "Enterprise", "color": "terracotta" },
+      { "label": "Retail", "color": "orange-red" },
+      { "label": "SAAS", "color": "cobalt" },
+      { "label": "Education", "color": "lavender" }
+    ]
+  },
+  "outcomesStatement": {
+    "heading": "Design measured by outcomes, not outputs.",
+    "body": "Great design isn't defined by the number of screens delivered. It's measured by the experiences it creates and the value it brings to businesses."
+  },
+  "testimonials": {
+    "heading": "Trusted by ambitious teams.",
+    "subheading": "We've partnered with startups and enterprises to solve meaningful challenges.",
+    "items": [
+      {
+        "id": "t1",
+        "quote": "Roopam loves design and is often found observing design books, products and services to learn from them. He comes from the background of Engineering & Design, so he understands well how to make a good blend of Form & Function. He believes in the power of good design because it is liberating.",
+        "name": "Paulina Sabini",
+        "role": "CEO",
+        "company": "Take 2 Films",
+        "photoSrc": "/testimonials/paulina-sabini.jpg"
+      },
+      {
+        "id": "t2",
+        "quote": "Maya enjoys exploring the intersection of art and technology. Her background in fine arts helps her craft visually stunning interfaces that are also user-friendly, making her a valuable asset in any design team.",
+        "name": "Peter Liu",
+        "role": "Art Director",
+        "company": "Creative Hub",
+        "photoSrc": "/testimonials/peter-liu.jpg"
+      },
+      {
+        "id": "t3",
+        "quote": "Alexander is a passionate UX researcher who thrives on understanding user behavior. With years of experience in both tech and design, he constantly bridges the gap between users and products, ensuring that every design decision is backed by real-world insights.",
+        "name": "Alexander Grant",
+        "role": "UX Researcher",
+        "company": "Innovate Tech",
+        "photoSrc": "/testimonials/alexander-grant.jpg"
+      },
+      {
+        "id": "t4",
+        "quote": "Liam is a front-end developer with a keen eye for aesthetics. His love for coding and design merge seamlessly, allowing him to create interactive experiences that delight users and enhance engagement.",
+        "name": "Lyra Johnson",
+        "role": "Front-End Developer",
+        "company": "Tech Solutions",
+        "photoSrc": "/testimonials/lyra-johnson.jpg"
+      }
+    ],
+    "_contentQA": "Quote bodies (Roopam/Maya/Alexander/Liam) don't match caption names (Paulina/Peter/Alexander Grant/Lyra) except item 3. Preserved as on-screen pairing for layout purposes — replace with real, internally-consistent testimonials before launch."
+  }
+}
+```
+
+`portfolio.items` for this page reuses the same `PortfolioItem` type defined
+in the Home spec (§14 there) — populate with this page's full case-study set
+rather than duplicating the type.
+
+---
+
+## 8. Mobile / Responsive — Open Item
+
+No mobile capture provided for this page yet. Same policy as the other two
+pages: don't invent the responsive behavior for the hero's decorative tag
+cluster or the 4-column discipline list — both will obviously need a
+single-column fallback, but confirm actual behavior once a capture exists.
+The portfolio grid and testimonial grid already have established mobile
+patterns from Home/Services (single-column masonry, stacked cards) — reuse those.
+
+---
+
+## 9. Rendering & Performance
+
+- Server Components by default. The only client islands: `PortfolioFilterGrid`
+  (already a client island from Home/Services — reused, not rebuilt) and the
+  testimonial cards' hover state (`group-hover:` via Tailwind, no JS state
+  needed at all — this can stay a Server Component; the "hover" mechanics are
+  pure CSS, not Framer Motion or React state, despite v1's Framer Motion
+  framing).
+- Reviewer photos: `next/image`, lazy, never `priority` — same rule as every
+  other below-the-fold photography on this site.
+- No scroll-linked animation on this page once §3's Venn mechanic is
+  correctly removed — this page should be one of the cheapest to render on
+  the whole site.

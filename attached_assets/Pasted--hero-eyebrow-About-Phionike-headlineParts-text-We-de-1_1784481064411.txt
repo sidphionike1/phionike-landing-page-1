@@ -1,0 +1,260 @@
+{
+  "hero": {
+    "eyebrow": "About Phionike",
+    "headlineParts": [
+      {
+        "text": "We design with ",
+        "accent": false
+      },
+      {
+        "text": "purpose.",
+        "accent": true
+      },
+      {
+        "text": " We build for ",
+        "accent": false
+      },
+      {
+        "text": "impact.",
+        "accent": true
+      }
+    ],
+    "body": "We partner with ambitious businesses to create products, brands and experiences that solve meaningful problems through strategy, design and technology.",
+    "primaryCta": {
+      "label": "View Our Work",
+      "href": "/work"
+    },
+    "secondaryCta": {
+      "label": "Let's Talk",
+      "href": "/contact"
+    },
+    "mosaicTiles": [
+      {
+        "type": "photo",
+        "src": "/about/mosaic/1.jpg"
+      },
+      {
+        "type": "color",
+        "value": "terracotta"
+      },
+      {
+        "type": "photo",
+        "src": "/about/mosaic/2.jpg"
+      }
+    ]
+  },
+  "values": {
+    "eyebrow": "Our Philosophy",
+    "headingPlain": "Built on values,",
+    "headingAccent": "not trends",
+    "items": [
+      {
+        "title": "People First",
+        "body": "People always come before products, profits or opinions. We challenge assumptions, ask better questions and design for the people who will ultimately use what we create.",
+        "accentColor": "cobalt"
+      },
+      {
+        "title": "Design with Integrity",
+        "body": "Integrity isn't a value we aspire to — it's the foundation of every decision. We communicate honestly, design responsibly and always do what's right for the user and our partners.",
+        "accentColor": "terracotta"
+      },
+      {
+        "title": "Partnerships Over Projects",
+        "body": "We don't believe in transactional relationships. We work alongside our clients, celebrate their successes and navigate challenges together as one team.",
+        "accentColor": "lavender"
+      },
+      {
+        "title": "Stay Curious",
+        "body": "Curiosity drives innovation. We continuously explore new ideas, emerging technologies and better ways to solve problems while never losing sight of the people we're designing for.",
+        "accentColor": "mustard"
+      },
+      {
+        "title": "Build with Purpose",
+        "body": "We embrace experimentation, iterate fearlessly and aren't afraid to challenge convention. Every idea, no matter how bold, must solve a real problem.",
+        "accentColor": "cobalt"
+      },
+      {
+        "title": "Design for Everyone",
+        "body": "Accessibility and inclusivity are fundamental — not optional. We believe great design is usable, equitable and representative of the diverse people it serves.",
+        "accentColor": "terracotta"
+      }
+    ]
+  },
+  "team": {
+    "eyebrow": "The Team",
+    "heading": "The people behind the products you love",
+    "introPhotoSrc": "/about/team-intro.jpg",
+    "tiles": [
+      {
+        "kind": "member",
+        "id": "m1",
+        "name": "Sofia Reyes",
+        "role": "UI/UX Designer",
+        "photoSrc": "/about/team/sofia.jpg",
+        "tileType": "photoOnly",
+        "gridSpan": {
+          "col": 1,
+          "row": 2
+        }
+      },
+      {
+        "kind": "member",
+        "id": "m2",
+        "name": "Daniel Osei",
+        "role": "Product Strategist",
+        "bio": "Daniel loves design and is often found observing design books, products and services to learn from them. He comes from a background of engineering and design, so he understands well how to blend form and function.",
+        "tileType": "bioText",
+        "bgColor": "terracotta",
+        "gridSpan": {
+          "col": 1,
+          "row": 1
+        }
+      },
+      {
+        "kind": "decorativeFill",
+        "id": "d1",
+        "bgColor": "lavender",
+        "gridSpan": {
+          "col": 1,
+          "row": 1
+        }
+      },
+      {
+        "kind": "member",
+        "id": "m3",
+        "name": "Priya Nair",
+        "role": "Brand Designer",
+        "photoSrc": "/about/team/priya.jpg",
+        "tileType": "photoCaption",
+        "gridSpan": {
+          "col": 1,
+          "row": 1
+        }
+      },
+      {
+        "kind": "member",
+        "id": "m4",
+        "name": "Marcus Chen",
+        "role": "Front-End Engineer",
+        "photoSrc": "/about/team/marcus.jpg",
+        "tileType": "photoOnly",
+        "gridSpan": {
+          "col": 1,
+          "row": 1
+        }
+      },
+      {
+        "kind": "member",
+        "id": "m5",
+        "name": "Elena Vasquez",
+        "role": "UX Researcher",
+        "photoSrc": "/about/team/elena.jpg",
+        "tileType": "photoCaption",
+        "bgColor": "mustard",
+        "gridSpan": {
+          "col": 1,
+          "row": 1
+        }
+      },
+      {
+        "kind": "decorativeFill",
+        "id": "d2",
+        "bgColor": "terracotta",
+        "gridSpan": {
+          "col": 1,
+          "row": 1
+        }
+      },
+      {
+        "kind": "member",
+        "id": "m6",
+        "name": "Tobias Hart",
+        "role": "Design Systems Lead",
+        "photoSrc": "/about/team/tobias.jpg",
+        "tileType": "photoCaption",
+        "bgColor": "lavender",
+        "gridSpan": {
+          "col": 1,
+          "row": 1
+        }
+      },
+      {
+        "kind": "decorativeBar",
+        "id": "b1",
+        "bgColor": "cobalt",
+        "gridSpan": {
+          "col": 2,
+          "row": 1
+        }
+      },
+      {
+        "kind": "member",
+        "id": "m7",
+        "name": "Grace Kim",
+        "role": "Product Designer",
+        "role2": null,
+        "photoSrc": "/about/team/grace-team.jpg",
+        "bio": "Grace loves design and is often found observing design books, products and services to learn from them.",
+        "tileType": "photoCaption",
+        "bgColor": "mustard",
+        "gridSpan": {
+          "col": 1,
+          "row": 1
+        }
+      },
+      {
+        "kind": "decorativeBar",
+        "id": "b2",
+        "bgColor": "cobalt",
+        "gridSpan": {
+          "col": 2,
+          "row": 1
+        }
+      }
+    ],
+    "_contentQA": "Reference capture repeats 'Marcus Thorne, UI/UX Designer' across all 8 tiles, with bio text still referencing 'Roopam' — same name/bio mismatch bug already flagged on the Work page's testimonials. Fixture above uses distinct, internally-consistent placeholder identities instead of replicating the repeated-name bug."
+  },
+  "culture": {
+    "eyebrow": "Our Culture",
+    "heading": "Life at Phionike is a balance of rigor and play",
+    "introPhotoSrc": "/about/culture-intro.jpg",
+    "bands": [
+      {
+        "id": "learn",
+        "title": "We Learn Together",
+        "body": "Every project teaches us something new. We encourage experimentation, knowledge sharing and exploring better ways to solve problems.",
+        "photoSrc": "/about/culture/learn.jpg",
+        "bgColor": "terracotta",
+        "textColor": "white",
+        "photoSide": "left"
+      },
+      {
+        "id": "build",
+        "title": "We Build Together",
+        "body": "Design is never a solo effort. We collaborate across disciplines, challenge ideas respectfully and celebrate every milestone as one team.",
+        "photoSrc": "/about/culture/build.jpg",
+        "bgColor": "lavender",
+        "textColor": "charcoal",
+        "photoSide": "right"
+      },
+      {
+        "id": "grow",
+        "title": "We Grow Together",
+        "body": "Growth isn't measured only by projects delivered, but by the people we become. We invest in learning, mentorship and creating opportunities to improve every day.",
+        "photoSrc": "/about/culture/grow.jpg",
+        "bgColor": "cobalt",
+        "textColor": "white",
+        "photoSide": "left"
+      },
+      {
+        "id": "care",
+        "title": "We Care Deeply",
+        "body": "We care about our teammates, our partners and the people who use what we build. Empathy isn't just part of our process — it's part of our culture.",
+        "photoSrc": "/about/culture/care.jpg",
+        "bgColor": "mustard",
+        "textColor": "charcoal",
+        "photoSide": "right"
+      }
+    ]
+  }
+}

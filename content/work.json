@@ -1,0 +1,143 @@
+{
+  "hero": {
+    "eyebrow": "Our Work",
+    "headline": "Every project begins with a challenge.",
+    "primaryCta": { "label": "Explore Case Studies", "href": "#portfolio" },
+    "secondaryCta": { "label": "Start a Project", "href": "/contact" },
+    "subhead": "Find work that's relevant to you.",
+    "subheadItalic": "relevant",
+    "body": "Browse projects by industry, service or the challenge you're looking to solve.",
+    "decorativeTags": [
+      { "label": "Enterprise", "color": "terracotta" },
+      { "label": "Retail",     "color": "mustard"    },
+      { "label": "SAAS",       "color": "cobalt"     },
+      { "label": "Education",  "color": "lavender"   }
+    ]
+  },
+  "portfolio": {
+    "eyebrow": "Find work that's relevant to you.",
+    "heading": "Browse projects by industry, service or the challenge you're looking to solve.",
+    "filters": ["All", "Industry", "Service", "Challenge"],
+    "items": [
+      {
+        "id": "oren-01",
+        "title": "Oren — Smart Ring App",
+        "tagline": "Great design isn't defined by the number of screens delivered. It's measured by the experiences it creates and the value it brings to businesses.",
+        "sectors": ["healthcare", "saas"],
+        "discipline": "build",
+        "variant": "darkPhoneTriple",
+        "mockupSrc": "/portfolio/oren-triple-dark.png"
+      },
+      {
+        "id": "oren-02",
+        "title": "Oren — Smart Ring App",
+        "tagline": "Great design isn't defined by the number of screens delivered.",
+        "sectors": ["healthcare"],
+        "discipline": "discover",
+        "variant": "standard",
+        "mockupSrc": "/portfolio/oren-dashboard-1.png"
+      },
+      {
+        "id": "oren-03",
+        "title": "Oren — Smart Ring App",
+        "tagline": "Great design isn't defined by the number of screens delivered.",
+        "sectors": ["healthcare", "fintech"],
+        "discipline": "redesign",
+        "variant": "standard",
+        "mockupSrc": "/portfolio/oren-dashboard-1.png"
+      },
+      {
+        "id": "oren-04",
+        "title": "Oren — Smart Ring App",
+        "tagline": "Great design isn't defined by the number of screens delivered. It's measured by the value it brings to businesses.",
+        "sectors": ["saas"],
+        "discipline": "scale",
+        "variant": "standard",
+        "mockupSrc": "/portfolio/oren-dashboard-1.png"
+      },
+      {
+        "id": "oren-05",
+        "title": "Oren — Smart Ring App",
+        "tagline": "Great design isn't defined by the number of screens delivered.",
+        "sectors": ["ecommerce"],
+        "discipline": "discover",
+        "variant": "standard",
+        "mockupSrc": "/portfolio/oren-dashboard-1.png"
+      },
+      {
+        "id": "oren-06",
+        "title": "Oren — Smart Ring App",
+        "tagline": "Great design isn't defined by the number of screens delivered.",
+        "sectors": ["healthcare", "saas"],
+        "discipline": "build",
+        "variant": "standard",
+        "mockupSrc": "/portfolio/oren-dashboard-1.png"
+      },
+      {
+        "id": "oren-07",
+        "title": "Oren — Smart Ring App",
+        "tagline": "Great design isn't defined by the number of screens delivered.",
+        "sectors": ["fintech"],
+        "discipline": "scale",
+        "variant": "standard",
+        "mockupSrc": "/portfolio/oren-dashboard-1.png"
+      },
+      {
+        "id": "oren-08",
+        "title": "Oren — Smart Ring App",
+        "tagline": "Great design isn't defined by the number of screens delivered.",
+        "sectors": ["healthcare"],
+        "discipline": "redesign",
+        "variant": "standard",
+        "mockupSrc": "/portfolio/oren-dashboard-1.png"
+      }
+    ]
+  },
+  "outcomesStatement": {
+    "heading": "Design measured by outcomes, not outputs.",
+    "body": "Great design isn't defined by the number of screens delivered. It's measured by the experiences it creates and the value it brings to businesses."
+  },
+  "testimonials": {
+    "heading": "Trusted by ambitious teams.",
+    "subheading": "We've partnered with startups and enterprises to solve meaningful challenges.",
+    "items": [
+      {
+        "id": "t1",
+        "quote": "Roopam loves design and is often found observing design books, products and services to learn from them. He comes from the background of Engineering & Design, so he understands well how to make a good blend of Form & Function. He believes in the power of good design because it is liberating.",
+        "name": "Paulina Sabini",
+        "role": "CEO",
+        "company": "Take 2 Films",
+        "photoSrc": "/testimonials/paulina-sabini.jpg",
+        "accentColor": "#E65124"
+      },
+      {
+        "id": "t2",
+        "quote": "Maya enjoys exploring the intersection of art and technology. Her background in fine arts helps her craft visually stunning interfaces that are also user-friendly, making her a valuable asset in any design team.",
+        "name": "Peter Liu",
+        "role": "Art Director",
+        "company": "Creative Hub",
+        "photoSrc": "/testimonials/peter-liu.jpg",
+        "accentColor": "#2538F5"
+      },
+      {
+        "id": "t3",
+        "quote": "Alexander is a passionate UX researcher who thrives on understanding user behavior. With years of experience in both tech and design, he constantly bridges the gap between users and products, ensuring that every design decision is backed by real-world insights.",
+        "name": "Alexander Grant",
+        "role": "UX Researcher",
+        "company": "Innovate Tech",
+        "photoSrc": "/testimonials/alexander-grant.jpg",
+        "accentColor": "#F2A93B"
+      },
+      {
+        "id": "t4",
+        "quote": "Liam is a front-end developer with a keen eye for aesthetics. His love for coding and design merge seamlessly, allowing him to create interactive experiences that delight users and enhance engagement.",
+        "name": "Lyra Johnson",
+        "role": "Front-End Developer",
+        "company": "Tech Solutions",
+        "photoSrc": "/testimonials/lyra-johnson.jpg",
+        "accentColor": "#d6a7f5"
+      }
+    ],
+    "_contentQA": "Quote bodies (Roopam/Maya/Alexander/Liam) don't match caption names (Paulina/Peter/Alexander Grant/Lyra) except item 3. Preserved as on-screen pairing for layout purposes — replace with real, internally-consistent testimonials before launch."
+  }
+}
