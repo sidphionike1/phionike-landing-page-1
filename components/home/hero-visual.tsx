@@ -6,17 +6,18 @@
  */
 export function HeroVisual() {
   return (
-    <div
-      className="grid"
-      style={{
-        width: 'fit-content',
-        height: 'auto',
-        gridTemplateColumns: '268px 173px 233px',
-        gap: '22px 22px',
-        alignItems: 'end',
-        justifyItems: 'stretch',
-      }}
-    >
+    <div className="flex flex-col gap-4">
+      <div
+        className="grid"
+        style={{
+          width: 'fit-content',
+          height: 'auto',
+          gridTemplateColumns: '268px 173px 233px',
+          gap: '22px 22px',
+          alignItems: 'end',
+          justifyItems: 'stretch',
+        }}
+      >
       {/* Row 1 */}
       {/* Orange Card - Column 1 */}
       <div
@@ -80,6 +81,11 @@ export function HeroVisual() {
           gridRow: '2',
         }}
       />
+      </div>
+      {/* Signature */}
+      <p className="text-right text-xs uppercase tracking-widest text-muted-foreground">
+        Design & Strategy Studio
+      </p>
     </div>
   )
 }
