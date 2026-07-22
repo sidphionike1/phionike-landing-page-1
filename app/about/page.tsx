@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { getGlobalContent, getAboutPageContent } from "@/lib/content"
 import { SiteNavbar } from "@/components/shared/site-chrome"
 import { AboutHero, MosaicStrip, ValuesSection, TeamSection, CultureSection } from "@/components/about/about-sections"
-import { WorkFooterCTA, WorkFooter } from "@/components/work/work-footer"
+import { FooterCTA, Footer } from "@/components/shared/footer"
 
 export const metadata: Metadata = {
   title: "About — Phionike",
@@ -20,8 +20,8 @@ export default async function AboutPage() {
       <ValuesSection content={about.values} />
       <TeamSection content={about.team} />
       <CultureSection content={about.culture} />
-      <WorkFooterCTA cta={global.footerCta} />
-      <WorkFooter content={global.footer} />
+      <FooterCTA cta={global.footerCta} />
+      <Footer content={global.footer} />
     </main>
   )
 }

@@ -1,13 +1,14 @@
 import { Suspense } from "react"
-import { getHomePageContent } from "@/lib/content"
+import { getHomePageContent, getGlobalContent } from "@/lib/content"
 import { ProcessStepCounter } from "@/components/home/process-step-counter"
 import { VennDiagramSection } from "@/components/home/venn-diagram-section"
 import { PortfolioFilterGrid } from "@/components/home/portfolio-filter-grid"
 import { ShowreelSection } from "@/components/home/showreel-section"
-import { AIPhilosophyBand, EditorialPhotoBlock, FloatingNavbar, FooterCTA, Hero, TrustedByStrip, ValuePropBand } from "@/components/home/server-sections"
+import { AIPhilosophyBand, EditorialPhotoBlock, FloatingNavbar, Hero, TrustedByStrip, ValuePropBand } from "@/components/home/server-sections"
+import { FooterCTA, Footer } from "@/components/shared/footer"
 
 export default async function Page() {
-  const content = await getHomePageContent()
+  const [content, global] = await Promise.all([getHomePageContent(), getGlobalContent()])
   return <main>
     <FloatingNavbar content={content.nav} />
     <Hero content={content.hero} />
@@ -19,6 +20,7 @@ export default async function Page() {
     <Suspense><PortfolioFilterGrid content={content.portfolio} /></Suspense>
     <ShowreelSection content={content.showreel} />
     <EditorialPhotoBlock content={content.editorial} />
-    <FooterCTA cta={content.footerCta} content={content.footer} />
+    <FooterCTA cta={global.footerCta} />
+    <Footer content={global.footer} />
   </main>
 }

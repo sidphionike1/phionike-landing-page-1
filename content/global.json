@@ -12,15 +12,19 @@
   },
 
   "footerCta": {
-    "heading": "Have a project in mind? We'd love to hear about it.",
+    "eyebrow": "Ready to work together?",
+    "headingLine1": "Have a project in mind?",
+    "italicHeadingLine": "We'd love to hear about it.",
     "primaryCta": { "label": "Get in Touch", "href": "/contact" },
-    "secondaryCta": { "label": "Learn About Us", "href": "/about" }
+    "secondaryCta": { "label": "Learn About Us", "href": "/about" },
+    "backgroundColor": "white"
   },
 
   "footer": {
     "description": "Research-led, multi-industry, and values-driven. We design products, brands, and experiences that move people forward.",
+    "copyright": "© 2026 Phionike Studio Ltd. Registered in India.",
     "location": "London, United Kingdom",
-    "copyright": "\u00a9 2026 Phionike Studio Ltd.",
+    "copyrightSeparator": "·",
     "contact": {
       "email": "hello@phionike.studio",
       "phone": "+44 (0) 7700 000 000"
@@ -38,7 +42,7 @@
       { "platform": "Instagram", "href": "https://instagram.com" },
       { "platform": "Dribbble", "href": "https://dribbble.com" }
     ],
-    "teamPhotoSrc": "/footer/team-thumbnail.jpg"
+    "teamPhotoSrc": "/footer/team-thumbnail.png"
   },
 
   "processSteps": [
