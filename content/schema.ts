@@ -5,7 +5,7 @@ const metric = z.object({ value: z.string(), label: z.string() })
 const discipline = z.object({ id: z.string(), label: z.string(), mobileLabel: z.string() })
 const sector = z.object({ id: z.string(), label: z.string() })
 
-const portfolioItem = z.object({ id: z.string(), title: z.string(), tagline: z.string(), sectors: z.array(z.string()), discipline: z.string(), variant: z.enum(["standard", "darkPhoneTriple"]), mockupSrc: z.string() })
+const portfolioItem = z.object({ id: z.string(), title: z.string(), tagline: z.string(), sectors: z.array(z.string()), discipline: z.string(), variant: z.enum(["standard", "darkPhoneTriple"]), mockupSrc: z.string(), size: z.enum(["large", "medium", "small"]).default("medium") })
 export const portfolioSectionSchema = z.object({ eyebrow: z.string(), heading: z.string(), filters: z.array(z.string()), items: z.array(portfolioItem) })
 export type PortfolioSection = z.infer<typeof portfolioSectionSchema>
 
