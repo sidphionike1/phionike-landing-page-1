@@ -12,11 +12,6 @@ export function WorkFooterCTA({
 }: {
   cta: GlobalContent["footerCta"]
 }) {
-  // Split "Have a project in mind? We'd love to hear about it." into two lines
-  const parts = cta.heading.split("? ")
-  const headingLine = parts[0] ? parts[0] + "?" : cta.heading
-  const accentLine = parts[1] ?? ""
-
   return (
     <section className="relative overflow-hidden bg-background py-28 md:py-36">
       {/* Decorative shapes — corners */}
@@ -47,14 +42,14 @@ export function WorkFooterCTA({
         <p className="eyebrow tracking-[0.25em]">Ready to work together?</p>
 
         <h2 className="mt-5 text-4xl font-medium leading-tight tracking-tight md:text-6xl">
-          {headingLine}
+          {cta.headingLine1}
         </h2>
 
-        {accentLine && (
+        {cta.italicHeadingLine && (
           <p
             className="mt-1 font-serif text-4xl italic leading-tight text-accent md:text-6xl"
           >
-            {accentLine}
+            {cta.italicHeadingLine}
           </p>
         )}
 

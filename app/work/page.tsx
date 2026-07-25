@@ -5,7 +5,7 @@ import { SiteNavbar } from "@/components/shared/site-chrome"
 import { PortfolioFilterGrid } from "@/components/home/portfolio-filter-grid"
 import { WorkHero, DisciplineList, OutcomesStatement } from "@/components/work/work-sections"
 import { TestimonialsGrid } from "@/components/work/testimonials-grid"
-import { WorkFooterCTA, WorkFooter } from "@/components/work/work-footer"
+import { FooterCTA, Footer } from "@/components/shared/footer"
 
 export const metadata: Metadata = {
   title: "Our Work — Phionike",
@@ -25,8 +25,8 @@ export default async function WorkPage() {
       <DisciplineList steps={global.processSteps} />
       <OutcomesStatement content={work.outcomesStatement} />
       <TestimonialsGrid content={work.testimonials} />
-      <WorkFooterCTA cta={global.footerCta} />
-      <WorkFooter content={global.footer} />
+      <FooterCTA cta={global.footerCta} />
+      <Footer content={global.footer} />
     </main>
   )
 }

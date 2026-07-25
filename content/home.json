@@ -13,7 +13,7 @@
 
   "hero": {
     "eyebrow": "Products, Brands and Experiences",
-    "headlineDark": "Products, Brands, and Experiences",
+    "headlineDark": "We design\nProducts, Brands,\nand Experiences",
     "headlineAccent": "that move people forward",
     "body": "We partner with startups and evolving brands to craft product experiences, visual systems, and AI-enabled workflows that scale with ambition.",
     "primaryCta": { "label": "View our Work", "href": "/work" },
@@ -129,7 +129,8 @@
         "sectors": ["healthcare", "saas"],
         "discipline": "build",
         "variant": "darkPhoneTriple",
-        "mockupSrc": "/portfolio/oren-triple-dark.png"
+        "mockupSrc": "/portfolio/oren-triple-dark.png",
+        "size": "large"
       },
       {
         "id": "oren-02",
@@ -138,7 +139,8 @@
         "sectors": ["healthcare"],
         "discipline": "discover",
         "variant": "standard",
-        "mockupSrc": "/portfolio/oren-dashboard-1.png"
+        "mockupSrc": "/portfolio/oren-dashboard-1.png",
+        "size": "medium"
       },
       {
         "id": "oren-03",
@@ -147,7 +149,8 @@
         "sectors": ["healthcare", "fintech"],
         "discipline": "redesign",
         "variant": "standard",
-        "mockupSrc": "/portfolio/oren-dashboard-2.png"
+        "mockupSrc": "/portfolio/oren-dashboard-2.png",
+        "size": "medium"
       },
       {
         "id": "oren-04",
@@ -156,7 +159,8 @@
         "sectors": ["saas"],
         "discipline": "scale",
         "variant": "standard",
-        "mockupSrc": "/portfolio/oren-dashboard-3.png"
+        "mockupSrc": "/portfolio/oren-dashboard-3.png",
+        "size": "medium"
       },
       {
         "id": "oren-05",
@@ -165,7 +169,8 @@
         "sectors": ["ecommerce"],
         "discipline": "discover",
         "variant": "standard",
-        "mockupSrc": "/portfolio/oren-dashboard-4.png"
+        "mockupSrc": "/portfolio/oren-dashboard-4.png",
+        "size": "large"
       }
     ]
   },
@@ -187,7 +192,9 @@
   },
 
   "footerCta": {
-    "heading": "Have a project in mind? We'd love to hear about it.",
+    "eyebrow": "Ready to work together?",
+    "headingLine1": "Have a project in mind?",
+    "italicHeadingLine": "We'd love to hear about it.",
     "primaryCta": { "label": "Get in Touch", "href": "/contact" },
     "secondaryCta": { "label": "Learn About Us", "href": "/about" }
   },
