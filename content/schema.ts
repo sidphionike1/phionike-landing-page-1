@@ -12,7 +12,7 @@ export type PortfolioSection = z.infer<typeof portfolioSectionSchema>
 export const homePageSchema = z.object({
   nav: z.object({ logo: z.string(), links: z.array(link), cta: link }),
   hero: z.object({ eyebrow: z.string(), headlineDark: z.string(), headlineAccent: z.string(), body: z.string(), primaryCta: link, secondaryCta: link, shapes: z.array(z.object({ id: z.string(), color: z.string(), role: z.string() })), microTag: z.string() }),
-  valueProp: z.object({ heading: z.string(), body: z.string(), cta: link }), trustedBy: z.object({ eyebrow: z.string(), heading: z.string(), logos: z.array(z.object({ name: z.string(), logoSrc: z.string() })) }), metrics: z.array(metric),
+  valueProp: z.object({ heading: z.string(), body: z.string(), cta: link }), trustedBy: z.object({ eyebrow: z.string(), heading: z.string(), headingItalic: z.string(), logos: z.array(z.object({ name: z.string(), logoSrc: z.string() })) }), metrics: z.array(metric),
   processSteps: z.object({ mobileEyebrowNumber: z.string(), mobileHeading: z.string(), steps: z.array(z.object({ id: z.string(), number: z.string(), heading: z.string(), caption: z.string(), subheading: z.string() })) }),
   aiBand: z.object({ eyebrow: z.string(), heading: z.string(), supportLine: z.string(), body: z.string(), cta: link }),
   venn: z.object({ eyebrow: z.string(), heading: z.string(), subheading: z.string(), supportCopy: z.string(), disciplines: z.array(discipline), sectors: z.array(sector), stats: z.array(metric), cta: link }),

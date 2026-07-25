@@ -1,0 +1,326 @@
+You are a Staff Frontend Engineer and Design Systems expert responsible for implementing production-quality UI with pixel-perfect accuracy.
+
+Your task is NOT to redesign this section. Your only goal is to modify the existing implementation so that it matches the provided desktop and mobile designs exactly. Treat the provided design as the source of truth. Every spacing, alignment, typography, border, divider, and proportion should match as closely as possible.
+
+## Objective
+
+Update the existing "Clients" section to match the new design while maintaining clean, reusable, production-ready React code.
+
+Do not change the visual language.
+Do not simplify the layout.
+Do not introduce your own design decisions.
+
+Implement only what is shown in the reference.
+
+---------------------------------------
+CHANGES REQUIRED
+---------------------------------------
+
+1. Heading
+
+Update the heading typography to match the design.
+
+Structure:
+
+CLIENTS
+
+Trusted by organisations
+that demand substance.
+
+Requirements:
+
+- "CLIENTS" remains uppercase with generous letter spacing.
+- The first line ("Trusted by organisations") uses the primary heading style.
+- The second line ("that demand substance.") uses italic typography with a lighter grey color.
+- Preserve the exact line break shown in the design.
+- Maintain the same left alignment and whitespace around the heading.
+- Typography should closely match the mockup in weight, size, line-height and tracking.
+
+---------------------------------------
+
+2. Remove the standalone statistics section
+
+The current implementation places the three statistics outside the logo container.
+
+This is incorrect.
+
+Remove this layout completely.
+
+The statistics must become part of the main bordered card exactly as shown in the design.
+
+---------------------------------------
+
+3. Create a single unified card
+
+Replace the current layout with one rounded rectangular container that contains both:
+
+- Statistics
+- Client logos
+
+Requirements:
+
+- Large border radius
+- Very subtle 1px border
+- No shadow
+- Warm off-white background
+- Consistent internal padding
+
+The card should feel clean and premium.
+
+---------------------------------------
+
+4. Desktop Layout
+
+Inside the card create a responsive four-column grid.
+
+Column 1:
+Statistics
+
+Columns 2–4:
+Client logos
+
+Desktop layout:
+
+| Stats | Logo | Logo | Logo |
+|       |------|------|------|
+|       | Logo | Logo | Logo |
+|       |------|------|------|
+|       | Logo | Logo | Logo |
+
+Statistics should remain vertically stacked.
+
+Each statistic contains:
+
+Large number
+
+Small uppercase label underneath
+
+Example:
+
+300 M+
+USERS IMPACTED
+
+2.5 M+
+DESIGNS DELIVERED
+
+20+
+HAPPY CLIENTS
+
+Numbers should be left aligned.
+
+Increase vertical spacing between each statistic group.
+
+---------------------------------------
+
+5. Logo Grid
+
+The logo section should become a true 3×3 grid.
+
+Three columns
+
+Three rows
+
+Equal cell sizes
+
+Each logo perfectly centered both horizontally and vertically.
+
+Maintain equal spacing across every cell.
+
+Do not stretch logos.
+
+Maintain their original aspect ratio.
+
+Visually normalize all logos using max-height and max-width rather than fixed width.
+
+Every logo should appear optically balanced.
+
+---------------------------------------
+
+6. Borders
+
+Current borders are visually too strong.
+
+Update them to match the design.
+
+Requirements:
+
+- 1px divider
+- Very light grey
+- Same border color everywhere
+- Perfect divider alignment
+- Rounded outer container
+- No heavy borders
+
+---------------------------------------
+
+7. Spacing
+
+Increase whitespace throughout.
+
+The design intentionally uses generous spacing.
+
+Maintain consistent padding around:
+
+- Heading
+- Statistics
+- Logos
+- Container edges
+
+Nothing should appear cramped.
+
+---------------------------------------
+
+8. Mobile Layout
+
+The mobile layout should exactly match the supplied design.
+
+Order:
+
+Heading
+
+Statistics Row
+
+Logo Grid
+
+NOT
+
+Heading
+
+Statistic
+
+Statistic
+
+Statistic
+
+Grid
+
+---------------------------------------
+
+9. Mobile Statistics
+
+On mobile the three statistics should appear in one horizontal row.
+
+Example:
+
+300M+
+USERS IMPACTED
+
+2.5M+
+DESIGNS DELIVERED
+
+20+
+HAPPY CLIENTS
+
+Each statistic occupies equal width.
+
+Center aligned.
+
+Labels remain underneath.
+
+---------------------------------------
+
+10. Mobile Logo Grid
+
+Below the statistics create the 3×3 logo grid.
+
+Maintain the exact logo ordering shown in the design.
+
+Maintain rounded borders.
+
+Maintain equal cell sizes.
+
+Maintain centered logos.
+
+---------------------------------------
+
+11. Responsive Behaviour
+
+Desktop
+
+Four-column layout:
+
+Stats + Logo Grid
+
+Tablet
+
+Statistics become the first row.
+
+Logo grid appears below.
+
+Mobile
+
+Statistics remain one horizontal row.
+
+Logo grid remains three columns.
+
+Use responsive CSS Grid.
+
+Do not build separate desktop/mobile components.
+
+---------------------------------------
+
+12. Animation
+
+Keep animations minimal.
+
+Allowed:
+
+- opacity transition
+- subtle fade
+- very small hover scale (1.02)
+
+No slide animations.
+
+No bounce.
+
+No excessive motion.
+
+---------------------------------------
+
+13. Code Quality
+
+Use:
+
+- Next.js
+- TypeScript
+- Tailwind CSS
+
+Requirements:
+
+- Semantic HTML
+- Reusable components
+- Strong typing
+- Responsive CSS Grid
+- Map over data arrays
+- Next.js Image component
+- Accessible markup
+- No duplicated JSX
+- No inline styles
+- Clean Tailwind class ordering
+- No unnecessary wrappers
+- No unnecessary state
+
+---------------------------------------
+
+14. Acceptance Criteria
+
+The completed implementation must satisfy all of the following:
+
+✓ Pixel-perfect match to the supplied desktop design
+✓ Pixel-perfect match to the supplied mobile design
+✓ Statistics moved inside the bordered container
+✓ Four-column desktop layout
+✓ Three-column logo grid
+✓ Equal cell sizes
+✓ Balanced logo sizing
+✓ Correct typography
+✓ Correct spacing
+✓ Correct divider colors
+✓ Correct border radius
+✓ Responsive across desktop, tablet and mobile
+✓ Production-ready, maintainable code
+✓ No redesigns or creative interpretation
+
+IMPORTANT:
+
+Do not approximate spacing, typography, sizing or layout. Treat the supplied design as the source of truth. If any measurement is unclear, infer it proportionally from surrounding elements while preserving the visual rhythm. Prioritize design accuracy over implementation shortcuts. The final rendered UI should be visually indistinguishable from the reference images.
