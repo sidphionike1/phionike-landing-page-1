@@ -2,86 +2,85 @@
 
 /**
  * Pixel-perfect geometric composition for the Hero section
- * Manually positioned grid-based layout with fixed dimensions and spacing
+ * Absolutely positioned to match exact Figma coordinates
  */
 export function HeroVisual() {
   return (
     <div className="flex flex-col gap-4">
       <div
-        className="grid"
         style={{
-          width: 'fit-content',
-          height: 'auto',
-          gridTemplateColumns: '268px 173px 233px',
-          gap: '22px 22px',
-          alignItems: 'end',
-          justifyItems: 'stretch',
+          position: 'relative',
+          width: '621px',
+          height: '487px',
         }}
       >
-      {/* Row 1 */}
-      {/* Orange Card - Column 1 */}
-      <div
-        style={{
-          width: '268px',
-          height: '303px',
-          borderRadius: '30px',
-          backgroundColor: '#FF5A1F',
-          gridColumn: '1',
-          gridRow: '1',
-        }}
-      />
+        {/* Purple Card */}
+        <div
+          style={{
+            position: 'absolute',
+            left: '0px',
+            top: '327px',
+            width: '172px',
+            height: '160px',
+            borderRadius: '30px',
+            backgroundColor: '#CDAAF5',
+          }}
+        />
 
-      {/* Small Yellow Square - Column 3 (centered above Large Yellow) */}
-      <div
-        style={{
-          width: '109px',
-          height: '100px',
-          borderRadius: '28px',
-          backgroundColor: '#F5B800',
-          gridColumn: '3',
-          gridRow: '1',
-          justifySelf: 'center',
-          marginBottom: '18px',
-        }}
-      />
+        {/* Blue Card */}
+        <div
+          style={{
+            position: 'absolute',
+            left: '192px',
+            top: '327px',
+            width: '172px',
+            height: '160px',
+            borderRadius: '30px',
+            backgroundColor: '#3F39F6',
+          }}
+        />
 
-      {/* Row 2 */}
-      {/* Purple Card - Column 1 */}
-      <div
-        style={{
-          width: '173px',
-          height: '159px',
-          borderRadius: '30px',
-          backgroundColor: '#CDAAF5',
-          gridColumn: '1',
-          gridRow: '2',
-        }}
-      />
+        {/* Orange Card - overlaps top of purple + blue */}
+        <div
+          style={{
+            position: 'absolute',
+            left: '96px',
+            top: '0px',
+            width: '268px',
+            height: '303px',
+            borderRadius: '30px',
+            backgroundColor: '#FF5A1F',
+          }}
+        />
 
-      {/* Blue Card - Column 2 */}
-      <div
-        style={{
-          width: '173px',
-          height: '159px',
-          borderRadius: '30px',
-          backgroundColor: '#3F39F6',
-          gridColumn: '2',
-          gridRow: '2',
-        }}
-      />
+        {/* Large Yellow Card */}
+        <div
+          style={{
+            position: 'absolute',
+            left: '388px',
+            top: '207px',
+            width: '233px',
+            height: '280px',
+            borderRadius: '30px',
+            backgroundColor: '#F5B800',
+          }}
+        />
 
-      {/* Large Yellow Card - Column 3 */}
-      <div
-        style={{
-          width: '233px',
-          height: '280px',
-          borderRadius: '30px',
-          backgroundColor: '#F5B800',
-          gridColumn: '3',
-          gridRow: '2',
-        }}
-      />
+        {/* Small Yellow Card */}
+        <div
+          style={{
+            position: 'absolute',
+            left: '484px',
+            top: '83px',
+            width: '106.41px',
+            height: '99.70px',
+            borderRadius: '30px',
+            backgroundColor: '#F5B800',
+            transform: 'rotate(-0.24deg)',
+          }}
+        />
       </div>
+
       {/* Signature */}
       <p className="text-right text-xs uppercase tracking-widest text-muted-foreground">
         Design & Strategy Studio

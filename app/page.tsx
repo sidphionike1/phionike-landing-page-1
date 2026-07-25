@@ -6,11 +6,12 @@ import { PortfolioFilterGrid } from "@/components/home/portfolio-filter-grid"
 import { ShowreelSection } from "@/components/home/showreel-section"
 import { AIPhilosophyBand, EditorialPhotoBlock, FloatingNavbar, Hero, TrustedByStrip, ValuePropBand } from "@/components/home/server-sections"
 import { FooterCTA, Footer } from "@/components/shared/footer"
+import { SiteNavbar } from "@/components/shared/site-chrome"
 
 export default async function Page() {
   const [content, global] = await Promise.all([getHomePageContent(), getGlobalContent()])
   return <main>
-    <FloatingNavbar content={content.nav} />
+    <SiteNavbar content={global.nav} activePage="home" />
     <Hero content={content.hero} />
     <ValuePropBand content={content.valueProp} />
     <TrustedByStrip content={content.trustedBy} metrics={content.metrics} />

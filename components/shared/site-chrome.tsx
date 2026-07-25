@@ -1,51 +1,47 @@
+'use client'
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import type { GlobalContent } from "@/content/schema"
+import { LiquidGlass } from "@creativoma/liquid-glass"
+
 
 // Derive an active slug from a nav href: "/" → "home", "/work" → "work", etc.
 function linkSlug(href: string) {
   return href === "/" ? "home" : href.replace(/^\//, "").replace(/-/g, "-")
 }
 
-export function SiteNavbar({
-  content,
-  activePage,
-}: {
-  content: GlobalContent["nav"]
-  activePage?: string
-}) {
+
+export function SiteNavbar({ content, activePage }: { content: GlobalContent["nav"]; activePage?: string }) {
   return (
-    <header className="border-b border-border bg-background">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 md:px-6">
-        <Link href="/" className="text-xl font-bold tracking-tighter text-primary">
-          {content.logo}
-        </Link>
-
-        <nav className="hidden gap-6 md:flex" aria-label="Primary">
-          {content.links.map((l) => {
-            const isActive = activePage ? linkSlug(l.href) === activePage : false
-            return (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="flex flex-col items-center gap-0.5 text-sm"
-              >
-                {l.label}
-                {isActive && (
-                  <span className="block h-0.5 w-full rounded-full bg-foreground" aria-hidden="true" />
-                )}
-              </Link>
-            )
-          })}
-        </nav>
-
-        <Link
-          href={content.cta.href}
-          className="rounded-full bg-primary px-6 py-3 text-sm text-primary-foreground"
-        >
-          {content.cta.label}
-        </Link>
-      </div>
+    <header className="fixed inset-x-0 top-5 z-50 mx-auto max-w-[1480px] px-6 md:px-10">
+      <LiquidGlass
+        backdropBlur={6}
+        displacementScale={45}
+        turbulenceBaseFrequency="0.008 0.012"
+        tintColor="rgba(255, 255, 255, 0.02)" // near-zero tint, was too strong before
+        className="rounded-xl border border-primary/25 bg-background/40 shadow-none px-6 py-4 md:px-8"
+        style={{boxShadow: 'none'}}
+      >
+        <div className="flex items-center justify-between">
+          <Link href="/" className="text-xl font-bold tracking-tighter text-primary">
+            {content.logo}
+          </Link>
+          <nav className="hidden gap-12 md:flex" aria-label="Primary">
+            {content.links.map((l) => {
+              const isActive = activePage ? linkSlug(l.href) === activePage : false
+              return (
+                <Link key={l.href} href={l.href} className="flex flex-col items-center gap-0.5 text-sm">
+                  {l.label}
+                  {isActive && <span className="block h-0.5 w-full rounded-full bg-foreground" aria-hidden="true" />}
+                </Link>
+              )
+            })}
+          </nav>
+          <Link href={content.cta.href} className="rounded-full bg-primary px-6 py-3 text-sm text-primary-foreground">
+            {content.cta.label}
+          </Link>
+        </div>
+      </LiquidGlass>
     </header>
   )
 }
