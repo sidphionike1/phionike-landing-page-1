@@ -7,7 +7,55 @@ const ArrowLink=({label,href,className=""}:{label:string;href:string;className?:
 export function FloatingNavbar({content}:{content:HomePage["nav"]}){return <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background/95"><nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 md:px-6" aria-label="Primary"><a href="/" className="text-xl font-extrabold tracking-tighter text-primary">{content.logo}</a><ul className="hidden items-center gap-8 md:flex">{content.links.map((l,i)=><li key={l.label}><a href={l.href} className={`text-sm ${i===0?"font-semibold":"text-muted-foreground"}`}>{l.label}</a></li>)}</ul><a href={content.cta.href} className="rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground">{content.cta.label}</a></nav></header>}
 export function Hero({content}:{content:HomePage["hero"]}){return <section className="bg-background"><div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-5 pb-16 pt-32 md:px-6 lg:grid-cols-12 lg:gap-16 lg:pb-24 lg:pt-40"><div className="lg:col-span-7"><p className="eyebrow">{content.eyebrow}</p><div className="mt-5"><h1 className="text-5xl font-medium leading-[1.08] tracking-tighter md:text-7xl whitespace-pre-line">{content.headlineDark}</h1><h2 className="mt-3 text-5xl font-medium leading-[1.08] tracking-tighter text-accent md:text-7xl">{content.headlineAccent}</h2></div><p className="mt-7 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">{content.body}</p><div className="mt-8 flex flex-wrap items-center gap-6"><ArrowLink {...content.primaryCta} className="rounded-full bg-foreground px-7 py-4 text-sm text-background"/><ArrowLink {...content.secondaryCta} className="text-sm"/></div><div className="mt-8 grid grid-cols-2 gap-2 md:hidden"><div className="h-32 rounded-2xl bg-accent"/><div className="row-span-2 rounded-2xl bg-mustard"/><div className="grid grid-cols-2 gap-2"><div className="h-24 rounded-xl bg-lavender"/><div className="h-24 rounded-xl bg-primary"/></div></div></div>            <div className="hidden lg:col-span-5 lg:block"><HeroVisual/></div></div></section>}
 export function ValuePropBand({content}:{content:HomePage["valueProp"]}){return <section className="binary-pattern bg-primary px-5 py-14 text-primary-foreground md:px-6 md:py-20"><div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-2"><h2 className="text-3xl leading-tight md:text-5xl">{content.heading}</h2><div><p className="max-w-xl leading-relaxed text-primary-foreground/80">{content.body}</p><ArrowLink {...content.cta} className="mt-6 border-b pb-1 text-sm"/></div></div></section>}
-export function TrustedByStrip({content,metrics}:{content:HomePage["trustedBy"];metrics:HomePage["metrics"]}){return <section className="bg-secondary py-20 md:py-28"><div className="mx-auto max-w-7xl px-5 md:px-6"><p className="eyebrow">{content.eyebrow}</p><h2 className="mt-5 max-w-3xl text-4xl tracking-tight md:text-6xl">{content.heading}</h2><div className="mt-12 grid grid-cols-3 gap-5">{metrics.map(m=><div key={m.label}><p className="text-3xl md:text-5xl">{m.value}</p><p className="mt-1 text-[10px] uppercase text-muted-foreground">{m.label}</p></div>)}</div><div className="mt-14 grid grid-cols-2 overflow-hidden rounded-3xl border border-border md:grid-cols-3">{content.logos.map(l=><div key={l.name} className="flex min-h-24 items-center justify-center border-b border-r border-border p-5 text-lg font-semibold text-muted-foreground">{l.name}</div>)}</div></div></section>}
+export function TrustedByStrip({content,metrics}:{content:HomePage["trustedBy"];metrics:HomePage["metrics"]}){
+  return (
+    <section className="bg-secondary py-20 md:py-28">
+      <div className="mx-auto max-w-7xl px-5 md:px-6">
+
+        {/* Heading */}
+        <p className="eyebrow">{content.eyebrow}</p>
+        <h2 className="mt-5 text-4xl font-medium tracking-tight md:text-6xl">
+          <span className="block">{content.heading}</span>
+          <span className="block italic text-muted-foreground">{content.headingItalic}</span>
+        </h2>
+
+        {/* Mobile stats row — hidden on desktop (shown inside card on desktop) */}
+        <div className="mt-12 grid grid-cols-3 gap-2 lg:hidden">
+          {metrics.map(m=>(
+            <div key={m.label} className="text-center">
+              <p className="text-2xl font-semibold tracking-tight">{m.value}</p>
+              <p className="mt-1.5 text-[9px] font-medium uppercase tracking-widest text-muted-foreground">{m.label}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Unified card */}
+        <div className="mt-10 overflow-hidden rounded-3xl border border-border/50 bg-card lg:mt-14 lg:grid lg:grid-cols-[260px_1fr]">
+
+          {/* Stats column — desktop only */}
+          <div className="hidden border-r border-border/50 lg:flex lg:flex-col lg:divide-y lg:divide-border/50">
+            {metrics.map(m=>(
+              <div key={m.label} className="flex flex-1 flex-col justify-center px-8 py-8">
+                <p className="text-4xl font-semibold tracking-tight">{m.value}</p>
+                <p className="mt-2 text-[10px] font-medium uppercase tracking-widest text-muted-foreground">{m.label}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* 3×3 logo grid */}
+          <div className="grid grid-cols-3 divide-x divide-y divide-border/50">
+            {content.logos.map(l=>(
+              <div key={l.name} className="flex min-h-[110px] items-center justify-center p-6 transition-opacity duration-200 hover:opacity-70 lg:min-h-[130px]">
+                <span className="text-sm font-semibold text-foreground/70 md:text-base">{l.name}</span>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </div>
+    </section>
+  )
+}
 export function AIPhilosophyBand({content}:{content:HomePage["aiBand"]}){return <section className="binary-pattern bg-mustard py-20 text-foreground md:py-28"><div className="mx-auto max-w-7xl px-5 md:px-6"><p className="eyebrow">{content.eyebrow}</p><h2 className="mt-5 max-w-4xl text-4xl leading-tight tracking-tight md:text-6xl">{content.heading}</h2><div className="mt-8 grid gap-8 md:grid-cols-2"><p className="text-xl">{content.supportLine}</p><div><p className="max-w-xl leading-relaxed">{content.body}</p><ArrowLink {...content.cta} className="mt-6 border-b border-foreground pb-1 text-sm"/></div></div></div></section>}
 export function EditorialPhotoBlock({content}:{content:HomePage["editorial"]}){return <section className="hidden bg-background px-6 pb-24 md:block"><div className="relative mx-auto aspect-[21/9] max-w-7xl overflow-hidden rounded-[2rem]"><Image src="/editorial/team-photo.png" alt={content.alt} fill className="object-cover" sizes="100vw"/></div></section>}
 export function FooterCTA({cta,content}:{cta:HomePage["footerCta"];content:HomePage["footer"]}){return <footer className="bg-ink px-5 py-20 text-primary-foreground md:px-6 md:py-28"><div className="mx-auto max-w-7xl"><p className="text-center text-xs uppercase">{cta.eyebrow}</p><div className="mx-auto mt-5 max-w-3xl text-center"><h2 className="font-serif text-4xl leading-tight md:text-6xl">{cta.headingLine1}</h2>{cta.italicHeadingLine && <p className="mt-2 font-serif text-4xl italic leading-tight md:text-6xl text-primary">{cta.italicHeadingLine}</p>}</div><div className="mx-auto mt-10 flex max-w-2xl flex-col gap-4 md:flex-row"><a href={cta.primaryCta.href} className="flex-1 rounded-full bg-background px-7 py-4 text-center font-semibold text-foreground">{cta.primaryCta.label}</a><a href={cta.secondaryCta.href} className="flex-1 rounded-full border border-primary-foreground px-7 py-4 text-center font-semibold">{cta.secondaryCta.label}</a></div><div className="mt-24 grid gap-10 border-b border-primary-foreground/20 pb-16 md:grid-cols-4"><div><p className="text-sm leading-relaxed text-primary-foreground/60">{content.description}</p><p className="mt-8 text-sm">{content.location}</p></div><div><p className="footer-label">Contact</p><a href={`mailto:${content.contact.email}`} className="mt-4 block">{content.contact.email}</a><p className="mt-2">{content.contact.phone}</p></div><div><p className="footer-label">Navigation</p>{content.navLinks.map(l=><a key={l.label} href={l.href} className="mt-2 block">{l.label}</a>)}</div><div><p className="footer-label">Connect</p>{content.social.map(s=><a key={s.platform} href={s.href} className="mt-2 block">{s.platform}</a>)}</div></div><p className="mt-7 text-sm text-primary-foreground/50">{content.copyright}</p></div></footer>}
