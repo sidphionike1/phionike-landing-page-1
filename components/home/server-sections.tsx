@@ -224,6 +224,7 @@ export function TrustedByStrip({
                   }}
                 >
                   <Image
+                  // @ts-ignore
                     src={logo.image || "/images/logo-placeholder.svg"}
                     alt={logo.name}
                     width={180}

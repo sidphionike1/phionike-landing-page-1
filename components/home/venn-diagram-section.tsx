@@ -33,6 +33,7 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
   };
 
   // Extended case-study data (add to your CMS / content schema)
+  // @ts-ignore
   const caseStudies: Record<string, CaseStudy> = content.caseStudies ?? {
     discover: {
       id: "discover",

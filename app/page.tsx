@@ -20,9 +20,9 @@ export default async function Page() {
     <ProcessStepCounter content={content.processSteps} disciplines={content.venn.disciplines} />
     <AIPhilosophyBand content={content.aiBand} />
     <Suspense><VennDiagramSection content={content.venn} /></Suspense>
-    <Suspense><PortfolioFilterGrid content={content.portfolio} /></Suspense>
-    <AwardsSection content={content.awards} />
-    <Suspense><FAQSection content={content.faq} /></Suspense>
+    <Suspense><PortfolioFilterGrid /></Suspense>
+    <AwardsSection />
+    <Suspense><FAQSection  /></Suspense>
     <ShowreelSection content={content.showreel} />
     <FooterCTA cta={global.footerCta} />
     <Footer content={global.footer} />
