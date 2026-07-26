@@ -3,9 +3,11 @@ import type { Metadata } from "next"
 import { getGlobalContent, getWorkPageContent } from "@/lib/content"
 import { SiteNavbar } from "@/components/shared/site-chrome"
 import { PortfolioFilterGrid } from "@/components/home/portfolio-filter-grid"
-import { WorkHero, DisciplineList, OutcomesStatement } from "@/components/work/work-sections"
+import { DisciplineList } from "@/components/work/work-sections"
 import { TestimonialsGrid } from "@/components/work/testimonials-grid"
 import { FooterCTA, Footer } from "@/components/shared/footer"
+import OutcomesStatement from "@/components/work/outcomes-statement"
+import { WorkHero } from "@/components/work/work-hero"
 
 export const metadata: Metadata = {
   title: "Our Work — Phionike",

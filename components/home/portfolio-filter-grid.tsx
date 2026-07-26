@@ -1,146 +1,260 @@
-'use client'
+"use client";
 
-import Image from 'next/image'
-import Link from 'next/link'
-import { useState, useMemo } from 'react'
-import { ArrowUpRight, ChevronDown } from 'lucide-react'
-import type { PortfolioSection } from '@/content/schema'
+import Image from "next/image";
+import Link from "next/link";
+import { useState, useMemo, useRef, useEffect } from "react";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
 
-type CardSize = 'large' | 'medium' | 'small'
+type CardSize = "big" | "medium" | "small";
 
+// ── DATA: pure content, tagged on 3 independent filter axes ───────
 interface PortfolioItem {
-  id: string
-  title: string
-  tagline: string
-  sectors: string[]
-  discipline: string
-  variant: 'standard' | 'darkPhoneTriple'
-  mockupSrc: string
-  size: CardSize
+  id: string;
+  title: string;
+  tagline: string;
+  mockupSrc: string;
+  industry: string;
+  service: string;
+  challenge: string;
 }
 
-interface FilterChip {
-  id: string
-  label: string
-  isActive: boolean
+const ALL_ITEMS: PortfolioItem[] = [
+  {
+    id: "1",
+    title: "Oren - Smart Ring App",
+    tagline:
+      "Great design isn't defined by the number of screens delivered. It's more about the impact it creates and the value it brings to businesses.",
+    mockupSrc: "/portfolio/oren-1.png",
+    industry: "Healthcare",
+    service: "Product Design",
+    challenge: "User Engagement",
+  },
+  {
+    id: "2",
+    title: "Oren - Smart Ring App",
+    tagline:
+      "Great design isn't defined by the number of screens delivered. It's more about the value it brings.",
+    mockupSrc: "/portfolio/oren-2.png",
+    industry: "Fintech",
+    service: "UX Research",
+    challenge: "Onboarding",
+  },
+  {
+    id: "3",
+    title: "Oren - Smart Ring App",
+    tagline: "Great design isn't defined by the number of screens delivered.",
+    mockupSrc: "/portfolio/oren-3.png",
+    industry: "Logistics",
+    service: "Product Design",
+    challenge: "Data Visualization",
+  },
+  {
+    id: "4",
+    title: "Oren - Smart Ring App",
+    tagline: "Great design isn't defined by the number of screens delivered.",
+    mockupSrc: "/portfolio/oren-4.png",
+    industry: "Fintech",
+    service: "Branding",
+    challenge: "Onboarding",
+  },
+  {
+    id: "5",
+    title: "Oren - Smart Ring App",
+    tagline: "Great design isn't defined by the number of screens delivered.",
+    mockupSrc: "/portfolio/oren-5.png",
+    industry: "Logistics",
+    service: "UX Research",
+    challenge: "Data Visualization",
+  },
+  {
+    id: "6",
+    title: "Oren - Smart Ring App",
+    tagline: "Great design isn't defined by the number of screens delivered.",
+    mockupSrc: "/portfolio/oren-6.png",
+    industry: "Fintech",
+    service: "Product Design",
+    challenge: "User Engagement",
+  },
+  {
+    id: "7",
+    title: "Oren - Smart Ring App",
+    tagline:
+      "Great design isn't defined by the number of screens delivered. It's more about the value it brings.",
+    mockupSrc: "/portfolio/oren-7.png",
+    industry: "Healthcare",
+    service: "Branding",
+    challenge: "Onboarding",
+  },
+  {
+    id: "8",
+    title: "Oren - Smart Ring App",
+    tagline:
+      "Great design isn't defined by the number of screens delivered. It's more about the impact it creates and the value it brings to businesses.",
+    mockupSrc: "/portfolio/oren-8.png",
+    industry: "Healthcare",
+    service: "Product Design",
+    challenge: "Data Visualization",
+  },
+];
+
+// Each dropdown's own option list
+const FILTER_GROUPS = {
+  Industry: ["Healthcare", "Fintech", "Logistics"],
+  Service: ["Product Design", "UX Research", "Branding"],
+  Challenge: ["User Engagement", "Onboarding", "Data Visualization"],
+} as const;
+
+type FilterGroupName = keyof typeof FILTER_GROUPS;
+
+// ── LAYOUT: fixed slot-size templates, independent of data ───────
+// frameW/imgW accept number (desktop, pixel-exact) or string (mobile, percentage)
+const SIZE_CONFIG: Record<
+  CardSize,
+  { frameW: number; imgW: number; imgH: number }
+> = {
+  big: { frameW: 642, imgW: 642, imgH: 480 },
+  medium: { frameW: 534, imgW: 534, imgH: 401 },
+  small: { frameW: 427, imgW: 429, imgH: 322 },
+};
+
+// Mobile: every card is 95% of the mobile viewport width, fixed image height
+const MOBILE_SIZE: {
+  frameW: number | string;
+  imgW: number | string;
+  imgH: number;
+} = {
+  frameW: "95%",
+  imgW: "95%",
+  imgH: 261,
+};
+
+const LEFT_PATTERN: CardSize[] = ["big", "medium", "small", "small"];
+const RIGHT_PATTERN: CardSize[] = ["small", "small", "medium", "big"];
+
+function assignSizes(items: PortfolioItem[], pattern: CardSize[]) {
+  return items.map((item, i) => ({ item, size: pattern[i % pattern.length] }));
 }
 
-// Reusable PortfolioCard component
-function PortfolioCard({ item, size }: { item: PortfolioItem; size: CardSize }) {
-  const imageDimensions = {
-    large: { height: 400, className: 'h-96' },
-    medium: { height: 280, className: 'h-64' },
-    small: { height: 180, className: 'h-44' },
-  }
-
-  const dims = imageDimensions[size]
-
+function PortfolioCard({
+  item,
+  dims,
+  showBottomPadding = false,
+  centered = false,
+}: {
+  item: PortfolioItem;
+  dims: { frameW: number | string; imgW: number | string; imgH: number };
+  showBottomPadding?: boolean;
+  centered?: boolean;
+}) {
   return (
-    <article className="group break-inside-avoid">
-      {/* Container for darkPhoneTriple variant */}
-      {item.variant === 'darkPhoneTriple' ? (
-        <div className="relative overflow-hidden rounded-2xl bg-ink p-3">
-          <Image
-            src={item.mockupSrc}
-            alt={item.title}
-            width={1200}
-            height={800}
-            className="h-auto w-full rounded-xl object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            quality={85}
-          />
-        </div>
-      ) : (
-        <div className={`relative overflow-hidden rounded-2xl bg-card transition-transform duration-300 ${dims.className}`}>
-          <Image
-            src={item.mockupSrc}
-            alt={item.title}
-            width={1200}
-            height={dims.height}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            quality={85}
-          />
-        </div>
-      )}
-
-      {/* Text content */}
-      <div className="mt-5">
-        <h3 className="text-base font-medium tracking-tight text-foreground md:text-lg">{item.title}</h3>
-        <p className="mt-2 line-clamp-2 text-xs text-muted-foreground md:line-clamp-2 md:text-sm leading-relaxed">
+    <article
+      className={`flex flex-col ${centered ? "mx-auto" : ""}`}
+      style={{ width: dims.frameW }}
+    >
+      <div>
+        <h3 className="truncate text-lg font-medium tracking-tight text-foreground md:text-xl">
+          {item.title}
+        </h3>
+        <p className="mt-2 line-clamp-2 text-sm text-muted-foreground leading-relaxed">
           {item.tagline}
         </p>
       </div>
+
+      <div
+        className={`relative mt-4 overflow-hidden rounded-xl bg-card ${showBottomPadding ? "mb-6" : ""}`}
+        style={{ width: dims.imgW, height: dims.imgH }}
+      >
+        <Image
+          src={item.mockupSrc}
+          alt={item.title}
+          fill
+          className="object-cover"
+          sizes={typeof dims.imgW === "number" ? `${dims.imgW}px` : "95vw"}
+          quality={85}
+        />
+      </div>
     </article>
-  )
+  );
 }
 
-// Filter Chips component
-function FilterChips({
-  filters,
-  activeFilter,
-  onFilterChange,
+// Single dropdown filter (Industry / Service / Challenge)
+function FilterDropdown({
+  label,
+  options,
+  selected,
+  onSelect,
 }: {
-  filters: string[]
-  activeFilter: string
-  onFilterChange: (filter: string) => void
+  label: string;
+  options: readonly string[];
+  selected: string | null;
+  onSelect: (value: string | null) => void;
 }) {
-  return (
-    <div className="flex flex-wrap gap-2.5">
-      {filters.map((filter, index) => (
-        <button
-          key={filter}
-          onClick={() => onFilterChange(filter)}
-          className={`inline-flex items-center gap-1.5 rounded-full px-5 py-2 text-sm font-medium transition-all duration-200 ${
-            index === 0 && activeFilter === 'All'
-              ? 'border border-primary bg-primary text-primary-foreground'
-              : activeFilter === filter
-                ? 'border border-primary bg-primary text-primary-foreground'
-                : 'border border-border bg-background text-foreground hover:border-foreground/30'
-          }`}
-        >
-          {filter}
-          {index > 0 && <ChevronDown size={13} className="opacity-60" />}
-        </button>
-      ))}
-    </div>
-  )
-}
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
-// Two-column masonry grid
-function MasonryGrid({ items }: { items: PortfolioItem[] }) {
-  const leftColumn: PortfolioItem[] = []
-  const rightColumn: PortfolioItem[] = []
-
-  // Distribute items into two columns for balanced masonry layout
-  items.forEach((item, index) => {
-    if (index % 2 === 0) {
-      leftColumn.push(item)
-    } else {
-      rightColumn.push(item)
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node))
+        setOpen(false);
     }
-  })
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const isActive = selected !== null;
 
   return (
-    <div className="grid grid-cols-1 gap-7 md:grid-cols-2 lg:gap-8">
-      {/* Left column */}
-      <div className="flex flex-col gap-7 md:gap-8">
-        {leftColumn.map((item) => (
-          <PortfolioCard key={item.id} item={item} size={item.size} />
-        ))}
-      </div>
+    <div className="relative" ref={ref}>
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className={`inline-flex items-center gap-1.5 rounded-full px-5 py-2 text-sm font-medium transition-all duration-200 ${
+          isActive
+            ? "border border-primary bg-primary text-primary-foreground"
+            : "border border-border bg-background text-foreground hover:border-foreground/30"
+        }`}
+      >
+        {selected ?? label}
+        <ChevronDown
+          size={13}
+          className={`opacity-60 transition-transform ${open ? "rotate-180" : ""}`}
+        />
+      </button>
 
-      {/* Right column */}
-      <div className="flex flex-col gap-7 md:gap-8">
-        {rightColumn.map((item) => (
-          <PortfolioCard key={item.id} item={item} size={item.size} />
-        ))}
-      </div>
+      {open && (
+        <div className="absolute left-0 top-full z-10 mt-2 min-w-[180px] rounded-xl border border-border bg-background p-1.5 shadow-lg">
+          {selected !== null && (
+            <button
+              onClick={() => {
+                onSelect(null);
+                setOpen(false);
+              }}
+              className="block w-full rounded-lg px-3 py-2 text-left text-sm text-muted-foreground hover:bg-card"
+            >
+              Clear
+            </button>
+          )}
+          {options.map((opt) => (
+            <button
+              key={opt}
+              onClick={() => {
+                onSelect(opt);
+                setOpen(false);
+              }}
+              className={`block w-full rounded-lg px-3 py-2 text-left text-sm ${
+                selected === opt
+                  ? "bg-primary text-primary-foreground"
+                  : "text-foreground hover:bg-card"
+              }`}
+            >
+              {opt}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
-  )
+  );
 }
 
-// Mobile "See All Work" CTA
 function SeeAllWorkCTA() {
   return (
     <div className="mt-10 flex justify-center md:hidden">
@@ -152,66 +266,140 @@ function SeeAllWorkCTA() {
         <ArrowUpRight size={14} />
       </Link>
     </div>
-  )
+  );
 }
 
-export function PortfolioFilterGrid({
-  content,
-  compact = false,
-}: {
-  content: PortfolioSection
-  compact?: boolean
-}) {
-  const [activeFilter, setActiveFilter] = useState<string>('All')
+export function PortfolioFilterGrid() {
+  // null = "All" is active; each dropdown holds its own selection independently
+  const [selections, setSelections] = useState<
+    Record<FilterGroupName, string | null>
+  >({
+    Industry: null,
+    Service: null,
+    Challenge: null,
+  });
 
-  // Filter items based on active filter
+  const isAllActive = Object.values(selections).every((v) => v === null);
+
+  const handleSelect = (group: FilterGroupName, value: string | null) => {
+    setSelections((prev) => ({ ...prev, [group]: value }));
+  };
+
+  const handleAllClick = () => {
+    setSelections({ Industry: null, Service: null, Challenge: null });
+  };
+
+  // AND logic: an item must match every currently-active dropdown selection
   const filteredItems = useMemo(() => {
-    if (activeFilter === 'All') {
-      return content.items
-    }
-    // For now, just show all items - filtering can be implemented based on the filter type
-    return content.items
-  }, [activeFilter, content.items])
+    return ALL_ITEMS.filter((item) => {
+      if (selections.Industry && item.industry !== selections.Industry)
+        return false;
+      if (selections.Service && item.service !== selections.Service)
+        return false;
+      if (selections.Challenge && item.challenge !== selections.Challenge)
+        return false;
+      return true;
+    });
+  }, [selections]);
+
+  const { left, right } = useMemo(() => {
+    const leftItems: PortfolioItem[] = [];
+    const rightItems: PortfolioItem[] = [];
+    filteredItems.forEach((item, i) =>
+      (i % 2 === 0 ? leftItems : rightItems).push(item),
+    );
+    return {
+      left: assignSizes(leftItems, LEFT_PATTERN),
+      right: assignSizes(rightItems, RIGHT_PATTERN),
+    };
+  }, [filteredItems]);
+
+  const hasResults = filteredItems.length > 0;
 
   return (
     <section className="relative bg-background px-5 py-14 md:px-6 md:py-20">
-      <div className="mx-auto max-w-7xl">
-        {/* Section heading */}
+      <div className="mx-auto max-w-[1198px]">
         <div className="mb-8 md:mb-10">
-          {compact ? (
-            <div>
-              <p className="text-xl font-medium md:text-2xl text-foreground">{content.eyebrow}</p>
-              <p className="mt-1 text-sm text-muted-foreground md:text-base">{content.heading}</p>
-            </div>
-          ) : (
-            <div>
-              <h2 className="text-3xl font-medium tracking-tight text-foreground md:text-5xl">
-                {content.eyebrow}
-              </h2>
-              <p className="mt-2 text-sm italic text-muted-foreground md:text-base">{content.heading}</p>
-            </div>
-          )}
+          <h2 className="text-3xl font-medium tracking-tight text-foreground md:text-4xl">
+            Find work that&rsquo;s relevant to you
+          </h2>
+          <p className="mt-2 text-sm italic text-muted-foreground md:text-4xl">
+            Browse projects by industry or service
+          </p>
         </div>
 
-        {/* Filter chips */}
-        <div className="mb-10 md:mb-14">
-          <FilterChips
-            filters={content.filters}
-            activeFilter={activeFilter}
-            onFilterChange={setActiveFilter}
-          />
+        {/* Filters: All (single toggle) + 3 independent dropdowns */}
+        <div className="mb-10 flex flex-wrap gap-2.5 md:mb-14">
+          <button
+            onClick={handleAllClick}
+            className={`inline-flex items-center rounded-full px-5 py-2 text-sm font-medium transition-all duration-200 ${
+              isAllActive
+                ? "border border-primary bg-primary text-primary-foreground"
+                : "border border-border bg-background text-foreground hover:border-foreground/30"
+            }`}
+          >
+            All
+          </button>
+
+          {(Object.keys(FILTER_GROUPS) as FilterGroupName[]).map((group) => (
+            <FilterDropdown
+              key={group}
+              label={group}
+              options={FILTER_GROUPS[group]}
+              selected={selections[group]}
+              onSelect={(value) => handleSelect(group, value)}
+            />
+          ))}
         </div>
 
-        {/* Portfolio grid */}
-        {filteredItems.length > 0 ? (
+        {hasResults ? (
           <>
-            <MasonryGrid items={filteredItems} />
-            {!compact && <SeeAllWorkCTA />}
+            {/* Desktop */}
+            <div className="hidden gap-8 md:flex md:items-start">
+              <div className="flex flex-col items-start gap-16">
+                {left.map(({ item, size }) => (
+                  <PortfolioCard
+                    key={item.id}
+                    item={item}
+                    dims={SIZE_CONFIG[size]}
+                    showBottomPadding={size === "big"}
+                  />
+                ))}
+              </div>
+
+              <div className="flex flex-col items-end gap-16 -ml-[160px]">
+                {right.map(({ item, size }) => (
+                  <PortfolioCard
+                    key={item.id}
+                    item={item}
+                    dims={SIZE_CONFIG[size]}
+                    showBottomPadding={size === "big"}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile: fixed 95%-width card for every item, no size pattern */}
+            <div className="flex flex-col gap-10 md:hidden">
+              {filteredItems.slice(0, 4).map((item) => (
+                <PortfolioCard
+                  key={item.id}
+                  item={item}
+                  dims={MOBILE_SIZE}
+                  showBottomPadding
+                  centered
+                />
+              ))}
+            </div>
+
+            <SeeAllWorkCTA />
           </>
         ) : (
-          <p className="py-20 text-center text-muted-foreground">No items found</p>
+          <p className="py-20 text-center text-muted-foreground">
+            No items found
+          </p>
         )}
       </div>
     </section>
-  )
+  );
 }
