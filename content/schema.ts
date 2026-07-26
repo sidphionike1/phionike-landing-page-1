@@ -35,7 +35,25 @@ export const workPageSchema = z.object({
 
 export const processAndAiSchema = z.object({
   hero: z.object({ badge: z.string(), headlineMain: z.string(), headlineAccent: z.string(), subheadline: z.string(), primaryCta: z.string(), secondaryCta: z.string() }),
-  comparisonSection: z.object({ badge: z.string(), titleMain: z.string(), titleSub: z.string(), traditionalApproach: z.object({ title: z.string(), nodes: z.array(z.string()) }), phionikeApproach: z.object({ title: z.string(), nodes: z.array(z.string()) }) }),
+  comparisonSection: z.object({ 
+    badge: z.string(), 
+    titleMain: z.string(), 
+    titleSub: z.string(),
+    subtitleText: z.string(),
+    traditionalApproach: z.object({ 
+      title: z.string(), 
+      label: z.string(),
+      rows: z.array(z.array(z.object({ text: z.string(), badge: z.boolean() }))),
+      description: z.string()
+    }), 
+    phionikeApproach: z.object({ 
+      title: z.string(), 
+      label: z.string(),
+      rows: z.array(z.array(z.object({ text: z.string(), badge: z.boolean(), badgeColor: z.string().optional() }))),
+      description: z.string()
+    }),
+    description: z.string()
+  }),
   phasesSection: z.object({ headlineMain: z.string(), headlineAccent: z.string(), cards: z.array(z.object({ id: z.string(), title: z.string(), description: z.string(), bg: z.string(), textColor: z.string() })) }),
   frameworkSection: z.object({ badge: z.string(), headlineMain: z.string(), headlineAccent: z.string(), subheadline: z.string(), prototypeA: z.object({ badge: z.string(), title: z.string(), description: z.string(), image: z.string(), features: z.array(z.string()) }), prototypeB: z.object({ badge: z.string(), title: z.string(), description: z.string(), image: z.string(), features: z.array(z.string()) }), metrics: z.array(z.object({ value: z.string(), label: z.string() })) }),
   accordionSection: z.object({ badge: z.string(), headlineMain: z.string(), headlineSub: z.string(), steps: z.array(z.object({ id: z.string(), title: z.string(), subtitle: z.string(), description: z.string(), color: z.string() })) }),

@@ -8,17 +8,47 @@
     "secondaryCta": "Our AI Stack"
   },
   "comparisonSection": {
-    "badge": "EFFICIENCY & PRECISION",
+    "badge": "RETHINKING EXECUTION",
     "titleMain": "Design should spend less time guessing",
-    "titleSub": "and more time validating.",
+    "titleSub": "and more time solving.",
+    "subtitleText": "Design should spend less time guessing and more time solving.",
     "traditionalApproach": {
-      "title": "TRADITIONAL WORKFLOW",
-      "nodes": ["Research", "Manual Wireframes", "Static Mocks", "Handoff Delays"]
+      "title": "TRADITIONAL PROCESS",
+      "label": "Iterative Waste",
+      "rows": [
+        [
+          { "text": "Brief", "badge": false },
+          { "text": "Research", "badge": false },
+          { "text": "Wireframes", "badge": false },
+          { "text": "UI Design", "badge": false }
+        ],
+        [
+          { "text": "Prototype", "badge": false },
+          { "text": "Client Feedback", "badge": true },
+          { "text": "Rework Loop", "badge": true }
+        ]
+      ],
+      "description": "Months are spent crafting static high-fidelity layouts before testing core assumptions. Any major pivot causes massive, expensive rework loops."
     },
     "phionikeApproach": {
-      "title": "PHIONIKE AI WORKFLOW",
-      "nodes": ["AI Data Analysis", "Instant Wireframes", "Interactive Prototypes", "Real-time Validation"]
-    }
+      "title": "PHIONIKE PROCESS",
+      "label": "Linear & Clean",
+      "rows": [
+        [
+          { "text": "Brief", "badge": false },
+          { "text": "AI Exploration", "badge": true, "badgeColor": "#E65124" },
+          { "text": "Prototype A", "badge": true, "badgeColor": "#2538F5" },
+          { "text": "Validation", "badge": false }
+        ],
+        [
+          { "text": "", "badge": false },
+          { "text": "Prototype B", "badge": true, "badgeColor": "#2538F5" },
+          { "text": "Development", "badge": false }
+        ]
+      ],
+      "description": "By utilizing AI exploration upfront, we build functional prototypes in days. Aligning on core decisions early removes downstream friction completely."
+    },
+    "description": "Months are spent crafting static high-fidelity layouts before testing core assumptions. Any major pivot causes massive, expensive rework loops."
   },
   "phasesSection": {
     "headlineMain": "Think Fast.",

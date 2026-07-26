@@ -76,45 +76,67 @@ export function ProcessAiHero({ hero }: { hero: ProcessAndAi['hero'] }) {
 // ─── COMPARISON SECTION ─────────────────────────────────────────────────────────────
 export function ComparisonSection({ section }: { section: ProcessAndAi['comparisonSection'] }) {
   return (
-    <section className="max-w-7xl mx-auto px-6 py-16 border-t border-neutral-200/60">
+    <section className="max-w-7xl mx-auto px-6 py-20 border-t border-neutral-200/60">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#E65124]">
+        <span className="text-xs font-mono uppercase tracking-[0.2em] text-neutral-500">
           {section.badge}
         </span>
-        <h2 className="text-3xl md:text-5xl font-bold leading-[1.15] tracking-tight text-[#111111] mt-4 max-w-3xl">
+        <h2 className="text-4xl md:text-5xl font-bold leading-[1.15] tracking-tight text-[#111111] mt-4 max-w-3xl">
           {section.titleMain}{' '}
-          <span className="text-[#E65124]">{section.titleSub}</span>
+          <span className="italic text-neutral-400">{section.titleSub}</span>
         </h2>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-16">
         {/* Traditional Approach */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="bg-white/80 border border-neutral-200 rounded-3xl p-8 shadow-sm"
+          className="border border-neutral-200 rounded-3xl p-8 bg-white/50"
         >
-          <h3 className="text-lg font-mono font-bold text-[#111111] mb-6">
-            {section.traditionalApproach.title}
-          </h3>
-          <div className="space-y-3">
-            {section.traditionalApproach.nodes.map((node, idx) => (
-              <div key={idx} className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-neutral-400" />
-                <span className="text-sm text-neutral-600">{node}</span>
-                {idx < section.traditionalApproach.nodes.length - 1 && (
-                  <ArrowRight className="w-4 h-4 text-neutral-300 ml-auto" />
-                )}
+          <div className="flex items-center justify-between mb-8">
+            <h3 className="text-sm font-mono font-bold text-neutral-600 uppercase tracking-widest">
+              {section.traditionalApproach.title}
+            </h3>
+            <span className="text-xs font-semibold text-neutral-500 px-3 py-1 bg-neutral-100 rounded-full">
+              {section.traditionalApproach.label}
+            </span>
+          </div>
+
+          {/* Process Rows */}
+          <div className="space-y-4 mb-6">
+            {section.traditionalApproach.rows.map((row, rowIdx) => (
+              <div key={rowIdx} className="flex flex-wrap items-center gap-2">
+                {row.map((item, itemIdx) => (
+                  <div key={itemIdx} className="flex items-center gap-2">
+                    {item.text && (
+                      <div className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap ${
+                        item.badge 
+                          ? 'bg-[#2538F5] text-white' 
+                          : 'bg-white border border-neutral-200 text-neutral-700'
+                      }`}>
+                        {item.text}
+                      </div>
+                    )}
+                    {itemIdx < row.length - 1 && item.text && (
+                      <span className="text-neutral-400 text-lg">→</span>
+                    )}
+                  </div>
+                ))}
               </div>
             ))}
           </div>
+
+          <p className="text-sm text-neutral-600 leading-relaxed border-t border-neutral-200 pt-6">
+            {section.traditionalApproach.description}
+          </p>
         </motion.div>
 
         {/* Phionike AI Approach */}
@@ -122,25 +144,47 @@ export function ComparisonSection({ section }: { section: ProcessAndAi['comparis
           initial={{ opacity: 0, x: 20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="bg-[#EAE8FC]/60 border border-[#2538F5]/30 rounded-3xl p-8 shadow-md"
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="border border-[#2538F5] rounded-3xl p-8 bg-[#EAE8FC]/40"
         >
-          <h3 className="text-lg font-mono font-bold text-[#2538F5] mb-6">
-            {section.phionikeApproach.title}
-          </h3>
-          <div className="space-y-3">
-            {section.phionikeApproach.nodes.map((node, idx) => (
-              <div key={idx} className="flex items-center gap-3">
-                <div className="px-2 py-1 rounded-full bg-[#2538F5]/10 text-[#2538F5]">
-                  <span className="text-xs font-semibold">{idx + 1}</span>
-                </div>
-                <span className="text-sm text-[#111111] font-medium">{node}</span>
-                {idx < section.phionikeApproach.nodes.length - 1 && (
-                  <ArrowRight className="w-4 h-4 text-[#2538F5]/30 ml-auto" />
-                )}
+          <div className="flex items-center justify-between mb-8">
+            <h3 className="text-sm font-mono font-bold text-[#2538F5] uppercase tracking-widest">
+              {section.phionikeApproach.title}
+            </h3>
+            <span className="text-xs font-semibold text-white px-3 py-1 bg-[#2538F5] rounded-full">
+              {section.phionikeApproach.label}
+            </span>
+          </div>
+
+          {/* Process Rows */}
+          <div className="space-y-4 mb-6">
+            {section.phionikeApproach.rows.map((row, rowIdx) => (
+              <div key={rowIdx} className="flex flex-wrap items-center gap-2">
+                {row.map((item, itemIdx) => (
+                  <div key={itemIdx} className="flex items-center gap-2">
+                    {item.text && (
+                      <div className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap ${
+                        item.badge 
+                          ? item.badgeColor === '#E65124'
+                            ? 'bg-[#E65124] text-white'
+                            : 'bg-[#2538F5] text-white'
+                          : 'bg-white border border-neutral-200 text-neutral-700'
+                      }`}>
+                        {item.text}
+                      </div>
+                    )}
+                    {itemIdx < row.length - 1 && item.text && (
+                      <span className="text-[#2538F5]/40 text-lg">→</span>
+                    )}
+                  </div>
+                ))}
               </div>
             ))}
           </div>
+
+          <p className="text-sm text-neutral-700 leading-relaxed border-t border-[#2538F5]/20 pt-6">
+            {section.phionikeApproach.description}
+          </p>
         </motion.div>
       </div>
     </section>
