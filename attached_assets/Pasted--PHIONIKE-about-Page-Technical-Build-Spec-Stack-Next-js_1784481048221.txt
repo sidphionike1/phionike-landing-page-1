@@ -11,7 +11,7 @@ data-layer pattern, and rendering strategy are not repeated in full here.
 **Navbar active-state is currently hardcoded.** All prior specs describe the
 "Home" link as the one with the active indicator. That was only ever correct
 on the Home page. Fix: `Navbar` takes an `activePage` prop
-(`'home' | 'about' | 'work' | 'services' | 'process-ai'`), and the active-
+(`'home' | 'about' | 'work' | 'services' | 'process-and-ai'`), and the active-
 indicator underline renders on whichever link matches. Update the Home,
 Services, and Work implementations to pass this prop rather than hardcoding
 "Home" as active — this was a gap in every prior spec, not just this one.

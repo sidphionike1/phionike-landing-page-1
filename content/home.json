@@ -20,7 +20,7 @@
       },
       {
         "label": "Process & AI",
-        "href": "/process-ai"
+        "href": "/process-and-ai"
       }
     ],
     "cta": {
@@ -164,7 +164,7 @@
     "body": "We use AI deliberately — as a research accelerator, a synthesis tool, and a pressure-test for ideas. Never as a replacement for the human judgement that makes design worth doing.",
     "cta": {
       "label": "Explore our Process & AI",
-      "href": "/process-ai"
+      "href": "/process-and-ai"
     }
   },
   "venn": {
@@ -368,7 +368,7 @@
       },
       {
         "label": "Process & AI",
-        "href": "/process-ai"
+        "href": "/process-and-ai"
       },
       {
         "label": "Services",
