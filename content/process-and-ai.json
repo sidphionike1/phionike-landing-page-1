@@ -1,0 +1,269 @@
+{
+  "hero": {
+    "badge": "AI-POWERED PROCESS",
+    "headlineMain": "Where Human Thinking Meets",
+    "headlineAccent": "Intelligent Execution",
+    "subheadline": "We blend deep strategic design with AI-accelerated workflows to build products faster without compromising craftsmanship.",
+    "primaryCta": "Explore Process",
+    "secondaryCta": "Our AI Stack"
+  },
+  "comparisonSection": {
+    "badge": "RETHINKING EXECUTION",
+    "titleMain": "Design should spend less time guessing",
+    "titleSub": "and more time solving.",
+    "subtitleText": "Design should spend less time guessing and more time solving.",
+    "traditionalApproach": {
+      "title": "TRADITIONAL PROCESS",
+      "label": "Iterative Waste",
+      "rows": [
+        [
+          { "text": "Brief", "badge": false },
+          { "text": "Research", "badge": false },
+          { "text": "Wireframes", "badge": false },
+          { "text": "UI Design", "badge": false }
+        ],
+        [
+          { "text": "Prototype", "badge": false },
+          { "text": "Client Feedback", "badge": true },
+          { "text": "Rework Loop", "badge": true }
+        ]
+      ],
+      "description": "Months are spent crafting static high-fidelity layouts before testing core assumptions. Any major pivot causes massive, expensive rework loops."
+    },
+    "phionikeApproach": {
+      "title": "PHIONIKE PROCESS",
+      "label": "Linear & Clean",
+      "rows": [
+        [
+          { "text": "Brief", "badge": false },
+          { "text": "AI Exploration", "badge": true, "badgeColor": "#E65124" },
+          { "text": "Prototype A", "badge": true, "badgeColor": "#2538F5" },
+          { "text": "Validation", "badge": false }
+        ],
+        [
+          { "text": "", "badge": false },
+          { "text": "Prototype B", "badge": true, "badgeColor": "#2538F5" },
+          { "text": "Development", "badge": false }
+        ]
+      ],
+      "description": "By utilizing AI exploration upfront, we build functional prototypes in days. Aligning on core decisions early removes downstream friction completely."
+    },
+    "description": "Months are spent crafting static high-fidelity layouts before testing core assumptions. Any major pivot causes massive, expensive rework loops."
+  },
+  "phasesSection": {
+    "headlineMain": "Think Fast.",
+    "headlineAccent": "Design Deep.",
+    "cards": [
+      {
+        "id": "01",
+        "title": "Synthesis",
+        "description": "AI gathers and clusters market data in minutes.",
+        "bg": "#2538F5",
+        "textColor": "#FFFFFF"
+      },
+      {
+        "id": "02",
+        "title": "Ideation",
+        "description": "Rapid multi-directional concept generation.",
+        "bg": "#E65124",
+        "textColor": "#FFFFFF"
+      },
+      {
+        "id": "03",
+        "title": "Prototyping",
+        "description": "Functional UI generation driven by real user flows.",
+        "bg": "#2538F5",
+        "textColor": "#FFFFFF"
+      },
+      {
+        "id": "04",
+        "title": "Testing",
+        "description": "Simulated user testing to catch flaws early.",
+        "bg": "#E65124",
+        "textColor": "#FFFFFF"
+      },
+      {
+        "id": "05",
+        "title": "Refinement",
+        "description": "Human-led polish on interactions and aesthetics.",
+        "bg": "#2538F5",
+        "textColor": "#FFFFFF"
+      },
+      {
+        "id": "06",
+        "title": "Deployment",
+        "description": "Clean code output ready for production integration.",
+        "bg": "#E65124",
+        "textColor": "#FFFFFF"
+      }
+    ]
+  },
+  "frameworkSection": {
+    "badge": "THE PHIONIKE FRAMEWORK",
+    "headlineMain": "The Phionike",
+    "headlineAccent": "Dual Prototype Framework",
+    "subheadline": "We use AI to explore possibilities and validate direction quickly. Once the path is clear, we refine every detail to craft meaningful, scalable experiences.",
+    "resultStatement": "The result: Less uncertainty. Less rework. Better outcomes.",
+    "prototypeA": {
+      "badge": "RAPID UX",
+      "title": "Prototype A",
+      "tagline": "Explore. Validate. Align.",
+      "taglineColor": "#2538F5",
+      "description": "We rapidly map the problem, synthesize insights, and create interactive concepts to validate the right direction early.",
+      "image": "https://via.placeholder.com/600x350/E8E5F5/2538F5?text=Rapid+UX+Exploration+Mockup",
+      "cardBg": "#EAE8FC",
+      "whatHappens": [
+        "Brief deconstruction",
+        "AI-assisted research",
+        "User flow exploration",
+        "Rapid concept generation",
+        "Interactive prototypes",
+        "Stakeholder validation"
+      ],
+      "whatYouGain": [
+        "Faster stakeholder alignment",
+        "Early & continuous feedback",
+        "Drastically reduced decision risk",
+        "Solid business viability map",
+        "Proven interaction patterns",
+        "Clear direction forward"
+      ]
+    },
+    "prototypeB": {
+      "badge": "PRODUCTION",
+      "title": "Prototype B",
+      "tagline": "Refine. Systemize. Deliver.",
+      "taglineColor": "#E65124",
+      "description": "Once the solution is validated, we craft high-fidelity experiences, build scalable systems and prepare everything for seamless handoff.",
+      "image": "https://via.placeholder.com/600x350/FCF1EC/E65124?text=Production+Codebase+Mockup",
+      "cardBg": "#FEF3ED",
+      "whatHappens": [
+        "UX refinement",
+        "Pixel-perfect UI design",
+        "Design system integration",
+        "Accessibility & usability testing",
+        "Interaction polishing",
+        "Developer handoff"
+      ],
+      "whatYouGain": [
+        "Production-ready designs",
+        "Consistent experience scale",
+        "Faster engineering velocity",
+        "Scalable product foundations",
+        "Zero technical debt",
+        "Seamless launch readiness"
+      ]
+    },
+    "metrics": [
+      { "value": "80%", "label": "Reduction in pivot risk" },
+      { "value": "2-3x", "label": "Faster decision cycles" },
+      { "value": "40%", "label": "Less wasted & repeat effort" },
+      { "value": "100%", "label": "Aligned on the right solution" }
+    ]
+  },
+  "accordionSection": {
+    "badge": "METHODOLOGY",
+    "headlineMain": "Every project follows the",
+    "headlineSub": "same foundation",
+    "steps": [
+      {
+        "id": "01",
+        "title": "CLARIFY",
+        "subtitle": "Understand the right problem.",
+        "description": "We uncover user needs and hidden market opportunities before writing a single line of code.",
+        "color": "#2538F5"
+      },
+      {
+        "id": "02",
+        "title": "SHAPE",
+        "subtitle": "Transform insights into experiences.",
+        "description": "Turn data points into clear user flows, information architecture, and high-fidelity wireframes.",
+        "color": "#9333EA"
+      },
+      {
+        "id": "03",
+        "title": "BUILD & ITERATE",
+        "subtitle": "Craft, test, and continuously improve.",
+        "description": "Develop component-driven design systems paired with responsive Next.js frontend code.",
+        "color": "#E65124"
+      },
+      {
+        "id": "04",
+        "title": "SCALE",
+        "subtitle": "Create systems for long-term growth.",
+        "description": "Deliver design tokens, design systems, and maintainable code bases that scale effortlessly.",
+        "color": "#EAB308"
+      }
+    ]
+  },
+  "aiAcceleratesSection": {
+    "badge": "INTELIGENCE INTEGRATION",
+    "headline": "AI where it accelerates. Humans where it matters.",
+    "subheadline": "We partition workflows strategically, leveraging AI's unmatched parsing speed to expand discovery, while ensuring elite human craftsmanship anchors every design direction.",
+    "columns": [
+      {
+        "step": "01. CLARIFY",
+        "aiTasks": ["Research synthesis", "Competitive analysis", "Pattern recognition"],
+        "humanRole": ["User interviews", "Business strategy", "Problem framing"]
+      },
+      {
+        "step": "02. SHAPE",
+        "aiTasks": ["Idea exploration", "Content generation", "Prompt matrices"],
+        "humanRole": ["Information arch.", "Core UX strategy", "Conceptual maps"]
+      },
+      {
+        "step": "03. BUILD",
+        "aiTasks": ["Handoff specs", "Component ideas", "Design automation"],
+        "humanRole": ["Elite UI crafting", "Interaction logic", "Design System build"]
+      },
+      {
+        "step": "04. SCALE",
+        "aiTasks": ["Code automation", "Token maintenance", "Performance check"],
+        "humanRole": ["Product evolution", "Governance rules", "Strategic audits"]
+      }
+    ]
+  },
+  "outcomesSection": {
+    "badge": "VALUE & DELIVERABLES",
+    "headline": "Better outcomes, not just faster delivery.",
+    "grid": [
+      {
+        "title": "Unmatched Speed",
+        "description": "Go from concept to interactive prototype in days rather than months.",
+        "icon": "Zap"
+      },
+      {
+        "title": "Data-Informed UX",
+        "description": "Every design decision backed by synthesized user research.",
+        "icon": "BarChart3"
+      },
+      {
+        "title": "Pixel-Perfect Precision",
+        "description": "Strict token-based design systems that ensure 100% visual fidelity.",
+        "icon": "Target"
+      },
+      {
+        "title": "Future-Proof Tech Stack",
+        "description": "Modern frontend code built using Next.js, Tailwind CSS, and Framer Motion.",
+        "icon": "Code2"
+      },
+      {
+        "title": "Transparent Workflows",
+        "description": "Real-time visibility into every phase of the design and dev cycle.",
+        "icon": "Eye"
+      },
+      {
+        "title": "Human Craftsmanship",
+        "description": "AI provides velocity, but expert senior designers refine every detail.",
+        "icon": "Sparkles"
+      }
+    ]
+  },
+  "ctaSection": {
+    "badge": "READY TO WORK TOGETHER?",
+    "headlineMain": "Have a project in mind?",
+    "headlineAccent": "We'd love to hear about it.",
+    "buttonText": "Start a Project",
+    "phone": "+44 7000 000000"
+  }
+}
