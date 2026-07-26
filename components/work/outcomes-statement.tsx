@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion";
+import { motion, cubicBezier, type Variants } from "framer-motion";
 
 const stats = [
   {
@@ -21,7 +21,9 @@ const stats = [
   },
 ];
 
-const containerVariants = {
+const ease = cubicBezier(0.22, 1, 0.36, 1);
+
+const containerVariants: Variants = {
   hidden: {},
   show: {
     transition: {
@@ -30,7 +32,7 @@ const containerVariants = {
   },
 };
 
-const cardVariants = {
+const cardVariants: Variants = {
   hidden: {
     opacity: 0,
     x: -80,
@@ -40,7 +42,7 @@ const cardVariants = {
     x: 0,
     transition: {
       duration: 0.7,
-      ease: [0.22, 1, 0.36, 1],
+      ease,
     },
   },
 };
@@ -53,13 +55,13 @@ export default function OutcomesStatement() {
         <div className="grid items-center gap-10 lg:grid-cols-[60%_40%]">
           {/* Left */}
           <div>
-            <h2 className="text-center md:text-left max-w-[650px] text-[28px] font-light leading-[1.15] tracking-[-0.03em] text-neutral-900 lg:text-[40px] lg:leading-[1.08]">
+            <h2 className="max-w-[650px] text-center text-[28px] font-light leading-[1.15] tracking-[-0.03em] text-neutral-900 md:text-left lg:text-[40px] lg:leading-[1.08]">
               Design measured by outcomes,
               <br />
               not outputs.
             </h2>
 
-            <p className="text-center md:text-left mt-6 max-w-[620px] text-[16px] leading-7 text-neutral-600 lg:text-[18px] lg:leading-8">
+            <p className="mt-6 max-w-[620px] text-center text-[16px] leading-7 text-neutral-600 md:text-left lg:text-[18px] lg:leading-8">
               Great design isn't defined by the number of screens delivered.
               It's measured by the experiences it creates and the value it
               brings to businesses.
@@ -67,7 +69,7 @@ export default function OutcomesStatement() {
           </div>
 
           {/* Desktop Illustration */}
-          <div className="hidden lg:flex justify-center">
+          <div className="hidden justify-center lg:flex">
             <img
               src="https://placehold.co/420x420/F8F7F5/CFCFCF?text=Illustration"
               alt="Illustration"
@@ -101,7 +103,7 @@ export default function OutcomesStatement() {
                 {item.value}
               </h3>
 
-              <p className="text-[12px] uppercase tracking-wide text-neutral-500 md:text-[12px]">
+              <p className="text-[12px] uppercase tracking-wide text-neutral-500">
                 {item.label}
               </p>
             </motion.div>

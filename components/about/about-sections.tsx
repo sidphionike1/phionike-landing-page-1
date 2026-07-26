@@ -342,7 +342,7 @@ export function TeamSection({ content }: { content: AboutPage["team"] }) {
         </div>
 
         {/* Bento grid */}
-        <TeamGrid tiles={content.tiles} />
+        <TeamGrid />
       </div>
     </section>
   )
