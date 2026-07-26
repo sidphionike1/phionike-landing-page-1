@@ -16,7 +16,7 @@ export function SiteNavbar({ content, activePage }: { content: GlobalContent["na
     <header className="fixed inset-x-0 top-5 z-50 mx-auto max-w-[1480px] px-6 md:px-10">
       <LiquidGlass
         backdropBlur={6}
-        displacementScale={45}
+        displacementScale={0}
         turbulenceBaseFrequency="0.008 0.012"
         tintColor="rgba(255, 255, 255, 0.02)" // near-zero tint, was too strong before
         className="rounded-xl border border-primary/25 bg-background/40 shadow-none px-6 py-4 md:px-8"

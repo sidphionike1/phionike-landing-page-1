@@ -20,6 +20,42 @@
     "filters": ["All", "Industry", "Service", "Challenge"],
     "items": [
       {
+        "id": "oren-02",
+        "title": "Oren — Smart Ring App",
+        "tagline": "Great design isn't defined by the number of screens delivered.",
+        "sectors": ["healthcare"],
+        "discipline": "discover",
+        "variant": "standard",
+        "mockupSrc": "/portfolio/oren-dashboard-1.png"
+      },
+      {
+        "id": "oren-02",
+        "title": "Oren — Smart Ring App",
+        "tagline": "Great design isn't defined by the number of screens delivered.",
+        "sectors": ["healthcare"],
+        "discipline": "discover",
+        "variant": "standard",
+        "mockupSrc": "/portfolio/oren-dashboard-1.png"
+      },
+      {
+        "id": "oren-02",
+        "title": "Oren — Smart Ring App",
+        "tagline": "Great design isn't defined by the number of screens delivered.",
+        "sectors": ["healthcare"],
+        "discipline": "discover",
+        "variant": "standard",
+        "mockupSrc": "/portfolio/oren-dashboard-1.png"
+      },
+      {
+        "id": "oren-02",
+        "title": "Oren — Smart Ring App",
+        "tagline": "Great design isn't defined by the number of screens delivered.",
+        "sectors": ["healthcare"],
+        "discipline": "discover",
+        "variant": "standard",
+        "mockupSrc": "/portfolio/oren-dashboard-1.png"
+      },
+      {
         "id": "oren-01",
         "title": "Oren — Smart Ring App",
         "tagline": "Great design isn't defined by the number of screens delivered. It's measured by the experiences it creates and the value it brings to businesses.",
@@ -27,6 +63,24 @@
         "discipline": "build",
         "variant": "darkPhoneTriple",
         "mockupSrc": "/portfolio/oren-triple-dark.png"
+      },
+      {
+        "id": "oren-02",
+        "title": "Oren — Smart Ring App",
+        "tagline": "Great design isn't defined by the number of screens delivered.",
+        "sectors": ["healthcare"],
+        "discipline": "discover",
+        "variant": "standard",
+        "mockupSrc": "/portfolio/oren-dashboard-1.png"
+      },
+      {
+        "id": "oren-02",
+        "title": "Oren — Smart Ring App",
+        "tagline": "Great design isn't defined by the number of screens delivered.",
+        "sectors": ["healthcare"],
+        "discipline": "discover",
+        "variant": "standard",
+        "mockupSrc": "/portfolio/oren-dashboard-1.png"
       },
       {
         "id": "oren-02",
