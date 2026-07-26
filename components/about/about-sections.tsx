@@ -1,7 +1,8 @@
 import Image from "next/image"
 import { ArrowUpRight } from "lucide-react"
 import type { AboutPage } from "@/content/schema"
-import {TeamGrid} from "@/components/about/team-grid"
+// import {TeamGrid} from "@/components/about/team-grid"
+import { TeamGrid } from "./TeamGrid"
 
 // ── Colour helpers ──────────────────────────────────────────────────────────
 const ACCENT_HEX: Record<string, string> = {
@@ -349,7 +350,6 @@ export function TeamSection({ content }: { content: AboutPage["team"] }) {
 
 // ─── 5. Culture Section ─────────────────────────────────────────────────────
 // Centred heading + full-width establishing photo + 4 alternating bands
-
 const BAND_BG: Record<string, string> = {
   terracotta: "#ff5428",
   lavender:   "#d6a7f5",
@@ -363,69 +363,104 @@ const BAND_TEXT: Record<string, string> = {
   mustard:    "#111",
 }
 
+const PLACEHOLDER = (w: number, h: number, text: string) =>
+  `https://placehold.co/${w}x${h}/e5e5e5/666666?text=${encodeURIComponent(text)}`;
+
+
 export function CultureSection({ content }: { content: AboutPage["culture"] }) {
   return (
     <section className="bg-background">
-      {/* Heading */}
-      <div className="mx-auto max-w-7xl px-5 py-16 md:px-6 md:py-20">
-        <p className="eyebrow text-muted-foreground">{content.eyebrow}</p>
-        <h2 className="mt-4 text-4xl font-medium tracking-tight md:text-5xl">
-          {content.headingPlain}{" "}
-          <em className="font-serif font-normal italic">{content.headingItalic}</em>
-        </h2>
-      </div>
+      {/* Container: full width + padding mobile/tablet | 1198px cap desktop */}
+      <div className="mx-auto w-full px-4 md:px-5 min-[1198px]:max-w-[1198px] min-[1198px]:px-0">
+        {/* Heading */}
+        <div className="py-16 md:py-20">
+          <p className="text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground">
+            {content.eyebrow}
+          </p>
+          <h2 className="mt-4 text-[33px] font-normal leading-[1.15] tracking-tight md:text-[40px]">
+            {content.headingPlain}{" "}
+            <em className="font-serif italic">{content.headingItalic}</em>
+          </h2>
+        </div>
 
-      {/* Establishing photo — full bleed */}
-      <div className="relative aspect-[21/8] w-full overflow-hidden bg-muted">
-        <Image
-          src={content.introPhotoSrc}
-          alt="Life at Phionike"
-          fill
-          className="object-cover"
-          sizes="100vw"
-        />
-      </div>
+        {/* Hero image — hover overlay on desktop, always visible on mobile */}
+        <div className="group relative aspect-[21/8] w-full overflow-hidden rounded-2xl bg-muted">
+          <Image
+            src={content.introPhotoSrc || PLACEHOLDER(1200, 400, "Life at Phionike")}
+            alt="Life at Phionike"
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            sizes="(max-width: 1198px) 100vw, 1198px"
+          />
+          {/* Desktop: overlay on hover */}
+          <div className="absolute inset-0 hidden flex-col justify-end bg-black/60 p-8 opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:flex">
+            <h3 className="text-2xl font-normal text-white md:text-3xl">
+              Where curiosity becomes collaboration.
+            </h3>
+            <p className="mt-3 max-w-xl text-base leading-relaxed text-white/90">
+              Every project is powered by people who question, explore and create together. We believe the best ideas emerge through open conversations, shared ownership and a culture of continuous learning.
+            </p>
+          </div>
+          {/* Mobile: always-visible overlay */}
+          <div className="absolute inset-0 flex flex-col justify-end bg-black/50 p-6 md:hidden">
+            <h3 className="text-xl font-normal text-white">
+              Where curiosity becomes collaboration.
+            </h3>
+            <p className="mt-2 max-w-md text-sm leading-relaxed text-white/90">
+              Every project is powered by people who question, explore and create together. We believe the best ideas emerge through open conversations, shared ownership and a culture of continuous learning.
+            </p>
+          </div>
+        </div>
 
-      {/* 4 alternating bands — rounded floating cards */}
-      <div className="mx-auto flex max-w-5xl flex-col gap-5 px-5 pb-20 pt-10 md:px-6">
-        {content.bands.map((band) => {
-          const photoLeft = band.photoSide === "left"
-          const bg = BAND_BG[band.bgColor] ?? "#eee"
-          const fg = BAND_TEXT[band.bgColor] ?? "#111"
+        {/* 4 alternating bands */}
+        <div className="flex flex-col gap-5 pb-20 pt-10">
+          {content.bands.map((band) => {
+            const photoLeft = band.photoSide === "left"
+            const bg = BAND_BG[band.bgColor] ?? "#eee"
+            const fg = BAND_TEXT[band.bgColor] ?? "#111"
 
-          return (
-            <div
-              key={band.id}
-              className="grid grid-cols-1 overflow-hidden rounded-3xl md:grid-cols-2"
-            >
-              {/* Photo side */}
+            return (
               <div
-                className={`relative aspect-[4/3] bg-muted md:aspect-auto md:min-h-[320px] ${photoLeft ? "md:order-1" : "md:order-2"}`}
+                key={band.id}
+                className={`grid grid-cols-1 grid-rows-[1fr_3fr] overflow-hidden rounded-3xl md:grid-rows-1 ${
+                  photoLeft ? "md:grid-cols-[3fr_2fr]" : "md:grid-cols-[2fr_3fr]"
+                }`}
               >
-                <Image
-                  src={band.photoSrc}
-                  alt={band.title}
-                  fill
-                  className="object-cover"
-                  sizes="50vw"
-                />
-              </div>
+                {/* Text side — order-1 on mobile (top), desktop follows photoSide */}
+                <div
+                  className={`order-1 flex items-center px-8 py-10 md:px-14 md:py-16 ${
+                    photoLeft ? "md:order-2" : "md:order-1"
+                  }`}
+                  style={{ backgroundColor: bg, color: fg }}
+                >
+                  <div className={photoLeft ? "" : "md:text-center"}>
+                    <h3 className="text-[28px] font-normal leading-tight md:text-[40px]">
+                      {band.title}
+                    </h3>
+                    <p className="mt-4 max-w-sm text-base leading-relaxed opacity-90 md:text-lg">
+                      {band.body}
+                    </p>
+                  </div>
+                </div>
 
-              {/* Text side */}
-              <div
-                className={`flex items-center px-10 py-12 md:px-14 md:py-16 ${photoLeft ? "md:order-2" : "md:order-1"}`}
-                style={{ backgroundColor: bg, color: fg }}
-              >
-                <div className={photoLeft ? "" : "md:text-center"}>
-                  <h3 className="text-2xl font-semibold md:text-3xl">{band.title}</h3>
-                  <p className="mt-4 max-w-xs text-sm leading-relaxed opacity-90 md:text-base">
-                    {band.body}
-                  </p>
+                {/* Photo side — order-2 on mobile (bottom), desktop follows photoSide */}
+                <div
+                  className={`relative aspect-[4/3] bg-muted md:aspect-auto md:min-h-[320px] ${
+                    photoLeft ? "md:order-1" : "md:order-2"
+                  }`}
+                >
+                  <Image
+                    src={band.photoSrc || PLACEHOLDER(600, 400, band.title)}
+                    alt={band.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
                 </div>
               </div>
-            </div>
-          )
-        })}
+            )
+          })}
+        </div>
       </div>
     </section>
   )

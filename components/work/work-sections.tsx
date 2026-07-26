@@ -1,98 +1,7 @@
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Circle, Minus, } from "lucide-react"
 import type { WorkPage, ProcessStep } from "@/content/schema"
+import { motion } from "framer-motion";
 
-// ─── WorkHero ────────────────────────────────────────────────────────────────
-// Centered layout with tall vertical tag cards flanking the headline
-
-const TAG_CONFIG: Record<string, { bg: string; text: string; h: string }> = {
-  terracotta: { bg: "#E65124", text: "#fff",  h: "h-48" },
-  mustard:    { bg: "#F2A93B", text: "#111",  h: "h-56" },
-  cobalt:     { bg: "#2538F5", text: "#fff",  h: "h-48" },
-  lavender:   { bg: "#EAE8FC", text: "#111",  h: "h-56" },
-}
-
-export function WorkHero({ content }: { content: WorkPage["hero"] }) {
-  // Left tags: Enterprise (mustard, taller) + Retail (terracotta, shorter)
-  // Right tags: SAAS (cobalt, shorter) + Education (lavender, taller)
-  const [left1, left2, right1, right2] = content.decorativeTags
-
-  return (
-    <section className="relative overflow-hidden bg-background pb-14 pt-28 md:pt-36 md:pb-16">
-      {/* ── Left tag group ──────────────────────────────────────────── */}
-      <div
-        className="absolute bottom-0 left-0 top-0 hidden items-center gap-2 pl-6 md:flex md:pl-10"
-        aria-hidden="true"
-      >
-        {[left1, left2].map((tag) => {
-          if (!tag) return null
-          const cfg = TAG_CONFIG[tag.color] ?? TAG_CONFIG.cobalt
-          return (
-            <div
-              key={tag.label}
-              className={`flex w-[72px] ${cfg.h} items-end justify-center rounded-2xl pb-5`}
-              style={{ backgroundColor: cfg.bg }}
-            >
-              <span
-                className="whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.2em]"
-                style={{ writingMode: "vertical-lr", transform: "rotate(180deg)", color: cfg.text }}
-              >
-                {tag.label}
-              </span>
-            </div>
-          )
-        })}
-      </div>
-
-      {/* ── Right tag group ─────────────────────────────────────────── */}
-      <div
-        className="absolute bottom-0 right-0 top-0 hidden items-center gap-2 pr-6 md:flex md:pr-10"
-        aria-hidden="true"
-      >
-        {[right1, right2].map((tag) => {
-          if (!tag) return null
-          const cfg = TAG_CONFIG[tag.color] ?? TAG_CONFIG.cobalt
-          return (
-            <div
-              key={tag.label}
-              className={`flex w-[72px] ${cfg.h} items-end justify-center rounded-2xl pb-5`}
-              style={{ backgroundColor: cfg.bg }}
-            >
-              <span
-                className="whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.2em]"
-                style={{ writingMode: "vertical-lr", transform: "rotate(180deg)", color: cfg.text }}
-              >
-                {tag.label}
-              </span>
-            </div>
-          )
-        })}
-      </div>
-
-      {/* ── Centered content ────────────────────────────────────────── */}
-      <div className="mx-auto max-w-4xl px-24 text-center md:px-32">
-        <p className="eyebrow text-muted-foreground">{content.eyebrow}</p>
-        <h1 className="mt-4 text-5xl font-medium leading-[1.05] tracking-tighter md:text-7xl">
-          {content.headline}
-        </h1>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-5">
-          <a
-            href={content.primaryCta.href}
-            className="inline-flex items-center gap-2 rounded-full bg-foreground px-7 py-3.5 text-sm font-semibold text-background"
-          >
-            {content.primaryCta.label}
-          </a>
-          <a
-            href={content.secondaryCta.href}
-            className="inline-flex items-center gap-1.5 text-sm text-foreground/70"
-          >
-            {content.secondaryCta.label}
-            <ArrowRight size={14} />
-          </a>
-        </div>
-      </div>
-    </section>
-  )
-}
 
 // ─── DisciplineList ──────────────────────────────────────────────────────────
 // Staircase diagonal badges within 4-column guide layout
@@ -114,7 +23,7 @@ export function DisciplineList({ steps }: { steps: ProcessStep[] }) {
         </p>
 
         {/* 4-column staircase grid */}
-        <div className="mt-10 grid grid-cols-4 divide-x divide-border border-t border-border">
+        <div className="hidden md:grid mt-10 grid grid-cols-4 divide-x divide-border border-t border-border">
           {steps.map((step, i) => (
             <div key={step.id} className="relative h-72">
               <div
@@ -136,17 +45,46 @@ export function DisciplineList({ steps }: { steps: ProcessStep[] }) {
 }
 
 // ─── OutcomesStatement ───────────────────────────────────────────────────────
-export function OutcomesStatement({ content }: { content: WorkPage["outcomesStatement"] }) {
-  return (
-    <section className="bg-background py-20 md:py-28">
-      <div className="mx-auto max-w-7xl px-5 md:px-6">
-        <h2 className="max-w-2xl text-3xl font-medium tracking-tight md:text-4xl">
-          {content.heading}
-        </h2>
-        <p className="mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
-          {content.body}
-        </p>
-      </div>
-    </section>
-  )
-}
+
+const stats = [
+  {
+    value: "300M+",
+    label: "PEOPLE REACHED",
+  },
+  {
+    value: "20+",
+    label: "INDUSTRIES SERVED",
+  },
+  {
+    value: "2.5M+",
+    label: "MONTHLY ACTIVE USERS",
+  },
+  {
+    value: "8+",
+    label: "YEARS OF CRAFT",
+  },
+];
+
+const container = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const card = {
+  hidden: {
+    opacity: 0,
+    x: -80,
+  },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.7,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
