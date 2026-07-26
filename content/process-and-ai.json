@@ -1,0 +1,202 @@
+{
+  "hero": {
+    "badge": "AI-POWERED PROCESS",
+    "headlineMain": "Where Human Thinking Meets",
+    "headlineAccent": "Intelligent Execution",
+    "subheadline": "We blend deep strategic design with AI-accelerated workflows to build products faster without compromising craftsmanship.",
+    "primaryCta": "Explore Process",
+    "secondaryCta": "Our AI Stack"
+  },
+  "comparisonSection": {
+    "badge": "EFFICIENCY & PRECISION",
+    "titleMain": "Design should spend less time guessing",
+    "titleSub": "and more time validating.",
+    "traditionalApproach": {
+      "title": "TRADITIONAL WORKFLOW",
+      "nodes": ["Research", "Manual Wireframes", "Static Mocks", "Handoff Delays"]
+    },
+    "phionikeApproach": {
+      "title": "PHIONIKE AI WORKFLOW",
+      "nodes": ["AI Data Analysis", "Instant Wireframes", "Interactive Prototypes", "Real-time Validation"]
+    }
+  },
+  "phasesSection": {
+    "headlineMain": "Think Fast.",
+    "headlineAccent": "Design Deep.",
+    "cards": [
+      {
+        "id": "01",
+        "title": "Synthesis",
+        "description": "AI gathers and clusters market data in minutes.",
+        "bg": "#2538F5",
+        "textColor": "#FFFFFF"
+      },
+      {
+        "id": "02",
+        "title": "Ideation",
+        "description": "Rapid multi-directional concept generation.",
+        "bg": "#E65124",
+        "textColor": "#FFFFFF"
+      },
+      {
+        "id": "03",
+        "title": "Prototyping",
+        "description": "Functional UI generation driven by real user flows.",
+        "bg": "#2538F5",
+        "textColor": "#FFFFFF"
+      },
+      {
+        "id": "04",
+        "title": "Testing",
+        "description": "Simulated user testing to catch flaws early.",
+        "bg": "#E65124",
+        "textColor": "#FFFFFF"
+      },
+      {
+        "id": "05",
+        "title": "Refinement",
+        "description": "Human-led polish on interactions and aesthetics.",
+        "bg": "#2538F5",
+        "textColor": "#FFFFFF"
+      },
+      {
+        "id": "06",
+        "title": "Deployment",
+        "description": "Clean code output ready for production integration.",
+        "bg": "#E65124",
+        "textColor": "#FFFFFF"
+      }
+    ]
+  },
+  "frameworkSection": {
+    "badge": "DUAL-PROTOTYPE SYSTEM",
+    "headlineMain": "The Phionike",
+    "headlineAccent": "Dual Prototype Framework",
+    "subheadline": "We build two parallel prototypes for every product—one focused on rapid UX validation, the other on production code.",
+    "prototypeA": {
+      "badge": "PROTOTYPE A",
+      "title": "RAPID UX EXPLORATION",
+      "description": "Low-fidelity interactive prototypes generated instantly to test spatial layouts, messaging, and feature hierarchy.",
+      "image": "https://via.placeholder.com/600x350/F0EFEA/111111?text=Rapid+UX+Exploration+Mockup",
+      "features": ["Instant Layouts", "Synthetic User Testing", "Rapid Iteration", "Low Friction"]
+    },
+    "prototypeB": {
+      "badge": "PROTOTYPE B",
+      "title": "PRODUCTION CODEBASE",
+      "description": "High-fidelity Next.js & React components engineered directly for scalability, accessibility, and clean developer handoff.",
+      "image": "https://via.placeholder.com/600x350/111111/FFFFFF?text=Production+Codebase+Mockup",
+      "features": ["Design Tokens", "React Components", "Production Ready", "Tailwind CSS"]
+    },
+    "metrics": [
+      { "value": "10x", "label": "Faster Concept Generation" },
+      { "value": "1-2x", "label": "Rapid Feedback Loops" },
+      { "value": "60%", "label": "Reduction in Handoff Friction" },
+      { "value": "100%", "label": "Code Accuracy" }
+    ]
+  },
+  "accordionSection": {
+    "badge": "METHODOLOGY",
+    "headlineMain": "Every project follows the",
+    "headlineSub": "same foundation",
+    "steps": [
+      {
+        "id": "01",
+        "title": "CLARIFY",
+        "subtitle": "Understand the right problem.",
+        "description": "We uncover user needs and hidden market opportunities before writing a single line of code.",
+        "color": "#2538F5"
+      },
+      {
+        "id": "02",
+        "title": "SHAPE",
+        "subtitle": "Transform insights into experiences.",
+        "description": "Turn data points into clear user flows, information architecture, and high-fidelity wireframes.",
+        "color": "#9333EA"
+      },
+      {
+        "id": "03",
+        "title": "BUILD & ITERATE",
+        "subtitle": "Craft, test, and continuously improve.",
+        "description": "Develop component-driven design systems paired with responsive Next.js frontend code.",
+        "color": "#E65124"
+      },
+      {
+        "id": "04",
+        "title": "SCALE",
+        "subtitle": "Create systems for long-term growth.",
+        "description": "Deliver design tokens, design systems, and maintainable code bases that scale effortlessly.",
+        "color": "#EAB308"
+      }
+    ]
+  },
+  "aiAcceleratesSection": {
+    "badge": "HUMAN + AI SYNERGY",
+    "headline": "AI where it accelerates. Humans where it matters.",
+    "subheadline": "We leverage AI to handle repetitive tasks while keeping human intuition at the core of creative strategy.",
+    "columns": [
+      {
+        "step": "01. CLARIFY",
+        "aiRole": "AI: Data aggregation, market research synthesis, user feedback clustering.",
+        "humanRole": "Human: Strategic alignment, problem definition, creative intuition."
+      },
+      {
+        "step": "02. SHAPE",
+        "aiRole": "AI: Wireframe exploration, copy drafting, layout generation.",
+        "humanRole": "Human: UX logic, brand voice, visual hierarchy refinement."
+      },
+      {
+        "step": "03. BUILD",
+        "aiRole": "AI: Boilerplate code, design token generation, asset optimization.",
+        "humanRole": "Human: Complex interactions, component polish, edge-case handling."
+      },
+      {
+        "step": "04. SCALE",
+        "aiRole": "AI: Automated design system checks, regression testing.",
+        "humanRole": "Human: Product vision, long-term roadmapping, brand evolution."
+      }
+    ]
+  },
+  "outcomesSection": {
+    "badge": "VALUE & DELIVERABLES",
+    "headline": "Better outcomes, not just faster delivery.",
+    "grid": [
+      {
+        "title": "Unmatched Speed",
+        "description": "Go from concept to interactive prototype in days rather than months.",
+        "icon": "Zap"
+      },
+      {
+        "title": "Data-Informed UX",
+        "description": "Every design decision backed by synthesized user research.",
+        "icon": "BarChart3"
+      },
+      {
+        "title": "Pixel-Perfect Precision",
+        "description": "Strict token-based design systems that ensure 100% visual fidelity.",
+        "icon": "Target"
+      },
+      {
+        "title": "Future-Proof Tech Stack",
+        "description": "Modern frontend code built using Next.js, Tailwind CSS, and Framer Motion.",
+        "icon": "Code2"
+      },
+      {
+        "title": "Transparent Workflows",
+        "description": "Real-time visibility into every phase of the design and dev cycle.",
+        "icon": "Eye"
+      },
+      {
+        "title": "Human Craftsmanship",
+        "description": "AI provides velocity, but expert senior designers refine every detail.",
+        "icon": "Sparkles"
+      }
+    ]
+  },
+  "ctaSection": {
+    "badge": "READY TO WORK TOGETHER?",
+    "headlineMain": "Have a project in mind?",
+    "headlineAccent": "We'd love to hear about it.",
+    "buttonText": "Start a Project",
+    "phone": "+44 7000 000000"
+  }
+}

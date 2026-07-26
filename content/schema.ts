@@ -33,12 +33,24 @@ export const workPageSchema = z.object({
   testimonials: z.object({ heading: z.string(), subheading: z.string(), items: z.array(testimonialItem) }),
 })
 
+export const processAndAiSchema = z.object({
+  hero: z.object({ badge: z.string(), headlineMain: z.string(), headlineAccent: z.string(), subheadline: z.string(), primaryCta: z.string(), secondaryCta: z.string() }),
+  comparisonSection: z.object({ badge: z.string(), titleMain: z.string(), titleSub: z.string(), traditionalApproach: z.object({ title: z.string(), nodes: z.array(z.string()) }), phionikeApproach: z.object({ title: z.string(), nodes: z.array(z.string()) }) }),
+  phasesSection: z.object({ headlineMain: z.string(), headlineAccent: z.string(), cards: z.array(z.object({ id: z.string(), title: z.string(), description: z.string(), bg: z.string(), textColor: z.string() })) }),
+  frameworkSection: z.object({ badge: z.string(), headlineMain: z.string(), headlineAccent: z.string(), subheadline: z.string(), prototypeA: z.object({ badge: z.string(), title: z.string(), description: z.string(), image: z.string(), features: z.array(z.string()) }), prototypeB: z.object({ badge: z.string(), title: z.string(), description: z.string(), image: z.string(), features: z.array(z.string()) }), metrics: z.array(z.object({ value: z.string(), label: z.string() })) }),
+  accordionSection: z.object({ badge: z.string(), headlineMain: z.string(), headlineSub: z.string(), steps: z.array(z.object({ id: z.string(), title: z.string(), subtitle: z.string(), description: z.string(), color: z.string() })) }),
+  aiAcceleratesSection: z.object({ badge: z.string(), headline: z.string(), subheadline: z.string(), columns: z.array(z.object({ step: z.string(), aiRole: z.string(), humanRole: z.string() })) }),
+  outcomesSection: z.object({ badge: z.string(), headline: z.string(), grid: z.array(z.object({ title: z.string(), description: z.string(), icon: z.string() })) }),
+  ctaSection: z.object({ badge: z.string(), headlineMain: z.string(), headlineAccent: z.string(), buttonText: z.string(), phone: z.string() })
+})
+
 export type HomePage = z.infer<typeof homePageSchema>
 export type Discipline = z.infer<typeof discipline>
 export type GlobalContent = z.infer<typeof globalSchema>
 export type ServicesPage = z.infer<typeof servicesSchema>
 export type WorkPage = z.infer<typeof workPageSchema>
 export type ProcessStep = z.infer<typeof processStep>
+export type ProcessAndAi = z.infer<typeof processAndAiSchema>
 
 // ─── About Page ─────────────────────────────────────────────────────────────
 const mosaicTile = z.discriminatedUnion("type", [
