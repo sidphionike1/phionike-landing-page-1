@@ -107,6 +107,7 @@ const FILTER_GROUPS = {
 type FilterGroupName = keyof typeof FILTER_GROUPS;
 
 // ── LAYOUT: fixed slot-size templates, independent of data ───────
+// frameW/imgW accept number (desktop, pixel-exact) or string (mobile, percentage)
 const SIZE_CONFIG: Record<
   CardSize,
   { frameW: number; imgW: number; imgH: number }
@@ -116,8 +117,16 @@ const SIZE_CONFIG: Record<
   small: { frameW: 427, imgW: 429, imgH: 322 },
 };
 
-// Mobile: every card is this exact fixed size — no big/medium/small variation
-const MOBILE_SIZE = { frameW: 356, imgW: 349, imgH: 261 };
+// Mobile: every card is 95% of the mobile viewport width, fixed image height
+const MOBILE_SIZE: {
+  frameW: number | string;
+  imgW: number | string;
+  imgH: number;
+} = {
+  frameW: "95%",
+  imgW: "95%",
+  imgH: 261,
+};
 
 const LEFT_PATTERN: CardSize[] = ["big", "medium", "small", "small"];
 const RIGHT_PATTERN: CardSize[] = ["small", "small", "medium", "big"];
@@ -130,13 +139,18 @@ function PortfolioCard({
   item,
   dims,
   showBottomPadding = false,
+  centered = false,
 }: {
   item: PortfolioItem;
-  dims: { frameW: number; imgW: number; imgH: number };
+  dims: { frameW: number | string; imgW: number | string; imgH: number };
   showBottomPadding?: boolean;
+  centered?: boolean;
 }) {
   return (
-    <article className="flex flex-col" style={{ width: dims.frameW }}>
+    <article
+      className={`flex flex-col ${centered ? "mx-auto" : ""}`}
+      style={{ width: dims.frameW }}
+    >
       <div>
         <h3 className="truncate text-lg font-medium tracking-tight text-foreground md:text-xl">
           {item.title}
@@ -155,7 +169,7 @@ function PortfolioCard({
           alt={item.title}
           fill
           className="object-cover"
-          sizes={`${dims.imgW}px`}
+          sizes={typeof dims.imgW === "number" ? `${dims.imgW}px` : "95vw"}
           quality={85}
         />
       </div>
@@ -365,7 +379,7 @@ export function PortfolioFilterGrid() {
               </div>
             </div>
 
-            {/* Mobile: fixed size for every card, no size pattern */}
+            {/* Mobile: fixed 95%-width card for every item, no size pattern */}
             <div className="flex flex-col gap-10 md:hidden">
               {filteredItems.slice(0, 4).map((item) => (
                 <PortfolioCard
@@ -373,6 +387,7 @@ export function PortfolioFilterGrid() {
                   item={item}
                   dims={MOBILE_SIZE}
                   showBottomPadding
+                  centered
                 />
               ))}
             </div>

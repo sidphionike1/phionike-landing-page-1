@@ -358,4 +358,83 @@ export function FooterCTA({
   );
 }
 
+const awardsData = [
+  {
+    id: 1,
+    title: 'SERVICE DESIGN AWARD',
+    category: 'SERVICE DESIGN',
+    bgGradient: 'from-[#eef8ce] via-[#f7fbe8] to-[#ccf244]', // Lime glow
+    logo: 'https://placehold.co/240x100/transparent/333333?text=SERVICE+DESIGN+AWARD',
+  },
+  {
+    id: 2,
+    title: 'THE HELEN HAMLYN CENTRE FOR DESIGN',
+    category: 'INCLUSIVE DESIGN',
+    bgGradient: 'from-[#f0f0ff] via-[#f6f6ff] to-[#635bff]', // Purple/blue glow
+    logo: 'https://placehold.co/240x100/transparent/000000?text=THE+HELEN+HAMLYN',
+  },
+  {
+    id: 3,
+    title: 'Clutch',
+    category: 'TOP 10 DESIGN STUDIOS IN MUMBAI',
+    bgGradient: 'from-[#fff5eb] via-[#fff8f2] to-[#ff6b2c]', // Orange glow
+    logo: 'https://placehold.co/240x100/transparent/000000?text=Clutch',
+  },
+];
 
+export function AwardsSection() {
+  return (
+    <section className="w-full max-w-7xl mx-auto px-6 py-16 font-sans">
+      {/* Header Section */}
+      <div className="mb-12">
+        {/* Eyebrow - 12px */}
+        <span className="text-[12px] font-medium tracking-[0.2em] text-gray-400 uppercase block mb-3">
+          AWARDS
+        </span>
+
+        {/* Heading & Subheading - 40px */}
+        <h2 className="text-[32px] sm:text-[40px] leading-[1.15] text-gray-900 font-normal tracking-tight max-w-2xl">
+          Every recognition tells the story{' '}
+          <span className="italic font-light text-gray-400 block sm:inline">
+            of a problem solved beautifully.
+          </span>
+        </h2>
+      </div>
+
+      {/* Cards Grid: Stacked on Mobile, 3 Columns on Desktop */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+        {awardsData.map((award) => (
+          <div
+            key={award.id}
+            className="relative flex flex-col items-center justify-between h-[420px] p-8 rounded-2xl overflow-hidden shadow-sm border border-black/5 transition-transform duration-300 hover:-translate-y-1"
+          >
+            {/* Background Gradient & Blurred Light Effect */}
+            <div
+              className={`absolute inset-0 bg-gradient-to-b ${award.bgGradient} opacity-30`}
+            />
+            <div
+              className={`absolute -bottom-12 left-1/2 -translate-x-1/2 w-3/4 h-32 rounded-full bg-gradient-to-t ${award.bgGradient} blur-2xl opacity-75`}
+            />
+
+            {/* Card Content */}
+            <div className="relative z-10 w-full flex-1 flex items-center justify-center pt-8">
+              <img
+                src={award.logo}
+                alt={award.title}
+                className="max-h-24 w-auto object-contain"
+              />
+            </div>
+
+            {/* Bottom Label Section */}
+            <div className="relative z-10 w-full text-center pb-2">
+              <div className="w-12 h-[1px] bg-gray-300 mx-auto mb-4" />
+              <p className="text-[11px] font-medium tracking-[0.2em] text-gray-400 uppercase">
+                {award.category}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}

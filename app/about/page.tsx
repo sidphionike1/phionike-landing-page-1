@@ -16,7 +16,6 @@ export default async function AboutPage() {
     <main>
       <SiteNavbar content={global.nav} activePage="about" />
       <AboutHero content={about.hero} />
-      <MosaicStrip tiles={about.hero.mosaicTiles} />
       <ValuesSection content={about.values} />
       <TeamSection content={about.team} />
       <CultureSection content={about.culture} />

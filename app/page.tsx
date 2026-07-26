@@ -4,10 +4,11 @@ import { ProcessStepCounter } from "@/components/home/process-step-counter"
 import { VennDiagramSection } from "@/components/home/venn-diagram-section"
 import { PortfolioFilterGrid } from "@/components/home/portfolio-filter-grid"
 import { ShowreelSection } from "@/components/home/showreel-section"
-import { AIPhilosophyBand, EditorialPhotoBlock, FloatingNavbar, Hero, TrustedByStrip, ValuePropBand } from "@/components/home/server-sections"
+import { AIPhilosophyBand, EditorialPhotoBlock, FloatingNavbar, Hero, TrustedByStrip, ValuePropBand, AwardsSection } from "@/components/home/server-sections"
 import { FooterCTA, Footer } from "@/components/shared/footer"
 import { SiteNavbar } from "@/components/shared/site-chrome"
 import { FAQSection } from "@/components/home/faq-section"
+
 
 export default async function Page() {
   const [content, global] = await Promise.all([getHomePageContent(), getGlobalContent()])
@@ -20,9 +21,9 @@ export default async function Page() {
     <AIPhilosophyBand content={content.aiBand} />
     <Suspense><VennDiagramSection content={content.venn} /></Suspense>
     <Suspense><PortfolioFilterGrid content={content.portfolio} /></Suspense>
+    <AwardsSection content={content.awards} />
     <Suspense><FAQSection content={content.faq} /></Suspense>
     <ShowreelSection content={content.showreel} />
-    <EditorialPhotoBlock content={content.editorial} />
     <FooterCTA cta={global.footerCta} />
     <Footer content={global.footer} />
   </main>

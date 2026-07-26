@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { ArrowUpRight } from "lucide-react"
 import type { AboutPage } from "@/content/schema"
+import {TeamGrid} from "@/components/about/team-grid"
 
 // ── Colour helpers ──────────────────────────────────────────────────────────
 const ACCENT_HEX: Record<string, string> = {
@@ -25,47 +26,109 @@ const TILE_TEXT: Record<string, string> = {
 // ─── 1. Hero ────────────────────────────────────────────────────────────────
 // Left-aligned headline spanning full width, body text left + CTAs right
 
-export function AboutHero({ content }: { content: AboutPage["hero"] }) {
-  return (
-    <section className="bg-background px-5 pb-0 pt-20 md:px-6 md:pt-28">
-      <div className="mx-auto max-w-7xl">
-        <p className="eyebrow text-muted-foreground">{content.eyebrow}</p>
+export interface AboutHeroProps {
+  content?: {
+    eyebrow?: string;
+    headlineParts?: Array<{ text: string; accent?: boolean }>;
+    body?: string;
+    primaryCta?: { label: string; href: string };
+    secondaryCta?: { label: string; href: string };
+    stripImage?: {
+      desktopSrc: string;
+      mobileSrc: string;
+      alt?: string;
+    };
+  };
+}
 
-        {/* Headline — multi-colour spans */}
-        <h1 className="mt-5 max-w-4xl text-5xl font-medium leading-[1.05] tracking-tight md:text-7xl">
-          {content.headlineParts.map((part, i) =>
+export function AboutHero({ content }: AboutHeroProps) {
+  // Default values matching your Figma screenshot
+  const eyebrow = content?.eyebrow ?? 'ABOUT PHIONIKE';
+  const headlineParts = content?.headlineParts ?? [
+    { text: 'We design with ' },
+    { text: 'purpose.', accent: true },
+    { text: ' We build for ' },
+    { text: 'impact.', accent: true },
+  ];
+  const body =
+    content?.body ??
+    'We partner with ambitious businesses to create products, brands and experiences that solve meaningful problems through strategy, design and technology.';
+  const primaryCta = content?.primaryCta ?? {
+    label: 'View Our Work',
+    href: '#work',
+  };
+  const secondaryCta = content?.secondaryCta ?? {
+    label: 'Let\'s Talk',
+    href: '#contact',
+  };
+
+  // Separate image sources for desktop and mobile
+  const stripImage = content?.stripImage ?? {
+    desktopSrc: 'https://placehold.co/1920x288/png?text=Desktop+Strip+Image+(1920x288)',
+    mobileSrc: 'https://placehold.co/800x288/png?text=Mobile+Strip+Image+(800x288)',
+    alt: 'Team photo strip',
+  };
+
+  return (
+    <section className="relative w-full overflow-x-hidden bg-[#faf8f5] pt-20 md:pt-24 font-sans">
+      <div className="mx-auto max-w-7xl px-6 md:px-12">
+        {/* Eyebrow - 12px */}
+        <p className="eyebrow text-[12px] font-medium uppercase tracking-[0.2em] text-gray-400 pt-6 md:pt-10">
+          {eyebrow}
+        </p>
+
+        {/* Headline — 60px desktop | Font Weight: 400 (font-normal) */}
+        <h1 className="mt-6 max-w-4xl text-[36px] sm:text-[48px] md:text-[60px] font-normal leading-[1.1] tracking-tight text-gray-900">
+          {headlineParts.map((part, i) =>
             part.accent ? (
-              <span key={i} className="text-accent">{part.text}</span>
+              <span key={i} className="text-[#f15a24]">
+                {part.text}
+              </span>
             ) : (
               <span key={i}>{part.text}</span>
             )
           )}
         </h1>
 
-        {/* Body + CTAs — two-column row */}
-        <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <p className="max-w-lg text-sm leading-relaxed text-muted-foreground md:text-base">
-            {content.body}
+        {/* Body (15px) + CTAs | Font Weight: 400 (font-normal) */}
+        <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between pb-12">
+          <p className="max-w-xl text-[15px] font-normal leading-relaxed text-gray-600">
+            {body}
           </p>
-          <div className="flex shrink-0 items-center gap-5">
+
+          <div className="flex shrink-0 items-center gap-6">
             <a
-              href={content.primaryCta.href}
-              className="inline-flex items-center gap-2 rounded-full bg-foreground px-7 py-3.5 text-sm font-semibold text-background"
+              href={primaryCta.href}
+              className="inline-flex items-center justify-center rounded-full bg-[#1e1e1e] px-7 py-3.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
             >
-              {content.primaryCta.label}
+              {primaryCta.label}
             </a>
             <a
-              href={content.secondaryCta.href}
-              className="inline-flex items-center gap-1.5 text-sm text-foreground/70"
+              href={secondaryCta.href}
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-800 transition-colors hover:text-black"
             >
-              {content.secondaryCta.label}
-              <ArrowUpRight size={14} />
+              {secondaryCta.label}
+              <ArrowUpRight size={16} />
             </a>
           </div>
         </div>
       </div>
+
+      {/* Full Viewport-Width Image Strip — Height strictly 288px */}
+      <div className="w-screen relative left-1/2 -translate-x-1/2 h-[288px] overflow-hidden">
+        <picture className="w-full h-full block">
+          {/* Desktop Image */}
+          <source media="(min-width: 768px)" srcSet={stripImage.desktopSrc} />
+          {/* Mobile Fallback Image */}
+          <img
+            src={stripImage.mobileSrc}
+            alt={stripImage.alt ?? 'Hero strip image'}
+            className="w-full h-full object-cover object-center"
+          />
+        </picture>
+      </div>
     </section>
-  )
+  );
 }
 
 // ─── 2. Mosaic Strip ────────────────────────────────────────────────────────
@@ -116,26 +179,28 @@ export function ValuesSection({ content }: { content: AboutPage["values"] }) {
         {/* Centred heading block */}
         <div className="text-center">
           <p className="eyebrow text-muted-foreground">{content.eyebrow}</p>
-          <h2 className="mt-5 text-5xl font-medium text-primary md:text-6xl">
+          <h2 className="mt-8 text-5xl font-normal text-primary md:text-6xl">
             {content.headingPlain}
           </h2>
-          <h2 className="mt-1 text-5xl font-medium text-muted-foreground md:text-6xl">
+          <h2 className="mt-5 text-5xl font-normal text-muted-foreground md:text-6xl">
             {content.headingAccent}
           </h2>
         </div>
 
         {/* Values grid */}
-        <div className="mt-16 grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-3">
+        <div className="mt-20 grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-3">
           {content.items.map((item) => (
-            <div key={item.title} className="flex flex-col">
+            <div key={item.title} className="flex flex-col mt-4">
               <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
               <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
                 {item.body}
               </p>
               {/* Coloured accent bar beneath body */}
               <div
-                className="mt-5 h-0.5 w-10 rounded-full"
-                style={{ backgroundColor: ACCENT_HEX[item.accentColor] }}
+                className="mt-4 h-[1px] w-full rounded-full"
+                style={{
+                  backgroundColor: ACCENT_HEX[item.accentColor],
+                }}
               />
             </div>
           ))}
@@ -250,18 +315,21 @@ function renderTile(tile: Tile) {
 export function TeamSection({ content }: { content: AboutPage["team"] }) {
   return (
     <section className="bg-background py-20 md:py-28">
-      <div className="mx-auto max-w-7xl px-5 md:px-6">
-        {/* Intro: text block (left border) + group photo */}
-        <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-16">
-          <div className="border-l-2 border-border pl-6">
-            <p className="eyebrow text-accent">{content.eyebrow}</p>
-            <h2 className="mt-4 text-4xl font-medium leading-tight tracking-tight md:text-5xl">
+      {/* Container: 90% mobile | 20px padding tablet | 1198px cap desktop */}
+      <div className="mx-auto w-[90%] md:w-full md:px-5 min-[1198px]:max-w-[1198px] min-[1198px]:px-0">
+        {/* Intro: text block (40%) + group photo (60%) */}
+        <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-[2fr_3fr] md:gap-12">
+          <div className="border-l border-border pl-6 md:pl-8">
+            <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#e85d3f]">
+              {content.eyebrow}
+            </p>
+            <h2 className="mt-4 text-[33px] font-normal leading-[1.15] tracking-tight md:text-[40px]">
               {content.headingDark}
               <br />
               <span className="text-muted-foreground">{content.headingMuted}</span>
             </h2>
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-muted">
+          <div className="relative h-[200px] md:h-[345px] w-full overflow-hidden rounded-2xl bg-muted">
             <Image
               src={content.introPhotoSrc}
               alt="The Phionike team"
@@ -273,9 +341,7 @@ export function TeamSection({ content }: { content: AboutPage["team"] }) {
         </div>
 
         {/* Bento grid */}
-        <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4 md:auto-rows-[200px]">
-          {content.tiles.map((tile) => renderTile(tile))}
-        </div>
+        <TeamGrid tiles={content.tiles} />
       </div>
     </section>
   )
