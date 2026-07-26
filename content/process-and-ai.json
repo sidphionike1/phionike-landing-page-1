@@ -197,29 +197,29 @@
     ]
   },
   "aiAcceleratesSection": {
-    "badge": "HUMAN + AI SYNERGY",
+    "badge": "INTELIGENCE INTEGRATION",
     "headline": "AI where it accelerates. Humans where it matters.",
-    "subheadline": "We leverage AI to handle repetitive tasks while keeping human intuition at the core of creative strategy.",
+    "subheadline": "We partition workflows strategically, leveraging AI's unmatched parsing speed to expand discovery, while ensuring elite human craftsmanship anchors every design direction.",
     "columns": [
       {
         "step": "01. CLARIFY",
-        "aiRole": "AI: Data aggregation, market research synthesis, user feedback clustering.",
-        "humanRole": "Human: Strategic alignment, problem definition, creative intuition."
+        "aiTasks": ["Research synthesis", "Competitive analysis", "Pattern recognition"],
+        "humanRole": ["User interviews", "Business strategy", "Problem framing"]
       },
       {
         "step": "02. SHAPE",
-        "aiRole": "AI: Wireframe exploration, copy drafting, layout generation.",
-        "humanRole": "Human: UX logic, brand voice, visual hierarchy refinement."
+        "aiTasks": ["Idea exploration", "Content generation", "Prompt matrices"],
+        "humanRole": ["Information arch.", "Core UX strategy", "Conceptual maps"]
       },
       {
         "step": "03. BUILD",
-        "aiRole": "AI: Boilerplate code, design token generation, asset optimization.",
-        "humanRole": "Human: Complex interactions, component polish, edge-case handling."
+        "aiTasks": ["Handoff specs", "Component ideas", "Design automation"],
+        "humanRole": ["Elite UI crafting", "Interaction logic", "Design System build"]
       },
       {
         "step": "04. SCALE",
-        "aiRole": "AI: Automated design system checks, regression testing.",
-        "humanRole": "Human: Product vision, long-term roadmapping, brand evolution."
+        "aiTasks": ["Code automation", "Token maintenance", "Performance check"],
+        "humanRole": ["Product evolution", "Governance rules", "Strategic audits"]
       }
     ]
   },

@@ -86,7 +86,16 @@ export const processAndAiSchema = z.object({
     metrics: z.array(z.object({ value: z.string(), label: z.string() })) 
   }),
   accordionSection: z.object({ badge: z.string(), headlineMain: z.string(), headlineSub: z.string(), steps: z.array(z.object({ id: z.string(), title: z.string(), subtitle: z.string(), description: z.string(), color: z.string() })) }),
-  aiAcceleratesSection: z.object({ badge: z.string(), headline: z.string(), subheadline: z.string(), columns: z.array(z.object({ step: z.string(), aiRole: z.string(), humanRole: z.string() })) }),
+  aiAcceleratesSection: z.object({ 
+    badge: z.string(), 
+    headline: z.string(), 
+    subheadline: z.string(), 
+    columns: z.array(z.object({ 
+      step: z.string(), 
+      aiTasks: z.array(z.string()),
+      humanRole: z.array(z.string())
+    })) 
+  }),
   outcomesSection: z.object({ badge: z.string(), headline: z.string(), grid: z.array(z.object({ title: z.string(), description: z.string(), icon: z.string() })) }),
   ctaSection: z.object({ badge: z.string(), headlineMain: z.string(), headlineAccent: z.string(), buttonText: z.string(), phone: z.string() })
 })

@@ -505,20 +505,20 @@ export function AiSynergyGrid({ synergy }: { synergy: ProcessAndAi['aiAccelerate
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="text-center mb-12"
+        className="mb-16"
       >
-        <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#E65124]">
+        <span className="text-xs font-mono uppercase tracking-[0.2em] text-neutral-500">
           {synergy.badge}
         </span>
-        <h2 className="text-3xl md:text-5xl font-bold leading-[1.15] tracking-tight text-[#111111] mt-4 max-w-3xl mx-auto">
+        <h2 className="text-4xl md:text-5xl font-bold leading-[1.15] tracking-tight text-[#111111] mt-4 max-w-4xl">
           {synergy.headline}
         </h2>
-        <p className="text-neutral-600 mt-4 max-w-2xl mx-auto">
+        <p className="text-neutral-600 text-base mt-6 max-w-3xl leading-relaxed">
           {synergy.subheadline}
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-20">
         {synergy.columns.map((column, idx) => (
           <motion.div
             key={idx}
@@ -526,26 +526,53 @@ export function AiSynergyGrid({ synergy }: { synergy: ProcessAndAi['aiAccelerate
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: idx * 0.1 }}
-            className="bg-white border border-neutral-200/80 rounded-2xl p-6 flex flex-col justify-between hover:shadow-md transition-shadow"
+            className="flex flex-col gap-4"
           >
-            <div>
-              <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-[#111111] mb-4">
+            {/* Step Title with separator */}
+            <div className="pb-4 border-b border-neutral-300">
+              <h3 className="text-sm font-mono font-bold uppercase tracking-wider text-[#111111]">
                 {column.step}
               </h3>
-              <div className="space-y-3">
-                <div className="flex flex-col">
-                  <span className="text-xs font-semibold text-[#111111] mb-1">AI Role</span>
-                  <p className="text-sm text-neutral-600 leading-relaxed">
-                    {column.aiRole}
-                  </p>
-                </div>
-                <div className="flex flex-col pt-3 border-t border-neutral-200">
-                  <span className="text-xs font-semibold text-[#111111] mb-1">Human Role</span>
-                  <p className="text-sm text-neutral-600 leading-relaxed">
-                    {column.humanRole}
-                  </p>
-                </div>
+            </div>
+
+            {/* AI Tasks Card */}
+            <div className="rounded-2xl p-6 bg-[#EAE8FC] border border-neutral-300/40">
+              <div className="flex items-center gap-2 mb-4">
+                <svg className="w-4 h-4 text-[#2538F5]" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                <span className="text-xs font-bold uppercase tracking-widest text-[#2538F5]">
+                  AI TASKS
+                </span>
               </div>
+              <ul className="space-y-2">
+                {column.aiTasks.map((task, taskIdx) => (
+                  <li key={taskIdx} className="flex items-start gap-2">
+                    <span className="text-[#111111] font-bold mt-0.5">•</span>
+                    <span className="text-sm text-[#111111]">{task}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Human Role Card */}
+            <div className="rounded-2xl p-6 bg-white border border-neutral-300/60">
+              <div className="flex items-center gap-2 mb-4">
+                <svg className="w-4 h-4 text-[#E65124]" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </svg>
+                <span className="text-xs font-bold uppercase tracking-widest text-[#E65124]">
+                  HUMAN ROLE
+                </span>
+              </div>
+              <ul className="space-y-2">
+                {column.humanRole.map((role, roleIdx) => (
+                  <li key={roleIdx} className="flex items-start gap-2">
+                    <span className="text-[#111111] font-bold mt-0.5">•</span>
+                    <span className="text-sm text-[#111111]">{role}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </motion.div>
         ))}
