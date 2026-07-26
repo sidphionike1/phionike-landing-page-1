@@ -243,59 +243,83 @@ export function DualPrototypeFramework({ framework }: { framework: ProcessAndAi[
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="text-center mb-12"
+        className="text-center mb-16"
       >
-        <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#E65124]">
+        <span className="text-xs font-mono uppercase tracking-[0.2em] text-neutral-500">
           {framework.badge}
         </span>
-        <h2 className="text-3xl md:text-5xl font-bold leading-[1.15] tracking-tight text-[#111111] mt-4 max-w-3xl mx-auto">
+        <h2 className="text-4xl md:text-5xl font-bold leading-[1.15] tracking-tight text-[#111111] mt-4 max-w-3xl mx-auto">
           {framework.headlineMain}{' '}
           <span className="text-[#E65124]">{framework.headlineAccent}</span>
         </h2>
-        <p className="text-neutral-600 mt-4 max-w-2xl mx-auto">
+        <p className="text-neutral-600 text-base mt-6 max-w-2xl mx-auto leading-relaxed">
           {framework.subheadline}
         </p>
       </motion.div>
 
       {/* Dual Column Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-16">
         {/* Prototype A */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="bg-[#FAF6F0] border border-neutral-300/80 rounded-[2.5rem] p-8 space-y-6"
+          className="border border-neutral-300/60 rounded-[2.5rem] p-8"
+          style={{ backgroundColor: framework.prototypeA.cardBg }}
         >
-          <span className="inline-block text-xs font-mono font-semibold tracking-wider text-[#2538F5] bg-[#2538F5]/10 px-3 py-1.5 rounded-full">
-            {framework.prototypeA.badge}
-          </span>
-          <div>
-            <h3 className="text-2xl font-bold text-[#111111]">
-              {framework.prototypeA.title}
-            </h3>
-            <p className="text-sm text-neutral-600 mt-2 leading-relaxed">
-              {framework.prototypeA.description}
-            </p>
-          </div>
-          <div className="bg-neutral-200/50 rounded-2xl w-full h-48 flex items-center justify-center text-neutral-400">
+          <h3 className="text-2xl font-bold text-[#111111]">
+            {framework.prototypeA.title}
+          </h3>
+          <p className="text-sm font-semibold mt-1" style={{ color: framework.prototypeA.taglineColor }}>
+            {framework.prototypeA.tagline}
+          </p>
+          <p className="text-sm text-neutral-600 mt-3 leading-relaxed">
+            {framework.prototypeA.description}
+          </p>
+          
+          {/* Image */}
+          <div className="mt-8 rounded-2xl overflow-hidden bg-neutral-200/50 h-56 flex items-center justify-center">
             <Image
               src={framework.prototypeA.image}
-              alt="Rapid UX Exploration"
+              alt="Prototype A"
               width={600}
               height={350}
-              className="w-full h-full object-cover rounded-2xl"
+              className="w-full h-full object-cover"
             />
           </div>
-          <div className="flex flex-wrap gap-2">
-            {framework.prototypeA.features.map((feature) => (
-              <span
-                key={feature}
-                className="text-xs bg-[#2538F5]/10 text-[#2538F5] px-3 py-1.5 rounded-full font-medium"
-              >
-                {feature}
-              </span>
-            ))}
+
+          {/* Two Column Features */}
+          <div className="grid grid-cols-2 gap-8 mt-8 pt-8 border-t border-neutral-200/50">
+            {/* What Happens */}
+            <div>
+              <h4 className="font-semibold text-sm" style={{ color: framework.prototypeA.taglineColor }}>
+                What Happens
+              </h4>
+              <ul className="mt-4 space-y-2">
+                {framework.prototypeA.whatHappens.map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-2 text-sm text-neutral-700">
+                    <span className="font-bold mt-0.5" style={{ color: framework.prototypeA.taglineColor }}>›</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* What You Gain */}
+            <div>
+              <h4 className="font-semibold text-sm" style={{ color: framework.prototypeA.taglineColor }}>
+                What You Gain
+              </h4>
+              <ul className="mt-4 space-y-2">
+                {framework.prototypeA.whatYouGain.map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-2 text-sm text-neutral-700">
+                    <span className="font-bold mt-0.5" style={{ color: framework.prototypeA.taglineColor }}>›</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </motion.div>
 
@@ -304,44 +328,84 @@ export function DualPrototypeFramework({ framework }: { framework: ProcessAndAi[
           initial={{ opacity: 0, x: 20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="bg-[#111111] text-white rounded-[2.5rem] p-8 space-y-6"
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="border border-neutral-300/60 rounded-[2.5rem] p-8"
+          style={{ backgroundColor: framework.prototypeB.cardBg }}
         >
-          <span className="inline-block text-xs font-mono font-semibold tracking-wider text-[#E65124] bg-[#E65124]/10 px-3 py-1.5 rounded-full">
-            {framework.prototypeB.badge}
-          </span>
-          <div>
-            <h3 className="text-2xl font-bold">
-              {framework.prototypeB.title}
-            </h3>
-            <p className="text-sm text-neutral-400 mt-2 leading-relaxed">
-              {framework.prototypeB.description}
-            </p>
-          </div>
-          <div className="bg-neutral-800 rounded-2xl w-full h-48 flex items-center justify-center text-neutral-600">
+          <h3 className="text-2xl font-bold text-[#111111]">
+            {framework.prototypeB.title}
+          </h3>
+          <p className="text-sm font-semibold mt-1" style={{ color: framework.prototypeB.taglineColor }}>
+            {framework.prototypeB.tagline}
+          </p>
+          <p className="text-sm text-neutral-600 mt-3 leading-relaxed">
+            {framework.prototypeB.description}
+          </p>
+          
+          {/* Image */}
+          <div className="mt-8 rounded-2xl overflow-hidden bg-neutral-200/50 h-56 flex items-center justify-center">
             <Image
               src={framework.prototypeB.image}
-              alt="Production Codebase"
+              alt="Prototype B"
               width={600}
               height={350}
-              className="w-full h-full object-cover rounded-2xl"
+              className="w-full h-full object-cover"
             />
           </div>
-          <div className="flex flex-wrap gap-2">
-            {framework.prototypeB.features.map((feature) => (
-              <span
-                key={feature}
-                className="text-xs bg-[#E65124]/10 text-[#E65124] px-3 py-1.5 rounded-full font-medium"
-              >
-                {feature}
-              </span>
-            ))}
+
+          {/* Two Column Features */}
+          <div className="grid grid-cols-2 gap-8 mt-8 pt-8 border-t border-neutral-200/50">
+            {/* What Happens */}
+            <div>
+              <h4 className="font-semibold text-sm" style={{ color: framework.prototypeB.taglineColor }}>
+                What Happens
+              </h4>
+              <ul className="mt-4 space-y-2">
+                {framework.prototypeB.whatHappens.map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-2 text-sm text-neutral-700">
+                    <span className="font-bold mt-0.5" style={{ color: framework.prototypeB.taglineColor }}>›</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* What You Gain */}
+            <div>
+              <h4 className="font-semibold text-sm" style={{ color: framework.prototypeB.taglineColor }}>
+                What You Gain
+              </h4>
+              <ul className="mt-4 space-y-2">
+                {framework.prototypeB.whatYouGain.map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-2 text-sm text-neutral-700">
+                    <span className="font-bold mt-0.5" style={{ color: framework.prototypeB.taglineColor }}>›</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </motion.div>
       </div>
 
+      {/* Result Statement */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="mt-12 pt-8 flex items-center gap-3"
+      >
+        <svg className="w-5 h-5 text-[#2538F5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+        <p className="text-base font-semibold text-[#111111]">
+          {framework.resultStatement}
+        </p>
+      </motion.div>
+
       {/* Metrics Bar */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-12 border-t border-neutral-200 mt-12">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-12 border-t border-neutral-200/60 mt-12">
         {framework.metrics.map((metric, idx) => (
           <motion.div
             key={idx}

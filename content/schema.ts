@@ -55,7 +55,36 @@ export const processAndAiSchema = z.object({
     description: z.string()
   }),
   phasesSection: z.object({ headlineMain: z.string(), headlineAccent: z.string(), cards: z.array(z.object({ id: z.string(), title: z.string(), description: z.string(), bg: z.string(), textColor: z.string() })) }),
-  frameworkSection: z.object({ badge: z.string(), headlineMain: z.string(), headlineAccent: z.string(), subheadline: z.string(), prototypeA: z.object({ badge: z.string(), title: z.string(), description: z.string(), image: z.string(), features: z.array(z.string()) }), prototypeB: z.object({ badge: z.string(), title: z.string(), description: z.string(), image: z.string(), features: z.array(z.string()) }), metrics: z.array(z.object({ value: z.string(), label: z.string() })) }),
+  frameworkSection: z.object({ 
+    badge: z.string(), 
+    headlineMain: z.string(), 
+    headlineAccent: z.string(), 
+    subheadline: z.string(),
+    resultStatement: z.string(),
+    prototypeA: z.object({ 
+      badge: z.string(), 
+      title: z.string(),
+      tagline: z.string(),
+      taglineColor: z.string(),
+      description: z.string(), 
+      image: z.string(),
+      cardBg: z.string(),
+      whatHappens: z.array(z.string()),
+      whatYouGain: z.array(z.string())
+    }), 
+    prototypeB: z.object({ 
+      badge: z.string(), 
+      title: z.string(),
+      tagline: z.string(),
+      taglineColor: z.string(),
+      description: z.string(), 
+      image: z.string(),
+      cardBg: z.string(),
+      whatHappens: z.array(z.string()),
+      whatYouGain: z.array(z.string())
+    }), 
+    metrics: z.array(z.object({ value: z.string(), label: z.string() })) 
+  }),
   accordionSection: z.object({ badge: z.string(), headlineMain: z.string(), headlineSub: z.string(), steps: z.array(z.object({ id: z.string(), title: z.string(), subtitle: z.string(), description: z.string(), color: z.string() })) }),
   aiAcceleratesSection: z.object({ badge: z.string(), headline: z.string(), subheadline: z.string(), columns: z.array(z.object({ step: z.string(), aiRole: z.string(), humanRole: z.string() })) }),
   outcomesSection: z.object({ badge: z.string(), headline: z.string(), grid: z.array(z.object({ title: z.string(), description: z.string(), icon: z.string() })) }),

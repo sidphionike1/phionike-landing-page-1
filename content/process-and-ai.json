@@ -99,29 +99,66 @@
     ]
   },
   "frameworkSection": {
-    "badge": "DUAL-PROTOTYPE SYSTEM",
+    "badge": "THE PHIONIKE FRAMEWORK",
     "headlineMain": "The Phionike",
     "headlineAccent": "Dual Prototype Framework",
-    "subheadline": "We build two parallel prototypes for every product—one focused on rapid UX validation, the other on production code.",
+    "subheadline": "We use AI to explore possibilities and validate direction quickly. Once the path is clear, we refine every detail to craft meaningful, scalable experiences.",
+    "resultStatement": "The result: Less uncertainty. Less rework. Better outcomes.",
     "prototypeA": {
-      "badge": "PROTOTYPE A",
-      "title": "RAPID UX EXPLORATION",
-      "description": "Low-fidelity interactive prototypes generated instantly to test spatial layouts, messaging, and feature hierarchy.",
-      "image": "https://via.placeholder.com/600x350/F0EFEA/111111?text=Rapid+UX+Exploration+Mockup",
-      "features": ["Instant Layouts", "Synthetic User Testing", "Rapid Iteration", "Low Friction"]
+      "badge": "RAPID UX",
+      "title": "Prototype A",
+      "tagline": "Explore. Validate. Align.",
+      "taglineColor": "#2538F5",
+      "description": "We rapidly map the problem, synthesize insights, and create interactive concepts to validate the right direction early.",
+      "image": "https://via.placeholder.com/600x350/E8E5F5/2538F5?text=Rapid+UX+Exploration+Mockup",
+      "cardBg": "#EAE8FC",
+      "whatHappens": [
+        "Brief deconstruction",
+        "AI-assisted research",
+        "User flow exploration",
+        "Rapid concept generation",
+        "Interactive prototypes",
+        "Stakeholder validation"
+      ],
+      "whatYouGain": [
+        "Faster stakeholder alignment",
+        "Early & continuous feedback",
+        "Drastically reduced decision risk",
+        "Solid business viability map",
+        "Proven interaction patterns",
+        "Clear direction forward"
+      ]
     },
     "prototypeB": {
-      "badge": "PROTOTYPE B",
-      "title": "PRODUCTION CODEBASE",
-      "description": "High-fidelity Next.js & React components engineered directly for scalability, accessibility, and clean developer handoff.",
-      "image": "https://via.placeholder.com/600x350/111111/FFFFFF?text=Production+Codebase+Mockup",
-      "features": ["Design Tokens", "React Components", "Production Ready", "Tailwind CSS"]
+      "badge": "PRODUCTION",
+      "title": "Prototype B",
+      "tagline": "Refine. Systemize. Deliver.",
+      "taglineColor": "#E65124",
+      "description": "Once the solution is validated, we craft high-fidelity experiences, build scalable systems and prepare everything for seamless handoff.",
+      "image": "https://via.placeholder.com/600x350/FCF1EC/E65124?text=Production+Codebase+Mockup",
+      "cardBg": "#FEF3ED",
+      "whatHappens": [
+        "UX refinement",
+        "Pixel-perfect UI design",
+        "Design system integration",
+        "Accessibility & usability testing",
+        "Interaction polishing",
+        "Developer handoff"
+      ],
+      "whatYouGain": [
+        "Production-ready designs",
+        "Consistent experience scale",
+        "Faster engineering velocity",
+        "Scalable product foundations",
+        "Zero technical debt",
+        "Seamless launch readiness"
+      ]
     },
     "metrics": [
-      { "value": "10x", "label": "Faster Concept Generation" },
-      { "value": "1-2x", "label": "Rapid Feedback Loops" },
-      { "value": "60%", "label": "Reduction in Handoff Friction" },
-      { "value": "100%", "label": "Code Accuracy" }
+      { "value": "80%", "label": "Reduction in pivot risk" },
+      { "value": "2-3x", "label": "Faster decision cycles" },
+      { "value": "40%", "label": "Less wasted & repeat effort" },
+      { "value": "100%", "label": "Aligned on the right solution" }
     ]
   },
   "accordionSection": {
