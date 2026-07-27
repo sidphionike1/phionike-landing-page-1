@@ -34,7 +34,6 @@ export default async function ProcessAndAiPage() {
       <MethodologyAccordion accordion={content.accordionSection} />
       <AiSynergyGrid synergy={content.aiAcceleratesSection} />
       <OutcomesGrid outcomes={content.outcomesSection} />
-      <CtaClosureBlock cta={content.ctaSection} />
       <FooterCTA cta={global.footerCta} />
       <Footer content={global.footer} />
     </main>
