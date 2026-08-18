@@ -15,8 +15,9 @@ const CARD_STYLES = [
   "bg-mustard text-foreground",
 ]
 
-const BASE_TOP = 128 // px, matches the left column's `sticky top-32`
+const BASE_TOP = 128 // px, sticky offset of the first card / left column
 const STEP_TOP = 64  // px of "peek" revealed per stacked card
+const CARD_MIN_HEIGHT = 384 // px, matches `min-h-96` on each card
 
 export function ProcessStepCounter({ content, disciplines }: Props) {
   const sectionRef = useRef<HTMLElement>(null)
@@ -25,6 +26,10 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
   const [hovered, setHovered] = useState<number | null>(null)
 
   const topOffsets = content.steps.map((_, i) => BASE_TOP + i * STEP_TOP)
+
+  // Total height of the pinned card stack: the last card's peek offset plus one
+  // full card. Used to vertically centre the left column against the stack.
+  const stackHeight = STEP_TOP * Math.max(0, content.steps.length - 1) + CARD_MIN_HEIGHT
 
   useEffect(() => {
     let raf = 0
@@ -98,7 +103,10 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
           className="hidden grid-cols-12 gap-12 md:grid"
           style={{ minHeight: `${Math.max(150, content.steps.length * 70)}vh` }}
         >
-          <div className="sticky top-32 col-span-5 h-fit self-start">
+          <div
+            className="sticky col-span-5 flex flex-col justify-center self-start"
+            style={{ top: BASE_TOP, height: stackHeight }}
+          >
             <AnimatePresence mode="wait">
               <motion.div
                 key={displayIndex}

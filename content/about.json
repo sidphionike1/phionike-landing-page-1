@@ -10,6 +10,11 @@
     "body": "We partner with ambitious businesses to create products, brands and experiences that solve meaningful problems through strategy, design and technology.",
     "primaryCta": { "label": "View Our Work", "href": "/work" },
     "secondaryCta": { "label": "Let's Talk", "href": "/contact" },
+    "stripImage": {
+      "desktopSrc": "/about/hero-strip-desktop.png",
+      "mobileSrc": "/about/hero-strip-mobile.png",
+      "alt": "The Phionike team collaborating"
+    },
     "mosaicTiles": [
       { "type": "photo", "src": "/about/mosaic/1.jpg" },
       { "type": "color", "value": "cobalt" },
@@ -86,7 +91,7 @@
     "eyebrow": "Meet the Team",
     "headingDark": "The people behind",
     "headingMuted": "the products you love",
-    "introPhotoSrc": "/about/team-intro.jpg",
+    "introPhotoSrc": "/about/team-photo.png",
     "tiles": [
       { "kind": "member", "id": "m1", "name": "Sofia Reyes",   "role": "UI/UX Designer",       "photoSrc": "/about/team/sofia.jpg",   "tileType": "photoOnly",    "gridSpan": { "col": 1, "row": 2 } },
       { "kind": "member", "id": "m2", "name": "Daniel Osei",   "role": "Product Strategist",    "bio": "Daniel loves design and is often found observing design books, products and services to learn from them. He comes from a background of engineering and design, understanding how to blend form and function.", "tileType": "bioText", "bgColor": "terracotta", "gridSpan": { "col": 2, "row": 1 } },
@@ -105,13 +110,13 @@
     "eyebrow": "Our Culture",
     "headingPlain": "Life at Phionike is",
     "headingItalic": "a balance of rigor and play",
-    "introPhotoSrc": "/about/culture-intro.jpg",
+    "introPhotoSrc": "/about/culture-intro.png",
     "bands": [
       {
         "id": "learn",
         "title": "We Learn Together",
         "body": "Every project teaches us something new. We encourage experimentation, knowledge sharing and exploring better ways to solve problems.",
-        "photoSrc": "/about/culture/learn.jpg",
+        "photoSrc": "/about/culture/learn.png",
         "bgColor": "terracotta",
         "textColor": "white",
         "photoSide": "left"
@@ -120,7 +125,7 @@
         "id": "build",
         "title": "We Build Together",
         "body": "Design is never a solo effort. We collaborate across disciplines, challenge ideas respectfully and celebrate every milestone as one team.",
-        "photoSrc": "/about/culture/build.jpg",
+        "photoSrc": "/about/culture/build.png",
         "bgColor": "lavender",
         "textColor": "charcoal",
         "photoSide": "right"
@@ -129,7 +134,7 @@
         "id": "grow",
         "title": "We Grow Together",
         "body": "Growth isn't measured only by projects delivered, but by the people we become. We invest in learning, mentorship and creating opportunities to improve every day.",
-        "photoSrc": "/about/culture/grow.jpg",
+        "photoSrc": "/about/culture/grow.png",
         "bgColor": "cobalt",
         "textColor": "white",
         "photoSide": "left"
@@ -138,7 +143,7 @@
         "id": "care",
         "title": "We Care Deeply",
         "body": "We care about our teammates, our partners and the people who use what we build. Empathy isn't just part of our process — it's part of our culture.",
-        "photoSrc": "/about/culture/care.jpg",
+        "photoSrc": "/about/culture/care.png",
         "bgColor": "mustard",
         "textColor": "charcoal",
         "photoSide": "right"

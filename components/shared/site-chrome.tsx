@@ -1,5 +1,6 @@
 'use client'
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowUpRight } from "lucide-react"
 import type { GlobalContent } from "@/content/schema"
 import { LiquidGlass } from "@creativoma/liquid-glass"
@@ -23,8 +24,8 @@ export function SiteNavbar({ content, activePage }: { content: GlobalContent["na
         style={{boxShadow: 'none'}}
       >
         <div className="flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold tracking-tighter text-primary">
-            {content.logo}
+          <Link href="/" className="inline-flex items-center">
+            <Image src="/logo.svg" alt={content.logo} width={138} height={36} priority />
           </Link>
           <nav className="hidden gap-12 md:flex" aria-label="Primary">
             {content.links.map((l) => {

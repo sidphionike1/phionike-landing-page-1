@@ -154,6 +154,13 @@
         "heading": "Build from zero to one",
         "caption": "Prototype fast, validate early, iterate in the open.",
         "subheading": "Build & Iterate"
+      },
+      {
+        "id": "step-4",
+        "number": "04",
+        "heading": "Scale your projects to reach enterprise perfection",
+        "caption": "Grow impact and expand to new markets",
+        "subheading": "Scale & Partner"
       }
     ]
   },

@@ -7,7 +7,7 @@ const TAG_CONFIG: Record<string, { bg: string; text: string; h: string }> = {
   terracotta: { bg: "#F2A93B", text: "#fff",  h: "h-[190px]" },
   mustard:    { bg: "#E65124", text: "#111",  h: "h-[130px]" },
   cobalt:     { bg: "#2538F5", text: "#fff",  h: "h-[130px]" },
-  lavender:   { bg: "#EAE8FC", text: "#111",  h: "h-[190px]" },
+  lavender:   { bg: "#DCB8FF", text: "#111",  h: "h-[190px]" },
 }
 
 export function WorkHero({ content }: { content: WorkPage["hero"] }) {

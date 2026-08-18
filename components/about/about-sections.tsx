@@ -65,9 +65,9 @@ export function AboutHero({ content }: AboutHeroProps) {
 
   // Separate image sources for desktop and mobile
   const stripImage = content?.stripImage ?? {
-    desktopSrc: 'https://placehold.co/1920x288/png?text=Desktop+Strip+Image+(1920x288)',
-    mobileSrc: 'https://placehold.co/800x288/png?text=Mobile+Strip+Image+(800x288)',
-    alt: 'Team photo strip',
+    desktopSrc: '/about/hero-strip-desktop.png',
+    mobileSrc: '/about/hero-strip-mobile.png',
+    alt: 'The Phionike team collaborating',
   };
 
   return (
@@ -398,7 +398,10 @@ export function CultureSection({ content }: { content: AboutPage["culture"] }) {
               Where curiosity becomes collaboration.
             </h3>
             <p className="mt-3 max-w-xl text-base leading-relaxed text-white/90">
-              Every project is powered by people who question, explore and create together. We believe the best ideas emerge through open conversations, shared ownership and a culture of continuous learning.
+              Every project is powered by people who question, explore and create
+              together. We believe the best ideas emerge through open
+              conversations, shared ownership and a culture of continuous
+              learning.
             </p>
           </div>
           {/* Mobile: always-visible overlay */}
@@ -407,7 +410,10 @@ export function CultureSection({ content }: { content: AboutPage["culture"] }) {
               Where curiosity becomes collaboration.
             </h3>
             <p className="mt-2 max-w-md text-sm leading-relaxed text-white/90">
-              Every project is powered by people who question, explore and create together. We believe the best ideas emerge through open conversations, shared ownership and a culture of continuous learning.
+              Every project is powered by people who question, explore and create
+              together. We believe the best ideas emerge through open
+              conversations, shared ownership and a culture of continuous
+              learning.
             </p>
           </div>
         </div>
@@ -422,8 +428,8 @@ export function CultureSection({ content }: { content: AboutPage["culture"] }) {
             return (
               <div
                 key={band.id}
-                className={`grid grid-cols-1 grid-rows-[1fr_3fr] overflow-hidden rounded-3xl md:grid-rows-1 ${
-                  photoLeft ? "md:grid-cols-[3fr_2fr]" : "md:grid-cols-[2fr_3fr]"
+                className={`grid h-[246px] grid-cols-1 grid-rows-[1fr_3fr] overflow-hidden rounded-3xl md:grid-rows-1 ${
+                  photoLeft ? "md:grid-cols-[44fr_56fr]" : "md:grid-cols-[56fr_44fr]"
                 }`}
               >
                 {/* Text side — order-1 on mobile (top), desktop follows photoSide */}
@@ -445,7 +451,7 @@ export function CultureSection({ content }: { content: AboutPage["culture"] }) {
 
                 {/* Photo side — order-2 on mobile (bottom), desktop follows photoSide */}
                 <div
-                  className={`relative aspect-[4/3] bg-muted md:aspect-auto md:min-h-[320px] ${
+                  className={`relative h-full bg-muted ${
                     photoLeft ? "md:order-1" : "md:order-2"
                   }`}
                 >
@@ -465,3 +471,4 @@ export function CultureSection({ content }: { content: AboutPage["culture"] }) {
     </section>
   )
 }
+

@@ -5,15 +5,11 @@ import Image from 'next/image'
 import { ArrowUpRight } from 'lucide-react'
 import type { GlobalContent } from '@/content/schema'
 
-// Custom PHIONIKE logo with strikethrough O
+// Phionike logo
 function PhionikieLogo() {
   return (
-    <Link href="/" className="inline-block">
-      <div className="relative inline-block text-2xl font-bold tracking-tight text-primary">
-        <span>PHIONIKE</span>
-        {/* Strikethrough on the O - positioned absolutely */}
-        <span className="absolute left-[4.35rem] top-1/2 h-0.5 w-2 -translate-y-1/2 bg-primary" />
-      </div>
+    <Link href="/" className="inline-flex items-center">
+      <Image src="/logo.svg" alt="Phionike" width={138} height={36} />
     </Link>
   )
 }
@@ -58,7 +54,25 @@ export function FooterCTA({
 }) {
   return (
     <section className="relative overflow-hidden bg-white px-5 py-24 md:py-32">
-      <DecorativeShapes />
+      {/* <DecorativeShapes /> — superseded by the background images below; kept for reference */}
+
+      {/* Mobile background */}
+      <Image
+        src="/cta-background-mobile.png"
+        alt=""
+        fill
+        aria-hidden="true"
+        className="object-cover object-top md:hidden"
+      />
+
+      {/* Desktop background */}
+      <Image
+        src="/cta-background-desktop.png"
+        alt=""
+        fill
+        aria-hidden="true"
+        className="hidden object-cover md:block"
+      />
 
       <div className="relative z-10 mx-auto max-w-3xl text-center">
         <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground">

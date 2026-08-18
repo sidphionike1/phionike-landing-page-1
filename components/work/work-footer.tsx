@@ -83,8 +83,8 @@ export function WorkFooter({ content }: { content: GlobalContent["footer"] }) {
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 md:grid-cols-[1fr_auto_auto_1fr] md:gap-8">
         {/* Logo + description + contact */}
         <div>
-          <Link href="/" className="text-xl font-bold tracking-tighter text-primary">
-            PHIONIKE
+          <Link href="/" className="inline-flex items-center">
+            <Image src="/logo.svg" alt="Phionike" width={120} height={31} />
           </Link>
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
             {content.description}

@@ -26,11 +26,8 @@ export function FloatingNavbar({ content }: { content: HomePage["nav"] }) {
         className="flex items-center justify-between rounded-full border border-primary/20 bg-background/60 px-5 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.06)] backdrop-blur-xl backdrop-saturate-150 md:px-6"
         aria-label="Primary"
       >
-        <a
-          href="/"
-          className="text-xl font-extrabold tracking-tighter text-primary"
-        >
-          {content.logo}
+        <a href="/" className="inline-flex items-center">
+          <Image src="/logo.svg" alt={content.logo} width={120} height={31} priority />
         </a>
         <ul className="hidden items-center gap-8 md:flex">
           {content.links.map((l, i) => (
@@ -102,7 +99,14 @@ export function ValuePropBand({
   content: HomePage["valueProp"];
 }) {
   return (
-    <section className="binary-pattern bg-primary px-5 py-14 text-primary-foreground md:px-6 md:py-20">
+    <section
+      className="bg-primary px-5 py-14 text-primary-foreground md:px-6 md:py-20"
+      style={{
+        backgroundImage: "url('/pattern-binary-blue.png')",
+        backgroundRepeat: "repeat",
+        backgroundSize: "1440px 414px",
+      }}
+    >
       <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[3fr_2fr] md:items-start">
         <h2 className="text-3xl leading-tight md:text-[44px]">
           {content.heading}
@@ -242,7 +246,14 @@ export function TrustedByStrip({
 }
 export function AIPhilosophyBand({ content }: { content: HomePage["aiBand"] }) {
   return (
-    <section className="binary-pattern bg-mustard py-20 text-foreground md:py-28">
+    <section
+      className="bg-mustard py-20 text-foreground md:py-28"
+      style={{
+        backgroundImage: "url('/pattern-binary-mustard.png')",
+        backgroundRepeat: "repeat",
+        backgroundSize: "1440px 414px",
+      }}
+    >
       <div className="mx-auto max-w-7xl px-5 md:px-6">
         <div className="grid gap-8 md:grid-cols-[6fr_4fr] md:gap-12">
           {/* Left: 6 — eyebrow + heading */}
@@ -359,11 +370,14 @@ export function FooterCTA({
   );
 }
 
+// Each award card is a single pre-composed image (328x400) that already
+// includes the gradient background, logo, divider and category label.
 const awardsData = [
   {
     id: 1,
     title: 'SERVICE DESIGN AWARD',
     category: 'SERVICE DESIGN',
+    image: '/awards/service-design-award.png',
     bgGradient: 'from-[#eef8ce] via-[#f7fbe8] to-[#ccf244]', // Lime glow
     logo: 'https://placehold.co/240x100/transparent/333333?text=SERVICE+DESIGN+AWARD',
   },
@@ -371,6 +385,7 @@ const awardsData = [
     id: 2,
     title: 'THE HELEN HAMLYN CENTRE FOR DESIGN',
     category: 'INCLUSIVE DESIGN',
+    image: '/awards/helen-hamlyn-centre.png',
     bgGradient: 'from-[#f0f0ff] via-[#f6f6ff] to-[#635bff]', // Purple/blue glow
     logo: 'https://placehold.co/240x100/transparent/000000?text=THE+HELEN+HAMLYN',
   },
@@ -378,6 +393,7 @@ const awardsData = [
     id: 3,
     title: 'Clutch',
     category: 'TOP 10 DESIGN STUDIOS IN MUMBAI',
+    image: '/awards/clutch-top-10-mumbai.png',
     bgGradient: 'from-[#fff5eb] via-[#fff8f2] to-[#ff6b2c]', // Orange glow
     logo: 'https://placehold.co/240x100/transparent/000000?text=Clutch',
   },
@@ -405,11 +421,27 @@ export function AwardsSection() {
       {/* Cards Grid: Stacked on Mobile, 3 Columns on Desktop */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
         {awardsData.map((award) => (
+          <Image
+            key={award.id}
+            src={award.image}
+            alt={`${award.title} — ${award.category}`}
+            width={328}
+            height={400}
+            className="h-auto w-full transition-transform duration-300 hover:-translate-y-1"
+            sizes="(max-width: 768px) 100vw, 33vw"
+          />
+        ))}
+
+        {/*
+          Previous CSS-composed award card. Superseded by the pre-composed
+          award images above; kept for reference.
+
+        {awardsData.map((award) => (
           <div
             key={award.id}
             className="relative flex flex-col items-center justify-between h-[420px] p-8 rounded-2xl overflow-hidden shadow-sm border border-black/5 transition-transform duration-300 hover:-translate-y-1"
           >
-            {/* Background Gradient & Blurred Light Effect */}
+            {/* Background Gradient & Blurred Light Effect *\/}
             <div
               className={`absolute inset-0 bg-gradient-to-b ${award.bgGradient} opacity-30`}
             />
@@ -417,7 +449,7 @@ export function AwardsSection() {
               className={`absolute -bottom-12 left-1/2 -translate-x-1/2 w-3/4 h-32 rounded-full bg-gradient-to-t ${award.bgGradient} blur-2xl opacity-75`}
             />
 
-            {/* Card Content */}
+            {/* Card Content *\/}
             <div className="relative z-10 w-full flex-1 flex items-center justify-center pt-8">
               <img
                 src={award.logo}
@@ -426,7 +458,7 @@ export function AwardsSection() {
               />
             </div>
 
-            {/* Bottom Label Section */}
+            {/* Bottom Label Section *\/}
             <div className="relative z-10 w-full text-center pb-2">
               <div className="w-12 h-[1px] bg-gray-300 mx-auto mb-4" />
               <p className="text-[11px] font-medium tracking-[0.2em] text-gray-400 uppercase">
@@ -435,6 +467,7 @@ export function AwardsSection() {
             </div>
           </div>
         ))}
+        */}
       </div>
     </section>
   );

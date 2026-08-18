@@ -151,6 +151,7 @@ export const aboutPageSchema = z.object({
     primaryCta: z.object({ label: z.string(), href: z.string() }),
     secondaryCta: z.object({ label: z.string(), href: z.string() }),
     mosaicTiles: z.array(mosaicTile),
+    stripImage: z.object({ desktopSrc: z.string(), mobileSrc: z.string(), alt: z.string().optional() }),
   }),
   values: z.object({
     eyebrow: z.string(),
