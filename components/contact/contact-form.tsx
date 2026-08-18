@@ -28,7 +28,7 @@ function TextField({ id, label, placeholder, value, onChange, error, type = 'tex
         required
         aria-invalid={Boolean(error)}
         aria-describedby={error ? `${id}-error` : undefined}
-        className={cn('min-h-24 rounded-2xl border bg-background px-5 py-4 text-lg text-foreground outline-none transition focus:border-primary', error ? 'border-accent' : 'border-border')}
+        className={cn('min-h-20 rounded-2xl border bg-background px-5 py-4 text-base text-foreground outline-none transition focus:border-primary', error ? 'border-accent' : 'border-border')}
       />
       {error && <p id={`${id}-error`} className="text-sm text-accent">{error}</p>}
     </div>
@@ -49,7 +49,7 @@ function MessageField({ value, onChange, error }: Pick<FieldProps, 'value' | 'on
         aria-invalid={Boolean(error)}
         aria-describedby={error ? 'message-error' : undefined}
         rows={6}
-        className={cn('resize-y rounded-2xl border bg-background px-5 py-4 text-lg text-foreground outline-none transition focus:border-primary', error ? 'border-accent' : 'border-border')}
+        className={cn('min-h-48 resize-y rounded-2xl border bg-background px-5 py-4 text-base text-foreground outline-none transition focus:border-primary', error ? 'border-accent' : 'border-border')}
       />
       {error && <p id="message-error" className="text-sm text-accent">{error}</p>}
     </div>
