@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { ArrowUpRight } from "lucide-react"
+import { cn } from "@/lib/utils"
 import type { AboutPage } from "@/content/schema"
 // import {TeamGrid} from "@/components/about/team-grid"
 import { TeamGrid } from "./TeamGrid"
@@ -315,7 +316,7 @@ function renderTile(tile: Tile) {
 
 export function TeamSection({ content }: { content: AboutPage["team"] }) {
   return (
-    <section className="bg-background py-20 md:py-28">
+    <section className="py-20 md:py-28" style={{ backgroundColor: "#FDF8F0" }}>
       {/* Container: 90% mobile | 20px padding tablet | 1198px cap desktop */}
       <div className="mx-auto w-[90%] md:w-full md:px-5 min-[1198px]:max-w-[1198px] min-[1198px]:px-0">
         {/* Intro: text block (40%) + group photo (60%) */}
@@ -369,7 +370,7 @@ const PLACEHOLDER = (w: number, h: number, text: string) =>
 
 export function CultureSection({ content }: { content: AboutPage["culture"] }) {
   return (
-    <section className="bg-background">
+    <section style={{ backgroundColor: "#FDF8F0" }}>
       {/* Container: full width + padding mobile/tablet | 1198px cap desktop */}
       <div className="mx-auto w-full px-4 md:px-5 min-[1198px]:max-w-[1198px] min-[1198px]:px-0">
         {/* Heading */}
@@ -379,7 +380,9 @@ export function CultureSection({ content }: { content: AboutPage["culture"] }) {
           </p>
           <h2 className="mt-4 text-[33px] font-normal leading-[1.15] tracking-tight md:text-[40px]">
             {content.headingPlain}{" "}
-            <em className="font-serif italic">{content.headingItalic}</em>
+            <em className="font-serif italic" style={{ color: "rgba(34, 17, 34, 0.4)" }}>
+              {content.headingItalic}
+            </em>
           </h2>
         </div>
 
@@ -439,11 +442,19 @@ export function CultureSection({ content }: { content: AboutPage["culture"] }) {
                   }`}
                   style={{ backgroundColor: bg, color: fg }}
                 >
-                  <div className={photoLeft ? "" : "md:text-center"}>
+                  {/* photo left → text right-aligned; photo right → text left-aligned */}
+                  <div className={cn("w-full", photoLeft ? "md:text-right" : "md:text-left")}>
                     <h3 className="text-[28px] font-normal leading-tight md:text-[40px]">
                       {band.title}
                     </h3>
-                    <p className="mt-4 max-w-sm text-base leading-relaxed opacity-90 md:text-lg">
+                    {/* max-w-sm caps the box, so it needs pushing to the right edge
+                        when the text is right-aligned */}
+                    <p
+                      className={cn(
+                        "mt-4 max-w-sm text-base leading-relaxed opacity-90 md:text-lg",
+                        photoLeft && "md:ml-auto",
+                      )}
+                    >
                       {band.body}
                     </p>
                   </div>

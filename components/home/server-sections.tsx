@@ -7,14 +7,17 @@ const ArrowLink = ({
   label,
   href,
   className = "",
+  arrowClassName = "",
 }: {
   label: string;
   href: string;
   className?: string;
+  /** Colours just the arrow glyph, leaving the label to inherit from `className`. */
+  arrowClassName?: string;
 }) => (
   <a href={href} className={`inline-flex items-center gap-2 ${className}`}>
     {label}
-    <ArrowUpRight size={16} />
+    <ArrowUpRight size={16} className={arrowClassName} />
   </a>
 );
 
@@ -59,7 +62,7 @@ export function Hero({ content }: { content: HomePage["hero"] }) {
         <div className="lg:col-span-1">
           <p className="eyebrow">{content.eyebrow}</p>
           <div className="mt-5">
-            <h1 className="text-5xl font-medium leading-[1.08] tracking-tighter md:text-6xl whitespace-pre-line">
+            <h1 className="text-5xl font-medium leading-[1.08] tracking-tighter md:text-6xl md:leading-[80px] whitespace-pre-line">
               {content.headlineDark}
             </h1>
             <h2 className="mt-3 text-5xl font-medium leading-[1.08] tracking-tighter text-accent md:text-5xl">
@@ -74,7 +77,11 @@ export function Hero({ content }: { content: HomePage["hero"] }) {
               {...content.primaryCta}
               className="rounded-full bg-foreground px-7 py-4 text-sm text-background"
             />
-            <ArrowLink {...content.secondaryCta} className="text-sm" />
+            <ArrowLink
+              {...content.secondaryCta}
+              className="text-sm"
+              arrowClassName="text-[#3A39FF]"
+            />
           </div>
           <div className="mt-8 grid grid-cols-2 gap-2 md:hidden">
             <div className="h-32 rounded-2xl bg-accent" />
@@ -108,8 +115,11 @@ export function ValuePropBand({
       }}
     >
       <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[3fr_2fr] md:items-start">
-        <h2 className="text-3xl leading-tight md:text-[44px]">
+        <h2 className="section-heading">
           {content.heading}
+          {content.headingItalic && (
+            <> <em className="!text-primary-foreground section-heading-italic">{content.headingItalic}</em></>
+          )}
         </h2>
 
         <div>
@@ -146,10 +156,10 @@ export function TrustedByStrip({
           {content.eyebrow}
         </p>
 
-        <h2 className="mt-4 max-w-[620px] text-[32px] font-medium leading-[1.08] tracking-tight md:mt-5 md:text-[40px]">
+        <h2 className="section-heading mt-4 max-w-[620px] md:mt-5">
           <span className="block">{content.heading}</span>
 
-          <span className="block italic font-normal text-muted-foreground">
+          <span className="section-heading-italic block">
             {content.headingItalic}
           </span>
         </h2>
@@ -259,7 +269,7 @@ export function AIPhilosophyBand({ content }: { content: HomePage["aiBand"] }) {
           {/* Left: 6 — eyebrow + heading */}
           <div>
             <p className="eyebrow">{content.eyebrow}</p>
-            <h2 className="mt-5 max-w-4xl text-4xl leading-tight tracking-tight md:text-6xl">
+            <h2 className="section-heading mt-5 max-w-4xl">
               {content.heading}
             </h2>
           </div>
@@ -410,11 +420,11 @@ export function AwardsSection() {
         </span>
 
         {/* Heading & Subheading - 40px */}
-        <h2 className="text-[32px] sm:text-[40px] leading-[1.15] text-gray-900 font-normal tracking-tight max-w-2xl">
-          Every recognition tells the story{' '}
-          <span className="italic font-light text-gray-400 block sm:inline">
+        <h2 className="section-heading max-w-2xl text-gray-900 md:grid">
+          Every recognition tells the story{'   '}
+          <div className="section-heading-italic block sm:inline">
             of a problem solved beautifully.
-          </span>
+          </div>
         </h2>
       </div>
 

@@ -14,7 +14,7 @@ export default async function AboutPage() {
 
   return (
     <main>
-      <SiteNavbar content={global.nav} activePage="about" />
+      <SiteNavbar content={global.nav} activePage="about" footer={global.footer} />
       <AboutHero content={about.hero} />
       <ValuesSection content={about.values} />
       <TeamSection content={about.team} />

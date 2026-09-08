@@ -53,47 +53,54 @@
   "phasesSection": {
     "headlineMain": "Think Fast.",
     "headlineAccent": "Design Deep.",
+    "footerNote": { "startLabel": "EXPLORE FAST", "endLabel": "DESIGN DEEP" },
     "cards": [
       {
         "id": "01",
-        "title": "Synthesis",
-        "description": "AI gathers and clusters market data in minutes.",
-        "bg": "#2538F5",
+        "icon": "Search",
+        "title": "Brief",
+        "description": "We start by understanding your goals, audience, and constraints.",
+        "bg": "#3A39FF",
         "textColor": "#FFFFFF"
       },
       {
         "id": "02",
-        "title": "Ideation",
-        "description": "Rapid multi-directional concept generation.",
-        "bg": "#E65124",
+        "icon": "Sparkles",
+        "title": "AI Exploration",
+        "description": "We use AI to rapidly explore directions and surface the best paths.",
+        "bg": "#DCB8FF",
         "textColor": "#FFFFFF"
       },
       {
         "id": "03",
-        "title": "Prototyping",
-        "description": "Functional UI generation driven by real user flows.",
-        "bg": "#2538F5",
+        "icon": "Layers",
+        "title": "Prototype A",
+        "description": "We validate concepts quickly with interactive prototypes.",
+        "bg": "#FF5B23",
         "textColor": "#FFFFFF"
       },
       {
         "id": "04",
-        "title": "Testing",
-        "description": "Simulated user testing to catch flaws early.",
-        "bg": "#E65124",
+        "icon": "CheckCircle2",
+        "title": "Validation",
+        "description": "We align on the right direction before moving forward.",
+        "bg": "#F2BB06",
         "textColor": "#FFFFFF"
       },
       {
         "id": "05",
-        "title": "Refinement",
-        "description": "Human-led polish on interactions and aesthetics.",
-        "bg": "#2538F5",
+        "icon": "Layers",
+        "title": "Prototype B",
+        "description": "Refined UX and design systems, ready for handoff.",
+        "bg": "#3A39FF",
         "textColor": "#FFFFFF"
       },
       {
         "id": "06",
-        "title": "Deployment",
-        "description": "Clean code output ready for production integration.",
-        "bg": "#E65124",
+        "icon": "Code2",
+        "title": "Development",
+        "description": "Fully documented and development-ready for your team.",
+        "bg": "#FF5B23",
         "textColor": "#FFFFFF"
       }
     ]

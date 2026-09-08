@@ -13,7 +13,7 @@ export default async function ContactPage() {
   const global = await getGlobalContent()
   return (
     <main>
-      <SiteNavbar content={global.nav} activePage="contact" />
+      <SiteNavbar content={global.nav} activePage="contact" footer={global.footer} />
       <section className="bg-background px-6 pb-20 pt-44 md:px-16 md:pb-28 md:pt-56">
         <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
           <div>

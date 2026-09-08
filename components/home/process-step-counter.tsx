@@ -16,8 +16,45 @@ const CARD_STYLES = [
 ]
 
 const BASE_TOP = 128 // px, sticky offset of the first card / left column
-const STEP_TOP = 64  // px of "peek" revealed per stacked card
-const CARD_MIN_HEIGHT = 384 // px, matches `min-h-96` on each card
+
+/**
+ * Card metrics taken from the reference. The prototype screenshot was captured
+ * at ~71% zoom (1024 of a 1440 artboard), so the measured values divided by
+ * 0.711 give the native sizes used below — a 368px card, a 120px peek, 64px
+ * padding, a 36px heading and 14px list text.
+ *
+ * STEP_TOP is deliberately larger than the heading row's lower edge
+ * (CARD_PAD_TOP + 40 = 108) so a stacked card's peek always shows its complete
+ * dot-icon + heading row, exactly as the reference does.
+ */
+const STEP_TOP = 120         // px of "peek" revealed per stacked card
+const CARD_MIN_HEIGHT = 368  // px
+const CARD_PAD_X = 64        // px
+const CARD_PAD_TOP = 68      // px
+const CARD_PAD_BOTTOM = 64   // px
+const POINT_GAP = 22         // px between list rows (→ ~42px row pitch at 14px/20px text)
+
+/**
+ * The four-dot cluster that precedes every card heading: a diamond of four
+ * touching dots whose colours alternate black / white around the ring.
+ */
+function FourDots({ className }: { className?: string }) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+      className={className}
+    >
+      <circle cx="12" cy="4.4" r="3.6" fill="#000000" />
+      <circle cx="19.6" cy="12" r="3.6" fill="#FFFFFF" />
+      <circle cx="12" cy="19.6" r="3.6" fill="#000000" />
+      <circle cx="4.4" cy="12" r="3.6" fill="#FFFFFF" />
+    </svg>
+  )
+}
 
 export function ProcessStepCounter({ content, disciplines }: Props) {
   const sectionRef = useRef<HTMLElement>(null)
@@ -63,7 +100,7 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
       <div className="mx-auto max-w-7xl px-5 md:px-6">
         <div className="md:hidden">
           <p className="text-6xl font-medium tracking-tight">{content.mobileEyebrowNumber}</p>
-          <h2 className="mt-4 max-w-xs text-2xl leading-tight text-muted-foreground">{content.mobileHeading}</h2>
+          <h2 className="section-heading mt-4 max-w-xs text-muted-foreground">{content.mobileHeading}</h2>
           <div className="mt-10 flex flex-col">
             {disciplines.map((item, index) => (
               <article
@@ -115,7 +152,7 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
                 exit={{ opacity: 0, y: -15 }}
               >
                 <p className="text-9xl font-semibold tracking-tighter">{content.steps[displayIndex]?.number}</p>
-                <h2 className="mt-5 text-4xl font-semibold tracking-tight">{content.steps[displayIndex]?.heading}</h2>
+                <h2 className="section-heading mt-5">{content.steps[displayIndex]?.heading}</h2>
                 <p className="mt-3 max-w-sm text-muted-foreground">{content.steps[displayIndex]?.caption}</p>
               </motion.div>
             </AnimatePresence>
@@ -143,27 +180,44 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
                   }}
                   transition={{ type: "spring", stiffness: 320, damping: 28 }}
                   className={cn(
-                    "relative min-h-96 rounded-[2.5rem] p-12 shadow-lg",
+                    "relative rounded-[2.5rem] shadow-lg",
                     CARD_STYLES[i % CARD_STYLES.length],
                   )}
+                  style={{
+                    minHeight: CARD_MIN_HEIGHT,
+                    paddingLeft: CARD_PAD_X,
+                    paddingRight: CARD_PAD_X,
+                    paddingTop: CARD_PAD_TOP,
+                    paddingBottom: CARD_PAD_BOTTOM,
+                  }}
                 >
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm">{step.number}</span>
-                    <motion.span
-                      initial={false}
-                      animate={{
-                        opacity: hovered === i ? 1 : 0,
-                        scale: hovered === i ? 1 : 0.6,
-                        y: hovered === i ? 0 : 8,
-                      }}
-                      transition={{ duration: 0.25 }}
-                      className="text-4xl font-semibold tracking-tighter"
-                    >
-                      {step.number}
-                    </motion.span>
+                  {/* Dot icon + heading — the only row revealed in a stacked card's peek */}
+                  <div className="flex items-center gap-4">
+                    <FourDots className="shrink-0" />
+                    <h3 className="text-4xl leading-10 tracking-tight">
+                      {step.subheading}
+                    </h3>
                   </div>
-                  <h3 className="mt-20 text-5xl tracking-tight">{step.subheading}</h3>
-                  <p className="mt-4 max-w-md text-lg opacity-75">{step.caption}</p>
+
+                  {step.cardSubheading && (
+                    <p className="mt-7 max-w-md text-[13px] uppercase leading-normal tracking-[0.16em] opacity-70">
+                      {step.cardSubheading}
+                    </p>
+                  )}
+
+                  {step.points && step.points.length > 0 && (
+                    <ul
+                      className="mt-8 flex flex-col"
+                      style={{ gap: POINT_GAP }}
+                    >
+                      {step.points.map((point) => (
+                        <li key={point} className="flex items-center gap-3 text-sm">
+                          <Check size={18} strokeWidth={2.5} className="shrink-0" />
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </motion.article>
               </div>
             ))}

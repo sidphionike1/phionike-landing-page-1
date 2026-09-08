@@ -13,7 +13,7 @@ import { FAQSection } from "@/components/home/faq-section"
 export default async function Page() {
   const [content, global] = await Promise.all([getHomePageContent(), getGlobalContent()])
   return <main>
-    <SiteNavbar content={global.nav} activePage="home" />
+    <SiteNavbar content={global.nav} activePage="home" footer={global.footer} />
     <Hero content={content.hero} />
     <ValuePropBand content={content.valueProp} />
     <TrustedByStrip content={content.trustedBy} metrics={content.metrics} />

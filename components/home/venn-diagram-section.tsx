@@ -13,6 +13,29 @@ interface CaseStudy {
   image: string;
 }
 
+
+const VENN_EXT = "png"
+
+const VENN_STAGE_BY_DISCIPLINE: Record<string, string> = {
+  discover: `/venn/discover-and-define.${VENN_EXT}`,
+  build: `/venn/built-from-0-1.${VENN_EXT}`,
+  redesign: `/venn/redesign-and-reposistion.${VENN_EXT}`,
+  scale: `/venn/scale-and-partner.${VENN_EXT}`,
+}
+
+// Resting state (nothing selected): all chips blurred. This is still the older
+// export, and unlike the four above it has the discipline pills baked in.
+const VENN_STAGE_REST = "/venn/venn-diagram-stage-0.png"
+
+// Every layer that gets mounted for the cross-fade.
+const VENN_LAYERS = [
+  VENN_STAGE_REST,
+  ...Object.values(VENN_STAGE_BY_DISCIPLINE),
+]
+
+// Intrinsic frame shared by every export (775 × 471, and the PNGs are 4× that).
+const VENN_ASPECT = "775 / 471"
+
 export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
   const router = useRouter();
   const params = useSearchParams();
@@ -41,7 +64,7 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
       subtitle:
         "Designing a seamless wellness experience for a next-generation smart ring ecosystem.",
       bgColor: "#f5c842",
-      image: "/images/case-oren.jpg",
+      image: VENN_STAGE_BY_DISCIPLINE.discover,
     },
     build: {
       id: "build",
@@ -49,7 +72,7 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
       subtitle:
         "Building a zero-to-one fintech platform that simplified cross-border payments for SMBs.",
       bgColor: "#c8e6c9",
-      image: "/images/case-aurelia.jpg",
+      image: VENN_STAGE_BY_DISCIPLINE.build,
     },
     redesign: {
       id: "redesign",
@@ -57,7 +80,7 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
       subtitle:
         "Redesigning a legacy healthcare portal into a patient-first digital experience.",
       bgColor: "#e1bee7",
-      image: "/images/case-meridian.jpg",
+      image: VENN_STAGE_BY_DISCIPLINE.redesign,
     },
     scale: {
       id: "scale",
@@ -65,7 +88,7 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
       subtitle:
         "Scaling a marketplace platform to serve 2M+ users across 15 countries.",
       bgColor: "#b3e5fc",
-      image: "/images/case-nexus.jpg",
+      image: VENN_STAGE_BY_DISCIPLINE.scale,
     },
   };
 
@@ -75,6 +98,11 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
 
   const isDefault = !selectedDiscipline;
 
+  // Which venn stage to show, looked up by discipline name rather than by index.
+  const activeVennImage =
+    (selectedDiscipline && VENN_STAGE_BY_DISCIPLINE[selectedDiscipline]) ||
+    VENN_STAGE_REST;
+
   return (
     <section className="bg-background py-20 md:py-28">
       <div className="mx-auto max-w-7xl px-5 md:px-6">
@@ -82,9 +110,9 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
         <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
           {content.eyebrow}
         </p>
-        <h2 className="mt-3 max-w-3xl text-[40px] font-medium leading-[1.1] tracking-tight">
+        <h2 className="section-heading mt-3 max-w-3xl">
           {content.heading}
-          <em className="block text-muted-foreground not-italic">
+          <em className="section-heading-italic block">
             {content.subheading}
           </em>
         </h2>
@@ -93,8 +121,26 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
         <div className="mt-14 grid gap-8 md:grid-cols-[6fr_4fr] md:items-stretch">
           {/* LEFT — Venn Diagram */}
           <div className="relative min-h-[420px] md:min-h-[520px]">
-            {/* Background ovals */}
+            {/* Dynamic background image layer — the Venn Diagram Stage exports.
+                Each stage already contains both tinted ovals plus the sector
+                chips, so the CSS gradient ovals that used to live here are no
+                longer needed and are kept commented out below for reference. */}
             <div className="absolute inset-0 overflow-hidden rounded-[3rem]">
+              {VENN_LAYERS.map((src) => (
+                <img
+                  key={src}
+                  src={src}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 h-full w-full object-contain transition-opacity duration-500"
+                  style={{
+                    aspectRatio: VENN_ASPECT,
+                    opacity: src === activeVennImage ? 1 : 0,
+                  }}
+                />
+              ))}
+
+              {/*
               <div
                 className="absolute left-0 top-1/2 h-[85%] w-[62%] -translate-y-1/2 rounded-[5rem] transition-colors duration-500"
                 style={{
@@ -109,7 +155,6 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
                     "linear-gradient(135deg, #e8e4ff 0%, #f0edff 50%, #e4e0ff 100%)",
                 }}
               />
-              {/* Dynamic background image layer */}
               {activeCaseStudy && (
                 <div
                   className="absolute inset-0 opacity-30 transition-opacity duration-500"
@@ -120,6 +165,7 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
                   }}
                 />
               )}
+              */}
             </div>
 
             {/* Discipline buttons — centered */}
@@ -201,7 +247,9 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
                     <img
                       src={activeCaseStudy.image}
                       alt={activeCaseStudy.title}
-                      className="h-full w-full object-cover"
+                      // contain, not cover: these are diagram exports, so
+                      // cropping them to fill a 260px box mangles the artwork
+                      className="h-full w-full object-contain"
                       onError={(e) => {
                         // Fallback placeholder
                         const target = e.currentTarget.parentElement;

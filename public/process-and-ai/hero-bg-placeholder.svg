@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" role="presentation">
+  <!--
+    PLACEHOLDER hero backdrop for /process-and-ai.
+    Transparent at the top so the section colour rgba(248,245,240,1) reads through;
+    warm amber dome rising from the bottom with lavender / blue / pink mesh beneath.
+    Swap this file (or HERO_BG_IMAGE in components/process-and-ai/sections.tsx)
+    for the final artwork.
+  -->
+  <defs>
+    <!-- objectBoundingBox units: each gradient maps to its own ellipse bbox. -->
+    <radialGradient id="amber">
+      <stop offset="0" stop-color="#FF922E" stop-opacity=".95" />
+      <stop offset=".55" stop-color="#FF9F44" stop-opacity=".55" />
+      <stop offset="1" stop-color="#FFAE5C" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="gold">
+      <stop offset="0" stop-color="#FFC24A" stop-opacity=".85" />
+      <stop offset="1" stop-color="#FFC24A" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="peach">
+      <stop offset="0" stop-color="#F9CDA6" stop-opacity=".6" />
+      <stop offset="1" stop-color="#F9CDA6" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="violet">
+      <stop offset="0" stop-color="#8E6FE0" stop-opacity=".9" />
+      <stop offset="1" stop-color="#8E6FE0" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="lavender">
+      <stop offset="0" stop-color="#A9A0F0" stop-opacity=".75" />
+      <stop offset="1" stop-color="#A9A0F0" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="sky">
+      <stop offset="0" stop-color="#8FB6DE" stop-opacity=".65" />
+      <stop offset="1" stop-color="#8FB6DE" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="pink">
+      <stop offset="0" stop-color="#E79BC8" stop-opacity=".6" />
+      <stop offset="1" stop-color="#E79BC8" stop-opacity="0" />
+    </radialGradient>
+    <filter id="soft" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="48" />
+    </filter>
+  </defs>
+
+  <g filter="url(#soft)">
+    <ellipse cx="720" cy="620" rx="900" ry="380" fill="url(#peach)" />
+    <ellipse cx="120" cy="880" rx="360" ry="280" fill="url(#sky)" />
+    <ellipse cx="1250" cy="940" rx="400" ry="280" fill="url(#pink)" />
+    <ellipse cx="330" cy="980" rx="430" ry="260" fill="url(#lavender)" />
+    <ellipse cx="800" cy="960" rx="430" ry="300" fill="url(#violet)" />
+    <ellipse cx="720" cy="780" rx="760" ry="400" fill="url(#amber)" />
+    <ellipse cx="700" cy="890" rx="520" ry="320" fill="url(#gold)" />
+  </g>
+</svg>

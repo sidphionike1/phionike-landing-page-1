@@ -57,7 +57,7 @@ export function FAQSection() {
         </p>
 
         {/* Heading */}
-        <h2 className="mt-4 text-[40px] font-light leading-[1.15] tracking-tight text-[#3b5bdb] md:text-[48px]">
+        <h2 className="section-heading mt-4 text-[#3b5bdb]">
           We have you covered
         </h2>
 

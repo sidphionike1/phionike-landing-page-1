@@ -66,7 +66,8 @@
     "microTag": "Design & Strategy Studio"
   },
   "valueProp": {
-    "heading": "We help brands and products grow through thoughtful design and digital experiences.",
+    "heading": "We help brands and products grow through",
+    "headingItalic": "thoughtful design and digital experiences.",
     "body": "Our approach blends research, branding, product thinking, and AI-assisted workflows to help teams move from ambiguity to scalable experiences — creating products and systems that are thoughtful, adaptable, and built for long-term growth.",
     "cta": {
       "label": "View our approach",
@@ -139,28 +140,36 @@
         "number": "01",
         "heading": "Start with the right problem",
         "caption": "Clarify — untangle ambiguity, align on constraints.",
-        "subheading": "Discover user needs"
+        "subheading": "Discover user needs",
+        "cardSubheading": "Understand the right problem before building the solution",
+        "points": ["Stakeholder Discovery", "User Research", "Problem Framing"]
       },
       {
         "id": "step-2",
         "number": "02",
         "heading": "Find work that's relevant to you",
         "caption": "Map opportunity spaces, turn assumptions into insights.",
-        "subheading": "Shape the opportunity"
+        "subheading": "Shape the opportunity",
+        "cardSubheading": "Turn insights into concepts you can test quickly",
+        "points": ["Opportunity Mapping", "Concept Definition", "Rapid Prototyping"]
       },
       {
         "id": "step-3",
         "number": "03",
         "heading": "Build from zero to one",
         "caption": "Prototype fast, validate early, iterate in the open.",
-        "subheading": "Build & Iterate"
+        "subheading": "Build & Iterate",
+        "cardSubheading": "Design, refine and improve through continuous learning",
+        "points": ["Interface Design", "Usability Testing", "Design Iteration", "Developer Handoff"]
       },
       {
         "id": "step-4",
         "number": "04",
         "heading": "Scale your projects to reach enterprise perfection",
         "caption": "Grow impact and expand to new markets",
-        "subheading": "Scale & Partner"
+        "subheading": "Scale & Partner",
+        "cardSubheading": "Build systems and foundations that support long term growth",
+        "points": ["Design System", "Product Scalability", "Long Term Experience Strategy"]
       }
     ]
   },

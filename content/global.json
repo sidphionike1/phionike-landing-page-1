@@ -58,7 +58,12 @@
       "whatWeDo": ["User Research", "Discovery Workshops", "Stakeholder Interviews", "Product Strategy", "Opportunity Mapping"],
       "clientOutcomes": ["Clear product direction", "Aligned stakeholders", "Reduced uncertainty", "Prioritised roadmap"],
       "bandColor": "cobalt",
-      "textColor": "white"
+      "textColor": "white",
+      "images": [
+        "https://placehold.co/328x180/E8EAFF/3A39FF?text=Finding+Leaders",
+        "https://placehold.co/110x176/DDE6C8/2F4F1F?text=Soli+Alt",
+        "https://placehold.co/330x180/F2F7E8/2F4F1F?text=Soli"
+      ]
     },
     {
       "id": "shape",
@@ -72,7 +77,11 @@
       "whatWeDo": ["UX Design", "Information Architecture", "User Flows", "Wireframes", "Interactive Prototypes"],
       "clientOutcomes": ["Validated concepts", "Better user experience", "Faster decision making", "Reduced development risk"],
       "bandColor": "lavender",
-      "textColor": "charcoal"
+      "textColor": "charcoal",
+      "images": [
+        "https://placehold.co/330x180/141432/FFFFFF?text=ReSolv",
+        "https://placehold.co/328x182/2B3A8F/FFFFFF?text=ReSolv+Mobile"
+      ]
     },
     {
       "id": "build-iterate",
@@ -86,7 +95,11 @@
       "whatWeDo": ["UI Design", "Design Systems", "Interaction Design", "Prototyping", "Usability Testing"],
       "clientOutcomes": ["Development ready designs", "Consistent user experience", "Faster product delivery", "Continuous improvement"],
       "bandColor": "terracotta",
-      "textColor": "white"
+      "textColor": "white",
+      "images": [
+        "https://placehold.co/326x180/7B2D5E/FFFFFF?text=Redesign+Hero",
+        "https://placehold.co/328x150/CCF244/1A1A1A?text=ICP"
+      ]
     },
     {
       "id": "scale",
@@ -100,7 +113,11 @@
       "whatWeDo": ["Product Evolution", "Design System Governance", "Process Optimisation", "AI Integration", "Experience Optimisation"],
       "clientOutcomes": ["Scalable design foundation", "Increased team efficiency", "Better product adoption", "Long term product growth"],
       "bandColor": "mustard",
-      "textColor": "charcoal"
+      "textColor": "charcoal",
+      "images": [
+        "https://placehold.co/328x180/F9BD00/1A1A1A?text=Scale+One",
+        "https://placehold.co/328x180/1A1A1A/F9BD00?text=Scale+Two"
+      ]
     }
   ]
 }

@@ -19,7 +19,7 @@ export default async function WorkPage() {
 
   return (
     <main>
-      <SiteNavbar content={global.nav} />
+      <SiteNavbar content={global.nav} activePage="work" footer={global.footer} />
       <WorkHero content={work.hero} />
       <Suspense>
         <PortfolioFilterGrid />

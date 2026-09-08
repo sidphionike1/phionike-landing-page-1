@@ -12,15 +12,15 @@ export type PortfolioSection = z.infer<typeof portfolioSectionSchema>
 export const homePageSchema = z.object({
   nav: z.object({ logo: z.string(), links: z.array(link), cta: link }),
   hero: z.object({ eyebrow: z.string(), headlineDark: z.string(), headlineAccent: z.string(), body: z.string(), primaryCta: link, secondaryCta: link, shapes: z.array(z.object({ id: z.string(), color: z.string(), role: z.string() })), microTag: z.string() }),
-  valueProp: z.object({ heading: z.string(), body: z.string(), cta: link }), trustedBy: z.object({ eyebrow: z.string(), heading: z.string(), headingItalic: z.string(), logos: z.array(z.object({ name: z.string(), logoSrc: z.string() })) }), metrics: z.array(metric),
-  processSteps: z.object({ mobileEyebrowNumber: z.string(), mobileHeading: z.string(), steps: z.array(z.object({ id: z.string(), number: z.string(), heading: z.string(), caption: z.string(), subheading: z.string() })) }),
+  valueProp: z.object({ heading: z.string(), headingItalic: z.string().optional(), body: z.string(), cta: link }), trustedBy: z.object({ eyebrow: z.string(), heading: z.string(), headingItalic: z.string(), logos: z.array(z.object({ name: z.string(), logoSrc: z.string() })) }), metrics: z.array(metric),
+  processSteps: z.object({ mobileEyebrowNumber: z.string(), mobileHeading: z.string(), steps: z.array(z.object({ id: z.string(), number: z.string(), heading: z.string(), caption: z.string(), subheading: z.string(), cardSubheading: z.string().optional(), points: z.array(z.string()).optional() })) }),
   aiBand: z.object({ eyebrow: z.string(), heading: z.string(), supportLine: z.string(), body: z.string(), cta: link }),
   venn: z.object({ eyebrow: z.string(), heading: z.string(), subheading: z.string(), supportCopy: z.string(), disciplines: z.array(discipline), sectors: z.array(sector), stats: z.array(metric), cta: link }),
   portfolio: portfolioSectionSchema,
   showreel: z.object({ title: z.string(), duration: z.string(), posterSrc: z.string(), videoUrl: z.string(), caption: z.string(), cta: link, hiddenOnMobile: z.boolean() }), editorial: z.object({ imageSrc: z.string(), alt: z.string(), hiddenOnMobile: z.boolean() }), footerCta: z.object({ eyebrow: z.string(), headingLine1: z.string(), italicHeadingLine: z.string(), primaryCta: link, secondaryCta: link }), footer: z.object({ description: z.string(), location: z.string(), copyright: z.string(), contact: z.object({ email: z.string(), phone: z.string() }), navLinks: z.array(link), social: z.array(z.object({ platform: z.string(), href: z.string() })), teamPhotoSrc: z.string() }),
 })
 
-const processStep = z.object({ id:z.enum(["clarify","shape","build-iterate","scale"]), number:z.string(), icon:z.string(), heroLabel:z.string(), vennLabel:z.string(), heading:z.string(), shortDescription:z.string(), longDescription:z.string(), whatWeDo:z.array(z.string()), clientOutcomes:z.array(z.string()), bandColor:z.enum(["cobalt","lavender","terracotta","mustard"]), textColor:z.enum(["white","charcoal"]) })
+const processStep = z.object({ id:z.enum(["clarify","shape","build-iterate","scale"]), number:z.string(), icon:z.string(), heroLabel:z.string(), vennLabel:z.string(), heading:z.string(), shortDescription:z.string(), longDescription:z.string(), whatWeDo:z.array(z.string()), clientOutcomes:z.array(z.string()), bandColor:z.enum(["cobalt","lavender","terracotta","mustard"]), textColor:z.enum(["white","charcoal"]), images:z.array(z.string()).optional() })
 export const globalSchema = z.object({ nav:z.object({logo:z.string(),links:z.array(link),cta:link}), footerCta:z.object({eyebrow:z.string(),headingLine1:z.string(),italicHeadingLine:z.string(),primaryCta:link,secondaryCta:link,backgroundColor:z.string().optional()}), footer:z.object({description:z.string(),location:z.string(),copyright:z.string(),copyrightSeparator:z.string().optional(),contact:z.object({email:z.string(),phone:z.string()}),navLinks:z.array(link),social:z.array(z.object({platform:z.string(),href:z.string()})),teamPhotoSrc:z.string()}), processSteps:z.array(processStep).length(4) })
 export const servicesSchema = z.object({ hero:z.object({eyebrow:z.string(),headlineDark:z.string(),headlineAccent:z.string(),body:z.string(),primaryCta:link,secondaryCta:link}), capabilitiesIntro:z.object({eyebrow:z.string(),headingPlain:z.string(),headingAccent:z.string()}), photoStrips:z.array(z.object({id:z.string(),afterStepId:z.string(),src:z.string(),alt:z.string()})), sectorGrid:z.object({eyebrow:z.string().nullable(),heading:z.string(),headingAccent:z.string(),subheading:z.string(),sectors:z.array(z.object({sector:z.string(),clients:z.array(z.string())})),cta:link}) })
 
@@ -54,7 +54,7 @@ export const processAndAiSchema = z.object({
     }),
     description: z.string()
   }),
-  phasesSection: z.object({ headlineMain: z.string(), headlineAccent: z.string(), cards: z.array(z.object({ id: z.string(), title: z.string(), description: z.string(), bg: z.string(), textColor: z.string() })) }),
+  phasesSection: z.object({ headlineMain: z.string(), headlineAccent: z.string(), footerNote: z.object({ startLabel: z.string(), endLabel: z.string() }), cards: z.array(z.object({ id: z.string(), icon: z.string(), title: z.string(), description: z.string(), bg: z.string(), textColor: z.string() })) }),
   frameworkSection: z.object({ 
     badge: z.string(), 
     headlineMain: z.string(), 
