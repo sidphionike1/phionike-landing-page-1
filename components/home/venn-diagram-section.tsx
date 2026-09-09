@@ -25,7 +25,7 @@ const VENN_STAGE_BY_DISCIPLINE: Record<string, string> = {
 
 // Resting state (nothing selected): all chips blurred. This is still the older
 // export, and unlike the four above it has the discipline pills baked in.
-const VENN_STAGE_REST = "/venn/venn-diagram-stage-0.png"
+const VENN_STAGE_REST = "/venn/none-selected.png"
 
 // Every layer that gets mounted for the cross-fade.
 const VENN_LAYERS = [

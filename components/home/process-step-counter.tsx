@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { Check, Orbit } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { HomePage } from "@/content/schema"
 
@@ -34,11 +33,28 @@ const CARD_PAD_TOP = 68      // px
 const CARD_PAD_BOTTOM = 64   // px
 const POINT_GAP = 22         // px between list rows (→ ~42px row pitch at 14px/20px text)
 
+/** Ring positions, clockwise from the top. */
+const DOT_POSITIONS = [
+  { cx: 12, cy: 4.4 },  // top
+  { cx: 19.6, cy: 12 }, // right
+  { cx: 12, cy: 19.6 }, // bottom
+  { cx: 4.4, cy: 12 },  // left
+] as const
+
+const DOT_OUTER_R = 3.6
+const DOT_STROKE = 1.2
+
 /**
- * The four-dot cluster that precedes every card heading: a diamond of four
- * touching dots whose colours alternate black / white around the ring.
+ * The four-dot cluster that precedes every card heading. Exactly one dot is
+ * filled and the other three are outlined; the filled dot advances one position
+ * per step, so it travels around the ring as the reader moves through the cards.
+ *
+ * The outlined radius is inset by half the stroke so filled and outlined dots
+ * share the same outer edge and the cluster doesn't appear to breathe.
  */
-function FourDots({ className }: { className?: string }) {
+function FourDots({ activeIndex, className }: { activeIndex: number; className?: string }) {
+  const active = ((activeIndex % DOT_POSITIONS.length) + DOT_POSITIONS.length) % DOT_POSITIONS.length
+
   return (
     <svg
       width="24"
@@ -48,10 +64,44 @@ function FourDots({ className }: { className?: string }) {
       aria-hidden="true"
       className={className}
     >
-      <circle cx="12" cy="4.4" r="3.6" fill="#000000" />
-      <circle cx="19.6" cy="12" r="3.6" fill="#FFFFFF" />
-      <circle cx="12" cy="19.6" r="3.6" fill="#000000" />
-      <circle cx="4.4" cy="12" r="3.6" fill="#FFFFFF" />
+      {DOT_POSITIONS.map((pos, i) =>
+        i === active ? (
+          <circle key={i} cx={pos.cx} cy={pos.cy} r={DOT_OUTER_R} fill="#000000" />
+        ) : (
+          <circle
+            key={i}
+            cx={pos.cx}
+            cy={pos.cy}
+            r={DOT_OUTER_R - DOT_STROKE / 2}
+            fill="none"
+            stroke="#000000"
+            strokeWidth={DOT_STROKE}
+          />
+        ),
+      )}
+    </svg>
+  )
+}
+
+/**
+ * Single tick for the card point lists. Drawn inline rather than via lucide's
+ * <Check> so the mark can't be mistaken for a double tick at small sizes.
+ */
+function Tick({ className }: { className?: string }) {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className={className}
+    >
+      <path d="M20 6 9 17l-5-5" />
     </svg>
   )
 }
@@ -100,7 +150,7 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
       <div className="mx-auto max-w-7xl px-5 md:px-6">
         <div className="md:hidden">
           <p className="text-6xl font-medium tracking-tight">{content.mobileEyebrowNumber}</p>
-          <h2 className="section-heading mt-4 max-w-xs text-muted-foreground">{content.mobileHeading}</h2>
+          <h2 className="step-support mt-4 max-w-sm text-ink">{content.mobileHeading}</h2>
           <div className="mt-10 flex flex-col">
             {disciplines.map((item, index) => (
               <article
@@ -115,7 +165,7 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
                 )}
               >
                 <h3 className="flex items-center gap-3 text-2xl">
-                  <Orbit size={22} />
+                  <FourDots activeIndex={index} className="shrink-0" />
                   {item.mobileLabel}
                 </h3>
                 {index === 3 && (
@@ -124,7 +174,7 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
                     <ul className="mt-4 flex flex-col gap-2 text-sm">
                       {content.steps.map((step) => (
                         <li key={step.id} className="flex items-center gap-2">
-                          <Check size={14} />
+                          <Tick className="shrink-0" />
                           {step.subheading}
                         </li>
                       ))}
@@ -152,8 +202,10 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
                 exit={{ opacity: 0, y: -15 }}
               >
                 <p className="text-9xl font-semibold tracking-tighter">{content.steps[displayIndex]?.number}</p>
-                <h2 className="section-heading mt-5">{content.steps[displayIndex]?.heading}</h2>
-                <p className="mt-3 max-w-sm text-muted-foreground">{content.steps[displayIndex]?.caption}</p>
+                {/* One supporting line only — 40/53.76 in ink, not muted grey */}
+                <h2 className="step-support mt-5 max-w-md text-ink">
+                  {content.steps[displayIndex]?.heading}
+                </h2>
               </motion.div>
             </AnimatePresence>
           </div>
@@ -193,7 +245,7 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
                 >
                   {/* Dot icon + heading — the only row revealed in a stacked card's peek */}
                   <div className="flex items-center gap-4">
-                    <FourDots className="shrink-0" />
+                    <FourDots activeIndex={i} className="shrink-0" />
                     <h3 className="text-4xl leading-10 tracking-tight">
                       {step.subheading}
                     </h3>
@@ -212,7 +264,7 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
                     >
                       {step.points.map((point) => (
                         <li key={point} className="flex items-center gap-3 text-sm">
-                          <Check size={18} strokeWidth={2.5} className="shrink-0" />
+                          <Tick className="shrink-0" />
                           {point}
                         </li>
                       ))}

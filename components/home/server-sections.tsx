@@ -207,10 +207,10 @@ export function TrustedByStrip({
 
           {/* Logo Grid */}
           <div
-            className="grid grid-cols-3"
+            className="grid grid-cols-3 lg:border-l"
             style={{
               backgroundColor: "#FBF6EE",
-              borderLeft: "1px solid #E8E2D9",
+              borderColor: "#E8E2D9",
             }}
           >
             {content.logos.map((logo, index) => {
@@ -237,13 +237,15 @@ export function TrustedByStrip({
                     borderColor: "#E8E2D9",
                   }}
                 >
+                  {/* These marks range from 1.8:1 (al ramz) to 10:1 (Wavelength),
+                      so both axes are capped — a width-only cap would tower the
+                      squarish logos and shrink the wide ones to a sliver. */}
                   <Image
-                  // @ts-ignore
-                    src={logo.image || "/images/logo-placeholder.svg"}
+                    src={logo.logoSrc}
                     alt={logo.name}
                     width={180}
                     height={70}
-                    className="h-auto w-auto max-w-[90px] object-contain sm:max-w-[110px] md:max-w-[130px] lg:max-w-[170px]"
+                    className="h-auto w-auto object-contain max-h-[28px] max-w-[92px] sm:max-h-[34px] sm:max-w-[112px] md:max-h-[44px] md:max-w-[140px] lg:max-h-[56px] lg:max-w-[170px]"
                   />
                 </div>
               );
@@ -269,8 +271,15 @@ export function AIPhilosophyBand({ content }: { content: HomePage["aiBand"] }) {
           {/* Left: 6 — eyebrow + heading */}
           <div>
             <p className="eyebrow">{content.eyebrow}</p>
-            <h2 className="section-heading mt-5 max-w-4xl">
+            {/* 54.4/59.84/-0.54px regular, with the closing clause in italics */}
+            <h2 className="band-heading mt-5 max-w-4xl">
               {content.heading}
+              {content.headingItalic && (
+                <>
+                  {" "}
+                  <span className="band-heading-italic">{content.headingItalic}</span>
+                </>
+              )}
             </h2>
           </div>
 

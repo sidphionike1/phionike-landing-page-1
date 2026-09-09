@@ -80,50 +80,50 @@
     "logos": [
       {
         "name": "OREN",
-        "logoSrc": "/logos/oren.svg"
+        "logoSrc": "/trusted_by/1.png"
       },
       {
         "name": "al ramz",
-        "logoSrc": "/logos/al-ramz.svg"
+        "logoSrc": "/trusted_by/2.png"
       },
       {
         "name": "ICP",
-        "logoSrc": "/logos/icp.svg"
+        "logoSrc": "/trusted_by/3.png"
       },
       {
         "name": "Resilience AI",
-        "logoSrc": "/logos/resilience-ai.svg"
+        "logoSrc": "/trusted_by/4.png"
       },
       {
         "name": "Brandintellé",
-        "logoSrc": "/logos/brandintelle.svg"
+        "logoSrc": "/trusted_by/5.png"
       },
       {
         "name": "FILESURE",
-        "logoSrc": "/logos/filesure.svg"
+        "logoSrc": "/trusted_by/6.png"
       },
       {
         "name": "IISLA",
-        "logoSrc": "/logos/iisla.svg"
+        "logoSrc": "/trusted_by/7.png"
       },
       {
         "name": "Wavelength Partners",
-        "logoSrc": "/logos/wavelength.svg"
+        "logoSrc": "/trusted_by/8.png"
       },
       {
         "name": "FarmYields",
-        "logoSrc": "/logos/farmyields.svg"
+        "logoSrc": "/trusted_by/9.png"
       }
     ],
     "headingItalic": "that demand substance."
   },
   "metrics": [
     {
-      "value": "300 M+",
+      "value": "40 M+",
       "label": "Users Impacted"
     },
     {
-      "value": "2.5 M+",
+      "value": "2 L+",
       "label": "Designs Delivered"
     },
     {
@@ -175,7 +175,8 @@
   },
   "aiBand": {
     "eyebrow": "Process & AI",
-    "heading": "AI that serves the work, not the other way around.",
+    "heading": "AI that serves the work,",
+    "headingItalic": "not the other way around.",
     "supportLine": "Turn assumptions into insights",
     "body": "We use AI deliberately — as a research accelerator, a synthesis tool, and a pressure-test for ideas. Never as a replacement for the human judgement that makes design worth doing.",
     "cta": {

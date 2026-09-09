@@ -23,7 +23,7 @@ export default async function Page() {
     <Suspense><PortfolioFilterGrid /></Suspense>
     <AwardsSection />
     <Suspense><FAQSection  /></Suspense>
-    <ShowreelSection content={content.showreel} />
+    {/* <ShowreelSection content={content.showreel} /> */}
     <FooterCTA cta={global.footerCta} />
     <Footer content={global.footer} />
   </main>

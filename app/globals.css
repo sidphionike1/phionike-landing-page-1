@@ -31,6 +31,18 @@
    Distinct from .section-heading-lg (40/52) — a few sections use this larger cut. */
 .section-heading-xl{font-weight:400;font-size:28px;line-height:36px;letter-spacing:-.02em}
 @media(min-width:768px){.section-heading-xl{font-size:48px;line-height:58px;letter-spacing:-1.5px}}
+/* Full-bleed band heading: 400 / 54.4px / 59.84px / -0.54px, with an italic
+   clause in the same size and weight. Mobile keeps the 1.1 line-height ratio and
+   expresses the tracking in em so it stays proportional.
+   The italic variant sets only font-style/weight, so it inherits size, leading
+   and tracking from the parent heading at every breakpoint. */
+.band-heading{font-weight:400;font-size:34px;line-height:37.4px;letter-spacing:-.01em}
+.band-heading-italic{font-weight:400;font-style:italic}
+@media(min-width:768px){.band-heading{font-size:54.4px;line-height:59.84px;letter-spacing:-.54px}}
+/* Single supporting line under the big step number: 400 / 40px / 53.76px / 0.
+   Mobile holds the same 1.344 line-height ratio at a smaller size. */
+.step-support{font-weight:400;font-size:26px;line-height:35px;letter-spacing:0}
+@media(min-width:768px){.step-support{font-size:40px;line-height:53.76px}}
 /* Bold micro-heading used inside cards (e.g. "01. CLARIFY" column titles). */
 .step-heading{font-weight:650;font-size:16px;line-height:100%;letter-spacing:0}
 @media(min-width:768px){.step-heading{font-size:24px}}
