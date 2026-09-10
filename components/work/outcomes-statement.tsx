@@ -50,18 +50,18 @@ const cardVariants: Variants = {
 export default function OutcomesStatement() {
   return (
     <section className="bg-[#FCFAF7] py-20 lg:py-28">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="section-shell">
         {/* Top Section */}
         <div className="grid items-center gap-10 lg:grid-cols-[60%_40%]">
           {/* Left */}
           <div>
-            <h2 className="max-w-[650px] text-center text-[28px] font-light leading-[1.15] tracking-[-0.03em] text-neutral-900 md:text-left lg:text-[40px] lg:leading-[1.08]">
+            <h2 className="type-sans-regular max-w-[650px] text-center text-lead leading-[125%] text-[#111111] md:text-left md:text-display md:leading-[110%]">
               Design measured by outcomes,
               <br />
               not outputs.
             </h2>
 
-            <p className="mt-6 max-w-[620px] text-center text-[16px] leading-7 text-neutral-600 md:text-left lg:text-[18px] lg:leading-8">
+            <p className="type-sans-regular mt-6 max-w-[620px] text-center text-body-lg leading-[160%] text-[#212121]/60 md:text-left md:text-title-sm md:leading-normal md:text-[#212121]">
               Great design isn't defined by the number of screens delivered.
               It's measured by the experiences it creates and the value it
               brings to businesses.
@@ -99,11 +99,11 @@ export default function OutcomesStatement() {
               }}
               className="flex h-[110px] flex-col justify-between rounded-[30px] border border-neutral-200 bg-white p-6 md:h-[210px] lg:p-10"
             >
-              <h3 className="text-[28px] font-light leading-none tracking-[-0.03em] text-neutral-900 lg:text-[40px]">
+              <h3 className="type-sans-medium text-lead leading-none text-[#111111] md:text-display-xl">
                 {item.value}
               </h3>
 
-              <p className="text-[12px] uppercase tracking-wide text-neutral-500">
+              <p className="type-sans-regular text-caption uppercase tracking-[1px] text-[#212121]/60 md:text-body-lg md:text-[#212121]">
                 {item.label}
               </p>
             </motion.div>

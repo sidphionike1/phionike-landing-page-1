@@ -22,12 +22,12 @@ export default async function WorkPage() {
       <SiteNavbar content={global.nav} activePage="work" footer={global.footer} />
       <WorkHero content={work.hero} />
       <Suspense>
-        <PortfolioFilterGrid />
+        <PortfolioFilterGrid typography="work" />
       </Suspense>
       <DisciplineList steps={global.processSteps} />
       <OutcomesStatement />
       <TestimonialsGrid content={work.testimonials} />
-      <FooterCTA cta={global.footerCta} />
+      <FooterCTA cta={global.footerCta} typography="work" />
       <Footer content={global.footer} />
     </main>
   )

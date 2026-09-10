@@ -24,7 +24,7 @@ const ArrowLink = ({
 
 export function FloatingNavbar({ content }: { content: HomePage["nav"] }) {
   return (
-    <header className="fixed inset-x-0 top-4 z-50 mx-auto max-w-7xl px-5 md:px-6">
+    <header className="section-shell fixed inset-x-0 top-4 z-50">
       <nav
         className="flex items-center justify-between rounded-full border border-primary/20 bg-background/60 px-5 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.06)] backdrop-blur-xl backdrop-saturate-150 md:px-6"
         aria-label="Primary"
@@ -58,28 +58,33 @@ export function FloatingNavbar({ content }: { content: HomePage["nav"] }) {
 export function Hero({ content }: { content: HomePage["hero"] }) {
   return (
     <section className="bg-background">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-5 pb-16 pt-32 md:px-6 lg:grid-cols-[1fr_auto] lg:gap-x-1 lg:gap-y-0 lg:pb-24 lg:pt-40">
-        <div className="lg:col-span-1">
-          <p className="eyebrow">{content.eyebrow}</p>
-          <div className="mt-5">
-            <h1 className="text-5xl font-medium leading-[1.08] tracking-tighter md:text-6xl md:leading-[80px] whitespace-pre-line">
+      <div className="section-shell grid grid-cols-1 pb-16 pt-32 lg:grid-cols-[minmax(0,1fr)_auto] lg:grid-rows-[auto_auto] lg:items-start lg:gap-x-1 lg:pb-24 lg:pt-40">
+        {/* Eyebrow sits above the aligned headline ↔ shapes row */}
+        <p className="type-sans-medium text-caption leading-[16.5px] tracking-[3.3px] uppercase text-[#212121]/60 lg:col-start-1 lg:row-start-1">
+          {content.eyebrow}
+        </p>
+
+        {/* Headline → CTAs: top aligns with shapes, CTAs pin to shape bottoms */}
+        <div className="mt-5 flex flex-col lg:col-start-1 lg:row-start-2 lg:h-[487px]">
+          <div>
+            <h1 className="type-sans-medium whitespace-pre-line text-heading leading-normal text-[#212121] md:text-hero md:leading-[80px]">
               {content.headlineDark}
             </h1>
-            <h2 className="mt-3 text-5xl font-medium leading-[1.08] tracking-tighter text-accent md:text-5xl">
+            <h2 className="type-sans-medium mt-3 text-heading leading-normal text-[#FF5B23] md:text-display-md md:leading-[62px] lg:whitespace-nowrap">
               {content.headlineAccent}
             </h2>
+            <p className="type-sans-regular mt-7 max-w-[370px] text-body-sm leading-[20px] text-[#36454F]">
+              {content.body}
+            </p>
           </div>
-          <p className="mt-7 max-w-xl text-base leading-relaxed text-muted-foreground md:text-base">
-            {content.body}
-          </p>
-          <div className="mt-8 flex flex-wrap items-center gap-6">
+          <div className="flex flex-wrap items-center gap-6 pt-8 lg:mt-auto">
             <ArrowLink
               {...content.primaryCta}
-              className="rounded-full bg-foreground px-7 py-4 text-sm text-background"
+              className="type-sans-medium rounded-full bg-foreground px-7 py-4 text-body-sm leading-[21px] text-white"
             />
             <ArrowLink
               {...content.secondaryCta}
-              className="text-sm"
+              className="type-sans-medium text-body-sm leading-[21px] text-[#262728]"
               arrowClassName="text-[#3A39FF]"
             />
           </div>
@@ -92,7 +97,9 @@ export function Hero({ content }: { content: HomePage["hero"] }) {
             </div>
           </div>
         </div>
-        <div className="hidden lg:block">
+
+        {/* Shapes start on the same row as the headline (not the eyebrow) */}
+        <div className="hidden lg:col-start-2 lg:row-start-2 lg:mt-5 lg:block">
           <HeroVisual />
         </div>
       </div>
@@ -107,29 +114,29 @@ export function ValuePropBand({
 }) {
   return (
     <section
-      className="bg-primary px-5 py-14 text-primary-foreground md:px-6 md:py-20"
+      className="bg-primary py-14 text-primary-foreground md:py-20"
       style={{
         backgroundImage: "url('/pattern-binary-blue.png')",
         backgroundRepeat: "repeat",
         backgroundSize: "1440px 414px",
       }}
     >
-      <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[3fr_2fr] md:items-start">
-        <h2 className="section-heading">
+      <div className="section-shell grid gap-10 md:grid-cols-[3fr_2fr] md:items-start">
+        <h2 className="type-sans-regular text-heading leading-normal text-white md:text-display-sm md:leading-[53.76px]">
           {content.heading}
           {content.headingItalic && (
-            <> <em className="!text-primary-foreground section-heading-italic">{content.headingItalic}</em></>
+            <> <em className="type-sans-italic text-white">{content.headingItalic}</em></>
           )}
         </h2>
 
         <div>
-          <p className="max-w-xl text-sm leading-relaxed text-primary-foreground/80 md:text-[16px]">
+          <p className="type-sans-regular max-w-xl text-body-sm leading-[160%] text-white/90">
             {content.body}
           </p>
 
           <ArrowLink
             {...content.cta}
-            className="mt-6 inline-block border-b pb-1 text-sm"
+            className="type-sans-medium mt-6 inline-block border-b pb-1 text-body-sm leading-normal text-white"
           />
         </div>
       </div>
@@ -150,16 +157,18 @@ export function TrustedByStrip({
       className="py-16 md:py-24"
       style={{ backgroundColor: "#FFFCF7" }}
     >
-      <div className="mx-auto max-w-[1192px] px-5 md:px-6">
+      <div className="section-shell">
         {/* Heading */}
-        <p className="text-[12px] font-medium uppercase tracking-[0.22em] text-foreground">
+        <p className="type-sans-medium text-caption leading-[16.5px] tracking-[3.3px] text-[#212121]">
           {content.eyebrow}
         </p>
 
-        <h2 className="section-heading mt-4 max-w-[620px] md:mt-5">
-          <span className="block">{content.heading}</span>
+        <h2 className="mt-4 max-w-[620px] md:mt-5">
+          <span className="type-sans-regular block text-heading leading-[120%] text-[#111111] md:text-display-xs md:leading-[44.8px]">
+            {content.heading}
+          </span>
 
-          <span className="section-heading-italic block">
+          <span className="type-sans-italic block text-heading leading-[120%] text-[#221122]/60 md:text-display-xs md:leading-[44.8px]">
             {content.headingItalic}
           </span>
         </h2>
@@ -168,11 +177,11 @@ export function TrustedByStrip({
         <div className="mt-10 grid grid-cols-3 gap-5 lg:hidden">
           {metrics.map((metric) => (
             <div key={metric.label}>
-              <div className="text-[24px] font-medium leading-none">
+              <div className="type-sans-medium text-title-lg leading-[19px] text-[#111111]">
                 {metric.value}
               </div>
 
-              <div className="mt-2 text-[12px] uppercase leading-tight tracking-[0.14em] text-muted-foreground">
+              <div className="type-sans-regular mt-2 text-micro leading-[19px] uppercase text-[#111111]">
                 {metric.label}
               </div>
             </div>
@@ -194,11 +203,11 @@ export function TrustedByStrip({
           >
             {metrics.map((metric) => (
               <div key={metric.label} className="px-10 py-11">
-                <div className="text-[48px] font-medium leading-none tracking-tight">
+                <div className="type-sans-regular text-display leading-[32px] text-[#111111]">
                   {metric.value}
                 </div>
 
-                <div className="mt-3 text-[12px] uppercase tracking-[0.18em] text-muted-foreground">
+                <div className="type-sans-light-italic mt-3 text-body leading-[32px] uppercase text-[#111111]">
                   {metric.label}
                 </div>
               </div>
@@ -266,18 +275,19 @@ export function AIPhilosophyBand({ content }: { content: HomePage["aiBand"] }) {
         backgroundSize: "1440px 414px",
       }}
     >
-      <div className="mx-auto max-w-7xl px-5 md:px-6">
+      <div className="section-shell">
         <div className="grid gap-8 md:grid-cols-[6fr_4fr] md:gap-12">
           {/* Left: 6 — eyebrow + heading */}
           <div>
-            <p className="eyebrow">{content.eyebrow}</p>
-            {/* 54.4/59.84/-0.54px regular, with the closing clause in italics */}
-            <h2 className="band-heading mt-5 max-w-4xl">
+            <p className="type-sans-medium text-caption leading-[16.5px] tracking-[3.3px] text-[#212121]">
+              {content.eyebrow}
+            </p>
+            <h2 className="type-sans-regular mt-5 max-w-4xl text-heading leading-normal text-[#212121] md:text-display-lg md:leading-[59.84px]">
               {content.heading}
               {content.headingItalic && (
                 <>
                   {" "}
-                  <span className="band-heading-italic">{content.headingItalic}</span>
+                  <span className="type-sans-italic">{content.headingItalic}</span>
                 </>
               )}
             </h2>
@@ -285,10 +295,12 @@ export function AIPhilosophyBand({ content }: { content: HomePage["aiBand"] }) {
 
           {/* Right: 4 — body + CTA */}
           <div className="md:pt-10">
-            <p className="max-w-xl leading-relaxed">{content.body}</p>
+            <p className="type-sans-regular max-w-xl text-body-sm leading-[160%] text-[#212121]/90">
+              {content.body}
+            </p>
             <ArrowLink
               {...content.cta}
-              className="mt-6 inline-block border-b border-foreground pb-1 text-sm"
+              className="type-sans-regular mt-6 inline-block border-b border-foreground pb-1 text-label leading-[19.5px] text-[#212121]"
             />
           </div>
         </div>
@@ -302,15 +314,17 @@ export function EditorialPhotoBlock({
   content: HomePage["editorial"];
 }) {
   return (
-    <section className="hidden bg-background px-6 pb-24 md:block">
-      <div className="relative mx-auto aspect-[21/9] max-w-7xl overflow-hidden rounded-[2rem]">
-        <Image
-          src="/editorial/team-photo.png"
-          alt={content.alt}
-          fill
-          className="object-cover"
-          sizes="100vw"
-        />
+    <section className="hidden bg-background pb-24 md:block">
+      <div className="section-shell">
+        <div className="relative aspect-[21/9] overflow-hidden rounded-[2rem]">
+          <Image
+            src="/editorial/team-photo.png"
+            alt={content.alt}
+            fill
+            className="object-cover"
+            sizes="(min-width: 1200px) 1200px, 100vw"
+          />
+        </div>
       </div>
     </section>
   );
@@ -323,8 +337,8 @@ export function FooterCTA({
   content: HomePage["footer"];
 }) {
   return (
-    <footer className="bg-ink px-5 py-20 text-primary-foreground md:px-6 md:py-28">
-      <div className="mx-auto max-w-7xl">
+    <footer className="bg-ink py-20 text-primary-foreground md:py-28">
+      <div className="section-shell">
         <p className="text-center text-xs uppercase">{cta.eyebrow}</p>
         <div className="mx-auto mt-5 max-w-3xl text-center">
           <h2 className="font-serif text-4xl leading-tight md:text-6xl">
@@ -420,20 +434,18 @@ const awardsData = [
 
 export function AwardsSection() {
   return (
-    <section className="w-full max-w-7xl mx-auto px-6 py-16 font-sans">
+    <section className="section-shell py-16 font-sans">
       {/* Header Section */}
       <div className="mb-12">
-        {/* Eyebrow - 12px */}
-        <span className="text-[12px] font-medium tracking-[0.2em] text-gray-400 uppercase block mb-3">
+        <span className="type-sans-medium mb-3 block text-caption leading-[16.5px] tracking-[3.3px] text-[#AAAAAA]">
           AWARDS
         </span>
 
-        {/* Heading & Subheading - 40px */}
-        <h2 className="section-heading max-w-2xl text-gray-900 md:grid">
-          Every recognition tells the story{'   '}
-          <div className="section-heading-italic block sm:inline">
+        <h2 className="type-vf-regular max-w-2xl text-lead leading-[34px] text-[#141414] md:text-display-xs md:leading-[44.8px]">
+          Every recognition tells the story{' '}
+          <span className="type-vf-italic block text-[#BBBBBB] sm:inline">
             of a problem solved beautifully.
-          </div>
+          </span>
         </h2>
       </div>
 
@@ -480,7 +492,7 @@ export function AwardsSection() {
             {/* Bottom Label Section *\/}
             <div className="relative z-10 w-full text-center pb-2">
               <div className="w-12 h-[1px] bg-gray-300 mx-auto mb-4" />
-              <p className="text-[11px] font-medium tracking-[0.2em] text-gray-400 uppercase">
+              <p className="text-caption font-medium tracking-[0.2em] text-gray-400 uppercase">
                 {award.category}
               </p>
             </div>

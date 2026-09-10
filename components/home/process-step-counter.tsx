@@ -147,10 +147,14 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
 
   return (
     <section ref={sectionRef} className="bg-background py-20 md:py-28">
-      <div className="mx-auto max-w-7xl px-5 md:px-6">
+      <div className="section-shell">
         <div className="md:hidden">
-          <p className="text-6xl font-medium tracking-tight">{content.mobileEyebrowNumber}</p>
-          <h2 className="step-support mt-4 max-w-sm text-ink">{content.mobileHeading}</h2>
+          <p className="type-sans-regular text-numeral-sm leading-none text-[#212121] md:text-numeral">
+            {content.mobileEyebrowNumber}
+          </p>
+          <h2 className="type-sans-regular mt-4 max-w-sm text-title leading-[120%] text-[#212121]/60 md:text-display-xs md:leading-[53.76px]">
+            {content.mobileHeading}
+          </h2>
           <div className="mt-10 flex flex-col">
             {disciplines.map((item, index) => (
               <article
@@ -164,16 +168,16 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
                   index === 3 && "bg-mustard text-foreground",
                 )}
               >
-                <h3 className="flex items-center gap-3 text-2xl">
+                <h3 className="type-sans-regular flex items-center gap-3 text-title-lg leading-[31.76px]">
                   <FourDots activeIndex={index} className="shrink-0" />
                   {item.mobileLabel}
                 </h3>
                 {index === 3 && (
                   <div className="mt-4">
-                    <p className="text-xs uppercase tracking-[.16em]">{content.mobileHeading}</p>
-                    <ul className="mt-4 flex flex-col gap-2 text-sm">
+                    <p className="type-sans-regular text-eyebrow leading-[18px] tracking-[1.95px]">{content.mobileHeading}</p>
+                    <ul className="mt-4 flex flex-col gap-2">
                       {content.steps.map((step) => (
-                        <li key={step.id} className="flex items-center gap-2">
+                        <li key={step.id} className="type-sans-regular flex items-center gap-2 text-eyebrow leading-[18.91px]">
                           <Tick className="shrink-0" />
                           {step.subheading}
                         </li>
@@ -201,9 +205,10 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
               >
-                <p className="text-9xl font-semibold tracking-tighter">{content.steps[displayIndex]?.number}</p>
-                {/* One supporting line only — 40/53.76 in ink, not muted grey */}
-                <h2 className="step-support mt-5 max-w-md text-ink">
+                <p className="type-sans-regular text-numeral-sm leading-none text-[#212121] md:text-numeral">
+                  {content.steps[displayIndex]?.number}
+                </p>
+                <h2 className="type-sans-regular mt-5 max-w-md text-title leading-[120%] text-[#212121]/60 md:text-display-xs md:leading-[53.76px]">
                   {content.steps[displayIndex]?.heading}
                 </h2>
               </motion.div>
@@ -246,13 +251,13 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
                   {/* Dot icon + heading — the only row revealed in a stacked card's peek */}
                   <div className="flex items-center gap-4">
                     <FourDots activeIndex={i} className="shrink-0" />
-                    <h3 className="text-4xl leading-10 tracking-tight">
+                    <h3 className="type-sans-regular text-title-lg leading-[31.76px] md:text-heading md:leading-[53.76px]">
                       {step.subheading}
                     </h3>
                   </div>
 
                   {step.cardSubheading && (
-                    <p className="mt-7 max-w-md text-[13px] uppercase leading-normal tracking-[0.16em] opacity-70">
+                    <p className="type-sans-regular mt-7 max-w-md text-eyebrow leading-[18px] tracking-[1.95px]">
                       {step.cardSubheading}
                     </p>
                   )}
@@ -263,7 +268,7 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
                       style={{ gap: POINT_GAP }}
                     >
                       {step.points.map((point) => (
-                        <li key={point} className="flex items-center gap-3 text-sm">
+                        <li key={point} className="type-sans-regular flex items-center gap-3 text-eyebrow leading-[18.91px]">
                           <Tick className="shrink-0" />
                           {point}
                         </li>

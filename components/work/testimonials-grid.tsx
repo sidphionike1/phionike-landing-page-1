@@ -65,7 +65,7 @@ function TestimonialCardDesktop({ item }: { item: TestimonialItem }) {
 
       <div className="absolute inset-0 bottom-24 z-10 flex flex-col justify-start rounded-xl bg-white p-7 transition-transform duration-500 ease-out group-hover:-translate-y-full">
         <blockquote>
-          <p className="text-[13px] leading-relaxed text-foreground/80 line-clamp-[8]">
+          <p className="type-sans-regular text-title-sm leading-[25px] tracking-[0.5px] text-[#212121] line-clamp-[8]">
             &ldquo;{item.quote}&rdquo;
           </p>
         </blockquote>
@@ -86,8 +86,8 @@ function TestimonialCardDesktop({ item }: { item: TestimonialItem }) {
             />
           </div>
           <div>
-            <p className="text-sm font-semibold leading-tight text-foreground">{item.name}</p>
-            <p className="mt-0.5 text-xs text-muted-foreground">
+            <p className="type-sans-medium text-title-sm leading-normal text-[#212121]">{item.name}</p>
+            <p className="type-sans-regular mt-0.5 text-eyebrow leading-normal text-[#212121]/60">
               {item.role} / {item.company}
             </p>
           </div>
@@ -111,7 +111,7 @@ function TestimonialCardMobile({ item }: { item: TestimonialItem }) {
 
       <div className="relative z-10 p-7 pb-32">
         <blockquote>
-          <p className="text-[13px] leading-relaxed text-foreground/80 line-clamp-[8]">
+          <p className="type-sans-regular text-title-sm leading-[25px] tracking-[0.5px] text-[#212121] line-clamp-[8]">
             &ldquo;{item.quote}&rdquo;
           </p>
         </blockquote>
@@ -133,8 +133,8 @@ function TestimonialCardMobile({ item }: { item: TestimonialItem }) {
               />
             </div>
             <div>
-              <p className="text-sm font-semibold leading-tight text-foreground">{item.name}</p>
-              <p className="mt-0.5 text-xs text-muted-foreground">
+              <p className="type-sans-medium text-title-sm leading-normal text-[#212121]">{item.name}</p>
+              <p className="type-sans-regular mt-0.5 text-eyebrow leading-normal text-[#212121]/60">
                 {item.role} / {item.company}
               </p>
             </div>
@@ -153,9 +153,13 @@ export function TestimonialsGrid({ content }: { content?: WorkPage["testimonials
 
   return (
     <section className="bg-background py-20 md:py-20">
-      <div className="mx-auto max-w-7xl px-5 md:px-6">
-        <h2 className="text-4xl font-medium tracking-tight md:text-5xl">{heading}</h2>
-        <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">{subheading}</p>
+      <div className="section-shell">
+        <h2 className="type-sans-regular text-lead leading-[125%] text-[#111111] md:text-display-xs md:leading-normal">
+          {heading}
+        </h2>
+        <p className="type-sans-regular mt-4 max-w-xl text-body-lg leading-[160%] text-[#212121]/60">
+          {subheading}
+        </p>
 
         <div className="mt-20 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {items.map((item) => (

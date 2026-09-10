@@ -105,14 +105,16 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
 
   return (
     <section className="bg-background py-20 md:py-28">
-      <div className="mx-auto max-w-7xl px-5 md:px-6">
+      <div className="section-shell">
         {/* Eyebrow + Heading */}
-        <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
+        <p className="type-sans-medium text-caption leading-[16.5px] tracking-[3.3px] text-[#212121]">
           {content.eyebrow}
         </p>
-        <h2 className="section-heading mt-3 max-w-3xl">
-          {content.heading}
-          <em className="section-heading-italic block">
+        <h2 className="mt-3 max-w-3xl">
+          <span className="type-sans-regular block text-heading leading-[120%] text-[#212121] md:text-display-xs md:leading-[47.84px]">
+            {content.heading}
+          </span>
+          <em className="type-sans-light-italic block text-heading leading-[120%] text-[#212121]/60 md:text-display-xs md:leading-[47.84px]">
             {content.subheading}
           </em>
         </h2>
@@ -178,11 +180,11 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
                   <button
                     key={d.id}
                     onClick={() => select("discipline", d.id)}
-                    className={`rounded-full px-7 py-3 text-sm font-medium transition-all duration-300 ${
+                    className={`type-sans-medium rounded-full px-7 py-3 text-micro leading-[19.5px] transition-all duration-300 md:text-body-sm ${
                       isDefault
-                        ? "bg-foreground text-background hover:scale-105"
+                        ? "bg-foreground text-white hover:scale-105"
                         : isActive
-                          ? "scale-[1.02] bg-foreground text-background shadow-lg"
+                          ? "scale-[1.02] bg-foreground text-white shadow-lg"
                           : "bg-foreground/40 text-white/80 backdrop-blur-sm hover:bg-foreground/60"
                     }`}
                   >
@@ -205,7 +207,7 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
             {isDefault ? (
               /* Default state — original implementation */
               <div className="flex h-full flex-col justify-center px-2 py-8 md:px-6">
-                <p className="max-w-lg text-[22px] leading-snug text-foreground">
+                <p className="type-sans-medium max-w-lg text-title leading-normal text-[#444242]">
                   {content.supportCopy}
                 </p>
                 <div className="mt-10 border-t border-border pt-8">
@@ -223,16 +225,15 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
                               : "bg-border"
                         }`}
                       />
-                      <span className="text-lg font-medium">{stat.value}</span>
-                      <span className="italic text-muted-foreground">
-                        {stat.label}
+                      <span className="type-sans-italic text-body-sm leading-[18px] text-[#212121]/60">
+                        {stat.value} {stat.label}
                       </span>
                     </div>
                   ))}
                 </div>
                 <a
                   href={content.cta.href}
-                  className="mt-10 inline-flex items-center gap-2 border-b border-foreground pb-1 text-sm text-foreground transition-opacity hover:opacity-70"
+                  className="type-sans-medium mt-10 inline-flex items-center gap-2 border-b border-[#111111] pb-1 text-label leading-[19.5px] text-[#111111] transition-opacity hover:opacity-70"
                 >
                   {content.cta.label}
                   <ArrowUpRight size={14} />
@@ -259,10 +260,10 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
                       }}
                     />
                   </div>
-                  <h3 className="text-[36px] font-medium leading-[1.1]">
+                  <h3 className="type-sans-regular text-heading leading-[47.84px] text-[#212121]">
                     {activeCaseStudy.title}
                   </h3>
-                  <p className="mt-3 max-w-[90%] text-lg leading-relaxed opacity-80">
+                  <p className="type-sans-medium mt-3 max-w-[90%] text-body-lg leading-[20.8px] text-[#212121]/80">
                     {activeCaseStudy.subtitle}
                   </p>
                 </div>

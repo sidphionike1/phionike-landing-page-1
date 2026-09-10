@@ -26,7 +26,7 @@ export default async function ProcessAndAiPage() {
 
   return (
     <main>
-      <SiteNavbar content={global.nav} activePage="process" footer={global.footer} />
+      <SiteNavbar content={global.nav} activePage="process-and-ai" footer={global.footer} />
       <ProcessAiHero hero={content.hero} />
       <ComparisonSection section={content.comparisonSection} />
       <PhasesGrid section={content.phasesSection} />
@@ -34,7 +34,7 @@ export default async function ProcessAndAiPage() {
       <MethodologyAccordion />
       <AiSynergyGrid synergy={content.aiAcceleratesSection} />
       <OutcomesGrid outcomes={content.outcomesSection} />
-      <FooterCTA cta={global.footerCta} />
+      <FooterCTA cta={global.footerCta} typography="work" />
       <Footer content={global.footer} />
     </main>
   )

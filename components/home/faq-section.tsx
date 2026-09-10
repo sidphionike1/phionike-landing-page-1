@@ -49,15 +49,13 @@ export function FAQSection() {
 
   return (
     <section className="bg-[#faf8f5] py-20 md:py-28">
-      {/* Container: 90% mobile | 20px padding tablet | 1198px cap desktop */}
-      <div className="mx-auto w-[90%] md:w-full md:px-5 min-[1198px]:max-w-[1198px] min-[1198px]:px-0">
+      <div className="section-shell">
         {/* Eyebrow */}
-        <p className="text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground">
-          Have a question?
+        <p className="type-vf-regular text-caption leading-[16.5px] tracking-[2px] text-[#212121]/60">
+          HAVE A QUESTION?
         </p>
 
-        {/* Heading */}
-        <h2 className="section-heading mt-4 text-[#3b5bdb]">
+        <h2 className="type-vf-regular mt-4 text-faq leading-[53.76px] text-[#3A39FF] md:text-display-sm md:leading-[53.76px]">
           We have you covered
         </h2>
 
@@ -102,7 +100,7 @@ export function FAQSection() {
                   </span>
 
                   {/* Question */}
-                  <span className="text-lg font-normal leading-snug text-foreground md:text-xl">
+                  <span className="type-vf-regular text-body-sm leading-normal text-[#36454F]">
                     {faq.question}
                   </span>
                 </button>
@@ -116,7 +114,7 @@ export function FAQSection() {
                   }`}
                 >
                   <div className="overflow-hidden">
-                    <p className="pb-7 pl-10 pr-4 text-base leading-relaxed text-muted-foreground md:pl-12 md:text-lg">
+                    <p className="type-vf-regular pb-7 pl-10 pr-4 text-label leading-normal text-[#36454F] md:pl-12">
                       {faq.answer}
                     </p>
                   </div>

@@ -30,7 +30,7 @@ export function WorkHero({ content }: { content: WorkPage["hero"] }) {
               style={{ backgroundColor: cfg.bg }}
             >
               <span
-                className="whitespace-nowrap text-xs font-medium"
+                className="type-sans-medium whitespace-nowrap text-eyebrow"
                 style={{ color: "white" }}
               >
                 {tag.label}
@@ -55,7 +55,7 @@ export function WorkHero({ content }: { content: WorkPage["hero"] }) {
               style={{ backgroundColor: cfg.bg }}
             >
               <span
-                className="whitespace-nowrap text-[20px] font-bold uppercase tracking-[0.2em]"
+                className="whitespace-nowrap text-title font-bold uppercase tracking-[0.2em]"
                 style={{ writingMode: "vertical-lr", transform: "rotate(180deg)", color: "white" }}
               >
                 {tag.label}
@@ -80,7 +80,7 @@ export function WorkHero({ content }: { content: WorkPage["hero"] }) {
               style={{ backgroundColor: cfg.bg }}
             >
               <span
-                className="whitespace-nowrap text-[20px] font-bold uppercase tracking-[0.2em]"
+                className="whitespace-nowrap text-title font-bold uppercase tracking-[0.2em]"
                 style={{ writingMode: "vertical-lr", transform: "rotate(180deg)", color: "white" }}
               >
                 {tag.label}
@@ -91,25 +91,25 @@ export function WorkHero({ content }: { content: WorkPage["hero"] }) {
       </div>
 
       {/* ── Content: left on mobile, centered on desktop ──────────── */}
-      <div className="relative z-10 mx-auto max-w-4xl px-6 text-left md:px-32 md:text-center">
-        <p className="eyebrow text-muted-foreground">{content.eyebrow}</p>
-        <h1 className="w-[60%] md:w-[100%] mt-5 text-4xl font-medium leading-[1.05] tracking-tighter md:text-6xl">
+      <div className="relative z-10 section-shell [--section-max:56rem] text-left md:text-center">
+        <p className="type-sans-medium text-eyebrow leading-normal tracking-[3.3px] uppercase text-[#212121]/60">
+          {content.eyebrow}
+        </p>
+        <h1 className="type-sans-medium mt-5 w-[60%] text-display-xs leading-normal tracking-[-0.8px] text-[#212121] md:w-full md:text-hero md:leading-[105%] md:tracking-[-3px]">
           {content.headline}
         </h1>
 
-        {/* Mobile: stacked left. Desktop: row centered. */}
         <div className="mt-12 flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-center md:gap-5">
           <a
             href={content.primaryCta.href}
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-7 py-3.5 text-sm font-semibold text-background"
+            className="type-sans-medium inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-7 py-3.5 text-body-sm leading-[21px] text-white"
           >
             {content.primaryCta.label}
           </a>
 
-          {/* Mobile: outlined pill + ↗. Desktop: text link + →. */}
           <a
             href={content.secondaryCta.href}
-            className="inline-flex items-center justify-center gap-2 rounded-full border border-foreground/20 px-7 py-3.5 text-sm font-medium text-foreground transition-colors hover:bg-foreground/5 md:border-0 md:bg-transparent md:px-0 md:py-0 md:text-foreground/70 md:hover:bg-transparent"
+            className="type-sans-semibold inline-flex items-center justify-center gap-2 rounded-full border border-foreground/20 px-7 py-3.5 text-body-sm leading-normal text-[#121212] transition-colors hover:bg-foreground/5 md:border-0 md:bg-transparent md:px-0 md:py-0 md:hover:bg-transparent"
           >
             {content.secondaryCta.label}
             <ArrowUpRight size={16} className="md:hidden" />

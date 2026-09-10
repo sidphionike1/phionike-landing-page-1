@@ -82,7 +82,7 @@ export function HeroVisual() {
       </div>
 
       {/* Signature */}
-      <p className="text-right text-xs uppercase tracking-widest text-muted-foreground">
+      <p className="type-sans-medium text-right text-caption leading-[16.5px] uppercase text-[#36454F]/60">
         Design & Strategy Studio
       </p>
     </div>

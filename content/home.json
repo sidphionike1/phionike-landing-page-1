@@ -29,7 +29,7 @@
     }
   },
   "hero": {
-    "eyebrow": "Products, Brands and Experiences",
+    "eyebrow": "PRODUCTS, BRANDS AND EXPERIENCES",
     "headlineDark": "We design\nProducts, Brands,\nand Experiences",
     "headlineAccent": "that move people forward",
     "body": "We partner with startups and evolving brands to craft product experiences, visual systems, and AI-enabled workflows that scale with ambition.",
@@ -75,7 +75,7 @@
     }
   },
   "trustedBy": {
-    "eyebrow": "Clients",
+    "eyebrow": "CLIENTS",
     "heading": "Trusted by organisations",
     "logos": [
       {
@@ -120,11 +120,11 @@
   "metrics": [
     {
       "value": "40 M+",
-      "label": "Users Impacted"
+      "label": "USERS IMPACTED"
     },
     {
       "value": "2 L+",
-      "label": "Designs Delivered"
+      "label": "DESIGNS DELIVERED"
     },
     {
       "value": "20+",
@@ -174,7 +174,7 @@
     ]
   },
   "aiBand": {
-    "eyebrow": "Process & AI",
+    "eyebrow": "PROCESS & AI",
     "heading": "AI that serves the work,",
     "headingItalic": "not the other way around.",
     "supportLine": "Turn assumptions into insights",
@@ -185,7 +185,7 @@
     }
   },
   "venn": {
-    "eyebrow": "Where We Create Impact",
+    "eyebrow": "WHERE WE CREATE IMPACT",
     "heading": "Not every product needs the same help",
     "subheading": "we meet you where you are",
     "supportCopy": "Explore the clients and projects behind each discipline.",
@@ -226,7 +226,7 @@
       },
       {
         "id": "saas",
-        "label": "SaaS"
+        "label": "Saas"
       },
       {
         "id": "education",
@@ -356,7 +356,7 @@
     "hiddenOnMobile": true
   },
   "footerCta": {
-    "eyebrow": "Ready to work together?",
+    "eyebrow": "READY TO WORK TOGETHER?",
     "headingLine1": "Have a project in mind?",
     "italicHeadingLine": "We'd love to hear about it.",
     "primaryCta": { "label": "Get in Touch", "href": "/contact" },

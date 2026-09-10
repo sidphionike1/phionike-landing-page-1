@@ -19,7 +19,7 @@ export default async function AboutPage() {
       <ValuesSection content={about.values} />
       <TeamSection content={about.team} />
       <CultureSection content={about.culture} />
-      <FooterCTA cta={global.footerCta} />
+      <FooterCTA cta={global.footerCta} typography="about" />
       <Footer content={global.footer} />
     </main>
   )

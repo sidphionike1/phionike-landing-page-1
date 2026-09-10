@@ -288,9 +288,9 @@ function HoverOverlay({
       style={{ backgroundColor: `${ACCENT_HEX[accent]}E6` }} // ~90% opacity accent wash
     >
       <div className="translate-y-2 transition-transform duration-300 ease-out group-hover:translate-y-0">
-        <h3 className="text-xl font-semibold leading-tight">{name}</h3>
-        <p className="mt-1 text-sm opacity-80">{role}</p>
-        <p className="mx-auto mt-3 max-w-[85%] text-sm leading-relaxed opacity-90 line-clamp-3">
+        <h3 className="type-vf-medium text-lead leading-tight">{name}</h3>
+        <p className="type-vf-regular mt-1 text-title-sm opacity-80">{role}</p>
+        <p className="type-vf-regular mx-auto mt-3 max-w-[85%] text-title-sm leading-[23.4px] line-clamp-3">
           {bio}
         </p>
       </div>
@@ -349,8 +349,8 @@ function OnlyTitleView({ card }: { card: OnlyTitleCard }) {
         className={`absolute inset-x-0 bottom-0 flex flex-col justify-end px-6 py-4 transition-opacity duration-300 ease-out group-hover:opacity-0 ${ACCENT_TEXT[card.accent]}`}
         style={{ backgroundColor: ACCENT_HEX[card.accent] }}
       >
-        <h3 className="text-lg font-semibold leading-tight">{card.name}</h3>
-        <p className="mt-0.5 text-sm opacity-80">{card.role}</p>
+        <h3 className="type-vf-medium text-lead leading-tight">{card.name}</h3>
+        <p className={`type-vf-regular mt-0.5 text-title-sm ${card.accent === "blue" ? "opacity-80" : "opacity-60"}`}>{card.role}</p>
       </div>
       {/* Hover state: full-cover centered content */}
       <HoverOverlay
@@ -389,9 +389,9 @@ function FullDataView({ card }: { card: FullDataCard }) {
         className={`flex flex-1 flex-col justify-center px-7 py-6 ${ACCENT_TEXT[card.accent]}`}
         style={{ backgroundColor: ACCENT_HEX[card.accent] }}
       >
-        <h3 className="text-xl font-semibold leading-tight">{card.name}</h3>
-        <p className="mt-1 text-sm opacity-80">{card.role}</p>
-        <p className="mt-3 text-sm leading-relaxed opacity-90 line-clamp-6">{card.bio}</p>
+        <h3 className="type-vf-medium text-lead leading-tight">{card.name}</h3>
+        <p className={`type-vf-regular mt-1 text-title-sm ${card.accent === "blue" ? "opacity-80" : "opacity-60"}`}>{card.role}</p>
+        <p className="type-vf-regular mt-3 text-title-sm leading-[23.4px] line-clamp-6">{card.bio}</p>
       </div>
     </div>
   );

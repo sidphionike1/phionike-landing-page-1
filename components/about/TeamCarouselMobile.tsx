@@ -61,8 +61,8 @@ export function TeamCarouselMobile() {
               className={`absolute inset-x-0 bottom-0 px-5 py-4 ${ACCENT_TEXT[member.accent]}`}
               style={{ backgroundColor: ACCENT_HEX[member.accent] }}
             >
-              <h3 className="text-lg font-semibold leading-tight">{member.name}</h3>
-              <p className="mt-0.5 text-sm opacity-80">{member.role}</p>
+              <h3 className="type-sans-medium text-title leading-tight">{member.name}</h3>
+              <p className="type-sans-regular mt-0.5 text-body-sm opacity-80">{member.role}</p>
             </div>
           </div>
         ))}

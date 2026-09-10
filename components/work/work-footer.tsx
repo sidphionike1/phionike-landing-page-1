@@ -38,7 +38,8 @@ export function WorkFooterCTA({
       />
 
       {/* Content */}
-      <div className="relative mx-auto max-w-3xl px-6 text-center">
+      <div className="relative section-shell text-center">
+        <div className="mx-auto max-w-3xl">
         <p className="eyebrow tracking-[0.25em]">Ready to work together?</p>
 
         <h2 className="mt-5 text-4xl font-medium leading-tight tracking-tight md:text-6xl">
@@ -69,6 +70,7 @@ export function WorkFooterCTA({
             <ArrowUpRight size={15} />
           </Link>
         </div>
+        </div>
       </div>
     </section>
   )
@@ -79,8 +81,8 @@ export function WorkFooterCTA({
 
 export function WorkFooter({ content }: { content: GlobalContent["footer"] }) {
   return (
-    <footer className="border-t border-border bg-background px-5 pb-10 pt-14 md:px-6">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 md:grid-cols-[1fr_auto_auto_1fr] md:gap-8">
+    <footer className="border-t border-border bg-background pb-10 pt-14">
+      <div className="section-shell grid grid-cols-1 gap-10 md:grid-cols-[1fr_auto_auto_1fr] md:gap-8">
         {/* Logo + description + contact */}
         <div>
           <Link href="/" className="inline-flex items-center">
@@ -144,7 +146,7 @@ export function WorkFooter({ content }: { content: GlobalContent["footer"] }) {
         </div>
       </div>
 
-      <p className="mx-auto mt-10 max-w-7xl text-xs text-muted-foreground">
+      <p className="section-shell mt-10 text-xs text-muted-foreground">
         {content.copyright}
       </p>
     </footer>

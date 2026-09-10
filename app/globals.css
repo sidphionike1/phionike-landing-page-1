@@ -1,68 +1,238 @@
 @import "tailwindcss";
 
-:root{color-scheme:light;--background:#faf6f0;--foreground:#111111;--card:#fff;--primary:#3d38ff;--primary-foreground:#fff;--secondary:#f3eee7;--secondary-foreground:#111;--muted:#eee9e2;--muted-foreground:#77736f;--accent:#ff5428;--accent-foreground:#fff;--border:#ded8d1;--lavender:#d6a7f5;--peach:#fce3d7;--mustard:#f9bd00;--ink:#111;--radius:.75rem}
-@theme inline{--font-sans:var(--font-jakarta);--font-serif:var(--font-cormorant);--color-background:var(--background);--color-foreground:var(--foreground);--color-card:var(--card);--color-primary:var(--primary);--color-primary-foreground:var(--primary-foreground);--color-secondary:var(--secondary);--color-secondary-foreground:var(--secondary-foreground);--color-muted:var(--muted);--color-muted-foreground:var(--muted-foreground);--color-accent:var(--accent);--color-accent-foreground:var(--accent-foreground);--color-border:var(--border);--color-lavender:var(--lavender);--color-peach:var(--peach);--color-mustard:var(--mustard);--color-ink:var(--ink)}
-@layer base{*{@apply border-border outline-primary/50}html{scroll-behavior:smooth}body{@apply bg-background text-foreground}a,button{transition:opacity .2s ease}a:hover,button:hover{opacity:.78}button{cursor:pointer}em{font-weight:400}.eyebrow{@apply text-xs font-semibold uppercase tracking-[.24em] text-[#212121]}.footer-label{@apply text-xs uppercase text-primary-foreground/50}}
+:root{
+  color-scheme:light;
+  --background:#faf6f0;
+  --foreground:#111111;
+  --card:#fff;
+  --primary:#3d38ff;
+  --primary-foreground:#fff;
+  --secondary:#f3eee7;
+  --secondary-foreground:#111;
+  --muted:#eee9e2;
+  --muted-foreground:#77736f;
+  --accent:#ff5428;
+  --accent-foreground:#fff;
+  --border:#ded8d1;
+  --lavender:#d6a7f5;
+  --peach:#fce3d7;
+  --mustard:#f9bd00;
+  --ink:#111;
+  --radius:.75rem;
+  /* Default section content width. Override per section with
+     className="section-shell [--section-max:1400px]" (or any px value). */
+  --section-max:1200px;
+  --section-pad-x:1.5rem;
+
+  /*
+   * Type scale — change a token here to update it site-wide.
+   * Use via Tailwind: text-micro, text-hero, md:text-display, etc.
+   * Large display tokens (display-* / hero / numeral) step down at
+   * 900–1250px for iPad; full desktop sizes resume above 1250px.
+   *
+   * Shared (all breakpoints unless overridden):
+   * micro       10px  Tiny badges, metric labels, venn chips
+   * caption     11px  Eyebrows, micro labels, footer labels
+   * eyebrow     12px  Section meta, filter chips, process bullets
+   * label       13px  Nav CTA, FAQ answers, “See all” links
+   * body-sm     14px  Buttons, compact body, FAQ questions
+   * body        15px  Desktop primary body / nav active
+   * body-lg     16px  Mobile hero body; desktop nav / footer links
+   * title-sm    18px  Secondary titles, quotes
+   * title       20px  Subheads, process support lines
+   * title-md    22px  Outcome / sector card titles
+   * title-lg    24px  Mobile metrics, process card titles, portfolio titles
+   * lead        28px  Mobile awards + footer CTA headings
+   * heading     32px  Mobile section / hero headings
+   * faq         33px  Mobile FAQ heading
+   * display-xs  40px  Desktop section headings
+   * display-sm  44.8px Desktop CTA / soft headings
+   * display     48px  Desktop large headings; mobile process numeral
+   * display-md  52px  Desktop hero accents
+   * display-lg  54.4px Desktop band headings
+   * display-xl  56px  Desktop sector / oversized stats
+   * hero        60px  Desktop page heroes
+   * hero-xl     72px  Oversized heroes (e.g. contact)
+   * numeral-sm  48px  Mobile step / counter numerals (= display)
+   * numeral     160px Desktop giant counters
+   * hero-sm     32px  Alias of heading (mobile hero)
+   */
+  --fs-micro:10px;
+  --fs-caption:11px;
+  --fs-eyebrow:12px;
+  --fs-label:13px;
+  --fs-body-sm:14px;
+  --fs-body:15px;
+  --fs-body-lg:16px;
+  --fs-title-sm:18px;
+  --fs-title:20px;
+  --fs-title-md:22px;
+  --fs-title-lg:24px;
+  --fs-lead:28px;
+  --fs-heading:32px;
+  --fs-hero-sm:32px;
+  --fs-faq:33px;
+  --fs-display-xs:40px;
+  --fs-display-sm:44.8px;
+  --fs-display:48px;
+  --fs-display-md:52px;
+  --fs-display-lg:54.4px;
+  --fs-display-xl:56px;
+  --fs-hero:60px;
+  --fs-hero-xl:72px;
+  --fs-numeral-sm:48px;
+  --fs-numeral:160px;
+}
+
+/*
+ * Tablet / iPad band (900–1250px): desktop token *names* already apply from md
+ * (768px), so scale the large display tokens down here. Body/title sizes stay.
+ * Full desktop values resume at 1250px+.
+ */
+@media (min-width:900px) and (max-width:1249.98px){
+  :root{
+    --fs-display-xs:34px;
+    --fs-display-sm:38px;
+    --fs-display:40px;
+    --fs-display-md:44px;
+    --fs-display-lg:46px;
+    --fs-display-xl:48px;
+    --fs-hero:48px;
+    --fs-hero-xl:56px;
+    --fs-numeral:110px;
+  }
+}
+
+/* Full-width section with a centered content column.
+   On viewports wider than --section-max, leftover space becomes side padding.
+   Below that, --section-pad-x is the minimum gutter. */
+.section-shell{
+  width:100%;
+  margin-inline:auto;
+  padding-inline:max(var(--section-pad-x),calc((100% - var(--section-max)) / 2));
+  box-sizing:border-box;
+}
+@theme inline{
+  --font-sans:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;
+  --font-serif:var(--font-cormorant);
+  --font-vf:var(--font-season-vf),var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;
+  --font-weight-light:300;
+  --font-weight-medium:550;
+  --color-background:var(--background);
+  --color-foreground:var(--foreground);
+  --color-card:var(--card);
+  --color-primary:var(--primary);
+  --color-primary-foreground:var(--primary-foreground);
+  --color-secondary:var(--secondary);
+  --color-secondary-foreground:var(--secondary-foreground);
+  --color-muted:var(--muted);
+  --color-muted-foreground:var(--muted-foreground);
+  --color-accent:var(--accent);
+  --color-accent-foreground:var(--accent-foreground);
+  --color-border:var(--border);
+  --color-lavender:var(--lavender);
+  --color-peach:var(--peach);
+  --color-mustard:var(--mustard);
+  --color-ink:var(--ink);
+  /* Desktop type scale → text-micro, text-hero, md:text-display, … */
+  --text-micro:var(--fs-micro);
+  --text-caption:var(--fs-caption);
+  --text-eyebrow:var(--fs-eyebrow);
+  --text-label:var(--fs-label);
+  --text-body-sm:var(--fs-body-sm);
+  --text-body:var(--fs-body);
+  --text-body-lg:var(--fs-body-lg);
+  --text-title-sm:var(--fs-title-sm);
+  --text-title:var(--fs-title);
+  --text-title-md:var(--fs-title-md);
+  --text-title-lg:var(--fs-title-lg);
+  --text-lead:var(--fs-lead);
+  --text-heading:var(--fs-heading);
+  --text-hero-sm:var(--fs-hero-sm);
+  --text-faq:var(--fs-faq);
+  --text-display-xs:var(--fs-display-xs);
+  --text-display-sm:var(--fs-display-sm);
+  --text-display:var(--fs-display);
+  --text-display-md:var(--fs-display-md);
+  --text-display-lg:var(--fs-display-lg);
+  --text-display-xl:var(--fs-display-xl);
+  --text-hero:var(--fs-hero);
+  --text-hero-xl:var(--fs-hero-xl);
+  --text-numeral-sm:var(--fs-numeral-sm);
+  --text-numeral:var(--fs-numeral);
+}
+@layer base{*{@apply border-border outline-primary/50}html{scroll-behavior:smooth}body{@apply bg-background text-foreground font-sans}a,button{transition:opacity .2s ease}a:hover,button:hover{opacity:.78}button{cursor:pointer}em{font-weight:400;font-style:italic}}
+
+/* Home-page font style groups from the Figma spec.
+   Size, line-height and colour are applied per text node. */
+.type-sans-light{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:300;font-style:normal}
+.type-sans-light-italic{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:300;font-style:italic}
+.type-sans-regular{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:400;font-style:normal}
+.type-sans-italic{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:400;font-style:italic}
+.type-sans-medium{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:550;font-style:normal}
+.type-sans-semibold{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:650;font-style:normal}
+.type-sans-bold{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:750;font-style:normal}
+.type-vf-regular{font-family:var(--font-season-vf),var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:400;font-style:normal;font-variation-settings:"wght" 400,"SERF" 0,"slnt" 0}
+.type-vf-medium{font-family:var(--font-season-vf),var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:550;font-style:normal;font-variation-settings:"wght" 550,"SERF" 0,"slnt" 0}
+.type-vf-italic{font-family:var(--font-season-vf),var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:400;font-style:normal;font-variation-settings:"wght" 400,"SERF" 0,"slnt" -11}
+
+.eyebrow{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:550;font-style:normal;font-size:var(--fs-caption);line-height:16.5px}
+.footer-label{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:400;font-style:normal;font-size:var(--fs-caption);line-height:16.5px}
 .binary-pattern{background-image:radial-gradient(circle at center,color-mix(in srgb,currentColor 13%,transparent) 0 3px,transparent 4px);background-size:24px 24px}
 
-/* Shared section-heading type scale.
-   NOTE: the design specifies font-family "Season Sans-TRIAL", which is not in
-   this repo (no font files, and layout.tsx only loads Plus Jakarta Sans +
-   Cormorant Garamond). Until the font files are added and registered these
-   headings inherit the body sans. Everything else below matches the spec. */
-.section-heading{font-weight:400;font-style:normal;font-size:32px;line-height:38px;letter-spacing:0}
-.section-heading-italic{font-weight:300;font-style:italic;font-size:32px;line-height:38px;letter-spacing:0;color:rgba(34,17,34,.4)}
+/* Shared section-heading type scale — Season Sans Regular / Regular Italic. */
+.section-heading{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:400;font-style:normal;font-size:var(--fs-heading);line-height:38px;letter-spacing:0}
+.section-heading-italic{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:400;font-style:italic;font-size:var(--fs-heading);line-height:38px;letter-spacing:0;color:rgba(34,17,34,.4)}
 /* Spec size from md up (768px, matching Tailwind's md); mobile shrinks to 32px
    with line-height held to the same 1.2 ratio as the 40/48 spec. */
-@media(min-width:768px){.section-heading,.section-heading-italic{font-size:40px;line-height:48px}}
+@media(min-width:768px){.section-heading,.section-heading-italic{font-size:var(--fs-display-xs);line-height:48px}}
+@media(min-width:900px) and (max-width:1249.98px){.section-heading,.section-heading-italic{line-height:42px}}
 /* Section eyebrow — 550 / 12px / 16.5px / 3.3px tracking, uppercase.
    Distinct from .eyebrow above (600 / .24em / #212121), which older sections use. */
-.section-eyebrow{font-weight:550;font-size:12px;line-height:16.5px;letter-spacing:3.3px;text-transform:uppercase}
+.section-eyebrow{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:550;font-style:normal;font-size:var(--fs-eyebrow);line-height:16.5px}
 /* 40/52 section heading pair. Deliberately separate from .section-heading (40/48)
    so the sections already built against that scale are left alone.
    The italic variant sets only weight/style/colour, so it inherits the 40/52 from
    its parent heading and stays in step at every breakpoint. */
-.section-heading-lg{font-weight:400;font-size:30px;line-height:40px;letter-spacing:0}
-.section-heading-lg-italic{font-weight:300;font-style:italic;letter-spacing:0;color:rgba(34,17,34,.4)}
-@media(min-width:768px){.section-heading-lg{font-size:40px;line-height:52px}}
+.section-heading-lg{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:400;font-style:normal;font-size:30px;line-height:40px;letter-spacing:0}
+.section-heading-lg-italic{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:300;font-style:italic;letter-spacing:0;color:rgba(34,17,34,.4)}
+@media(min-width:768px){.section-heading-lg{font-size:var(--fs-display-xs);line-height:52px}}
+@media(min-width:900px) and (max-width:1249.98px){.section-heading-lg{line-height:44px}}
 /* Uppercase card title, one step up from .section-eyebrow. */
-.card-heading{font-weight:550;font-size:16px;line-height:20px;letter-spacing:.07em;text-transform:uppercase}
+.card-heading{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:550;font-style:normal;font-size:var(--fs-body-lg);line-height:20px}
 /* 48/58/-1.5px section heading (regular weight, no italic clause).
    Distinct from .section-heading-lg (40/52) — a few sections use this larger cut. */
-.section-heading-xl{font-weight:400;font-size:28px;line-height:36px;letter-spacing:-.02em}
-@media(min-width:768px){.section-heading-xl{font-size:48px;line-height:58px;letter-spacing:-1.5px}}
+.section-heading-xl{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:400;font-style:normal;font-size:var(--fs-lead);line-height:36px;letter-spacing:-.02em}
+@media(min-width:768px){.section-heading-xl{font-size:var(--fs-display);line-height:58px;letter-spacing:-1.5px}}
+@media(min-width:900px) and (max-width:1249.98px){.section-heading-xl{line-height:50px}}
 /* Full-bleed band heading: 400 / 54.4px / 59.84px / -0.54px, with an italic
    clause in the same size and weight. Mobile keeps the 1.1 line-height ratio and
    expresses the tracking in em so it stays proportional.
    The italic variant sets only font-style/weight, so it inherits size, leading
    and tracking from the parent heading at every breakpoint. */
-.band-heading{font-weight:400;font-size:34px;line-height:37.4px;letter-spacing:-.01em}
-.band-heading-italic{font-weight:400;font-style:italic}
-@media(min-width:768px){.band-heading{font-size:54.4px;line-height:59.84px;letter-spacing:-.54px}}
+.band-heading{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:400;font-style:normal;font-size:34px;line-height:37.4px;letter-spacing:-.01em}
+.band-heading-italic{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:400;font-style:italic}
+@media(min-width:768px){.band-heading{font-size:var(--fs-display-lg);line-height:59.84px;letter-spacing:-.54px}}
+@media(min-width:900px) and (max-width:1249.98px){.band-heading{line-height:52px}}
 /* Single supporting line under the big step number: 400 / 40px / 53.76px / 0.
    Mobile holds the same 1.344 line-height ratio at a smaller size. */
-.step-support{font-weight:400;font-size:26px;line-height:35px;letter-spacing:0}
-@media(min-width:768px){.step-support{font-size:40px;line-height:53.76px}}
+.step-support{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:400;font-style:normal;font-size:26px;line-height:35px;letter-spacing:0}
+@media(min-width:768px){.step-support{font-size:var(--fs-display-xs);line-height:53.76px}}
+@media(min-width:900px) and (max-width:1249.98px){.step-support{line-height:46px}}
 /* Bold micro-heading used inside cards (e.g. "01. CLARIFY" column titles). */
-.step-heading{font-weight:650;font-size:16px;line-height:100%;letter-spacing:0}
-@media(min-width:768px){.step-heading{font-size:24px}}
+.step-heading{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:400;font-style:normal;font-size:var(--fs-body-lg);line-height:100%;letter-spacing:0}
+@media(min-width:768px){.step-heading{font-size:var(--fs-title-lg)}}
 
-/* Shared page-hero type scale (centred heroes).
-   Same font-family caveat as .section-heading: the spec calls for
-   "Season Sans-TRIAL", which is not in the repo, so these inherit the body sans.
-   Spec values (desktop): heading 550/60px/80px/-0.8px, eyebrow 400/14px/100%,
-   sub-heading 400/20px/160%, button 650/15px/100%.
-   Heading letter-spacing is expressed in em (-0.01333em === -0.8px @ 60px) so it
-   stays proportional at the smaller breakpoints. */
-.hero-eyebrow{font-weight:400;font-size:14px;line-height:100%;letter-spacing:.3em;text-transform:uppercase;
+.hero-eyebrow{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:550;font-style:normal;font-size:var(--fs-caption);line-height:16.5px;text-transform:uppercase;
   /* Trailing letter-space offsets centred text left by half the tracking;
      an equal text-indent restores optical centring. */
-  text-indent:.3em}
-.hero-heading{font-weight:550;font-size:36px;line-height:48px;letter-spacing:-.01333em}
-.hero-subhead{font-weight:400;font-size:18px;line-height:160%;letter-spacing:0}
-.hero-btn-text{font-weight:650;font-size:15px;line-height:100%;letter-spacing:0}
-@media(min-width:640px){.hero-heading{font-size:48px;line-height:64px}}
-@media(min-width:768px){.hero-heading{font-size:60px;line-height:80px}.hero-subhead{font-size:20px}}
+  letter-spacing:.3em;text-indent:.3em}
+.hero-heading{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:550;font-style:normal;font-size:var(--fs-heading);line-height:normal}
+.hero-subhead{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:400;font-style:normal;font-size:var(--fs-body-lg);line-height:160%;letter-spacing:0}
+.hero-btn-text{font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;font-weight:550;font-style:normal;font-size:var(--fs-body-sm);line-height:21px}
+@media(min-width:640px){.hero-heading{font-size:var(--fs-display);line-height:64px}}
+@media(min-width:768px){.hero-heading{font-size:var(--fs-hero);line-height:80px}.hero-subhead{font-size:var(--fs-title)}}
+@media(min-width:900px) and (max-width:1249.98px){.hero-heading{line-height:62px}}
 
 .contact-artwork span{position:absolute;display:block;border-radius:2rem;opacity:.55;transform:rotate(-16deg)}
 .contact-artwork span:nth-child(1){right:8%;top:8%;height:15rem;width:15rem;background:var(--peach);transform:rotate(42deg)}

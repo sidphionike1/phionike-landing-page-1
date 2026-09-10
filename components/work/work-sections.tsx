@@ -136,13 +136,15 @@ export function DisciplineList({ steps }: { steps: ProcessStep[] }) {
   // keeps that overhang from ever introducing a horizontal scrollbar.
   return (
     <section className="overflow-x-clip bg-background py-20 md:py-28">
-      <div className="mx-auto max-w-7xl px-5 md:px-6">
+      <div className="section-shell">
         {/* Heading block */}
-        <p className="eyebrow text-muted-foreground">Where We Create Impact</p>
-        <h2 className="mt-3 max-w-2xl text-4xl font-medium tracking-tight md:text-5xl">
+        <p className="type-sans-medium text-eyebrow leading-normal tracking-[3.3px] uppercase text-[#AAAAAA]">
+          Where We Create Impact
+        </p>
+        <h2 className="type-sans-regular mt-3 max-w-2xl text-lead leading-[125%] text-[#111111] md:text-display-xs md:leading-[47.84px]">
           Not every product needs the same help
         </h2>
-        <p className="mt-2 text-lg italic text-muted-foreground">
+        <p className="type-sans-light-italic mt-2 text-lead leading-[125%] text-[#666666] md:text-display-xs md:leading-[47.84px]">
           we meet you where you are
         </p>
 
@@ -244,7 +246,7 @@ export function DisciplineList({ steps }: { steps: ProcessStep[] }) {
                 aria-pressed={isActive}
                 onMouseEnter={() => setActiveStep(i)}
                 onFocus={() => setActiveStep(i)}
-                className="absolute z-10 flex items-center gap-2.5 whitespace-nowrap rounded-full border px-4 py-2.5 text-[10px] uppercase tracking-[0.18em] text-foreground transition-colors duration-300 ease-out hover:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E2566F] focus-visible:ring-offset-2"
+                className="type-sans-medium absolute z-10 flex items-center gap-2.5 whitespace-nowrap rounded-full border px-4 py-2.5 text-body-sm uppercase leading-[16.5px] tracking-[3.3px] text-[#111111] transition-colors duration-300 ease-out hover:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E2566F] focus-visible:ring-offset-2"
                 style={{
                   left: pctX(visual.pill.x),
                   top: pctY(visual.pill.y),

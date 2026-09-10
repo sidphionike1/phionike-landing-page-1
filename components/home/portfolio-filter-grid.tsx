@@ -140,11 +140,19 @@ function PortfolioCard({
   dims,
   showBottomPadding = false,
   centered = false,
+  titleClassName,
+  taglineClassName,
+  categoryClassName,
+  showCategory = false,
 }: {
   item: PortfolioItem;
   dims: { frameW: number | string; imgW: number | string; imgH: number };
   showBottomPadding?: boolean;
   centered?: boolean;
+  titleClassName?: string;
+  taglineClassName?: string;
+  categoryClassName?: string;
+  showCategory?: boolean;
 }) {
   return (
     <article
@@ -152,10 +160,30 @@ function PortfolioCard({
       style={{ width: dims.frameW }}
     >
       <div>
-        <h3 className="truncate text-lg font-medium tracking-tight text-foreground md:text-xl">
+        {showCategory && (
+          <p
+            className={
+              categoryClassName ??
+              "type-sans-regular text-eyebrow tracking-[1px] uppercase text-[#212121]/60"
+            }
+          >
+            {item.industry}
+          </p>
+        )}
+        <h3
+          className={
+            titleClassName ??
+            "type-vf-regular truncate text-title-lg leading-[38.4px] text-[#141414] md:text-heading md:leading-[38.4px]"
+          }
+        >
           {item.title}
         </h3>
-        <p className="mt-2 line-clamp-2 text-sm text-muted-foreground leading-relaxed">
+        <p
+          className={
+            taglineClassName ??
+            "type-sans-regular mt-2 line-clamp-2 text-body-sm leading-[19.6px] text-[#212121]/60"
+          }
+        >
           {item.tagline}
         </p>
       </div>
@@ -183,11 +211,13 @@ function FilterDropdown({
   options,
   selected,
   onSelect,
+  chipClassName,
 }: {
   label: string;
   options: readonly string[];
   selected: string | null;
   onSelect: (value: string | null) => void;
+  chipClassName: string;
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -207,10 +237,10 @@ function FilterDropdown({
     <div className="relative" ref={ref}>
       <button
         onClick={() => setOpen((o) => !o)}
-        className={`inline-flex items-center gap-1.5 rounded-full px-5 py-2 text-sm font-medium transition-all duration-200 ${
+        className={`${chipClassName} inline-flex items-center gap-1.5 rounded-full px-5 py-2 leading-normal transition-all duration-200 ${
           isActive
-            ? "border border-primary bg-primary text-primary-foreground"
-            : "border border-border bg-background text-foreground hover:border-foreground/30"
+            ? "border border-primary bg-primary text-white"
+            : "border border-border bg-background text-[#111111] hover:border-foreground/30"
         }`}
       >
         {selected ?? label}
@@ -240,10 +270,10 @@ function FilterDropdown({
                 onSelect(opt);
                 setOpen(false);
               }}
-              className={`block w-full rounded-lg px-3 py-2 text-left text-sm ${
+              className={`block w-full rounded-lg px-3 py-2 text-left type-vf-regular text-body-sm ${
                 selected === opt
-                  ? "bg-primary text-primary-foreground"
-                  : "text-foreground hover:bg-card"
+                  ? "bg-primary text-white"
+                  : "text-[#111111] hover:bg-card"
               }`}
             >
               {opt}
@@ -260,7 +290,7 @@ function SeeAllWorkCTA() {
     <div className="mt-10 flex justify-center md:hidden">
       <Link
         href="/work"
-        className="inline-flex items-center gap-2 border-b border-foreground pb-1 text-sm font-medium text-foreground transition-opacity hover:opacity-70"
+        className="type-sans-medium inline-flex items-center gap-2 border-b border-[#111111] pb-1 text-label leading-[19.5px] text-[#111111] transition-opacity hover:opacity-70"
       >
         See All Work
         <ArrowUpRight size={14} />
@@ -269,7 +299,22 @@ function SeeAllWorkCTA() {
   );
 }
 
-export function PortfolioFilterGrid() {
+export function PortfolioFilterGrid({
+  typography = "home",
+}: {
+  typography?: "home" | "work"
+}) {
+  const isWork = typography === "work"
+  const chipClassName = isWork ? "type-sans-regular text-eyebrow" : "type-vf-regular text-eyebrow"
+  const cardTitleClassName = isWork
+    ? "type-sans-medium truncate text-title leading-normal text-[#141414] md:text-heading md:leading-[38.4px]"
+    : "type-vf-regular truncate text-title-lg leading-[38.4px] text-[#141414] md:text-heading md:leading-[38.4px]"
+  const cardTaglineClassName = isWork
+    ? "type-sans-regular mt-2 line-clamp-2 text-body-sm leading-[140%] text-[#212121]"
+    : "type-sans-regular mt-2 line-clamp-2 text-body-sm leading-[19.6px] text-[#212121]/60"
+  const cardCategoryClassName =
+    "type-sans-regular mb-1 text-eyebrow tracking-[1px] uppercase text-[#212121]/60"
+
   // null = "All" is active; each dropdown holds its own selection independently
   const [selections, setSelections] = useState<
     Record<FilterGroupName, string | null>
@@ -317,25 +362,39 @@ export function PortfolioFilterGrid() {
   const hasResults = filteredItems.length > 0;
 
   return (
-    <section className="relative bg-background px-5 py-14 md:px-6 md:py-20">
-      <div className="mx-auto max-w-[1198px]">
+    <section className="relative bg-background py-14 md:py-20">
+      <div className="section-shell">
         <div className="mb-8 md:mb-10">
-          <h2 className="text-3xl font-medium tracking-tight text-foreground md:text-4xl">
-            Find work that&rsquo;s relevant to you
-          </h2>
-          <p className="mt-2 text-sm italic text-muted-foreground md:text-4xl">
-            Browse projects by industry or service
-          </p>
+          {isWork ? (
+            <>
+              <h2 className="type-sans-regular text-lead leading-[125%] text-[#212121] md:text-display-xs md:leading-normal">
+                Find work that&rsquo;s{" "}
+                <em className="type-sans-light-italic">relevant</em> to you.
+              </h2>
+              <p className="type-sans-regular mt-2 text-body-lg leading-[160%] text-[#212121]/60">
+                Browse projects by industry, service or the challenge you&rsquo;re looking to solve.
+              </p>
+            </>
+          ) : (
+            <>
+              <h2 className="type-sans-regular text-heading leading-[120%] text-[#212121] md:text-display-xs md:leading-[47.84px]">
+                Find work that&rsquo;s relevant to you
+              </h2>
+              <p className="type-sans-light-italic mt-2 text-heading leading-[120%] text-[#212121]/60 md:text-display-xs md:leading-[47.84px]">
+                Browse projects by industry or service
+              </p>
+            </>
+          )}
         </div>
 
         {/* Filters: All (single toggle) + 3 independent dropdowns */}
         <div className="mb-10 flex flex-wrap gap-2.5 md:mb-14">
           <button
             onClick={handleAllClick}
-            className={`inline-flex items-center rounded-full px-5 py-2 text-sm font-medium transition-all duration-200 ${
+            className={`${chipClassName} inline-flex items-center rounded-full px-5 py-2 leading-normal transition-all duration-200 ${
               isAllActive
-                ? "border border-primary bg-primary text-primary-foreground"
-                : "border border-border bg-background text-foreground hover:border-foreground/30"
+                ? "border border-primary bg-primary text-white"
+                : "border border-border bg-background text-[#111111] hover:border-foreground/30"
             }`}
           >
             All
@@ -348,6 +407,7 @@ export function PortfolioFilterGrid() {
               options={FILTER_GROUPS[group]}
               selected={selections[group]}
               onSelect={(value) => handleSelect(group, value)}
+              chipClassName={chipClassName}
             />
           ))}
         </div>
@@ -363,6 +423,10 @@ export function PortfolioFilterGrid() {
                     item={item}
                     dims={SIZE_CONFIG[size]}
                     showBottomPadding={size === "big"}
+                    titleClassName={cardTitleClassName}
+                    taglineClassName={cardTaglineClassName}
+                    showCategory={isWork}
+                    categoryClassName={cardCategoryClassName}
                   />
                 ))}
               </div>
@@ -374,6 +438,10 @@ export function PortfolioFilterGrid() {
                     item={item}
                     dims={SIZE_CONFIG[size]}
                     showBottomPadding={size === "big"}
+                    titleClassName={cardTitleClassName}
+                    taglineClassName={cardTaglineClassName}
+                    showCategory={isWork}
+                    categoryClassName={cardCategoryClassName}
                   />
                 ))}
               </div>
@@ -388,6 +456,10 @@ export function PortfolioFilterGrid() {
                   dims={MOBILE_SIZE}
                   showBottomPadding
                   centered
+                  titleClassName={cardTitleClassName}
+                  taglineClassName={cardTaglineClassName}
+                  showCategory={isWork}
+                  categoryClassName={cardCategoryClassName}
                 />
               ))}
             </div>

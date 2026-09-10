@@ -16,21 +16,20 @@ export function ShowreelSection({ content }: { content: HomePage["showreel"] }) 
 
   return (
     <section className="bg-[#FAF8F2] py-16 md:py-20 lg:py-24">
-      {/* Mobile: 90% width | Tablet: 20px padding | Desktop: 1198px max */}
-      <div className="mx-auto w-[90%] md:w-auto md:px-5 lg:max-w-[1198px] lg:px-0">
+      <div className="section-shell">
         
         {/* ── Header ── */}
         <div className="mb-6 flex items-center justify-between border-b border-[#d4cfc5] pb-4 md:mb-8 md:pb-5">
           <div className="flex items-center gap-3 md:gap-4">
-            <span className="text-[11px] font-normal uppercase tracking-[0.18em] text-[#1a1a1a] md:text-[13px]">
+            <span className="type-sans-medium text-eyebrow leading-[15px] tracking-[3.5px] text-[#36454F]">
               {content.title}
             </span>
             <span className="hidden h-3.5 w-px bg-[#1a1a1a]/25 sm:block md:h-4" />
-            <span className="text-[11px] font-normal tracking-[0.08em] text-[#1a1a1a] md:text-[13px]">
+            <span className="type-sans-regular text-eyebrow leading-[15px] tracking-[2px] text-[#36454F]">
               {year}
             </span>
           </div>
-          <span className="text-[11px] font-normal tracking-[0.08em] text-[#1a1a1a] tabular-nums md:text-[13px]">
+          <span className="type-sans-regular text-eyebrow leading-[16.5px] text-[#36454F] tabular-nums">
             {content.duration}
           </span>
         </div>
@@ -69,13 +68,13 @@ export function ShowreelSection({ content }: { content: HomePage["showreel"] }) 
         {/* ── Footer ── */}
         <div className="mt-6 flex flex-col items-start gap-5 border-t border-[#d4cfc5] pt-6 md:mt-8 md:flex-row md:items-start md:justify-between md:gap-8 md:pt-8">
           <div className="max-w-[640px] border-l-[1.5px] border-[#1a1a1a] pl-5 md:pl-6">
-            <p className="text-sm italic leading-[1.7] text-[#1a1a1a] md:text-[15px]">
+            <p className="type-vf-regular text-eyebrow leading-[25.5px] text-[#36454F]">
               {content.caption}
             </p>
           </div>
           <a
             href={content.cta.href}
-            className="inline-flex items-center gap-2 text-sm text-[#1a1a1a] transition-opacity duration-200 hover:opacity-60 md:whitespace-nowrap md:pt-1 md:text-[15px]"
+            className="type-sans-medium inline-flex items-center gap-2 text-body-sm leading-[18px] text-[#36454F] transition-opacity duration-200 hover:opacity-60 md:whitespace-nowrap md:pt-1"
           >
             {content.cta.label}
             <svg

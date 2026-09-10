@@ -73,17 +73,15 @@ export function AboutHero({ content }: AboutHeroProps) {
 
   return (
     <section className="relative w-full overflow-x-hidden bg-[#faf8f5] pt-20 md:pt-24 font-sans">
-      <div className="mx-auto max-w-7xl px-6 md:px-12">
-        {/* Eyebrow - 12px */}
-        <p className="eyebrow text-[12px] font-medium uppercase tracking-[0.2em] text-gray-400 pt-6 md:pt-10">
+      <div className="section-shell">
+        <p className="type-sans-regular pt-6 text-eyebrow leading-[16.5px] tracking-[3.3px] uppercase text-[#212121]/60 md:pt-10">
           {eyebrow}
         </p>
 
-        {/* Headline — 60px desktop | Font Weight: 400 (font-normal) */}
-        <h1 className="mt-6 max-w-4xl text-[36px] sm:text-[48px] md:text-[60px] font-normal leading-[1.1] tracking-tight text-gray-900">
+        <h1 className="type-sans-regular mt-6 max-w-4xl text-[36px] leading-[46.8px] tracking-[-2px] text-[#212121] md:text-hero md:leading-[105%] md:tracking-[-2px]">
           {headlineParts.map((part, i) =>
             part.accent ? (
-              <span key={i} className="text-[#f15a24]">
+              <span key={i} className="text-[#ff5b23]">
                 {part.text}
               </span>
             ) : (
@@ -92,22 +90,21 @@ export function AboutHero({ content }: AboutHeroProps) {
           )}
         </h1>
 
-        {/* Body (15px) + CTAs | Font Weight: 400 (font-normal) */}
         <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between pb-12">
-          <p className="max-w-xl text-[15px] font-normal leading-relaxed text-gray-600">
+          <p className="type-sans-regular max-w-xl text-body leading-[150%] text-[#36454F]">
             {body}
           </p>
 
           <div className="flex shrink-0 items-center gap-6">
             <a
               href={primaryCta.href}
-              className="inline-flex items-center justify-center rounded-full bg-[#1e1e1e] px-7 py-3.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+              className="type-sans-semibold inline-flex items-center justify-center rounded-full bg-[#1e1e1e] px-7 py-3.5 text-body-sm leading-normal text-white transition-opacity hover:opacity-90"
             >
               {primaryCta.label}
             </a>
             <a
               href={secondaryCta.href}
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-800 transition-colors hover:text-black"
+              className="type-sans-medium inline-flex items-center gap-1.5 text-body-sm leading-[21px] text-[#262728]"
             >
               {secondaryCta.label}
               <ArrowUpRight size={16} />
@@ -177,24 +174,27 @@ export function MosaicStrip({ tiles }: { tiles: AboutPage["hero"]["mosaicTiles"]
 export function ValuesSection({ content }: { content: AboutPage["values"] }) {
   return (
     <section className="bg-background py-24 md:py-32">
-      <div className="mx-auto max-w-7xl px-5 md:px-6">
+      <div className="section-shell">
         {/* Centred heading block */}
         <div className="text-center">
-          <p className="eyebrow text-muted-foreground">{content.eyebrow}</p>
-          <h2 className="mt-8 text-5xl font-normal text-primary md:text-6xl">
+          <p className="type-sans-regular text-eyebrow leading-[16.5px] tracking-[3.3px] uppercase text-[#212121]/60">
+            {content.eyebrow}
+          </p>
+          <h2 className="type-sans-regular mt-8 text-faq leading-[42.9px] text-[#3A39FF] md:text-hero md:leading-[78px]">
             {content.headingPlain}
           </h2>
-          <h2 className="mt-5 text-5xl font-normal text-muted-foreground md:text-6xl">
+          <h2 className="type-sans-regular mt-5 text-faq leading-[42.9px] text-[#212121]/60 md:text-hero md:leading-[78px]">
             {content.headingAccent}
           </h2>
         </div>
 
-        {/* Values grid */}
         <div className="mt-20 grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-3">
           {content.items.map((item) => (
-            <div key={item.title} className="flex flex-col mt-4">
-              <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
-              <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+            <div key={item.title} className="mt-4 flex flex-col">
+              <h3 className="type-vf-regular text-title leading-[28px] text-[#212121]">
+                {item.title}
+              </h3>
+              <p className="type-vf-regular mt-3 flex-1 text-body leading-[22.5px] text-[#212121]/60">
                 {item.body}
               </p>
               {/* Coloured accent bar beneath body */}
@@ -317,18 +317,17 @@ function renderTile(tile: Tile) {
 export function TeamSection({ content }: { content: AboutPage["team"] }) {
   return (
     <section className="py-20 md:py-28" style={{ backgroundColor: "#FDF8F0" }}>
-      {/* Container: 90% mobile | 20px padding tablet | 1198px cap desktop */}
-      <div className="mx-auto w-[90%] md:w-full md:px-5 min-[1198px]:max-w-[1198px] min-[1198px]:px-0">
+      <div className="section-shell">
         {/* Intro: text block (40%) + group photo (60%) */}
         <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-[2fr_3fr] md:gap-12">
           <div className="border-l border-border pl-6 md:pl-8">
-            <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#e85d3f]">
+            <p className="type-sans-regular text-caption leading-[16.5px] tracking-[3.3px] text-[#FF5B23]">
               {content.eyebrow}
             </p>
-            <h2 className="mt-4 text-[33px] font-normal leading-[1.15] tracking-tight md:text-[40px]">
+            <h2 className="type-sans-regular mt-4 text-faq leading-[53.76px] md:text-display-sm md:leading-[53.76px] text-[#212121]">
               {content.headingDark}
               <br />
-              <span className="text-muted-foreground">{content.headingMuted}</span>
+              <span className="opacity-60">{content.headingMuted}</span>
             </h2>
           </div>
           <div className="relative h-[200px] md:h-[345px] w-full overflow-hidden rounded-2xl bg-muted">
@@ -371,16 +370,15 @@ const PLACEHOLDER = (w: number, h: number, text: string) =>
 export function CultureSection({ content }: { content: AboutPage["culture"] }) {
   return (
     <section style={{ backgroundColor: "#FDF8F0" }}>
-      {/* Container: full width + padding mobile/tablet | 1198px cap desktop */}
-      <div className="mx-auto w-full px-4 md:px-5 min-[1198px]:max-w-[1198px] min-[1198px]:px-0">
+      <div className="section-shell">
         {/* Heading */}
         <div className="py-16 md:py-20">
-          <p className="text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground">
+          <p className="type-sans-medium text-caption leading-[16.5px] tracking-[3.3px] text-[#212121]/60">
             {content.eyebrow}
           </p>
-          <h2 className="mt-4 text-[33px] font-normal leading-[1.15] tracking-tight md:text-[40px]">
+          <h2 className="type-vf-regular mt-4 text-display-sm leading-[53.76px] text-[#212121] md:text-display-sm md:leading-[53.76px]">
             {content.headingPlain}{" "}
-            <em className="font-serif italic" style={{ color: "rgba(34, 17, 34, 0.4)" }}>
+            <em className="type-vf-italic">
               {content.headingItalic}
             </em>
           </h2>
@@ -397,10 +395,10 @@ export function CultureSection({ content }: { content: AboutPage["culture"] }) {
           />
           {/* Desktop: overlay on hover */}
           <div className="absolute inset-0 hidden flex-col justify-end bg-black/60 p-8 opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:flex">
-            <h3 className="text-2xl font-normal text-white md:text-3xl">
+            <h3 className="type-vf-medium text-display-sm leading-normal text-white">
               Where curiosity becomes collaboration.
             </h3>
-            <p className="mt-3 max-w-xl text-base leading-relaxed text-white/90">
+            <p className="type-vf-medium mt-3 max-w-xl text-title leading-normal text-white">
               Every project is powered by people who question, explore and create
               together. We believe the best ideas emerge through open
               conversations, shared ownership and a culture of continuous
@@ -409,10 +407,10 @@ export function CultureSection({ content }: { content: AboutPage["culture"] }) {
           </div>
           {/* Mobile: always-visible overlay */}
           <div className="absolute inset-0 flex flex-col justify-end bg-black/50 p-6 md:hidden">
-            <h3 className="text-xl font-normal text-white">
+            <h3 className="type-sans-medium text-title leading-normal text-white">
               Where curiosity becomes collaboration.
             </h3>
-            <p className="mt-2 max-w-md text-sm leading-relaxed text-white/90">
+            <p className="type-sans-regular mt-2 max-w-md text-eyebrow leading-normal text-white/90">
               Every project is powered by people who question, explore and create
               together. We believe the best ideas emerge through open
               conversations, shared ownership and a culture of continuous
@@ -423,10 +421,12 @@ export function CultureSection({ content }: { content: AboutPage["culture"] }) {
 
         {/* 4 alternating bands */}
         <div className="flex flex-col gap-5 pb-20 pt-10">
-          {content.bands.map((band) => {
+          {content.bands.map((band, bandIndex) => {
             const photoLeft = band.photoSide === "left"
             const bg = BAND_BG[band.bgColor] ?? "#eee"
             const fg = BAND_TEXT[band.bgColor] ?? "#111"
+            const titleWeight =
+              bandIndex === 0 ? "type-sans-medium md:type-sans-regular" : "type-sans-regular"
 
             return (
               <div
@@ -444,14 +444,12 @@ export function CultureSection({ content }: { content: AboutPage["culture"] }) {
                 >
                   {/* photo left → text right-aligned; photo right → text left-aligned */}
                   <div className={cn("w-full", photoLeft ? "md:text-right" : "md:text-left")}>
-                    <h3 className="text-[28px] font-normal leading-tight md:text-[40px]">
+                    <h3 className={`${titleWeight} text-title leading-tight md:text-display-sm md:leading-normal`}>
                       {band.title}
                     </h3>
-                    {/* max-w-sm caps the box, so it needs pushing to the right edge
-                        when the text is right-aligned */}
                     <p
                       className={cn(
-                        "mt-4 max-w-sm text-base leading-relaxed opacity-90 md:text-lg",
+                        "type-sans-regular mt-4 max-w-sm text-eyebrow leading-normal md:text-title md:leading-normal",
                         photoLeft && "md:ml-auto",
                       )}
                     >

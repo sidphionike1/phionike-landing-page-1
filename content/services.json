@@ -1,11 +1,11 @@
 {
   "hero": {
     "eyebrow": "Think . design . scale .",
-    "headlineDark": "From first idea to lasting impact, we're with you",
+    "headlineDark": "From first idea to lasting\nimpact, we're with you",
     "headlineAccent": "every step of the way.",
     "body": "We combine research, strategy, design and emerging technologies to help businesses solve complex challenges, build scalable systems and create experiences people genuinely enjoy using.",
-    "primaryCta": { "label": "Start a Project", "href": "/contact" },
-    "secondaryCta": { "label": "Explore Our Capabilities", "href": "#capabilities" }
+    "primaryCta": { "label": "Explore Our Capabilities", "href": "#capabilities" },
+    "secondaryCta": { "label": "Start a Project", "href": "/contact" }
   },
 
   "capabilitiesIntro": {

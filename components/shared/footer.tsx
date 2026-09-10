@@ -49,11 +49,16 @@ function DecorativeShapes() {
 
 export function FooterCTA({
   cta,
+  typography = "home",
 }: {
   cta: GlobalContent['footerCta']
+  typography?: "home" | "about" | "work" | "services"
 }) {
+  const isAbout = typography === "about" || typography === "services"
+  const isWork = typography === "work"
+
   return (
-    <section className="relative overflow-hidden bg-white px-5 py-24 md:py-32">
+    <section className="relative overflow-hidden bg-white py-24 md:py-32">
       {/* <DecorativeShapes /> — superseded by the background images below; kept for reference */}
 
       {/* Mobile background */}
@@ -74,38 +79,56 @@ export function FooterCTA({
         className="hidden object-cover md:block"
       />
 
-      <div className="relative z-10 mx-auto max-w-3xl text-center">
-        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground">
-          {cta.eyebrow}
-        </p>
-
-        <div className="mt-8">
-          <h2 className="text-5xl font-medium tracking-tight text-foreground md:text-6xl">
-            {cta.headingLine1}
-          </h2>
-          <h3 className="mt-2 text-5xl font-medium italic tracking-tight text-primary md:text-6xl">
-            {cta.italicHeadingLine}
-          </h3>
-        </div>
-
-        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          {/* Primary CTA */}
-          <Link
-            href={cta.primaryCta.href}
-            className="group inline-flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 text-sm font-medium text-white transition-opacity hover:opacity-80"
+      <div className="relative z-10 section-shell">
+        <div className="mx-auto max-w-3xl text-center">
+          <p
+            className={
+              isAbout || isWork
+                ? "type-sans-regular text-caption leading-[16.5px] tracking-[2px] uppercase text-[#212121]/60"
+                : "type-sans-regular text-caption leading-[16.5px] text-[#212121]/60"
+            }
           >
-            {cta.primaryCta.label}
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
+            {cta.eyebrow}
+          </p>
 
-          {/* Secondary CTA */}
-          <Link
-            href={cta.secondaryCta.href}
-            className="group inline-flex items-center gap-2 rounded-full border border-border bg-card px-7 py-3.5 text-sm font-medium text-foreground transition-opacity hover:opacity-80"
-          >
-            <span>{cta.secondaryCta.label}</span>
-            <ArrowUpRight className="h-4 w-4 text-primary" />
-          </Link>
+          <div className="mt-8">
+            <h2
+              className={
+                isAbout
+                  ? "type-sans-regular text-lead leading-[120%] text-[#212121] md:text-display md:leading-[62px] md:tracking-[-1px]"
+                  : "type-sans-regular text-lead leading-[120%] text-[#212121] md:text-display-sm md:leading-[51.52px]"
+              }
+            >
+              {cta.headingLine1}
+            </h2>
+            <h3
+              className={
+                isAbout
+                  ? "type-sans-italic mt-2 text-lead leading-[120%] text-[#FF5B23] md:text-display md:leading-[62px] md:tracking-[-1px]"
+                  : "type-sans-italic mt-2 text-lead leading-[120%] text-[#FF5B23] md:text-display-sm md:leading-[51.52px]"
+              }
+            >
+              {cta.italicHeadingLine}
+            </h3>
+          </div>
+
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Link
+              href={cta.primaryCta.href}
+              className="group type-sans-medium inline-flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 text-body-sm leading-[21px] text-white transition-opacity hover:opacity-80"
+            >
+              {cta.primaryCta.label}
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+
+            <Link
+              href={cta.secondaryCta.href}
+              className="group type-sans-medium inline-flex items-center gap-2 rounded-full border border-border bg-card px-7 py-3.5 text-body-sm leading-[21px] text-[#212121] transition-opacity hover:opacity-80"
+            >
+              <span>{cta.secondaryCta.label}</span>
+              <ArrowUpRight className="h-4 w-4 text-primary" />
+            </Link>
+          </div>
         </div>
       </div>
     </section>
@@ -118,8 +141,8 @@ export function Footer({
   content: GlobalContent['footer']
 }) {
   return (
-    <footer className="border-t border-border bg-card px-5 py-16">
-      <div className="mx-auto max-w-7xl">
+    <footer className="border-t border-border bg-card py-16">
+      <div className="section-shell">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
           {/* Left column */}
           <div>
@@ -127,7 +150,7 @@ export function Footer({
             <PhionikieLogo />
 
             {/* Tagline */}
-            <p className="mt-6 max-w-sm text-sm text-muted-foreground">
+            <p className="type-sans-regular mt-6 max-w-sm text-label leading-[150%] text-[#212121]/60 md:text-body-sm md:leading-[23.8px] md:text-[#212121]">
               {content.description}
             </p>
 
@@ -135,19 +158,19 @@ export function Footer({
             <div className="mt-10 grid grid-cols-2 gap-8">
               {/* Contact Column */}
               <div>
-                <p className="text-xs uppercase tracking-widest text-muted-foreground">
+                <p className="type-sans-bold text-caption leading-[16.5px] tracking-[1.65px] uppercase text-[#212121]">
                   Contact
                 </p>
                 <div className="mt-3 space-y-2">
                   <a
                     href={`mailto:${content.contact.email}`}
-                    className="block text-sm text-foreground transition-opacity hover:opacity-70"
+                    className="type-sans-regular block text-body-sm leading-[21px] text-[#212121] transition-opacity hover:opacity-70 md:text-body-lg"
                   >
                     {content.contact.email}
                   </a>
                   <a
                     href={`tel:${content.contact.phone}`}
-                    className="block text-sm text-foreground transition-opacity hover:opacity-70"
+                    className="type-sans-regular block text-body-sm leading-[21px] text-[#212121] transition-opacity hover:opacity-70 md:text-body-lg"
                   >
                     {content.contact.phone}
                   </a>
@@ -160,7 +183,7 @@ export function Footer({
                       href={s.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-sm text-foreground transition-opacity hover:opacity-70"
+                      className="type-sans-regular inline-flex items-center gap-1 text-body-sm leading-[19.5px] text-[#212121] transition-opacity hover:opacity-70 md:text-body-lg"
                     >
                       {s.platform}
                       <ArrowUpRight className="h-3.5 w-3.5" />
@@ -171,7 +194,7 @@ export function Footer({
 
               {/* Navigation Column */}
               <div>
-                <p className="text-xs uppercase tracking-widest text-muted-foreground">
+                <p className="type-sans-bold text-caption leading-[16.5px] tracking-[1.65px] uppercase text-[#212121]">
                   Navigation
                 </p>
                 <div className="mt-3 space-y-2">
@@ -179,7 +202,7 @@ export function Footer({
                     <Link
                       key={link.href}
                       href={link.href}
-                      className="block text-sm text-foreground transition-opacity hover:opacity-70"
+                      className="type-sans-regular block text-body-sm leading-[21px] text-[#212121] transition-opacity hover:opacity-70 md:text-body-lg"
                     >
                       {link.label}
                     </Link>
@@ -192,12 +215,18 @@ export function Footer({
             <div className="mt-10 border-t border-border" />
 
             {/* Copyright and Location */}
-            <div className="mt-8 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-              <span>{content.copyright}</span>
+            <div className="mt-8 flex flex-wrap items-center gap-2">
+              <span className="type-sans-regular text-caption leading-[18px] text-[#212121]/60">
+                {content.copyright}
+              </span>
               {content.copyrightSeparator && (
-                <span className="text-border">{content.copyrightSeparator}</span>
+                <span className="type-sans-regular text-caption leading-[18px] text-[#212121]/60">
+                  {content.copyrightSeparator}
+                </span>
               )}
-              <span>{content.location}</span>
+              <span className="type-sans-semibold text-caption leading-[18px] text-[#212121]">
+                {content.location}
+              </span>
             </div>
           </div>
 

@@ -6,12 +6,20 @@ import { usePathname } from "next/navigation"
 import { AnimatePresence, motion } from "framer-motion"
 import { ArrowUpRight, Menu, X } from "lucide-react"
 import type { GlobalContent } from "@/content/schema"
-import { LiquidGlass } from "@creativoma/liquid-glass"
 
 /** Brand blue, matching the single fill in public/logo.svg. */
 const BRAND_BLUE = "#3A39FF"
 /** Surface of the full-page mobile menu. */
 const MENU_BG = "#131313"
+/**
+ * Viewport width at which the floating desktop navbar takes over from the
+ * full-bleed mobile bar. Below this (phones, tablets and small laptops) the
+ * mobile bar + full-page menu are used.
+ *
+ * Keep in sync with the `min-[1100px]:` variants in the markup below — Tailwind
+ * needs a literal in the class name, so this constant only drives the JS side.
+ */
+const NAV_DESKTOP_MIN_PX = 1100
 
 // Derive an active slug from a nav href: "/" → "home", "/work" → "work", etc.
 function linkSlug(href: string) {
@@ -95,8 +103,8 @@ export function SiteNavbar({
   }, [pathname])
 
   // While open: freeze the page behind it and wire up Escape. Also close if the
-  // viewport grows past md, otherwise the scroll lock would survive on desktop
-  // where the panel itself is hidden.
+  // viewport grows past the desktop-nav breakpoint, otherwise the scroll lock
+  // would survive on desktop where the panel itself is hidden.
   useEffect(() => {
     if (!menuOpen) return
 
@@ -106,7 +114,7 @@ export function SiteNavbar({
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setMenuOpen(false)
     }
-    const desktop = window.matchMedia("(min-width: 768px)")
+    const desktop = window.matchMedia(`(min-width: ${NAV_DESKTOP_MIN_PX}px)`)
     const onBreakpoint = () => {
       if (desktop.matches) setMenuOpen(false)
     }
@@ -134,9 +142,11 @@ export function SiteNavbar({
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 mx-auto max-w-[1480px] md:top-5 md:px-6 lg:px-10">
-        {/* Mobile: full-bleed bar, flush to the top edge */}
-        <div className="flex h-16 items-center justify-between border-b border-border bg-background px-5 md:hidden">
+      {/* Offsets/padding only kick in once the floating desktop card is shown,
+          so the mobile bar stays flush to the top edge below 1100px. */}
+      <header className="fixed inset-x-0 top-0 z-50 mx-auto max-w-[1480px] min-[1100px]:top-5 min-[1100px]:px-6 min-[1280px]:px-10">
+        {/* Mobile + tablet (< 1100px): full-bleed bar, flush to the top edge */}
+        <div className="flex h-16 items-center justify-between border-b border-border bg-background px-5 min-[1100px]:hidden">
           <Link href="/" className="inline-flex items-center" onClick={closeMenu}>
             <Image src="/logo.svg" alt={content.logo} width={104} height={27} priority />
           </Link>
@@ -144,7 +154,7 @@ export function SiteNavbar({
           <div className="flex items-center gap-2.5">
             <Link
               href={content.cta.href}
-              className="rounded-full px-5 py-3 text-sm text-white"
+              className="type-sans-medium rounded-full px-5 py-3 text-label leading-[19.5px] text-white"
               style={{ backgroundColor: BRAND_BLUE }}
             >
               {content.cta.label}
@@ -163,36 +173,52 @@ export function SiteNavbar({
           </div>
         </div>
 
-        {/* Desktop: floating glass card (unchanged) */}
-        <div className="hidden md:block">
-          <LiquidGlass
-            backdropBlur={6}
-            displacementScale={0}
-            turbulenceBaseFrequency="0.008 0.012"
-            tintColor="rgba(255, 255, 255, 0.02)" // near-zero tint, was too strong before
-            className="rounded-xl border border-primary/25 bg-background/40 shadow-none px-6 py-4 md:px-8"
-            style={{ boxShadow: 'none' }}
-          >
+        {/* Desktop (>= 1100px): floating glass card.
+            Previously wrapped in <LiquidGlass>, which caused a hydration
+            mismatch: its useBrowserDetection hook reads navigator.userAgent /
+            matchMedia inside a useState initialiser, so the server always
+            rendered the full SVG filter while Safari/iOS (and anyone with
+            prefers-reduced-motion) rendered a structurally different
+            "simplified" filter on the client. Because displacementScale was 0,
+            the filter's final feDisplacementMap was an identity op — the whole
+            SVG chain was visually inert, leaving just a backdrop blur and a 2%
+            white tint, both of which are plain CSS below. */}
+        <div className="hidden min-[1100px]:block">
+          <div className="relative overflow-hidden rounded-xl border border-primary/25 bg-background/40 px-6 py-4 shadow-none backdrop-blur-[6px] min-[1100px]:px-8">
             <div className="flex items-center justify-between">
               <Link href="/" className="inline-flex items-center">
                 <Image src="/logo.svg" alt={content.logo} width={138} height={36} priority />
               </Link>
-              <nav className="hidden gap-12 md:flex" aria-label="Primary">
+              <nav className="flex gap-12" aria-label="Primary">
                 {content.links.map((l) => {
                   const isActive = activePage ? linkSlug(l.href) === activePage : false
                   return (
-                    <Link key={l.href} href={l.href} className="flex flex-col items-center gap-0.5 text-sm">
+                    <Link
+                      key={l.href}
+                      href={l.href}
+                      className={
+                        activePage === "about"
+                          ? isActive
+                            ? "type-sans-medium flex flex-col items-center gap-0.5 text-label leading-[19.5px] text-[#212121]"
+                            : "type-sans-medium flex flex-col items-center gap-0.5 text-label leading-[19.5px] text-[#212121]/60"
+                          : isActive
+                            ? "type-sans-medium flex flex-col items-center gap-0.5 text-body leading-[19.5px] text-[#212121]"
+                            : activePage === "process-and-ai" || activePage === "home"
+                              ? "type-vf-regular flex flex-col items-center gap-0.5 text-body-lg leading-[19.5px] text-[#212121]/60"
+                              : "type-sans-regular flex flex-col items-center gap-0.5 text-body-lg leading-[19.5px] text-[#212121]/60"
+                      }
+                    >
                       {l.label}
                       {isActive && <span className="block h-0.5 w-full rounded-full bg-foreground" aria-hidden="true" />}
                     </Link>
                   )
                 })}
               </nav>
-              <Link href={content.cta.href} className="rounded-full bg-primary px-6 py-3 text-sm text-primary-foreground">
+              <Link href={content.cta.href} className="type-sans-medium rounded-full bg-primary px-6 py-3 text-label leading-[19.5px] text-white">
                 {content.cta.label}
               </Link>
             </div>
-          </LiquidGlass>
+          </div>
         </div>
       </header>
 
@@ -211,7 +237,7 @@ export function SiteNavbar({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
             // overflow-y-auto so the panel still scrolls on short viewports
-            className="fixed inset-0 z-[60] overflow-y-auto outline-none md:hidden"
+            className="fixed inset-0 z-[60] overflow-y-auto outline-none min-[1100px]:hidden"
             style={{ backgroundColor: MENU_BG }}
           >
             {/* Decorative brand blobs, both cropped by the viewport edges */}
@@ -273,7 +299,7 @@ export function SiteNavbar({
                           href={l.href}
                           onClick={closeMenu}
                           aria-current={isActive ? 'page' : undefined}
-                          className="block text-[40px] leading-[48px] tracking-[-0.02em]"
+                          className="type-sans-regular block text-display-xs leading-[48px] tracking-[-0.02em]"
                           style={{ color: isActive ? BRAND_BLUE : '#FFFFFF' }}
                         >
                           {l.label}
@@ -289,7 +315,7 @@ export function SiteNavbar({
                 <Link
                   href={content.cta.href}
                   onClick={closeMenu}
-                  className="flex h-12 items-center justify-center rounded-full text-base text-white"
+                  className="type-sans-medium flex h-12 items-center justify-center rounded-full text-label leading-[19.5px] text-white"
                   style={{ backgroundColor: BRAND_BLUE }}
                 >
                   {content.cta.label}
@@ -313,8 +339,8 @@ export function SiteNavbar({
                     </div>
 
                     <div className="mt-6 border-t border-white/10 pt-4">
-                      <p className="text-xs text-white/50">{footer.copyright}</p>
-                      <p className="mt-2 text-xs font-medium text-white">{footer.location}</p>
+                      <p className="type-sans-regular text-eyebrow leading-[18px] text-white/50">{footer.copyright}</p>
+                      <p className="type-sans-regular mt-2 text-eyebrow leading-[18px] text-white">{footer.location}</p>
                     </div>
                   </>
                 )}
@@ -336,38 +362,40 @@ export function SiteFooter({
 }) {
   return (
     <>
-      <section className="bg-ink px-5 py-20 text-primary-foreground">
-        <div className="mx-auto max-w-4xl text-center">
-          <p className="text-xs uppercase">{cta.eyebrow}</p>
-          <div className="mx-auto mt-6 max-w-2xl">
-            <h2 className="font-serif text-5xl leading-none md:text-7xl">
-              {cta.headingLine1}
-            </h2>
-            {cta.italicHeadingLine && (
-              <p className="mt-2 font-serif text-5xl italic leading-none md:text-7xl text-primary">
-                {cta.italicHeadingLine}
-              </p>
-            )}
-          </div>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2">
-            <Link
-              href={cta.primaryCta.href}
-              className="rounded-full bg-background px-8 py-4 font-semibold text-foreground"
-            >
-              {cta.primaryCta.label}
-            </Link>
-            <Link
-              href={cta.secondaryCta.href}
-              className="rounded-full border border-primary-foreground px-8 py-4 font-semibold"
-            >
-              {cta.secondaryCta.label}
-            </Link>
+      <section className="bg-ink py-20 text-primary-foreground">
+        <div className="section-shell">
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="text-xs uppercase">{cta.eyebrow}</p>
+            <div className="mx-auto mt-6 max-w-2xl">
+              <h2 className="font-serif text-5xl leading-none md:text-7xl">
+                {cta.headingLine1}
+              </h2>
+              {cta.italicHeadingLine && (
+                <p className="mt-2 font-serif text-5xl italic leading-none md:text-7xl text-primary">
+                  {cta.italicHeadingLine}
+                </p>
+              )}
+            </div>
+            <div className="mt-10 grid gap-4 sm:grid-cols-2">
+              <Link
+                href={cta.primaryCta.href}
+                className="rounded-full bg-background px-8 py-4 font-semibold text-foreground"
+              >
+                {cta.primaryCta.label}
+              </Link>
+              <Link
+                href={cta.secondaryCta.href}
+                className="rounded-full border border-primary-foreground px-8 py-4 font-semibold"
+              >
+                {cta.secondaryCta.label}
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      <footer className="bg-ink px-5 pb-10 text-primary-foreground">
-        <div className="mx-auto grid max-w-7xl gap-10 border-t border-primary-foreground/20 pt-12 md:grid-cols-3">
+      <footer className="bg-ink pb-10 text-primary-foreground">
+        <div className="section-shell grid gap-10 border-t border-primary-foreground/20 pt-12 md:grid-cols-3">
           <p className="max-w-sm text-sm text-primary-foreground/60">{content.description}</p>
           <div>
             <p className="footer-label">Based in</p>
@@ -388,7 +416,7 @@ export function SiteFooter({
             ))}
           </div>
         </div>
-        <p className="mx-auto mt-12 max-w-7xl text-xs text-primary-foreground/50">
+        <p className="section-shell mt-12 text-xs text-primary-foreground/50">
           {content.copyright}
         </p>
       </footer>
