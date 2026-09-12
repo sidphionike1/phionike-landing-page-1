@@ -4,12 +4,12 @@
     "headlineParts": [
       { "text": "We design with ", "accent": false },
       { "text": "purpose.", "accent": true },
-      { "text": " We build for ", "accent": false },
+      { "text": "\nWe build for ", "accent": false },
       { "text": "impact.", "accent": true }
     ],
     "body": "We partner with ambitious businesses to create products, brands and experiences that solve meaningful problems through strategy, design and technology.",
-    "primaryCta": { "label": "View Our Work", "href": "/work" },
-    "secondaryCta": { "label": "Let's Talk", "href": "/contact" },
+    "primaryCta": { "label": "Let's Talk", "href": "/contact" },
+    "secondaryCta": { "label": "View Our Work", "href": "/work" },
     "stripImage": {
       "desktopSrc": "/about/hero-strip-desktop.png",
       "mobileSrc": "/about/hero-strip-mobile.png",
@@ -107,7 +107,7 @@
     ]
   },
   "culture": {
-    "eyebrow": "Our Culture",
+    "eyebrow": "OUR CULTURE",
     "headingPlain": "Life at Phionike is",
     "headingItalic": "a balance of rigor and play",
     "introPhotoSrc": "/about/culture-intro.png",
@@ -142,7 +142,7 @@
       {
         "id": "care",
         "title": "We Care Deeply",
-        "body": "We care about our teammates, our partners and the people who use what we build. Empathy isn't just part of our process — it's part of our culture.",
+        "body": "We care about our teammates, our partners and the people who use what we build. Empathy isn't just part of our process \n — it's part of our culture.",
         "photoSrc": "/about/culture/care.png",
         "bgColor": "mustard",
         "textColor": "charcoal",

@@ -32,6 +32,12 @@ const CARD_PAD_X = 64        // px
 const CARD_PAD_TOP = 68      // px
 const CARD_PAD_BOTTOM = 64   // px
 const POINT_GAP = 22         // px between list rows (→ ~42px row pitch at 14px/20px text)
+/**
+ * How far below a card's sticky top we still treat it as “coming into view”.
+ * Activates the left indicator as soon as the card starts scrolling up —
+ * not only once it has locked to its sticky position.
+ */
+const ACTIVATE_EARLY_PX = STEP_TOP + 80
 
 /** Ring positions, clockwise from the top. */
 const DOT_POSITIONS = [
@@ -47,10 +53,7 @@ const DOT_STROKE = 1.2
 /**
  * The four-dot cluster that precedes every card heading. Exactly one dot is
  * filled and the other three are outlined; the filled dot advances one position
- * per step, so it travels around the ring as the reader moves through the cards.
- *
- * The outlined radius is inset by half the stroke so filled and outlined dots
- * share the same outer edge and the cluster doesn't appear to breathe.
+ * per step. Uses currentColor so cards can force white icons.
  */
 function FourDots({ activeIndex, className }: { activeIndex: number; className?: string }) {
   const active = ((activeIndex % DOT_POSITIONS.length) + DOT_POSITIONS.length) % DOT_POSITIONS.length
@@ -66,7 +69,7 @@ function FourDots({ activeIndex, className }: { activeIndex: number; className?:
     >
       {DOT_POSITIONS.map((pos, i) =>
         i === active ? (
-          <circle key={i} cx={pos.cx} cy={pos.cy} r={DOT_OUTER_R} fill="#000000" />
+          <circle key={i} cx={pos.cx} cy={pos.cy} r={DOT_OUTER_R} fill="currentColor" />
         ) : (
           <circle
             key={i}
@@ -74,7 +77,7 @@ function FourDots({ activeIndex, className }: { activeIndex: number; className?:
             cy={pos.cy}
             r={DOT_OUTER_R - DOT_STROKE / 2}
             fill="none"
-            stroke="#000000"
+            stroke="currentColor"
             strokeWidth={DOT_STROKE}
           />
         ),
@@ -83,25 +86,23 @@ function FourDots({ activeIndex, className }: { activeIndex: number; className?:
   )
 }
 
-/**
- * Single tick for the card point lists. Drawn inline rather than via lucide's
- * <Check> so the mark can't be mistaken for a double tick at small sizes.
- */
-function Tick({ className }: { className?: string }) {
+/** Double-check mark — two ticks stacked with a tight overlap. */
+function DoubleTick({ className }: { className?: string }) {
   return (
     <svg
       width="14"
       height="14"
-      viewBox="0 0 24 24"
+      viewBox="0 0 14 14"
       fill="none"
       stroke="currentColor"
-      strokeWidth={2}
+      strokeWidth={1.75}
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
       className={className}
     >
-      <path d="M20 6 9 17l-5-5" />
+      <path d="M1.25 7.25 3.5 9.5 9.75 2.5" />
+      <path d="M1.25 11 3.5 13.25 9.75 6.25" />
     </svg>
   )
 }
@@ -115,7 +116,7 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
   const topOffsets = content.steps.map((_, i) => BASE_TOP + i * STEP_TOP)
 
   // Total height of the pinned card stack: the last card's peek offset plus one
-  // full card. Used to vertically centre the left column against the stack.
+  // full card. Used so the left column can track the active card's top edge.
   const stackHeight = STEP_TOP * Math.max(0, content.steps.length - 1) + CARD_MIN_HEIGHT
 
   useEffect(() => {
@@ -125,7 +126,9 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
       cardRefs.current.forEach((el, i) => {
         if (!el) return
         const top = el.getBoundingClientRect().top
-        if (top <= topOffsets[i] + 4) current = i
+        // Fire as soon as the card is approaching its sticky slot — not only
+        // after it has locked to topOffsets[i].
+        if (top <= topOffsets[i] + ACTIVATE_EARLY_PX) current = i
       })
       setActive(current)
     }
@@ -169,16 +172,21 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
                 )}
               >
                 <h3 className="type-sans-regular flex items-center gap-3 text-title-lg leading-[31.76px]">
-                  <FourDots activeIndex={index} className="shrink-0" />
+                  <FourDots activeIndex={index} className="shrink-0 text-white" />
                   {item.mobileLabel}
                 </h3>
                 {index === 3 && (
                   <div className="mt-4">
-                    <p className="type-sans-regular text-eyebrow leading-[18px] tracking-[1.95px]">{content.mobileHeading}</p>
+                    <p className="type-sans-regular text-eyebrow leading-[18px] tracking-[1.95px] uppercase">
+                      {content.mobileHeading}
+                    </p>
                     <ul className="mt-4 flex flex-col gap-2">
                       {content.steps.map((step) => (
-                        <li key={step.id} className="type-sans-regular flex items-center gap-2 text-eyebrow leading-[18.91px]">
-                          <Tick className="shrink-0" />
+                        <li
+                          key={step.id}
+                          className="type-sans-regular flex items-center gap-2 text-eyebrow leading-[18.91px]"
+                        >
+                          <DoubleTick className="shrink-0" />
                           {step.subheading}
                         </li>
                       ))}
@@ -194,16 +202,18 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
           className="hidden grid-cols-12 gap-12 md:grid"
           style={{ minHeight: `${Math.max(150, content.steps.length * 70)}vh` }}
         >
+          {/* Left indicator — fixed to the second card's top; content swaps on scroll */}
           <div
-            className="sticky col-span-5 flex flex-col justify-center self-start"
-            style={{ top: BASE_TOP, height: stackHeight }}
+            className="sticky col-span-5 self-start"
+            style={{ top: BASE_TOP + STEP_TOP, height: stackHeight - STEP_TOP }}
           >
             <AnimatePresence mode="wait">
               <motion.div
                 key={displayIndex}
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
               >
                 <p className="type-sans-regular text-numeral-sm leading-none text-[#212121] md:text-numeral">
                   {content.steps[displayIndex]?.number}
@@ -250,26 +260,26 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
                 >
                   {/* Dot icon + heading — the only row revealed in a stacked card's peek */}
                   <div className="flex items-center gap-4">
-                    <FourDots activeIndex={i} className="shrink-0" />
+                    <FourDots activeIndex={i} className="shrink-0 text-white" />
                     <h3 className="type-sans-regular text-title-lg leading-[31.76px] md:text-heading md:leading-[53.76px]">
                       {step.subheading}
                     </h3>
                   </div>
 
                   {step.cardSubheading && (
-                    <p className="type-sans-regular mt-7 max-w-md text-eyebrow leading-[18px] tracking-[1.95px]">
+                    <p className="type-sans-regular mt-7 max-w-md text-eyebrow leading-[18px] tracking-[1.95px] uppercase">
                       {step.cardSubheading}
                     </p>
                   )}
 
                   {step.points && step.points.length > 0 && (
-                    <ul
-                      className="mt-8 flex flex-col"
-                      style={{ gap: POINT_GAP }}
-                    >
+                    <ul className="mt-8 flex flex-col" style={{ gap: POINT_GAP }}>
                       {step.points.map((point) => (
-                        <li key={point} className="type-sans-regular flex items-center gap-3 text-eyebrow leading-[18.91px]">
-                          <Tick className="shrink-0" />
+                        <li
+                          key={point}
+                          className="type-sans-regular flex items-center gap-3 text-eyebrow leading-[18.91px]"
+                        >
+                          <DoubleTick className="shrink-0" />
                           {point}
                         </li>
                       ))}

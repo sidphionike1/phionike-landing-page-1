@@ -136,29 +136,30 @@ export function ProcessCardStack({
                 >
                   {step.heroLabel}
                 </h2>
-                {isActive && (
-                  <p
-                    className={cn(
-                      "type-sans-regular mt-3 max-w-[280px] text-body-sm leading-[150%]",
-                      light ? "text-[#121212]/80" : "text-white/85",
-                    )}
-                  >
-                    {step.shortDescription}
-                  </p>
-                )}
+                <p
+                  className={cn(
+                    "type-sans-regular mt-3 max-w-[280px] text-body-sm leading-[150%]",
+                    light ? "text-[#121212]/80" : "text-white/85",
+                  )}
+                >
+                  {step.shortDescription}
+                </p>
               </div>
             </div>
 
-            {isActive && (
-              <div className="flex justify-end">
-                <span
-                  className="inline-flex size-10 items-center justify-center rounded-full bg-[#F5B800] text-[#121212] shadow-sm ring-1 ring-[#121212]/10"
-                  aria-hidden
-                >
-                  <Plus size={18} strokeWidth={2.25} />
-                </span>
-              </div>
-            )}
+            <div
+              className={cn(
+                "flex justify-end transition-opacity duration-200",
+                isActive ? "opacity-100" : "opacity-0",
+              )}
+              aria-hidden={!isActive}
+            >
+              <span
+                className="inline-flex size-10 items-center justify-center rounded-full bg-[#F5B800] text-[#121212] shadow-sm ring-1 ring-[#121212]/10"
+              >
+                <Plus size={18} strokeWidth={2.25} />
+              </span>
+            </div>
           </button>
         )
       })}

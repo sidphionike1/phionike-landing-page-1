@@ -38,7 +38,7 @@ export function TeamCarouselMobile() {
   };
 
   return (
-    <section className="bg-background px-0 py-10 md:hidden">
+    <section className="bg-white px-0 py-10 md:hidden">
       <div
         ref={trackRef}
         className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"

@@ -9,6 +9,14 @@ import type { GlobalContent } from "@/content/schema"
 
 /** Brand blue, matching the single fill in public/logo.svg. */
 const BRAND_BLUE = "#3A39FF"
+/** Per-page underline accents for selected + hover states. */
+const NAV_ACCENTS: Record<string, string> = {
+  home: BRAND_BLUE,
+  about: "#F5B800",
+  work: "#FF5B23",
+  services: "#FF5B23",
+  "process-and-ai": BRAND_BLUE,
+}
 /** Surface of the full-page mobile menu. */
 const MENU_BG = "#131313"
 /**
@@ -26,8 +34,8 @@ function linkSlug(href: string) {
   return href === "/" ? "home" : href.replace(/^\//, "").replace(/-/g, "-")
 }
 
-// lucide-react v1 ships no brand marks, so the three social glyphs are inline.
-// LinkedIn is solid and the other two are stroked, matching the reference.
+// lucide-react v1 ships no brand marks, so social glyphs are inline.
+// LinkedIn / Medium are solid; Instagram / Dribbble are stroked.
 function SocialGlyph({ platform }: { platform: string }) {
   const key = platform.toLowerCase()
 
@@ -72,6 +80,14 @@ function SocialGlyph({ platform }: { platform: string }) {
         <path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94" />
         <path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32" />
         <path d="M8.56 2.75c4.37 6 6 9.42 8 17.72" />
+      </svg>
+    )
+  }
+
+  if (key.includes("medium")) {
+    return (
+      <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5" aria-hidden="true">
+        <path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z" />
       </svg>
     )
   }
@@ -189,27 +205,44 @@ export function SiteNavbar({
               <Link href="/" className="inline-flex items-center">
                 <Image src="/logo.svg" alt={content.logo} width={138} height={36} priority />
               </Link>
-              <nav className="flex gap-12" aria-label="Primary">
+              <nav className="flex gap-10" aria-label="Primary">
                 {content.links.map((l) => {
-                  const isActive = activePage ? linkSlug(l.href) === activePage : false
+                  const slug = linkSlug(l.href)
+                  const isActive = activePage ? slug === activePage : false
+                  const accent = NAV_ACCENTS[slug] ?? BRAND_BLUE
+                  const baseType =
+                    activePage === "about"
+                      ? "type-sans-medium text-label leading-[19.5px]"
+                      : isActive
+                        ? "type-sans-medium text-body leading-[19.5px]"
+                        : activePage === "process-and-ai" || activePage === "home"
+                          ? "type-vf-regular text-body-lg leading-[19.5px]"
+                          : "type-sans-regular text-body-lg leading-[19.5px]"
+
                   return (
                     <Link
                       key={l.href}
                       href={l.href}
-                      className={
-                        activePage === "about"
-                          ? isActive
-                            ? "type-sans-medium flex flex-col items-center gap-0.5 text-label leading-[19.5px] text-[#212121]"
-                            : "type-sans-medium flex flex-col items-center gap-0.5 text-label leading-[19.5px] text-[#212121]/60"
-                          : isActive
-                            ? "type-sans-medium flex flex-col items-center gap-0.5 text-body leading-[19.5px] text-[#212121]"
-                            : activePage === "process-and-ai" || activePage === "home"
-                              ? "type-vf-regular flex flex-col items-center gap-0.5 text-body-lg leading-[19.5px] text-[#212121]/60"
-                              : "type-sans-regular flex flex-col items-center gap-0.5 text-body-lg leading-[19.5px] text-[#212121]/60"
-                      }
+                      aria-current={isActive ? "page" : undefined}
+                      className={[
+                        "group relative flex flex-col items-center gap-1 rounded-sm px-1 py-0.5 transition-[color,padding] duration-200",
+                        baseType,
+                        isActive
+                          ? "px-2.5 text-[#212121]"
+                          : "text-[#212121]/60 hover:px-2.5 hover:text-[#212121]",
+                      ].join(" ")}
                     >
                       {l.label}
-                      {isActive && <span className="block h-0.5 w-full rounded-full bg-foreground" aria-hidden="true" />}
+                      <span
+                        aria-hidden="true"
+                        className={[
+                          "block h-0.5 rounded-full transition-[width] duration-200 ease-out",
+                          isActive
+                            ? "w-3.5 group-hover:w-full"
+                            : "w-0 group-hover:w-full",
+                        ].join(" ")}
+                        style={{ backgroundColor: accent }}
+                      />
                     </Link>
                   )
                 })}

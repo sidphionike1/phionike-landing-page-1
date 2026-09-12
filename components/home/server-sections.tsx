@@ -121,7 +121,7 @@ export function ValuePropBand({
         backgroundSize: "1440px 414px",
       }}
     >
-      <div className="section-shell grid gap-10 md:grid-cols-[3fr_2fr] md:items-start">
+      <div className="section-shell grid gap-10 [--section-pad-x:3.5rem] md:grid-cols-[3fr_2fr] md:items-start md:[--section-pad-x:5rem]">
         <h2 className="type-sans-regular text-heading leading-normal text-white md:text-display-sm md:leading-[53.76px]">
           {content.heading}
           {content.headingItalic && (
@@ -223,11 +223,16 @@ export function TrustedByStrip({
             }}
           >
             {content.logos.map((logo, index) => {
+              // al ramz is sized up further (1.5x the other upsized marks),
+              // so its cell needs extra height to avoid clipping the mark.
+              const isAlRamz = logo.name === "al ramz";
               const classes = [
                 "flex items-center justify-center",
                 "bg-[#FBF6EE]",
                 "p-4 md:p-6 lg:p-8",
-                "h-[84px] sm:h-[100px] md:h-[130px] lg:h-[180px]",
+                isAlRamz
+                  ? "h-[102px] sm:h-[118px] md:h-[153px] lg:h-[206px]"
+                  : "h-[84px] sm:h-[100px] md:h-[130px] lg:h-[180px]",
               ];
 
               if (index % 3 !== 0) {
@@ -237,6 +242,16 @@ export function TrustedByStrip({
               if (index >= 3) {
                 classes.push("border-t");
               }
+
+              // OREN and Resilience AI marks render visually smaller than the
+              // rest at the same box size, so they get a larger cap. al ramz
+              // is sized up even further, to 1.5x that upsized cap.
+              const isUpsized = ["OREN", "Resilience AI"].includes(logo.name);
+              const logoSizeClasses = isAlRamz
+                ? "max-h-[60px] max-w-[195px] sm:max-h-[72px] sm:max-w-[240px] md:max-h-[93px] md:max-w-[294px] lg:max-h-[120px] lg:max-w-[354px]"
+                : isUpsized
+                ? "max-h-[40px] max-w-[130px] sm:max-h-[48px] sm:max-w-[160px] md:max-h-[62px] md:max-w-[196px] lg:max-h-[80px] lg:max-w-[236px]"
+                : "max-h-[28px] max-w-[92px] sm:max-h-[34px] sm:max-w-[112px] md:max-h-[44px] md:max-w-[140px] lg:max-h-[56px] lg:max-w-[170px]";
 
               return (
                 <div
@@ -253,8 +268,8 @@ export function TrustedByStrip({
                     src={logo.logoSrc}
                     alt={logo.name}
                     width={180}
-                    height={70}
-                    className="h-auto w-auto object-contain max-h-[28px] max-w-[92px] sm:max-h-[34px] sm:max-w-[112px] md:max-h-[44px] md:max-w-[140px] lg:max-h-[56px] lg:max-w-[170px]"
+                    height={isAlRamz ? 52 : 70}
+                    className={`h-auto w-auto object-contain ${logoSizeClasses}`}
                   />
                 </div>
               );

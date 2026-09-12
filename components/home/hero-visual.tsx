@@ -82,8 +82,8 @@ export function HeroVisual() {
       </div>
 
       {/* Signature */}
-      <p className="type-sans-medium text-right text-caption leading-[16.5px] uppercase text-[#36454F]/60">
-        Design & Strategy Studio
+      <p className="type-sans-medium text-caption tracking-[3.3px] text-right leading-[16.5px] uppercase text-[#36454F]/60">
+        DESIGN & STRATEGY STUDIO
       </p>
     </div>
   )

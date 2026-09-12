@@ -12,10 +12,12 @@ import type { ProcessAndAi } from '@/content/schema'
 const HERO_BG_IMAGE = '/process-and-ai/hero-bg-placeholder.svg'
 
 export function ProcessAiHero({ hero }: { hero: ProcessAndAi['hero'] }) {
+  const headlineLines = hero.headlineMain.split('\n').filter(Boolean)
+
   return (
     // `isolate` keeps the -z-10 backdrop above the section fill and below the copy.
     // Top padding clears the fixed navbar, matching the home hero (pt-32 / md:pt-40).
-    <section className="relative isolate w-full overflow-hidden bg-[rgba(248,245,240,1)] pt-32 pb-32 md:pt-40 md:pb-44">
+    <section className="relative isolate w-full overflow-hidden bg-white pt-32 pb-32 md:pt-40 md:pb-44">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
         <Image
           src={HERO_BG_IMAGE}
@@ -23,7 +25,7 @@ export function ProcessAiHero({ hero }: { hero: ProcessAndAi['hero'] }) {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-bottom"
+          className="object-cover object-top"
         />
       </div>
 
@@ -32,20 +34,23 @@ export function ProcessAiHero({ hero }: { hero: ProcessAndAi['hero'] }) {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="type-sans-regular text-caption text-[#121212]/60 md:text-body-sm"
+          className="type-sans-regular text-caption uppercase tracking-[0.12em] text-[#121212]/60 md:text-body-sm"
         >
           {hero.badge}
         </motion.p>
 
-        {/* Heading — mobile 36/44; desktop 60/80. The measure keeps the headline on
-            three lines (two for the main clause, one for the accent clause). */}
+        {/* Three-line headline matching Figma: Where Human / Thinking Meets / Intelligent Execution */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="type-sans-medium mt-6 max-w-[760px] text-[36px] leading-[44px] tracking-[-0.5px] text-[#121212] md:text-hero md:leading-[80px]"
+          className="type-sans-medium mt-6 max-w-[820px] text-[36px] leading-[44px] tracking-[-0.5px] text-[#121212] md:text-hero md:leading-[80px]"
         >
-          <span className="block">{hero.headlineMain}</span>
+          {headlineLines.map((line) => (
+            <span key={line} className="block">
+              {line}
+            </span>
+          ))}
           <span className="block">{hero.headlineAccent}</span>
         </motion.h1>
 
@@ -62,20 +67,19 @@ export function ProcessAiHero({ hero }: { hero: ProcessAndAi['hero'] }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-12 flex flex-col items-center gap-6 sm:flex-row"
+          className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:gap-5"
         >
           <Link
-            href="/contact"
+            href="/work"
             className="type-sans-regular inline-flex items-center rounded-full bg-ink px-7 py-4 text-body-sm text-white"
           >
             {hero.primaryCta}
           </Link>
           <Link
-            href="#"
-            className="type-sans-semibold inline-flex items-center gap-2 text-body text-[#111111]"
+            href="/contact"
+            className="type-sans-regular inline-flex items-center rounded-full border border-[#111111] bg-transparent px-7 py-4 text-body-sm text-[#111111] transition-colors hover:bg-[#111111] hover:text-white"
           >
             {hero.secondaryCta}
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </motion.div>
       </div>
@@ -112,7 +116,7 @@ function ProcessColumn({
   const isBlue = variant === 'blue'
   const lastRowIdx = rows.length - 1
   const pill =
-    'type-sans-regular inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-eyebrow whitespace-nowrap'
+    'type-sans-regular inline-flex items-center gap-1.5 rounded-full px-5 py-3 text-eyebrow whitespace-nowrap'
 
   return (
     <motion.div
@@ -129,7 +133,7 @@ function ProcessColumn({
     >
       <div className="flex items-baseline justify-between gap-4">
         <h3
-          className={`type-sans-bold text-body-sm ${isBlue ? 'text-white' : 'text-[#666666]'}`}
+          className={`type-sans-bold text-title-md md:text-title-lg ${isBlue ? 'text-white' : 'text-[#121212]'}`}
         >
           {title}
         </h3>
@@ -188,8 +192,8 @@ function ProcessColumn({
                     ))}
                   {showArrow && (
                     <ArrowRight
-                      className={`h-3.5 w-3.5 shrink-0 ${isBlue ? 'text-white/55' : 'text-[#B4ADA4]'}`}
-                      strokeWidth={1.5}
+                      className={`h-4 w-4 shrink-0 ${isBlue ? 'text-white/70' : 'text-[#8A847C]'}`}
+                      strokeWidth={2.5}
                       aria-hidden="true"
                     />
                   )}
@@ -204,8 +208,8 @@ function ProcessColumn({
           wraps to an extra row. */}
       <div className="mt-auto pt-5">
         <p
-          className={`type-sans-regular border-t pt-4 text-label leading-[18px] ${
-            isBlue ? 'border-white/20 text-white' : 'border-[#EDE7DF] text-[#36454f]'
+          className={`type-sans-regular text-label leading-[18px] ${
+            isBlue ? 'text-white' : 'text-[#36454f]'
           }`}
         >
           {description}
@@ -364,22 +368,24 @@ function PhasesGridMobile({ section }: { section: ProcessAndAi['phasesSection'] 
 
 export function PhasesGrid({ section }: { section: ProcessAndAi['phasesSection'] }) {
   return (
-    <section className="section-shell overflow-x-hidden py-20">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
-        <h2 className="type-sans-regular text-lead leading-[36px] tracking-[-0.5px] text-[#121212] md:text-display-md md:leading-[64px]">
-          {section.headlineMain}{' '}
-          <span className="type-sans-regular text-lead text-[#FF5B23] md:text-display-md">{section.headlineAccent}</span>
-        </h2>
-      </motion.div>
+    <section className="bg-white">
+      <div className="section-shell overflow-x-hidden py-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="type-sans-regular text-lead leading-[36px] tracking-[-0.5px] text-[#121212] md:text-display-md md:leading-[64px]">
+            {section.headlineMain}{' '}
+            <span className="type-sans-regular text-lead text-[#FF5B23] md:text-display-md">{section.headlineAccent}</span>
+          </h2>
+        </motion.div>
 
-      <div className="mt-10">
-        <PhasesGridDesktop section={section} />
-        <PhasesGridMobile section={section} />
+        <div className="mt-10">
+          <PhasesGridDesktop section={section} />
+          <PhasesGridMobile section={section} />
+        </div>
       </div>
     </section>
   )
@@ -427,10 +433,10 @@ export function DualPrototypeFramework({ framework }: { framework: ProcessAndAi[
           <h3 className="type-sans-regular text-title-lg text-[#111625] md:text-lead">
             {framework.prototypeA.title}
           </h3>
-          <p className="type-sans-regular mt-1 text-title-sm md:text-title" style={{ color: framework.prototypeA.taglineColor }}>
+          <p className="type-sans-semibold mt-1 text-title md:text-title-lg" style={{ color: framework.prototypeA.taglineColor }}>
             {framework.prototypeA.tagline}
           </p>
-          <p className="type-sans-regular mt-3 text-label leading-[18px] text-[#606673]">
+          <p className="type-sans-regular mt-3 text-body-sm leading-[22px] text-[#606673] md:text-body md:leading-[24px]">
             {framework.prototypeA.description}
           </p>
 
@@ -506,10 +512,10 @@ export function DualPrototypeFramework({ framework }: { framework: ProcessAndAi[
           <h3 className="type-sans-regular text-title-lg text-[#111625] md:text-lead">
             {framework.prototypeB.title}
           </h3>
-          <p className="type-sans-regular mt-1 text-title-sm md:text-title" style={{ color: framework.prototypeB.taglineColor }}>
+          <p className="type-sans-semibold mt-1 text-title md:text-title-lg" style={{ color: framework.prototypeB.taglineColor }}>
             {framework.prototypeB.tagline}
           </p>
-          <p className="type-sans-regular mt-3 text-label leading-[18px] text-[#606673]">
+          <p className="type-sans-regular mt-3 text-body-sm leading-[22px] text-[#606673] md:text-body md:leading-[24px]">
             {framework.prototypeB.description}
           </p>
 
@@ -686,7 +692,7 @@ function FrameworkHeader({ badge, headlineMain, headlineItalic }: Omit<Framework
       <span className="type-sans-regular text-caption leading-[16.5px] tracking-[3.3px] uppercase text-[#212121]">
         {badge}
       </span>
-      <h2 className="type-sans-regular mt-4 text-lead leading-[36px] text-[#121212] md:text-[40px] md:leading-[58px]">
+      <h2 className="type-sans-regular mt-4 text-lead leading-[36px] text-[#121212] md:whitespace-nowrap md:text-[40px] md:leading-[58px]">
         {headlineMain}{' '}
         <span className="type-sans-light-italic text-lead text-[#121212]/40 md:text-[40px]">{headlineItalic}</span>
       </h2>
@@ -730,14 +736,14 @@ function FrameworkCard({ step, index }: { step: FrameworkStep; index: number }) 
         </div>
 
         <div className="md:pr-28">
-          <p className="type-sans-regular text-body-sm uppercase tracking-[2px] md:text-title-lg">
+          <p className="type-sans-semibold text-body-sm uppercase tracking-[2px] md:text-title-lg">
             {step.eyebrow}
           </p>
-          <h3 className="type-sans-regular mt-2 text-title-lg leading-[30px] md:mt-3 md:text-display-xs md:leading-[48px]">
+          <h3 className="type-sans-regular mt-2 text-title-lg leading-[30px] md:mt-3 md:whitespace-nowrap md:text-display-xs md:leading-[48px]">
             {step.title}
           </h3>
           <p
-            className="type-sans-regular mt-3 max-w-2xl text-label leading-[18px] opacity-80 md:mt-4 md:max-w-[650px] md:text-body-lg md:leading-[22px]"
+            className="type-sans-regular mt-3 max-w-2xl text-body-sm leading-[22px] opacity-80 md:mt-4 md:max-w-[650px] md:text-title md:leading-[26px]"
           >
             {step.description}
           </p>
@@ -785,6 +791,11 @@ function SynergyColumn({
   fill: string
   idx: number
 }) {
+  // Lavender + yellow fills need black type/icons (Figma); blue + orange stay white.
+  const darkOnFill = fill === '#DCB8FF' || fill === '#F2BB06'
+  const fillText = darkOnFill ? 'text-[#111111]' : 'text-white'
+  const fillMuted = darkOnFill ? 'text-[#111111]' : 'text-white'
+
   const bulleted = (items: string[], textClass: string) => (
     <ul className="mt-3 space-y-1.5">
       {items.map((item, i) => (
@@ -809,12 +820,12 @@ function SynergyColumn({
       </div>
 
       {/* AI Tasks — filled card */}
-      <div className="mt-6 rounded-2xl p-6 text-white" style={{ backgroundColor: fill }}>
-        <div className="flex items-center gap-2">
+      <div className={`mt-6 rounded-2xl p-6 ${fillText}`} style={{ backgroundColor: fill }}>
+        <div className={`flex items-center gap-2 ${fillMuted}`}>
           <Sparkles className="h-4 w-4" aria-hidden="true" />
           <span className="type-sans-regular text-caption">AI TASKS</span>
         </div>
-        {bulleted(column.aiTasks, 'text-white')}
+        {bulleted(column.aiTasks, fillMuted)}
       </div>
 
       {/* Human Role — outlined card, same hue as the fill above */}
@@ -822,7 +833,7 @@ function SynergyColumn({
         className="mt-4 rounded-2xl border p-6"
         style={{ borderColor: fill }}
       >
-        <div className="flex items-center gap-2" style={{ color: fill }}>
+        <div className="flex items-center gap-2" style={{ color: darkOnFill ? '#111111' : fill }}>
           <User className="h-4 w-4" aria-hidden="true" />
           <span className="type-sans-regular text-caption">HUMAN ROLE</span>
         </div>
@@ -844,7 +855,7 @@ export function AiSynergyGrid({ synergy }: { synergy: ProcessAndAi['aiAccelerate
         <p className="type-sans-regular text-caption leading-[16.5px] tracking-[3.3px] text-[#212121]">
           {synergy.badge}
         </p>
-        <h2 className="type-sans-regular mt-4 max-w-3xl text-lead leading-[36px] tracking-[-0.5px] text-[#121212] md:text-display md:leading-[58px] md:tracking-[-1.5px]">
+        <h2 className="type-sans-regular mt-4 max-w-none text-lead leading-[36px] tracking-[-0.5px] text-[#121212] md:whitespace-nowrap md:text-display md:leading-[58px] md:tracking-[-1.5px]">
           {synergy.headline}
         </h2>
         <p className="type-sans-regular mt-4 max-w-2xl text-body-sm leading-[20px] text-[#36454f]">

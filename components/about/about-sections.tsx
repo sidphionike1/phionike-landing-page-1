@@ -49,19 +49,19 @@ export function AboutHero({ content }: AboutHeroProps) {
   const headlineParts = content?.headlineParts ?? [
     { text: 'We design with ' },
     { text: 'purpose.', accent: true },
-    { text: ' We build for ' },
+    { text: '\nWe build for ' },
     { text: 'impact.', accent: true },
   ];
   const body =
     content?.body ??
     'We partner with ambitious businesses to create products, brands and experiences that solve meaningful problems through strategy, design and technology.';
-  const primaryCta = content?.primaryCta ?? {
-    label: 'View Our Work',
-    href: '#work',
+  const secondaryCta = content?.primaryCta ?? {
+    label: "Let's Talk",
+    href: '/contact',
   };
-  const secondaryCta = content?.secondaryCta ?? {
-    label: 'Let\'s Talk',
-    href: '#contact',
+  const primaryCta = content?.secondaryCta ?? {
+    label: 'View Our Work',
+    href: '/work',
   };
 
   // Separate image sources for desktop and mobile
@@ -72,16 +72,16 @@ export function AboutHero({ content }: AboutHeroProps) {
   };
 
   return (
-    <section className="relative w-full overflow-x-hidden bg-[#faf8f5] pt-20 md:pt-24 font-sans">
+    <section className="relative w-full overflow-x-hidden bg-white pt-20 md:pt-24 font-sans">
       <div className="section-shell">
         <p className="type-sans-regular pt-6 text-eyebrow leading-[16.5px] tracking-[3.3px] uppercase text-[#212121]/60 md:pt-10">
           {eyebrow}
         </p>
 
-        <h1 className="type-sans-regular mt-6 max-w-4xl text-[36px] leading-[46.8px] tracking-[-2px] text-[#212121] md:text-hero md:leading-[105%] md:tracking-[-2px]">
+        <h1 className="type-sans-regular mt-6 max-w-4xl whitespace-pre-line text-[36px] leading-[46.8px] tracking-[-2px] text-[#212121] md:text-hero md:leading-[105%] md:tracking-[-2px]">
           {headlineParts.map((part, i) =>
             part.accent ? (
-              <span key={i} className="text-[#ff5b23]">
+              <span key={i} className="type-sans-regular text-[#ff5b23]">
                 {part.text}
               </span>
             ) : (
@@ -98,7 +98,7 @@ export function AboutHero({ content }: AboutHeroProps) {
           <div className="flex shrink-0 items-center gap-6">
             <a
               href={primaryCta.href}
-              className="type-sans-semibold inline-flex items-center justify-center rounded-full bg-[#1e1e1e] px-7 py-3.5 text-body-sm leading-normal text-white transition-opacity hover:opacity-90"
+              className="type-sans-semibold inline-flex items-center justify-center gap-2 rounded-full bg-[#1e1e1e] px-7 py-3.5 text-body-sm leading-normal text-white transition-opacity hover:opacity-90"
             >
               {primaryCta.label}
             </a>
@@ -107,7 +107,7 @@ export function AboutHero({ content }: AboutHeroProps) {
               className="type-sans-medium inline-flex items-center gap-1.5 text-body-sm leading-[21px] text-[#262728]"
             >
               {secondaryCta.label}
-              <ArrowUpRight size={16} />
+              <ArrowUpRight size={16} className="text-[#FF5B23]" />
             </a>
           </div>
         </div>
@@ -173,7 +173,7 @@ export function MosaicStrip({ tiles }: { tiles: AboutPage["hero"]["mosaicTiles"]
 
 export function ValuesSection({ content }: { content: AboutPage["values"] }) {
   return (
-    <section className="bg-background py-24 md:py-32">
+    <section className="bg-[#FDF8F0] py-24 md:py-32">
       <div className="section-shell">
         {/* Centred heading block */}
         <div className="text-center">
@@ -316,7 +316,7 @@ function renderTile(tile: Tile) {
 
 export function TeamSection({ content }: { content: AboutPage["team"] }) {
   return (
-    <section className="py-20 md:py-28" style={{ backgroundColor: "#FDF8F0" }}>
+    <section className="bg-white py-20 md:py-28">
       <div className="section-shell">
         {/* Intro: text block (40%) + group photo (60%) */}
         <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-[2fr_3fr] md:gap-12">
@@ -369,7 +369,7 @@ const PLACEHOLDER = (w: number, h: number, text: string) =>
 
 export function CultureSection({ content }: { content: AboutPage["culture"] }) {
   return (
-    <section style={{ backgroundColor: "#FDF8F0" }}>
+    <section className="bg-[#FDF8F0]">
       <div className="section-shell">
         {/* Heading */}
         <div className="py-16 md:py-20">
@@ -384,31 +384,41 @@ export function CultureSection({ content }: { content: AboutPage["culture"] }) {
           </h2>
         </div>
 
-        {/* Hero image — hover overlay on desktop, always visible on mobile */}
-        <div className="group relative aspect-[21/8] w-full overflow-hidden rounded-2xl bg-muted">
+        {/* Hero image — darken on hover; orange bar grows 0→20px */}
+        <div className="group relative isolate aspect-[21/8] w-full overflow-hidden rounded-2xl bg-muted">
           <Image
             src={content.introPhotoSrc || PLACEHOLDER(1200, 400, "Life at Phionike")}
             alt="Life at Phionike"
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover"
             sizes="(max-width: 1198px) 100vw, 1198px"
           />
-          {/* Desktop: overlay on hover */}
-          <div className="absolute inset-0 hidden flex-col justify-end bg-black/60 p-8 opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:flex">
-            <h3 className="type-vf-medium text-display-sm leading-normal text-white">
-              Where curiosity becomes collaboration.
-            </h3>
-            <p className="type-vf-medium mt-3 max-w-xl text-title leading-normal text-white">
-              Every project is powered by people who question, explore and create
-              together. We believe the best ideas emerge through open
-              conversations, shared ownership and a culture of continuous
-              learning.
-            </p>
+          {/* Desktop: darken + orange edge + copy on hover — no scale */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden w-0 bg-[#FF5B24] transition-[width] duration-500 ease-out group-hover:w-5 md:block"
+          />
+          <div className="absolute inset-0 hidden flex-col justify-center bg-black/0 py-8 pr-8 pl-[100px] transition-colors duration-500 group-hover:bg-black/40 md:flex">
+            <div className="max-w-xl opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+              <h3 className="type-vf-medium text-display-sm leading-normal text-white">
+                Where curiosity becomes
+                <br />
+                collaboration.
+              </h3>
+              <p className="type-vf-medium mt-3 text-title leading-normal text-white">
+                Every project is powered by people who question, explore and create
+                together. We believe the best ideas emerge through open
+                conversations, shared ownership and a culture of continuous
+                learning.
+              </p>
+            </div>
           </div>
           {/* Mobile: always-visible overlay */}
           <div className="absolute inset-0 flex flex-col justify-end bg-black/50 p-6 md:hidden">
             <h3 className="type-sans-medium text-title leading-normal text-white">
-              Where curiosity becomes collaboration.
+              Where curiosity becomes
+              <br />
+              collaboration.
             </h3>
             <p className="type-sans-regular mt-2 max-w-md text-eyebrow leading-normal text-white/90">
               Every project is powered by people who question, explore and create
@@ -421,12 +431,10 @@ export function CultureSection({ content }: { content: AboutPage["culture"] }) {
 
         {/* 4 alternating bands */}
         <div className="flex flex-col gap-5 pb-20 pt-10">
-          {content.bands.map((band, bandIndex) => {
+          {content.bands.map((band) => {
             const photoLeft = band.photoSide === "left"
             const bg = BAND_BG[band.bgColor] ?? "#eee"
             const fg = BAND_TEXT[band.bgColor] ?? "#111"
-            const titleWeight =
-              bandIndex === 0 ? "type-sans-medium md:type-sans-regular" : "type-sans-regular"
 
             return (
               <div
@@ -435,22 +443,20 @@ export function CultureSection({ content }: { content: AboutPage["culture"] }) {
                   photoLeft ? "md:grid-cols-[44fr_56fr]" : "md:grid-cols-[56fr_44fr]"
                 }`}
               >
-                {/* Text side — order-1 on mobile (top), desktop follows photoSide */}
                 <div
-                  className={`order-1 flex items-center px-8 py-10 md:px-14 md:py-16 ${
+                  className={`order-1 flex items-center px-10 py-12 md:px-16 md:py-[4.5rem] ${
                     photoLeft ? "md:order-2" : "md:order-1"
                   }`}
                   style={{ backgroundColor: bg, color: fg }}
                 >
-                  {/* photo left → text right-aligned; photo right → text left-aligned */}
-                  <div className={cn("w-full", photoLeft ? "md:text-right" : "md:text-left")}>
-                    <h3 className={`${titleWeight} text-title leading-tight md:text-display-sm md:leading-normal`}>
+                  <div className={cn("w-full", photoLeft ? "md:text-left" : "md:text-right")}>
+                    <h3 className="type-sans-regular text-title leading-tight md:text-display-sm md:leading-normal">
                       {band.title}
                     </h3>
                     <p
                       className={cn(
-                        "type-sans-regular mt-4 max-w-sm text-eyebrow leading-normal md:text-title md:leading-normal",
-                        photoLeft && "md:ml-auto",
+                        "type-sans-regular mt-3 max-w-sm text-caption leading-[150%] md:mt-3.5 md:text-body-sm md:leading-[150%]",
+                        photoLeft && "md:mr-auto", !photoLeft && "md:ml-[40px] inline-block"
                       )}
                     >
                       {band.body}
@@ -458,9 +464,8 @@ export function CultureSection({ content }: { content: AboutPage["culture"] }) {
                   </div>
                 </div>
 
-                {/* Photo side — order-2 on mobile (bottom), desktop follows photoSide */}
                 <div
-                  className={`relative h-full bg-muted ${
+                  className={`relative h-full overflow-hidden bg-muted ${
                     photoLeft ? "md:order-1" : "md:order-2"
                   }`}
                 >

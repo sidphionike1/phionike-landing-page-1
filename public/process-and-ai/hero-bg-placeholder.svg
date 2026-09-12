@@ -1,54 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" role="presentation">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" role="presentation" preserveAspectRatio="xMidYMin slice">
   <!--
-    PLACEHOLDER hero backdrop for /process-and-ai.
-    Transparent at the top so the section colour rgba(248,245,240,1) reads through;
-    warm amber dome rising from the bottom with lavender / blue / pink mesh beneath.
-    Swap this file (or HERO_BG_IMAGE in components/process-and-ai/sections.tsx)
-    for the final artwork.
+    Soft atmospheric wash for /process-and-ai hero — warm orange / peach
+    blending into lavender at the top, fading cleanly into white.
+    No hard circular “ball” shape.
   -->
   <defs>
-    <!-- objectBoundingBox units: each gradient maps to its own ellipse bbox. -->
-    <radialGradient id="amber">
-      <stop offset="0" stop-color="#FF922E" stop-opacity=".95" />
-      <stop offset=".55" stop-color="#FF9F44" stop-opacity=".55" />
-      <stop offset="1" stop-color="#FFAE5C" stop-opacity="0" />
+    <radialGradient id="warm-left" cx="18%" cy="8%" r="55%" fx="18%" fy="8%">
+      <stop offset="0" stop-color="#FFB070" stop-opacity=".55" />
+      <stop offset=".45" stop-color="#FFC9A0" stop-opacity=".28" />
+      <stop offset="1" stop-color="#FFC9A0" stop-opacity="0" />
     </radialGradient>
-    <radialGradient id="gold">
-      <stop offset="0" stop-color="#FFC24A" stop-opacity=".85" />
-      <stop offset="1" stop-color="#FFC24A" stop-opacity="0" />
+    <radialGradient id="warm-center" cx="48%" cy="0%" r="48%" fx="48%" fy="0%">
+      <stop offset="0" stop-color="#FFD4A8" stop-opacity=".4" />
+      <stop offset="1" stop-color="#FFD4A8" stop-opacity="0" />
     </radialGradient>
-    <radialGradient id="peach">
-      <stop offset="0" stop-color="#F9CDA6" stop-opacity=".6" />
-      <stop offset="1" stop-color="#F9CDA6" stop-opacity="0" />
+    <radialGradient id="lavender-right" cx="82%" cy="6%" r="52%" fx="82%" fy="6%">
+      <stop offset="0" stop-color="#C4B0F0" stop-opacity=".48" />
+      <stop offset=".5" stop-color="#D4C4F5" stop-opacity=".22" />
+      <stop offset="1" stop-color="#D4C4F5" stop-opacity="0" />
     </radialGradient>
-    <radialGradient id="violet">
-      <stop offset="0" stop-color="#8E6FE0" stop-opacity=".9" />
-      <stop offset="1" stop-color="#8E6FE0" stop-opacity="0" />
-    </radialGradient>
-    <radialGradient id="lavender">
-      <stop offset="0" stop-color="#A9A0F0" stop-opacity=".75" />
-      <stop offset="1" stop-color="#A9A0F0" stop-opacity="0" />
-    </radialGradient>
-    <radialGradient id="sky">
-      <stop offset="0" stop-color="#8FB6DE" stop-opacity=".65" />
-      <stop offset="1" stop-color="#8FB6DE" stop-opacity="0" />
-    </radialGradient>
-    <radialGradient id="pink">
-      <stop offset="0" stop-color="#E79BC8" stop-opacity=".6" />
-      <stop offset="1" stop-color="#E79BC8" stop-opacity="0" />
-    </radialGradient>
-    <filter id="soft" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
-      <feGaussianBlur stdDeviation="48" />
+    <linearGradient id="fade-down" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0" />
+      <stop offset=".55" stop-color="#FFFFFF" stop-opacity=".55" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="1" />
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="64" />
     </filter>
   </defs>
 
+  <rect width="1440" height="900" fill="#FFFFFF" />
   <g filter="url(#soft)">
-    <ellipse cx="720" cy="620" rx="900" ry="380" fill="url(#peach)" />
-    <ellipse cx="120" cy="880" rx="360" ry="280" fill="url(#sky)" />
-    <ellipse cx="1250" cy="940" rx="400" ry="280" fill="url(#pink)" />
-    <ellipse cx="330" cy="980" rx="430" ry="260" fill="url(#lavender)" />
-    <ellipse cx="800" cy="960" rx="430" ry="300" fill="url(#violet)" />
-    <ellipse cx="720" cy="780" rx="760" ry="400" fill="url(#amber)" />
-    <ellipse cx="700" cy="890" rx="520" ry="320" fill="url(#gold)" />
+    <rect width="1440" height="520" fill="url(#warm-left)" />
+    <rect width="1440" height="480" fill="url(#warm-center)" />
+    <rect width="1440" height="520" fill="url(#lavender-right)" />
   </g>
+  <rect width="1440" height="900" fill="url(#fade-down)" />
 </svg>

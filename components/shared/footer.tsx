@@ -169,7 +169,7 @@ export function Footer({
                     {content.contact.email}
                   </a>
                   <a
-                    href={`tel:${content.contact.phone}`}
+                    href={`tel:${content.contact.phone.replace(/\s/g, "")}`}
                     className="type-sans-regular block text-body-sm leading-[21px] text-[#212121] transition-opacity hover:opacity-70 md:text-body-lg"
                   >
                     {content.contact.phone}

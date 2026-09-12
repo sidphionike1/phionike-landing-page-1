@@ -19,17 +19,20 @@ const isLightBand = (bandColor: string) =>
 function stageLabel(step: GlobalContent["processSteps"][number]) {
   switch (step.id) {
     case "clarify":
-      return "01 . CLARIFY"
+      return "01  CLARIFY"
     case "shape":
-      return "02 - 0 - 1"
+      return "02  DESIGN"
     case "build-iterate":
-      return "03 . BUILD & ITERATE"
+      return "03  FROM 0 TO 1"
     case "scale":
-      return "04 - SCALE"
+      return "04  BUILD"
     default:
-      return `${step.number} . ${step.heroLabel}`
+      return `${step.number}  ${step.heroLabel}`
   }
 }
+
+/** Multi-colour industry dots (cycles). */
+const SECTOR_DOTS = ["#F5B800", "#FF5B23", "#9B6BFF", "#C5D94E"] as const
 
 export function ServicesHero({
   content,
@@ -87,68 +90,37 @@ export function Capabilities({
 }) {
   return (
     <section id="capabilities">
+      {/* Capabilities heading only — photos sit above the section they name */}
       <div className="section-shell py-20 md:py-28">
-        <p className="type-sans-bold text-eyebrow leading-normal tracking-[0.1em] uppercase text-[#FF5B23]">
+        <p
+          className="type-sans-semibold uppercase"
+          style={{
+            color: "rgba(68, 68, 68, 1)",
+            fontSize: 14,
+            fontWeight: 600,
+            lineHeight: "100%",
+            letterSpacing: "0.1em",
+          }}
+        >
           {intro.eyebrow}
         </p>
-        <h2 className="type-sans-regular mt-5 max-w-4xl text-balance text-lead leading-[120%] tracking-[-1px] text-[#111111] md:text-display-sm">
-          {intro.headingPlain}{" "}
-          <span className="text-[#FF5B23]">{intro.headingAccent}</span>
+        <h2 className="type-sans-regular mt-5 max-w-4xl text-lead leading-[120%] tracking-[-1px] text-[#111111] md:text-display-sm">
+          <span className="block">{intro.headingPlain}</span>
+          <span className="block"><span>for </span><span className="text-[#FF5B23]">{intro.headingAccent}</span></span>
         </h2>
       </div>
-      {steps.map((step, index) => {
-        const strip = strips.find((s) => s.afterStepId === step.id)
+
+      {steps.map((step) => {
+        // Image filename = title of the section BELOW it
+        const strip = strips.find((s) => s.beforeStepId === step.id)
         const light = isLightBand(step.bandColor)
 
         return (
           <div key={step.id}>
-            <article
-              className={cn(
-                "py-20 md:py-28",
-                bands[step.bandColor],
-              )}
-            >
-              <div className="section-shell grid gap-12 lg:grid-cols-2">
-                <div>
-                  <span
-                    className={cn(
-                      "type-vf-regular text-body-sm leading-normal tracking-[4px] md:text-title-lg",
-                      light ? "text-[#121212]/80" : "text-white/80",
-                    )}
-                  >
-                    {stageLabel(step)}
-                  </span>
-                  <h3
-                    className={cn(
-                      "type-sans-medium mt-8 text-balance text-[26px] leading-[120%] tracking-[-2px] md:text-display-md",
-                      light ? "text-[#121212]" : "text-white",
-                    )}
-                  >
-                    {step.heading}
-                  </h3>
-                  <p
-                    className={cn(
-                      "type-vf-regular mt-6 max-w-xl text-body leading-[150%]",
-                      light ? "text-[#121212]/90" : "text-white/90",
-                    )}
-                  >
-                    {step.longDescription}
-                  </p>
-                </div>
-                <div className="flex flex-col gap-10 lg:pt-12">
-                  <List title="What We Do" items={step.whatWeDo} light={light} />
-                  <List
-                    title="Client Outcomes"
-                    items={step.clientOutcomes}
-                    light={light}
-                  />
-                </div>
-              </div>
-            </article>
-            {strip && index < 3 ? (
+            {strip ? (
               <div className="relative aspect-[4/3] w-full md:aspect-[32/9]">
                 <Image
-                  src={strip.src.replace(".jpg", ".png")}
+                  src={strip.src}
                   alt={strip.alt}
                   fill
                   sizes="100vw"
@@ -156,11 +128,100 @@ export function Capabilities({
                 />
               </div>
             ) : null}
+            <ProcessBand step={step} light={light} />
           </div>
         )
       })}
     </section>
   )
+}
+
+function ProcessBand({
+  step,
+  light,
+}: {
+  step: GlobalContent["processSteps"][number]
+  light: boolean
+}) {
+  return (
+    <article
+      className={cn("relative overflow-hidden py-20 md:py-28", bands[step.bandColor])}
+    >
+      {/* Background tilted square (Figma) */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-8 top-2/3 hidden h-[280px] w-[280px] -translate-y-1/2 rotate-12 opacity-40 md:block lg:right-[15%] lg:h-[340px] lg:w-[340px]"
+      >
+        <Image
+          src="/services/section-square-block.png"
+          alt=""
+          fill
+          className="object-contain"
+          sizes="340px"
+        />
+      </div>    
+
+      <div className="section-shell relative grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+        <div>
+          <span
+            className={cn(
+              "type-vf-regular text-body-sm leading-normal tracking-[0.28em] md:text-title md:tracking-[0.32em]",
+              light ? "text-[#121212]/80" : "text-white/80",
+            )}
+          >
+            {stageLabel(step)}
+          </span>
+          <h3
+            className={cn(
+              "type-sans-medium mt-8 max-w-xl text-[22px] leading-[145%] tracking-[-0.3px] md:text-[34px] md:leading-[150%] md:tracking-[-0.4px]",
+              light ? "text-[#121212]" : "text-white",
+            )}
+          >
+            {formatProcessHeading(step.heading)}
+          </h3>
+          <p
+            className={cn(
+              "type-vf-regular mt-6 max-w-xl text-body leading-[150%]",
+              light ? "text-[#121212]/90" : "text-white/90",
+            )}
+          >
+            {step.longDescription}
+          </p>
+        </div>
+
+        {/* Align list titles with the process heading (below the stage label) */}
+        <div className="flex flex-col gap-10 lg:pt-[3.25rem]">
+          <List title="What We Do" items={step.whatWeDo} light={light} />
+          <List title="Client Outcomes" items={step.clientOutcomes} light={light} />
+        </div>
+      </div>
+    </article>
+  )
+}
+
+/** Soft line break for long process headings so line-height reads clearly. */
+function formatProcessHeading(heading: string) {
+  const patterns = [
+    /^(Understand the right problem)\s+(before building the solution\.?)$/i,
+    /^(Turn insights into experiences)\s+(people can understand and use\.?)$/i,
+    /^(Design, refine and improve)\s+(through continuous learning\.?)$/i,
+    /^(Create systems that support)\s+(long[- ]term growth\.?)$/i,
+  ]
+
+  for (const re of patterns) {
+    const m = heading.match(re)
+    if (m) {
+      return (
+        <>
+          {m[1]}
+          <br />
+          {m[2]}
+        </>
+      )
+    }
+  }
+
+  return heading
 }
 
 function List({
@@ -182,15 +243,22 @@ function List({
       >
         {title}
       </h4>
-      <ul className="mt-4 flex flex-col gap-2">
+      <ul className="mt-4 flex flex-col gap-2.5">
         {items.map((i) => (
           <li
             key={i}
             className={cn(
-              "type-vf-regular flex gap-3 text-body-sm leading-[140%] before:content-['—']",
+              "type-vf-regular flex items-center gap-3 text-body-sm leading-[140%]",
               light ? "text-[#121212]/90" : "text-white/90",
             )}
           >
+            <span
+              aria-hidden
+              className={cn(
+                "mt-px h-px w-4 shrink-0",
+                light ? "bg-[#121212]" : "bg-white",
+              )}
+            />
             {i}
           </li>
         ))}
@@ -210,12 +278,17 @@ export function SectorGrid({ content }: { content: ServicesPage["sectorGrid"] })
         {content.subheading}
       </p>
       <div className="mt-16 border-t border-border">
-        {content.sectors.map((row) => (
+        {content.sectors.map((row, idx) => (
           <div
             key={row.sector}
             className="grid gap-6 border-b border-border py-8 md:grid-cols-[18rem_1fr]"
           >
-            <h3 className="type-vf-regular flex items-start gap-3 text-body-lg leading-[140%] tracking-[-0.44px] text-[#1A1A1A] before:mt-2 before:size-2 before:shrink-0 before:rounded-full before:bg-accent md:text-title-md md:leading-[29.7px]">
+            <h3 className="type-vf-regular flex items-start gap-3 text-body-lg leading-[140%] tracking-[-0.44px] text-[#1A1A1A] md:text-title-md md:leading-[29.7px]">
+              <span
+                aria-hidden
+                className="mt-2 size-2 shrink-0 rounded-full"
+                style={{ backgroundColor: SECTOR_DOTS[idx % SECTOR_DOTS.length] }}
+              />
               {row.sector}
             </h3>
             <div className="flex flex-wrap gap-x-8 gap-y-4">

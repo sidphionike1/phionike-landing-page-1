@@ -14,18 +14,6 @@ export const ACCENT_TEXT: Record<AccentColor, string> = {
   blue: "text-white",
 };
 
-// Placeholder copy used wherever we don't have real data yet.
-export const PLACEHOLDER_NAME = "Team Member";
-export const PLACEHOLDER_ROLE = "Role";
-export const PLACEHOLDER_BIO =
-  "We're still getting to know this person — their story, their craft, and what they bring to the team. Check back soon for the full introduction.";
-
-const PLACEHOLDER_GREY = "999999";
-
-function ph(label: string, w = 600, h = 800) {
-  return `https://placehold.co/${w}x${h}/${PLACEHOLDER_GREY}/FFFFFF?text=${encodeURIComponent(label)}`;
-}
-
 export interface TeamMember {
   id: string;
   accent: AccentColor;
@@ -33,23 +21,22 @@ export interface TeamMember {
   name: string;
   role: string;
   bio: string;
-  hasData: boolean; // false = placeholder person, no real profile yet
+  hasData: boolean;
 }
 
-// Single source of truth for every person on the team — used by the
-// desktop bento grid (TeamGrid) and the mobile carousel (TeamCarouselMobile).
+/** Single source of truth for desktop + mobile team surfaces. */
 export const TEAM_MEMBERS: TeamMember[] = [
   {
-    id: "box1",
+    id: "roopam",
     accent: "orange",
-    photoSrc: ph("Team Member", 400, 421),
-    name: PLACEHOLDER_NAME,
-    role: PLACEHOLDER_ROLE,
-    bio: PLACEHOLDER_BIO,
-    hasData: false,
+    photoSrc: "/about/team/roopam-mishra.png",
+    name: "Roopam Mishra",
+    role: "Founder & Studio Head",
+    bio: "Roopam loves design and is often found observing books, products and services to understand what makes them work. With a background in Engineering & Design, he enjoys bringing technology and human-centred thinking together to create meaningful experiences. Curious about how design will evolve with emerging technologies, he believes in questioning conventions and exploring new possibilities. For Roopam, good design is not just useful—it is liberating.",
+    hasData: true,
   },
   {
-    id: "box2-manali",
+    id: "manali",
     accent: "yellow",
     photoSrc: "/about/team/manali-rangnekar.png",
     name: "Manali Rangnekar",
@@ -58,7 +45,52 @@ export const TEAM_MEMBERS: TeamMember[] = [
     hasData: true,
   },
   {
-    id: "box3-prerna",
+    id: "aarya",
+    accent: "orange",
+    photoSrc: "/about/team/aarya-trivedi.png",
+    name: "Aarya Trivedi",
+    role: "UI / UX Designer",
+    bio: "Aarya is a UX & Product Designer who enjoys making complex products simpler and more intuitive. With a background in design, she brings curiosity and a thoughtful approach to solving problems. She enjoys exploring how people interact with technology and finding the balance between user needs, business goals and meaningful experiences. For her, good design starts with understanding, asking the right questions, and creating with purpose.",
+    hasData: true,
+  },
+  {
+    id: "yash",
+    accent: "yellow",
+    photoSrc: "/about/team/yash-chaurasia.jpeg",
+    name: "Yash Chourasia",
+    role: "UI / UX Designer",
+    bio: "Yash is a UX Designer who brings a unique perspective shaped by his earlier experience in business development and sales. He enjoys understanding people, their behaviours and the problems they face, then turning those insights into simple, meaningful digital experiences. Curious about emerging technologies and design trends, he believes good design should not only look good but also make products easier, more intuitive and satisfying to use.",
+    hasData: true,
+  },
+  {
+    id: "rohit",
+    accent: "lavender",
+    photoSrc: "/about/team/rohit-potnis.jpg",
+    name: "Rohit Potnis",
+    role: "UI / UX Designer",
+    bio: "Rohit is a Product Designer who enjoys exploring how systems, products and people come together. With a background spanning ergonomics, furniture and digital experiences, he brings a hands-on approach to understanding problems and shaping solutions. Naturally curious, he likes keeping up with emerging technologies and design thinking, often looking beyond the screen to understand the larger context in which products live, work and evolve.",
+    hasData: true,
+  },
+  {
+    id: "harleen",
+    accent: "lavender",
+    photoSrc: "/about/team/harleen-kaur-manchanda.png",
+    name: "Harleen Kaur Manchanda",
+    role: "UI / UX Designer",
+    bio: "Harleen is a UX Designer who enjoys turning ideas into intuitive and visually thoughtful digital experiences. Her experience in website and UX design has shaped her approach to understanding users, improving interactions and translating brand goals into clear solutions. She is curious about the relationship between design and people, and enjoys finding the right balance between usability, visual consistency and meaningful experiences.",
+    hasData: true,
+  },
+  {
+    id: "sudhanshu",
+    accent: "orange",
+    photoSrc: "/about/team/sudhanshu-parihar.jpeg",
+    name: "Sudhanshu Parihar",
+    role: "Business Development Associate",
+    bio: "Sudhanshu is passionate about understanding businesses, the people behind them, and the ideas that drive them forward. He enjoys collaborating with founders and teams to uncover opportunities where design, technology, and strategy come together to create meaningful impact. With a naturally curious mindset, he is constantly exploring emerging products, industries, and innovations, believing that the best solutions begin with asking the right questions rather than offering immediate answers.",
+    hasData: true,
+  },
+  {
+    id: "prerna",
     accent: "blue",
     photoSrc: "/about/team/prerna-dwivedi.jpg",
     name: "Prerna Dwivedi",
@@ -67,66 +99,12 @@ export const TEAM_MEMBERS: TeamMember[] = [
     hasData: true,
   },
   {
-    id: "box5-aarya",
-    accent: "orange",
-    photoSrc: "/about/team/aarya-trivedi.png",
-    name: "Aarya Trivedi",
-    role: "UI / UX Designer",
-    bio: PLACEHOLDER_BIO,
-    hasData: true,
-  },
-  {
-    id: "box6",
-    accent: "yellow",
-    photoSrc: ph("Team Member", 313, 464),
-    name: PLACEHOLDER_NAME,
-    role: PLACEHOLDER_ROLE,
-    bio: PLACEHOLDER_BIO,
-    hasData: false,
-  },
-  {
-    id: "box8-vrishti",
+    id: "vrishti",
     accent: "yellow",
     photoSrc: "/about/team/vrishti-purohit.jpg",
     name: "Vrishti Purohit",
     role: "UI / UX Designer",
     bio: "Vrishti is a Visual Designer who enjoys bringing ideas to life through thoughtful interfaces, visual details and playful interactions. Her curiosity for motion and interactive design often leads her to experiment with scroll animations, 3D elements and micro-interactions.",
-    hasData: true,
-  },
-  {
-    id: "box9-rohit",
-    accent: "lavender",
-    photoSrc: "/about/team/rohit-potnis.jpg",
-    name: "Rohit Potnis",
-    role: "UI / UX Designer",
-    bio: PLACEHOLDER_BIO,
-    hasData: true,
-  },
-  {
-    id: "box14-new",
-    accent: "blue",
-    photoSrc: ph("Team Member", 481, 397),
-    name: PLACEHOLDER_NAME,
-    role: PLACEHOLDER_ROLE,
-    bio: PLACEHOLDER_BIO,
-    hasData: false,
-  },
-  {
-    id: "box12",
-    accent: "orange",
-    photoSrc: ph("Team Member", 425, 620),
-    name: PLACEHOLDER_NAME,
-    role: PLACEHOLDER_ROLE,
-    bio: PLACEHOLDER_BIO,
-    hasData: false,
-  },
-  {
-    id: "box13-marcus",
-    accent: "blue",
-    photoSrc: "/about/team/marcus-thorne.png",
-    name: "Marcus Thorne",
-    role: "UI / UX Designer",
-    bio: "Roopam loves design and is often found observing design books, products and services to learn from them. He comes from the background of Engineering & Design, so he understands well how to make a good blend of Form & Function.",
     hasData: true,
   },
 ];

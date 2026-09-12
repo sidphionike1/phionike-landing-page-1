@@ -362,7 +362,7 @@ export function PortfolioFilterGrid({
   const hasResults = filteredItems.length > 0;
 
   return (
-    <section className="relative bg-background py-14 md:py-20">
+    <section className="relative py-14 md:py-20" style={{ backgroundColor: "#FFFCF7" }}>
       <div className="section-shell">
         <div className="mb-8 md:mb-10">
           {isWork ? (
@@ -415,8 +415,21 @@ export function PortfolioFilterGrid({
         {hasResults ? (
           <>
             {/* Desktop */}
+            {/* Both columns get a fixed width equal to the "big" card size
+                (642px), regardless of which cards actually land in them.
+                Previously the columns were auto-width (sized to their widest
+                child) while the right column's `-ml-[160px]` offset assumed
+                it was always 642px wide — true only when a "big" card
+                happened to be present. Filtering can leave a column without
+                any "big" card, shrinking it to 534px or 427px while the same
+                fixed offset still applied, dragging its cards into the left
+                column. Pinning the width keeps the offset correct for every
+                filter combination. */}
             <div className="hidden gap-8 md:flex md:items-start">
-              <div className="flex flex-col items-start gap-16">
+              <div
+                className="flex flex-col items-start gap-16"
+                style={{ width: SIZE_CONFIG.big.frameW }}
+              >
                 {left.map(({ item, size }) => (
                   <PortfolioCard
                     key={item.id}
@@ -431,7 +444,10 @@ export function PortfolioFilterGrid({
                 ))}
               </div>
 
-              <div className="flex flex-col items-end gap-16 -ml-[160px]">
+              <div
+                className="flex flex-col items-end gap-16 -ml-[160px]"
+                style={{ width: SIZE_CONFIG.big.frameW }}
+              >
                 {right.map(({ item, size }) => (
                   <PortfolioCard
                     key={item.id}

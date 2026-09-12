@@ -1,23 +1,45 @@
 {
   "hero": {
-    "eyebrow": "Think . design . scale .",
+    "eyebrow": "Services",
     "headlineDark": "From first idea to lasting\nimpact, we're with you",
     "headlineAccent": "every step of the way.",
     "body": "We combine research, strategy, design and emerging technologies to help businesses solve complex challenges, build scalable systems and create experiences people genuinely enjoy using.",
-    "primaryCta": { "label": "Explore Our Capabilities", "href": "#capabilities" },
+    "primaryCta": { "label": "Explore Case Studies", "href": "/work" },
     "secondaryCta": { "label": "Start a Project", "href": "/contact" }
   },
 
   "capabilitiesIntro": {
     "eyebrow": "Capabilities",
-    "headingPlain": "We build digital foundations for",
+    "headingPlain": "We Build Digital Foundations",
+    "headingVerb": "for",
     "headingAccent": "Industry Leaders."
   },
 
   "photoStrips": [
-    { "id": "strip-1", "afterStepId": "clarify", "src": "/services/strip-brainstorm.jpg", "alt": "Team brainstorming session with sticky notes on a wall" },
-    { "id": "strip-2", "afterStepId": "shape", "src": "/services/strip-meeting.jpg", "alt": "Team meeting around a table" },
-    { "id": "strip-3", "afterStepId": "build-iterate", "src": "/services/strip-presentation.jpg", "alt": "Presentation showing a Q4 growth chart" }
+    {
+      "id": "strip-1",
+      "beforeStepId": "clarify",
+      "src": "/services/clarify.png",
+      "alt": "Understand the right problem before building the solution"
+    },
+    {
+      "id": "strip-2",
+      "beforeStepId": "shape",
+      "src": "/services/design.png",
+      "alt": "Turn insights into experiences people can understand and use"
+    },
+    {
+      "id": "strip-3",
+      "beforeStepId": "build-iterate",
+      "src": "/services/build.png",
+      "alt": "Design, refine and improve through continuous learning"
+    },
+    {
+      "id": "strip-4",
+      "beforeStepId": "scale",
+      "src": "/services/growth.png",
+      "alt": "Create systems that support long-term growth"
+    }
   ],
 
   "sectorGrid": {

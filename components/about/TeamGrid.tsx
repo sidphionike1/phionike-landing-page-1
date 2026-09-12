@@ -55,6 +55,9 @@ interface StripNoDataCard extends Box {
   id: string;
   accent: AccentColor;
   photoSrc: string;
+  name?: string;
+  role?: string;
+  bio?: string;
 }
 
 // ── TYPE 3: full-bleed photo, name+role ALWAYS visible in strip,
@@ -88,9 +91,12 @@ type GridCard = ColorBlockCard | StripNoDataCard | OnlyTitleCard | FullDataCard;
 const GRID_CARDS: GridCard[] = [
   {
     type: "person_with_strip_no_data",
-    id: "box1",
+    id: "box1-roopam",
     accent: "orange",
-    photoSrc: ph("Team Member", 400, 421),
+    photoSrc: "/about/team/roopam-mishra.png",
+    name: "Roopam Mishra",
+    role: "Founder & Studio Head",
+    bio: "Roopam loves design and is often found observing books, products and services to understand what makes them work. With a background in Engineering & Design, he enjoys bringing technology and human-centred thinking together to create meaningful experiences. Curious about how design will evolve with emerging technologies, he believes in questioning conventions and exploring new possibilities. For Roopam, good design is not just useful—it is liberating.",
     top: 0,
     left: 0,
     width: 400,
@@ -142,16 +148,20 @@ const GRID_CARDS: GridCard[] = [
     photoSrc: "/about/team/aarya-trivedi.png",
     name: "Aarya Trivedi",
     role: "UI / UX Designer",
+    bio: "Aarya is a UX & Product Designer who enjoys making complex products simpler and more intuitive. With a background in design, she brings curiosity and a thoughtful approach to solving problems. She enjoys exploring how people interact with technology and finding the balance between user needs, business goals and meaningful experiences. For her, good design starts with understanding, asking the right questions, and creating with purpose.",
     top: 374,
     left: 833,
     width: 410,
     height: 519,
   },
   {
-    type: "person_with_strip_no_data",
-    id: "box6",
+    type: "person_with_only_title",
+    id: "box6-yash",
     accent: "yellow",
-    photoSrc: ph("Team Member", 313, 464),
+    photoSrc: "/about/team/yash-chaurasia.jpeg",
+    name: "Yash Chourasia",
+    role: "UI / UX Designer",
+    bio: "Yash is a UX Designer who brings a unique perspective shaped by his earlier experience in business development and sales. He enjoys understanding people, their behaviours and the problems they face, then turning those insights into simple, meaningful digital experiences. Curious about emerging technologies and design trends, he believes good design should not only look good but also make products easier, more intuitive and satisfying to use.",
     top: 541,
     left: 460,
     width: 313,
@@ -188,18 +198,20 @@ const GRID_CARDS: GridCard[] = [
     photoSrc: "/about/team/rohit-potnis.jpg",
     name: "Rohit Potnis",
     role: "UI / UX Designer",
+    bio: "Rohit is a Product Designer who enjoys exploring how systems, products and people come together. With a background spanning ergonomics, furniture and digital experiences, he brings a hands-on approach to understanding problems and shaping solutions. Naturally curious, he likes keeping up with emerging technologies and design thinking, often looking beyond the screen to understand the larger context in which products live, work and evolve.",
     top: 1065,
     left: 725,
     width: 518,
     height: 421,
   },
   {
-    type: "person_with_only_title",
-    id: "box14-new",
-    accent: "blue",
-    photoSrc: ph("Team Member", 481, 397),
-    name: PLACEHOLDER_NAME,
-    role: PLACEHOLDER_ROLE,
+    type: "person_with_strip_no_data",
+    id: "box14-sudhanshu",
+    accent: "orange",
+    photoSrc: "/about/team/sudhanshu-parihar.jpeg",
+    name: "Sudhanshu Parihar",
+    role: "Business Development Associate",
+    bio: "Sudhanshu is passionate about understanding businesses, the people behind them, and the ideas that drive them forward. He enjoys collaborating with founders and teams to uncover opportunities where design, technology, and strategy come together to create meaningful impact. With a naturally curious mindset, he is constantly exploring emerging products, industries, and innovations, believing that the best solutions begin with asking the right questions rather than offering immediate answers.",
     top: 1546,
     left: 762,
     width: 481,
@@ -224,10 +236,13 @@ const GRID_CARDS: GridCard[] = [
     height: 109,
   },
   {
-    type: "person_with_strip_no_data",
-    id: "box12",
-    accent: "orange",
-    photoSrc: ph("Team Member", 425, 620),
+    type: "person_with_only_title",
+    id: "box12-harleen",
+    accent: "lavender",
+    photoSrc: "/about/team/harleen-kaur-manchanda.png",
+    name: "Harleen Kaur Manchanda",
+    role: "UI / UX Designer",
+    bio: "Harleen is a UX Designer who enjoys turning ideas into intuitive and visually thoughtful digital experiences. Her experience in website and UX design has shaped her approach to understanding users, improving interactions and translating brand goals into clear solutions. She is curious about the relationship between design and people, and enjoys finding the right balance between usability, visual consistency and meaningful experiences.",
     top: 1834,
     left: 0,
     width: 425,
@@ -240,7 +255,7 @@ const GRID_CARDS: GridCard[] = [
     photoSrc: "/about/team/marcus-thorne.png",
     name: "Marcus Thorne",
     role: "UI / UX Designer",
-    bio: "Roopam loves design and is often found observing design books, products and services to learn from them. He comes from the background of Engineering & Design, so he understands well how to make a good blend of Form & Function.",
+    bio: "Roopam loves design and is often found observing design books, products and services to learn from them. He comes from the background of Engineering & Design, so he understand well how to make a good blend of Form & Function. He believes in the power of good design because it is liberating.",
     layout: "horizontal",
     photoRatio: 300 / 758,
     top: 2003,
@@ -321,9 +336,9 @@ function StripNoDataView({ card }: { card: StripNoDataCard }) {
       {/* Hover state: full-cover centered content */}
       <HoverOverlay
         accent={card.accent}
-        name={PLACEHOLDER_NAME}
-        role={PLACEHOLDER_ROLE}
-        bio={PLACEHOLDER_BIO}
+        name={card.name ?? PLACEHOLDER_NAME}
+        role={card.role ?? PLACEHOLDER_ROLE}
+        bio={card.bio ?? PLACEHOLDER_BIO}
       />
     </div>
   );
@@ -412,7 +427,7 @@ function GridCardView({ card }: { card: GridCard }) {
 
 export function TeamGrid() {
   return (
-    <section className="bg-background px-0 py-14 md:px-0 md:-ml-[30px] md:py-20">
+    <section className="bg-white px-0 py-14 md:px-0 md:-ml-[30px] md:py-20">
       <div
         className="relative mx-auto hidden md:block"
         style={{ width: CONTAINER_WIDTH, height: CONTAINER_HEIGHT }}

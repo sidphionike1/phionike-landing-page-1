@@ -1,20 +1,20 @@
 {
   "hero": {
-    "badge": "AI-POWERED PROCESS",
-    "headlineMain": "Where Human Thinking Meets",
+    "badge": "Our Process with AI",
+    "headlineMain": "Where Human\nThinking Meets",
     "headlineAccent": "Intelligent Execution",
-    "subheadline": "We blend deep strategic design with AI-accelerated workflows to build products faster without compromising craftsmanship.",
-    "primaryCta": "Explore Process",
-    "secondaryCta": "Our AI Stack"
+    "subheadline": "A bespoke framework that brings technology and human-centred thinking together to create meaningful experiences.",
+    "primaryCta": "Explore Case Studies",
+    "secondaryCta": "Start a Project"
   },
   "comparisonSection": {
     "badge": "RETHINKING EXECUTION",
     "titleMain": "Design should spend less time guessing",
     "titleSub": "and more time solving.",
     "subtitleText": "Design should spend less time guessing and more time solving.",
-    "traditionalApproach": {
-      "title": "TRADITIONAL PROCESS",
-      "label": "Iterative Waste",
+    "traditionalApproach":       {
+        "title": "Traditional Process",
+        "label": "Iterative Waste",
       "rows": [
         [
           { "text": "Brief", "badge": false },
@@ -30,9 +30,9 @@
       ],
       "description": "Months are spent crafting static high-fidelity layouts before testing core assumptions. Any major pivot causes massive, expensive rework loops."
     },
-    "phionikeApproach": {
-      "title": "PHIONIKE PROCESS",
-      "label": "Linear & Clean",
+    "phionikeApproach":       {
+        "title": "Phionike Process",
+        "label": "Linear & Clean",
       "rows": [
         [
           { "text": "Brief", "badge": false },
@@ -231,8 +231,8 @@
     ]
   },
   "outcomesSection": {
-    "badge": "VALUE & DELIVERABLES",
-    "headline": "Better outcomes, not just faster delivery.",
+    "badge": "OUTCOMES",
+    "headline": "Value & Deliverables",
     "grid": [
       {
         "title": "Unmatched Speed",
