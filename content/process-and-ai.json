@@ -117,7 +117,7 @@
       "tagline": "Explore. Validate. Align.",
       "taglineColor": "#2538F5",
       "description": "We rapidly map the problem, synthesize insights, and create interactive concepts to validate the right direction early.",
-      "image": "https://via.placeholder.com/600x350/E8E5F5/2538F5?text=Rapid+UX+Exploration+Mockup",
+      "image": "/process-and-ai/playground-p1.svg",
       "cardBg": "#EAE8FC",
       "whatHappens": [
         "Brief deconstruction",
@@ -142,7 +142,7 @@
       "tagline": "Refine. Systemize. Deliver.",
       "taglineColor": "#E65124",
       "description": "Once the solution is validated, we craft high-fidelity experiences, build scalable systems and prepare everything for seamless handoff.",
-      "image": "https://via.placeholder.com/600x350/FCF1EC/E65124?text=Production+Codebase+Mockup",
+      "image": "/process-and-ai/playground-p2.svg",
       "cardBg": "#FEF3ED",
       "whatHappens": [
         "UX refinement",

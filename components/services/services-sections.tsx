@@ -255,7 +255,7 @@ function List({
             <span
               aria-hidden
               className={cn(
-                "mt-px h-px w-4 shrink-0",
+                "size-1.5 shrink-0 rounded-full",
                 light ? "bg-[#121212]" : "bg-white",
               )}
             />

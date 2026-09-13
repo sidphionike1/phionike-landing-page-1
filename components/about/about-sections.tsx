@@ -384,8 +384,8 @@ export function CultureSection({ content }: { content: AboutPage["culture"] }) {
           </h2>
         </div>
 
-        {/* Hero image — darken on hover; orange bar grows 0→20px */}
-        <div className="group relative isolate aspect-[21/8] w-full overflow-hidden rounded-2xl bg-muted">
+        {/* Hero image — darken on hover; orange bar grows 0→20px (desktop) */}
+        <div className="group relative isolate aspect-[5/4] w-full overflow-hidden rounded-[1.75rem] bg-muted md:aspect-[21/8] md:rounded-2xl">
           <Image
             src={content.introPhotoSrc || PLACEHOLDER(1200, 400, "Life at Phionike")}
             alt="Life at Phionike"
@@ -413,14 +413,18 @@ export function CultureSection({ content }: { content: AboutPage["culture"] }) {
               </p>
             </div>
           </div>
-          {/* Mobile: always-visible overlay */}
-          <div className="absolute inset-0 flex flex-col justify-end bg-black/50 p-6 md:hidden">
-            <h3 className="type-sans-medium text-title leading-normal text-white">
+          {/* Mobile: always-visible overlay + fixed orange accent bar */}
+          <div
+            aria-hidden
+            className="absolute inset-y-0 left-0 z-10 w-5 bg-[#FF5B24] md:hidden"
+          />
+          <div className="absolute inset-0 flex flex-col justify-center bg-black/45 py-8 pl-10 pr-6 md:hidden">
+            <h3 className="type-sans-medium text-left text-title leading-normal text-white">
               Where curiosity becomes
               <br />
               collaboration.
             </h3>
-            <p className="type-sans-regular mt-2 max-w-md text-eyebrow leading-normal text-white/90">
+            <p className="type-sans-regular mt-3 max-w-md text-left text-eyebrow leading-[150%] text-white/90">
               Every project is powered by people who question, explore and create
               together. We believe the best ideas emerge through open
               conversations, shared ownership and a culture of continuous
@@ -429,34 +433,49 @@ export function CultureSection({ content }: { content: AboutPage["culture"] }) {
           </div>
         </div>
 
-        {/* 4 alternating bands */}
+        {/* 4 alternating bands — mobile: 50/50 side-by-side; desktop unchanged */}
         <div className="flex flex-col gap-5 pb-20 pt-10">
-          {content.bands.map((band) => {
-            const photoLeft = band.photoSide === "left"
+          {content.bands.map((band, index) => {
+            const photoLeftDesktop = band.photoSide === "left"
+            // Mobile Figma: Learn/Grow = text|image; Build/Care = image|text
+            const photoLeftMobile = index % 2 === 1
             const bg = BAND_BG[band.bgColor] ?? "#eee"
             const fg = BAND_TEXT[band.bgColor] ?? "#111"
 
             return (
               <div
                 key={band.id}
-                className={`grid h-[246px] grid-cols-1 grid-rows-[1fr_3fr] overflow-hidden rounded-3xl md:grid-rows-1 ${
-                  photoLeft ? "md:grid-cols-[44fr_56fr]" : "md:grid-cols-[56fr_44fr]"
-                }`}
+                className={cn(
+                  "grid h-[200px] overflow-hidden rounded-[1.75rem] md:h-[246px] md:grid-rows-1 md:rounded-3xl",
+                  // Mobile: text panel 60% / photo 40% (sides flip with alternation)
+                  photoLeftMobile ? "grid-cols-[40fr_60fr]" : "grid-cols-[60fr_40fr]",
+                  photoLeftDesktop
+                    ? "md:grid-cols-[44fr_56fr]"
+                    : "md:grid-cols-[56fr_44fr]",
+                )}
               >
                 <div
-                  className={`order-1 flex items-center px-10 py-12 md:px-16 md:py-[4.5rem] ${
-                    photoLeft ? "md:order-2" : "md:order-1"
-                  }`}
+                  className={cn(
+                    "flex items-center px-4 py-5 text-left md:px-16 md:py-[4.5rem]",
+                    photoLeftMobile ? "order-2" : "order-1",
+                    photoLeftDesktop ? "md:order-2" : "md:order-1",
+                  )}
                   style={{ backgroundColor: bg, color: fg }}
                 >
-                  <div className={cn("w-full", photoLeft ? "md:text-left" : "md:text-right")}>
-                    <h3 className="type-sans-regular text-title leading-tight md:text-display-sm md:leading-normal">
+                  <div
+                    className={cn(
+                      "w-full text-left",
+                      photoLeftDesktop ? "md:text-left" : "md:text-right",
+                    )}
+                  >
+                    <h3 className="type-sans-regular text-[15px] leading-tight md:text-display-sm md:leading-normal">
                       {band.title}
                     </h3>
                     <p
                       className={cn(
-                        "type-sans-regular mt-3 max-w-sm text-caption leading-[150%] md:mt-3.5 md:text-body-sm md:leading-[150%]",
-                        photoLeft && "md:mr-auto", !photoLeft && "md:ml-[40px] inline-block"
+                        "type-sans-regular mt-2 text-[11px] leading-[145%] md:mt-3.5 md:max-w-sm md:text-body-sm md:leading-[150%]",
+                        photoLeftDesktop && "md:mr-auto",
+                        !photoLeftDesktop && "md:ml-[40px] md:inline-block",
                       )}
                     >
                       {band.body}
@@ -465,16 +484,18 @@ export function CultureSection({ content }: { content: AboutPage["culture"] }) {
                 </div>
 
                 <div
-                  className={`relative h-full overflow-hidden bg-muted ${
-                    photoLeft ? "md:order-1" : "md:order-2"
-                  }`}
+                  className={cn(
+                    "relative h-full overflow-hidden bg-muted",
+                    photoLeftMobile ? "order-1" : "order-2",
+                    photoLeftDesktop ? "md:order-1" : "md:order-2",
+                  )}
                 >
                   <Image
                     src={band.photoSrc || PLACEHOLDER(600, 400, band.title)}
                     alt={band.title}
                     fill
                     className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                    sizes="(max-width: 768px) 50vw, 50vw"
                   />
                 </div>
               </div>

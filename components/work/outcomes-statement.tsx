@@ -2,47 +2,68 @@
 
 import { motion, cubicBezier, type Variants } from "framer-motion";
 
+/**
+ * Forest plan (placeholder copy — final wording TBD):
+ * 1. Boxes are visible first
+ * 2. Stat text then emerges from inside each box
+ */
 const stats = [
   {
-    value: "300M+",
-    label: "PEOPLE REACHED",
+    value: "300 M",
+    label: "People Reached",
   },
   {
     value: "20+",
-    label: "INDUSTRIES SERVED",
+    label: "Industries",
   },
   {
     value: "2.5M+",
-    label: "MONTHLY ACTIVE USERS",
+    label: "Monthly Active Users",
   },
   {
     value: "8+",
-    label: "YEARS OF CRAFT",
+    label: "Years of Craft",
   },
 ];
 
 const ease = cubicBezier(0.22, 1, 0.36, 1);
 
-const containerVariants: Variants = {
-  hidden: {},
+/** Boxes appear first — no slide-in; they simply land in place. */
+const boxVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.97,
+  },
   show: {
+    opacity: 1,
+    scale: 1,
     transition: {
-      staggerChildren: 0.15,
+      duration: 0.45,
+      ease,
     },
   },
 };
 
-const cardVariants: Variants = {
+/** Text rises out of the box after the shell is visible. */
+const textRevealVariants: Variants = {
   hidden: {
-    opacity: 0,
-    x: -80,
+    y: "115%",
   },
   show: {
-    opacity: 1,
-    x: 0,
+    y: "0%",
     transition: {
-      duration: 0.7,
+      duration: 0.65,
       ease,
+      delay: 0.35,
+    },
+  },
+};
+
+const listVariants: Variants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.12,
     },
   },
 };
@@ -51,9 +72,7 @@ export default function OutcomesStatement() {
   return (
     <section className="bg-[#FCFAF7] py-20 lg:py-28">
       <div className="section-shell">
-        {/* Top Section */}
         <div className="grid items-center gap-10 lg:grid-cols-[60%_40%]">
-          {/* Left */}
           <div>
             <h2 className="type-sans-regular max-w-[650px] text-center text-lead leading-[125%] text-[#111111] md:text-left md:text-display md:leading-[110%]">
               Design measured by outcomes,
@@ -62,50 +81,43 @@ export default function OutcomesStatement() {
             </h2>
 
             <p className="type-sans-regular mt-6 max-w-[620px] text-center text-body-lg leading-[160%] text-[#212121]/60 md:text-left md:text-title-sm md:leading-normal md:text-[#212121]">
-              Great design isn't defined by the number of screens delivered.
-              It's measured by the experiences it creates and the value it
+              Great design isn&apos;t defined by the number of screens delivered.
+              It&apos;s measured by the experiences it creates and the value it
               brings to businesses.
             </p>
           </div>
-
-          {/* Desktop Illustration */}
-          <div className="hidden justify-center lg:flex">
-            <img
-              src="https://placehold.co/420x420/F8F7F5/CFCFCF?text=Illustration"
-              alt="Illustration"
-              className="w-full max-w-[420px]"
-            />
-          </div>
         </div>
 
-        {/* Stats */}
         <motion.div
-          variants={containerVariants}
+          variants={listVariants}
           initial="hidden"
           whileInView="show"
-          viewport={{
-            once: true,
-            amount: 0.25,
-          }}
+          viewport={{ once: true, amount: 0.35 }}
           className="mt-16 grid grid-cols-2 gap-4 md:gap-6 lg:mt-20 lg:grid-cols-4 lg:gap-7"
         >
           {stats.map((item) => (
             <motion.div
               key={item.label}
-              variants={cardVariants}
-              whileHover={{
-                y: -6,
-                transition: { duration: 0.2 },
-              }}
-              className="flex h-[110px] flex-col justify-between rounded-[30px] border border-neutral-200 bg-white p-6 md:h-[210px] lg:p-10"
+              variants={boxVariants}
+              className="flex h-[110px] flex-col justify-between overflow-hidden rounded-[30px] border border-neutral-200 bg-white p-6 md:h-[210px] lg:p-10"
             >
-              <h3 className="type-sans-medium text-lead leading-none text-[#111111] md:text-display-xl">
-                {item.value}
-              </h3>
+              <div className="overflow-hidden">
+                <motion.h3
+                  variants={textRevealVariants}
+                  className="type-sans-medium text-lead leading-none text-[#111111] md:text-display-xl"
+                >
+                  {item.value}
+                </motion.h3>
+              </div>
 
-              <p className="type-sans-regular text-caption uppercase tracking-[1px] text-[#212121]/60 md:text-body-lg md:text-[#212121]">
-                {item.label}
-              </p>
+              <div className="overflow-hidden">
+                <motion.p
+                  variants={textRevealVariants}
+                  className="type-sans-regular text-caption uppercase tracking-[1px] text-[#212121]/60 md:text-body-lg md:text-[#212121]"
+                >
+                  {item.label}
+                </motion.p>
+              </div>
             </motion.div>
           ))}
         </motion.div>

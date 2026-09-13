@@ -8,8 +8,8 @@ import { ArrowUpRight, ArrowRight, ChevronDown, Zap, BarChart3, Target, Code2, E
 import type { ProcessAndAi } from '@/content/schema'
 
 // ─── HERO SECTION ─────────────────────────────────────────────────────────────
-/** Placeholder backdrop — swap for the final artwork (PNG/WEBP works as-is). */
-const HERO_BG_IMAGE = '/process-and-ai/hero-bg-placeholder.svg'
+/** Desktop hero backdrop — soft gradient band behind the headline. */
+const HERO_BG_IMAGE = '/process-and-ai/Hero.png'
 
 export function ProcessAiHero({ hero }: { hero: ProcessAndAi['hero'] }) {
   const headlineLines = hero.headlineMain.split('\n').filter(Boolean)
@@ -18,14 +18,17 @@ export function ProcessAiHero({ hero }: { hero: ProcessAndAi['hero'] }) {
     // `isolate` keeps the -z-10 backdrop above the section fill and below the copy.
     // Top padding clears the fixed navbar, matching the home hero (pt-32 / md:pt-40).
     <section className="relative isolate w-full overflow-hidden bg-white pt-32 pb-32 md:pt-40 md:pb-44">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 hidden md:block"
+      >
         <Image
           src={HERO_BG_IMAGE}
           alt=""
           fill
           priority
           sizes="100vw"
-          className="object-cover object-top"
+          className="object-cover object-bottom"
         />
       </div>
 
@@ -440,14 +443,15 @@ export function DualPrototypeFramework({ framework }: { framework: ProcessAndAi[
             {framework.prototypeA.description}
           </p>
 
-          {/* Image */}
-          <div className="mt-6 md:mt-8 rounded-2xl overflow-hidden bg-neutral-200/50 h-48 md:h-56 flex items-center justify-center">
+          {/* Image — lazy-loaded playground mockups */}
+          <div className="mt-6 md:mt-8 overflow-hidden rounded-2xl bg-white/40">
             <Image
               src={framework.prototypeA.image}
               alt="Prototype A"
               width={600}
               height={350}
-              className="w-full h-full object-cover"
+              loading="lazy"
+              className="h-auto w-full object-contain"
             />
           </div>
 
@@ -519,14 +523,15 @@ export function DualPrototypeFramework({ framework }: { framework: ProcessAndAi[
             {framework.prototypeB.description}
           </p>
 
-          {/* Image */}
-          <div className="mt-6 md:mt-8 rounded-2xl overflow-hidden bg-neutral-200/50 h-48 md:h-56 flex items-center justify-center">
+          {/* Image — lazy-loaded playground mockups */}
+          <div className="mt-6 md:mt-8 overflow-hidden rounded-2xl bg-white/40">
             <Image
               src={framework.prototypeB.image}
               alt="Prototype B"
               width={600}
               height={350}
-              className="w-full h-full object-cover"
+              loading="lazy"
+              className="h-auto w-full object-contain"
             />
           </div>
 

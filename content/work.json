@@ -1,17 +1,17 @@
 {
   "hero": {
     "eyebrow": "Our Work",
-    "headline": "Every project begins with a challenge.",
+    "headline": "Every Project Begins\nWith a Challenge",
     "primaryCta": { "label": "Explore Case Studies", "href": "#portfolio" },
     "secondaryCta": { "label": "Start a Project", "href": "/contact" },
     "subhead": "Find work that's relevant to you.",
     "subheadItalic": "relevant",
     "body": "Browse projects by industry, service or the challenge you're looking to solve.",
     "decorativeTags": [
-      { "label": "Enterprise", "color": "terracotta" },
-      { "label": "Retail",     "color": "mustard"    },
+      { "label": "ENTERPRISE", "color": "terracotta" },
+      { "label": "RETAIL",     "color": "mustard"    },
       { "label": "SAAS",       "color": "cobalt"     },
-      { "label": "Education",  "color": "lavender"   }
+      { "label": "EDUCATION",  "color": "lavender"   }
     ]
   },
   "portfolio": {

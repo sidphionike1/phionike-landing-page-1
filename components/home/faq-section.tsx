@@ -100,7 +100,7 @@ export function FAQSection() {
                   </span>
 
                   {/* Question */}
-                  <span className="type-vf-regular text-body-sm leading-normal text-[#36454F]">
+                  <span className="type-vf-regular text-body-lg leading-normal text-[#36454F]">
                     {faq.question}
                   </span>
                 </button>
@@ -114,7 +114,7 @@ export function FAQSection() {
                   }`}
                 >
                   <div className="overflow-hidden">
-                    <p className="type-vf-regular pb-7 pl-10 pr-4 text-label leading-normal text-[#36454F] md:pl-12">
+                    <p className="type-vf-regular pb-7 pl-10 pr-4 text-body-lg leading-normal text-[#36454F] md:pl-12">
                       {faq.answer}
                     </p>
                   </div>

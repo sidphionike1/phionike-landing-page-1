@@ -1,4 +1,3 @@
-import Image from "next/image"
 import type { WorkPage } from "@/content/schema"
 
 type TestimonialItem = WorkPage["testimonials"]["items"][number]
@@ -47,100 +46,23 @@ const PLACEHOLDER_ITEMS: TestimonialItem[] = [
   },
 ]
 
-function TestimonialCardDesktop({ item }: { item: TestimonialItem }) {
+function TestimonialCard({ item }: { item: TestimonialItem }) {
   return (
-    <article
-      className="group relative hidden overflow-hidden rounded-xl bg-white md:block"
-      style={{ aspectRatio: "3/3.8" }}
-    >
-      <div className="absolute inset-0" aria-hidden="true">
-        <Image
-          src={item.photoSrc}
-          alt={item.name}
-          fill
-          className="object-cover"
-          sizes="(max-width:1024px) 50vw, 25vw"
-        />
-      </div>
+    <article className="flex h-full flex-col rounded-xl bg-white p-7 text-left">
+      <blockquote className="flex-1">
+        <p className="type-sans-regular text-title-sm leading-[25px] tracking-[0.5px] text-[#212121] line-clamp-[8]">
+          &ldquo;{item.quote}&rdquo;
+        </p>
+      </blockquote>
 
-      <div className="absolute inset-0 bottom-24 z-10 flex flex-col justify-start rounded-xl bg-white p-7 transition-transform duration-500 ease-out group-hover:-translate-y-full">
-        <blockquote>
-          <p className="type-sans-regular text-title-sm leading-[25px] tracking-[0.5px] text-[#212121] line-clamp-[8]">
-            &ldquo;{item.quote}&rdquo;
-          </p>
-        </blockquote>
-      </div>
-
-      <div className="absolute inset-x-0 bottom-0 z-20 p-7 pt-4">
-        <footer className="flex items-center gap-3">
-          <div
-            className="h-10 w-10 shrink-0 overflow-hidden rounded-full"
-            style={{ backgroundColor: item.accentColor }}
-          >
-            <Image
-              src={item.photoSrc}
-              alt={item.name}
-              width={40}
-              height={40}
-              className="h-full w-full object-cover"
-            />
-          </div>
-          <div>
-            <p className="type-sans-medium text-title-sm leading-normal text-[#212121]">{item.name}</p>
-            <p className="type-sans-regular mt-0.5 text-eyebrow leading-normal text-[#212121]/60">
-              {item.role} / {item.company}
-            </p>
-          </div>
-        </footer>
-      </div>
-    </article>
-  )
-}
-
-function TestimonialCardMobile({ item }: { item: TestimonialItem }) {
-  return (
-    <article
-      className="relative block overflow-hidden rounded-xl md:hidden"
-      style={{ aspectRatio: "3/3.8" }}
-    >
-      <div className="absolute inset-0" aria-hidden="true">
-        <Image src={item.photoSrc} alt={item.name} fill className="object-cover" sizes="100vw" />
-      </div>
-
-      <div className="absolute inset-0 bg-white/80" aria-hidden="true" />
-
-      <div className="relative z-10 p-7 pb-32">
-        <blockquote>
-          <p className="type-sans-regular text-title-sm leading-[25px] tracking-[0.5px] text-[#212121] line-clamp-[8]">
-            &ldquo;{item.quote}&rdquo;
-          </p>
-        </blockquote>
-      </div>
-
-      <div className="absolute inset-x-0 bottom-0 z-20">
-        <div className="bg-gradient-to-t from-white/80 to-white/40 px-7 pb-7 pt-16">
-          <footer className="flex items-center gap-3">
-            <div
-              className="h-10 w-10 shrink-0 overflow-hidden rounded-full"
-              style={{ backgroundColor: item.accentColor }}
-            >
-              <Image
-                src={item.photoSrc}
-                alt={item.name}
-                width={40}
-                height={40}
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <div>
-              <p className="type-sans-medium text-title-sm leading-normal text-[#212121]">{item.name}</p>
-              <p className="type-sans-regular mt-0.5 text-eyebrow leading-normal text-[#212121]/60">
-                {item.role} / {item.company}
-              </p>
-            </div>
-          </footer>
-        </div>
-      </div>
+      <footer className="mt-8 text-left">
+        <p className="type-sans-medium text-title-sm leading-normal text-[#212121]">
+          {item.name}
+        </p>
+        <p className="type-sans-regular mt-0.5 text-eyebrow leading-normal text-[#212121]/60">
+          {item.role} / {item.company}
+        </p>
+      </footer>
     </article>
   )
 }
@@ -163,10 +85,7 @@ export function TestimonialsGrid({ content }: { content?: WorkPage["testimonials
 
         <div className="mt-20 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {items.map((item) => (
-            <div key={item.id}>
-              <TestimonialCardDesktop item={item} />
-              <TestimonialCardMobile item={item} />
-            </div>
+            <TestimonialCard key={item.id} item={item} />
           ))}
         </div>
       </div>

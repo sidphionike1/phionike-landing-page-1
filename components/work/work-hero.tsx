@@ -30,7 +30,7 @@ export function WorkHero({ content }: { content: WorkPage["hero"] }) {
               style={{ backgroundColor: cfg.bg }}
             >
               <span
-                className="type-sans-medium whitespace-nowrap text-eyebrow"
+                className="type-sans-medium whitespace-nowrap text-eyebrow uppercase"
                 style={{ color: "white" }}
               >
                 {tag.label}
@@ -95,7 +95,7 @@ export function WorkHero({ content }: { content: WorkPage["hero"] }) {
         <p className="type-sans-medium text-eyebrow leading-normal tracking-[3.3px] uppercase text-[#212121]/60">
           {content.eyebrow}
         </p>
-        <h1 className="type-sans-medium mt-5 w-[60%] text-display-xs leading-normal tracking-[-0.8px] text-[#212121] md:w-full md:text-hero md:leading-[105%] md:tracking-[-3px]">
+        <h1 className="type-sans-medium mt-5 w-[60%] whitespace-pre-line text-display-xs leading-normal tracking-[-0.8px] text-[#212121] md:w-full md:text-hero md:leading-[105%] md:tracking-[-3px]">
           {content.headline}
         </h1>
 

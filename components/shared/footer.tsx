@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowUpRight } from 'lucide-react'
 import type { GlobalContent } from '@/content/schema'
+import { SocialIcon } from '@/components/shared/social-icon'
 
 // Phionike logo
 function PhionikieLogo() {
@@ -176,17 +177,17 @@ export function Footer({
                   </a>
                 </div>
                 {/* Social Links */}
-                <div className="mt-4 flex flex-wrap gap-x-3 gap-y-2">
+                <div className="mt-4 flex flex-wrap items-center gap-4">
                   {content.social.map((s) => (
                     <a
                       key={s.platform}
                       href={s.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="type-sans-regular inline-flex items-center gap-1 text-body-sm leading-[19.5px] text-[#212121] transition-opacity hover:opacity-70 md:text-body-lg"
+                      aria-label={s.platform}
+                      className="inline-flex text-[#212121] transition-opacity hover:opacity-70"
                     >
-                      {s.platform}
-                      <ArrowUpRight className="h-3.5 w-3.5" />
+                      <SocialIcon platform={s.platform} />
                     </a>
                   ))}
                 </div>

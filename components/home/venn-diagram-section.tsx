@@ -1,48 +1,115 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import type { HomePage } from "@/content/schema";
 
-interface CaseStudy {
-  id: string;
+interface CaseStudyProject {
   title: string;
-  subtitle: string;
-  bgColor: string;
+  description: string;
   image: string;
 }
 
+interface CaseStudyPile {
+  id: string;
+  bgColor: string;
+  projects: CaseStudyProject[];
+}
 
-const VENN_EXT = "png"
+const VENN_YELLOW = "#f5c842";
+
+const VENN_EXT = "png";
 
 const VENN_STAGE_BY_DISCIPLINE: Record<string, string> = {
   discover: `/venn/discover-and-define.${VENN_EXT}`,
   build: `/venn/built-from-0-1.${VENN_EXT}`,
   redesign: `/venn/redesign-and-reposistion.${VENN_EXT}`,
   scale: `/venn/scale-and-partner.${VENN_EXT}`,
-}
+};
 
 // Resting state (nothing selected): all chips blurred. This is still the older
 // export, and unlike the four above it has the discipline pills baked in.
-const VENN_STAGE_REST = "/venn/none-selected.png"
+const VENN_STAGE_REST = "/venn/none-selected.png";
 
 // Every layer that gets mounted for the cross-fade.
 const VENN_LAYERS = [
   VENN_STAGE_REST,
   ...Object.values(VENN_STAGE_BY_DISCIPLINE),
-]
+];
 
 // Intrinsic frame shared by every export (775 × 471, and the PNGs are 4× that).
-const VENN_ASPECT = "775 / 471"
+const VENN_ASPECT = "775 / 471";
+
+const ACTIVE_PILES: Record<string, CaseStudyPile> = {
+  discover: {
+    id: "discover",
+    bgColor: VENN_YELLOW,
+    projects: [
+      {
+        title: "Wavelength",
+        description:
+          "A talent platform connecting biotech leaders, candidates, founders, and opportunities.",
+        image: "/venn/description_image/Wavelength.png",
+      },
+    ],
+  },
+  build: {
+    id: "build",
+    bgColor: VENN_YELLOW,
+    projects: [
+      {
+        title: "Res Ai",
+        description:
+          "A talent platform connecting biotech leaders, candidates, founders, and opportunities.",
+        image: "/venn/description_image/Res-ai.png",
+      },
+      {
+        title: "Oren - Smart Ring App",
+        description:
+          "Great design isn't defined by the number of screens delivered. It's measured by the experiences it creates and the value it brings to businesses.",
+        image: "/venn/description_image/Oren.png",
+      },
+    ],
+  },
+  redesign: {
+    id: "redesign",
+    bgColor: VENN_YELLOW,
+    projects: [
+      {
+        title: "ICP",
+        description:
+          "A research platform enabling users to purchase reports or commission custom research.",
+        image: "/venn/description_image/ICP.png",
+      },
+      {
+        title: "Vetbuddy",
+        description:
+          "A cloud-based software package for veterinary clinic management.",
+        image: "/venn/description_image/Vetbuddy.png",
+      },
+    ],
+  },
+  scale: {
+    id: "scale",
+    bgColor: VENN_YELLOW,
+    projects: [
+      {
+        title: "Brandintelle",
+        description:
+          "A talent platform connecting biotech leaders, candidates, founders, and opportunities.",
+        image: "/venn/description_image/Brandintelle.png",
+      },
+    ],
+  },
+};
 
 export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
   const router = useRouter();
   const params = useSearchParams();
-  const [hoveredSector, setHoveredSector] = useState<string | null>(null);
+  const [projectIndex, setProjectIndex] = useState(0);
 
   const selectedDiscipline = params.get("discipline");
-  const selectedSector = params.get("sector");
 
   const select = (kind: "discipline" | "sector", id: string) => {
     const next = new URLSearchParams(params.toString());
@@ -55,48 +122,22 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
     router.replace(`?${next.toString()}#work`, { scroll: false });
   };
 
-  // Extended case-study data (add to your CMS / content schema)
-  // @ts-ignore
-  const caseStudies: Record<string, CaseStudy> = content.caseStudies ?? {
-    discover: {
-      id: "discover",
-      title: "Oren",
-      subtitle:
-        "Designing a seamless wellness experience for a next-generation smart ring ecosystem.",
-      bgColor: "#f5c842",
-      image: VENN_STAGE_BY_DISCIPLINE.discover,
-    },
-    build: {
-      id: "build",
-      title: "Aurelia",
-      subtitle:
-        "Building a zero-to-one fintech platform that simplified cross-border payments for SMBs.",
-      bgColor: "#c8e6c9",
-      image: VENN_STAGE_BY_DISCIPLINE.build,
-    },
-    redesign: {
-      id: "redesign",
-      title: "Meridian",
-      subtitle:
-        "Redesigning a legacy healthcare portal into a patient-first digital experience.",
-      bgColor: "#e1bee7",
-      image: VENN_STAGE_BY_DISCIPLINE.redesign,
-    },
-    scale: {
-      id: "scale",
-      title: "Nexus",
-      subtitle:
-        "Scaling a marketplace platform to serve 2M+ users across 15 countries.",
-      bgColor: "#b3e5fc",
-      image: VENN_STAGE_BY_DISCIPLINE.scale,
-    },
-  };
+  const caseStudies: Record<string, CaseStudyPile> = ACTIVE_PILES;
 
   const activeCaseStudy = selectedDiscipline
     ? caseStudies[selectedDiscipline]
     : null;
 
+  const activeProject =
+    activeCaseStudy?.projects[
+      Math.min(projectIndex, activeCaseStudy.projects.length - 1)
+    ] ?? null;
+
   const isDefault = !selectedDiscipline;
+
+  useEffect(() => {
+    setProjectIndex(0);
+  }, [selectedDiscipline]);
 
   // Which venn stage to show, looked up by discipline name rather than by index.
   const activeVennImage =
@@ -104,7 +145,7 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
     VENN_STAGE_REST;
 
   return (
-    <section className="bg-background py-20 md:py-28">
+    <section className="bg-background py-16 md:py-28">
       <div className="section-shell">
         {/* Eyebrow + Heading */}
         <p className="type-sans-medium text-caption leading-[16.5px] tracking-[3.3px] text-[#212121]">
@@ -120,14 +161,16 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
         </h2>
 
         {/* 6:4 Grid */}
-        <div className="mt-14 grid gap-8 md:grid-cols-[6fr_4fr] md:items-stretch">
-          {/* LEFT — Venn Diagram */}
-          <div className="relative min-h-[420px] md:min-h-[520px]">
+        <div className="mt-8 grid gap-6 md:mt-14 md:grid-cols-[6fr_4fr] md:items-stretch md:gap-8">
+          {/* LEFT — Venn Diagram
+              Mobile: size to the stage aspect ratio so we don't leave empty
+              whitespace under the ovals (min-h-[420px] was the culprit). */}
+          <div className="relative aspect-[775/471] w-full md:aspect-auto md:min-h-[520px]">
             {/* Dynamic background image layer — the Venn Diagram Stage exports.
                 Each stage already contains both tinted ovals plus the sector
                 chips, so the CSS gradient ovals that used to live here are no
                 longer needed and are kept commented out below for reference. */}
-            <div className="absolute inset-0 overflow-hidden rounded-[3rem]">
+            <div className="absolute inset-0 overflow-hidden rounded-[2rem] md:rounded-[3rem]">
               {VENN_LAYERS.map((src) => (
                 <img
                   key={src}
@@ -171,16 +214,23 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
             </div>
 
             {/* Discipline buttons — centered */}
-            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4">
-              {content.disciplines.map((d) => {
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 md:gap-4">
+              {content.disciplines.map((d, index) => {
                 const isActive = selectedDiscipline === d.id;
                 const isInactive = selectedDiscipline && !isActive;
+
+                const offsetClass =
+                  index === 1
+                    ? "relative right-[50px] md:right-[100px]"
+                    : index === 2
+                      ? "relative left-[50px] md:left-[100px]"
+                      : "";
 
                 return (
                   <button
                     key={d.id}
                     onClick={() => select("discipline", d.id)}
-                    className={`type-sans-medium rounded-full px-7 py-3 text-micro leading-[19.5px] transition-all duration-300 md:text-body-sm ${
+                    className={`type-sans-medium rounded-full px-3.5 py-1.5 text-[11px] leading-[16px] transition-all duration-300 md:px-7 md:py-3 md:text-body-sm md:leading-[19.5px] ${offsetClass} ${
                       isDefault
                         ? "bg-foreground text-white hover:scale-105"
                         : isActive
@@ -197,7 +247,7 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
 
           {/* RIGHT — Dynamic content */}
           <div
-            className="relative flex min-h-[420px] flex-col justify-between overflow-hidden transition-colors duration-500 md:min-h-[520px]"
+            className="relative flex min-h-0 flex-col justify-between overflow-hidden transition-colors duration-500 md:min-h-[520px]"
             style={{
               backgroundColor: activeCaseStudy
                 ? activeCaseStudy.bgColor
@@ -206,11 +256,11 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
           >
             {isDefault ? (
               /* Default state — original implementation */
-              <div className="flex h-full flex-col justify-center px-2 py-8 md:px-6">
+              <div className="flex h-full flex-col justify-center px-2 py-6 md:px-6 md:py-8">
                 <p className="type-sans-medium max-w-lg text-title leading-normal text-[#444242]">
                   {content.supportCopy}
                 </p>
-                <div className="mt-10 border-t border-border pt-8">
+                <div className="mt-8 border-t border-border pt-6 md:mt-10 md:pt-8">
                   {content.stats.map((stat, i) => (
                     <div
                       key={stat.label}
@@ -236,36 +286,62 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
                   className="type-sans-medium mt-10 inline-flex items-center gap-2 border-b border-[#111111] pb-1 text-label leading-[19.5px] text-[#111111] transition-opacity hover:opacity-70"
                 >
                   {content.cta.label}
-                  <ArrowUpRight size={14} />
+                  {/* <ArrowUpRight size={14} /> */}
                 </a>
               </div>
-            ) : activeCaseStudy ? (
-              /* Selected state — case study card */
-              <div className="flex h-full flex-col p-8 text-[#1a1a1a]">
-                <div className="flex-1">
-                  {/* Placeholder image area */}
-                  <div className="mb-6 flex h-[260px] w-full items-center justify-center overflow-hidden bg-black/5">
+            ) : activeCaseStudy && activeProject ? (
+              /* Selected state — active pile project card */
+              <div className="flex h-full flex-col px-5 py-6 md:px-8 md:py-8">
+                <div className="shrink-0">
+                  <h3
+                    className="type-sans-regular text-[24px] leading-[38.4px] text-[#141414]"
+                  >
+                    {activeProject.title}
+                  </h3>
+                  <p className="type-sans-regular mt-1 max-w-[95%] text-[14px] leading-[19.6px] text-[#212121]">
+                    {activeProject.description}
+                  </p>
+                </div>
+
+                <div className="mt-5 flex min-h-0 flex-1 items-center justify-center md:mt-6">
+                  <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-[1.25rem] bg-white p-3 md:rounded-[1.5rem] md:p-4">
                     <img
-                      src={activeCaseStudy.image}
-                      alt={activeCaseStudy.title}
-                      // contain, not cover: these are diagram exports, so
-                      // cropping them to fill a 260px box mangles the artwork
-                      className="h-full w-full object-contain"
-                      onError={(e) => {
-                        // Fallback placeholder
-                        const target = e.currentTarget.parentElement;
-                        if (target) {
-                          target.innerHTML = `<span class="text-sm text-black/30 font-medium">${activeCaseStudy.title} Preview</span>`;
-                        }
-                      }}
+                      src={activeProject.image}
+                      alt={activeProject.title}
+                      className="h-auto max-h-[240px] w-full object-contain md:max-h-[320px]"
                     />
                   </div>
-                  <h3 className="type-sans-regular text-heading leading-[47.84px] text-[#212121]">
-                    {activeCaseStudy.title}
-                  </h3>
-                  <p className="type-sans-medium mt-3 max-w-[90%] text-body-lg leading-[20.8px] text-[#212121]/80">
-                    {activeCaseStudy.subtitle}
-                  </p>
+                </div>
+
+                <div className="mt-5 flex items-center justify-center gap-6">
+                  <button
+                    type="button"
+                    aria-label="Previous project"
+                    disabled={activeCaseStudy.projects.length < 2}
+                    onClick={() =>
+                      setProjectIndex(
+                        (i) =>
+                          (i - 1 + activeCaseStudy.projects.length) %
+                          activeCaseStudy.projects.length,
+                      )
+                    }
+                    className="text-[#141414] transition-opacity hover:opacity-60 disabled:pointer-events-none"
+                  >
+                    {/* <ArrowLeft size={18} strokeWidth={1.5} /> */}
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Next project"
+                    disabled={activeCaseStudy.projects.length < 2}
+                    onClick={() =>
+                      setProjectIndex(
+                        (i) => (i + 1) % activeCaseStudy.projects.length,
+                      )
+                    }
+                    className="text-[#141414] transition-opacity hover:opacity-60 disabled:pointer-events-none"
+                  >
+                    {/* <ArrowRight size={18} strokeWidth={1.5} /> */}
+                  </button>
                 </div>
               </div>
             ) : null}

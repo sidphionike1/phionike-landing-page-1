@@ -457,9 +457,9 @@ export function AwardsSection() {
         </span>
 
         <h2 className="type-vf-regular max-w-2xl text-lead leading-[34px] text-[#141414] md:text-display-xs md:leading-[44.8px]">
-          Every recognition tells the story{' '}
-          <span className="type-vf-italic block text-[#BBBBBB] sm:inline">
-            of a problem solved beautifully.
+          <span className="block">Every recognition tells the story</span>
+          <span className="type-vf-italic mt-1 block text-[#BBBBBB] md:mt-2">
+            A Problem Solved Beautifully
           </span>
         </h2>
       </div>

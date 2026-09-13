@@ -1,10 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ArrowRight, Circle, Minus, } from "lucide-react"
-import type { WorkPage, ProcessStep } from "@/content/schema"
-import { motion } from "framer-motion";
-
+import type { ProcessStep } from "@/content/schema"
 
 // ─── DisciplineList ──────────────────────────────────────────────────────────
 // Staircase diagonal badges within 4-column guide layout.
@@ -43,10 +40,10 @@ type StageImage = {
 /**
  * Per-stage visuals, ordered clarify→scale to match `steps`.
  *
- *  - pill:       top-left of this stage's pill. In the reference each pill's
- *                left edge is exactly the previous pill's right edge, and the
- *                vertical dividers land on those same x values (230/386/618) —
- *                the columns are not equal quarters.
+ *  - pill:       staircase position + how the pill meets the column lines.
+ *                Columns are bounded by [0, 230, 386, 618, FRAME_W].
+ *                stretch = full column width; left/right = content width
+ *                flush to that edge of the column.
  *  - divider:    x of the divider at this column's left edge (null = none).
  *  - images:     one entry per project card, so the count is data-driven and
  *                differs per stage (3 / 2 / 2 / 2).
@@ -55,17 +52,22 @@ type StageImage = {
  *                pill is opaque and painted above, so each line visually stops
  *                at the pill's edge no matter what height the text renders at.
  */
+type PillAlign = "left" | "right" | "stretch"
+
 type StageVisual = {
-  pill: { x: number; y: number }
+  pill: { y: number; left: number; right: number; align: PillAlign }
   divider: number | null
   images: StageImage[]
   connectors: string[]
 }
 
+/** Column guides: left edge → … → right edge of the frame */
+const COL = [0, 230, 386, 618, FRAME_W] as const
+
 const STAGE_VISUALS: StageVisual[] = [
-  // ── Discover & Define ─ 3 cards: left dashboard, centre card, narrow card behind it
+  // ── Discover & Define ─ right edge flush to column line
   {
-    pill: { x: 25, y: 223 },
+    pill: { y: 223, left: COL[0], right: COL[1], align: "right" },
     divider: null,
     images: [
       { x: -62, y: 53, w: 164, h: 90 },
@@ -79,10 +81,10 @@ const STAGE_VISUALS: StageVisual[] = [
       "M180 110 V190 Q180 200 170 200 H140 Q130 200 130 210 V240",
     ],
   },
-  // ── Build from 0→1 ─ 2 cards: one above the pill, one below it
+  // ── Build from 0→1 ─ spans full column (both lines)
   {
-    pill: { x: 230, y: 163 },
-    divider: 230,
+    pill: { y: 163, left: COL[1], right: COL[2], align: "stretch" },
+    divider: COL[1],
     images: [
       { x: 135, y: 20, w: 165, h: 90 },
       { x: 266, y: 250, w: 164, h: 91 },
@@ -92,10 +94,10 @@ const STAGE_VISUALS: StageVisual[] = [
       "M250 180 V220 Q250 230 260 230 H290 Q300 230 300 240 V250",
     ],
   },
-  // ── Redesign & Reposition ─ 2 cards: one upper-left, one below the pill
+  // ── Redesign & Reposition ─ spans full column (both lines)
   {
-    pill: { x: 386, y: 101 },
-    divider: 386,
+    pill: { y: 101, left: COL[2], right: COL[3], align: "stretch" },
+    divider: COL[2],
     images: [
       { x: 210, y: 20, w: 163, h: 90 },
       { x: 453, y: 213, w: 164, h: 75 },
@@ -105,12 +107,10 @@ const STAGE_VISUALS: StageVisual[] = [
       "M430 118 V170 Q430 180 440 180 H470 Q480 180 480 190 V213",
     ],
   },
-  // ── Scale & Partner ─ 2 cards. No reference frame was supplied for this
-  // state, so the arrangement mirrors the established pattern: pill near the
-  // top, both cards routed below it.
+  // ── Scale & Partner ─ left edge flush to column line
   {
-    pill: { x: 618, y: 39 },
-    divider: 618,
+    pill: { y: 39, left: COL[3], right: COL[4], align: "left" },
+    divider: COL[3],
     images: [
       { x: 453, y: 110, w: 164, h: 90 },
       { x: 640, y: 215, w: 164, h: 90 },
@@ -141,12 +141,12 @@ export function DisciplineList({ steps }: { steps: ProcessStep[] }) {
         <p className="type-sans-medium text-eyebrow leading-normal tracking-[3.3px] uppercase text-[#AAAAAA]">
           Where We Create Impact
         </p>
-        <h2 className="type-sans-regular mt-3 max-w-2xl text-lead leading-[125%] text-[#111111] md:text-display-xs md:leading-[47.84px]">
-          Not every product needs the same help
+        <h2 className="type-sans-regular mt-3 max-w-3xl text-lead leading-[125%] text-[#111111] md:text-display-xs md:leading-[47.84px]">
+          <span className="block">Not Every Product Needs the Same Help</span>
+          <span className="type-sans-light-italic mt-2 block text-[#666666]">
+            We Meet You Where You Are
+          </span>
         </h2>
-        <p className="type-sans-light-italic mt-2 text-lead leading-[125%] text-[#666666] md:text-display-xs md:leading-[47.84px]">
-          we meet you where you are
-        </p>
 
         {/* Desktop-only staircase. Mobile behaviour is unchanged (hidden). */}
         <div
@@ -238,6 +238,24 @@ export function DisciplineList({ steps }: { steps: ProcessStep[] }) {
             const visual = STAGE_VISUALS[i]
             if (!visual) return null
             const isActive = i === activeStep
+            const { left, right, y, align } = visual.pill
+
+            const positionStyle =
+              align === "stretch"
+                ? {
+                    left: pctX(left),
+                    width: pctX(right - left),
+                  }
+                : align === "right"
+                  ? {
+                      // Flush content-width pill to the column's right guide
+                      right: pctX(FRAME_W - right),
+                      left: "auto" as const,
+                    }
+                  : {
+                      // Flush content-width pill to the column's left guide
+                      left: pctX(left),
+                    }
 
             return (
               <button
@@ -246,10 +264,10 @@ export function DisciplineList({ steps }: { steps: ProcessStep[] }) {
                 aria-pressed={isActive}
                 onMouseEnter={() => setActiveStep(i)}
                 onFocus={() => setActiveStep(i)}
-                className="type-sans-medium absolute z-10 flex items-center gap-2.5 whitespace-nowrap rounded-full border px-4 py-2.5 text-body-sm uppercase leading-[16.5px] tracking-[3.3px] text-[#111111] transition-colors duration-300 ease-out hover:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E2566F] focus-visible:ring-offset-2"
+                className="type-sans-medium absolute z-10 flex items-center justify-center gap-2.5 whitespace-nowrap rounded-full border px-4 py-2.5 text-body-sm uppercase leading-[16.5px] tracking-[3.3px] text-[#111111] transition-colors duration-300 ease-out hover:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E2566F] focus-visible:ring-offset-2"
                 style={{
-                  left: pctX(visual.pill.x),
-                  top: pctY(visual.pill.y),
+                  top: pctY(y),
+                  ...positionStyle,
                   backgroundColor: isActive
                     ? ACTIVE_PILL_BG
                     : "var(--background)",
@@ -269,48 +287,3 @@ export function DisciplineList({ steps }: { steps: ProcessStep[] }) {
     </section>
   )
 }
-
-// ─── OutcomesStatement ───────────────────────────────────────────────────────
-
-const stats = [
-  {
-    value: "300M+",
-    label: "PEOPLE REACHED",
-  },
-  {
-    value: "20+",
-    label: "INDUSTRIES SERVED",
-  },
-  {
-    value: "2.5M+",
-    label: "MONTHLY ACTIVE USERS",
-  },
-  {
-    value: "8+",
-    label: "YEARS OF CRAFT",
-  },
-];
-
-const container = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const card = {
-  hidden: {
-    opacity: 0,
-    x: -80,
-  },
-  show: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.7,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
