@@ -22,8 +22,13 @@ interface PortfolioItem {
 interface Masonry6Item {
   id: string;
   title: string;
-  column: "left" | "right";
-  size: CardSize;
+  x: number;
+  y: number;
+  cardW: number;
+  cardH: number;
+  imgW: number;
+  imgH: number;
+  itemGap: number;
   mediaSrc: string;
   mediaType: "video" | "image";
   industry: string;
@@ -151,15 +156,12 @@ const LEFT_PATTERN_8: CardSize[] = ["big", "medium", "small", "small"];
 const RIGHT_PATTERN_8: CardSize[] = ["small", "small", "medium", "big"];
 ─────────────────────────────────────────────────────────────────── */
 
-/** Desktop 6-grid media frame sizes (Figma). */
-const SIZE_CONFIG_6: Record<
-  CardSize,
-  { frameW: number; imgW: number; imgH: number }
-> = {
-  big: { frameW: 642, imgW: 642, imgH: 598 },
-  medium: { frameW: 534, imgW: 534, imgH: 519 },
-  small: { frameW: 427, imgW: 427, imgH: 426 },
-};
+/** Desktop 6-grid — Figma hand-placed masonry (1193 × 1927). */
+const MASONRY_FRAME_W = masonry6.frame?.width ?? 1193;
+const MASONRY_FRAME_H = masonry6.frame?.height ?? 1927;
+const MASONRY_TITLE_AREA_H = masonry6.titleAreaH ?? 102;
+const MASONRY_TITLE_TEXT_H = masonry6.titleTextH ?? 39;
+const MASONRY_TITLE_FONT = masonry6.titleFontSize ?? 32;
 
 // Mobile: every card is 95% of the mobile viewport width, fixed image height
 const MOBILE_SIZE: {
@@ -173,8 +175,10 @@ const MOBILE_SIZE: {
 };
 
 /**
- * Lazy autoplaying video: mounts src only near viewport, plays while visible,
- * pauses when off-screen to keep the page light.
+ * Lazy autoplaying video for the masonry.
+ * - Attaches src only near the viewport (saves ~10MB upfront)
+ * - Plays while visible, pauses when off-screen / tab hidden
+ * - Stays on continuous loop while playing (`loop` + muted autoplay)
  */
 function LazyWorkVideo({
   src,
@@ -187,10 +191,13 @@ function LazyWorkVideo({
 }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [shouldLoad, setShouldLoad] = useState(false);
+  const inViewRef = useRef(false);
 
   const tryPlay = useCallback(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || !inViewRef.current || document.hidden) return;
+    el.loop = true;
+    el.muted = true;
     const play = el.play();
     if (play && typeof play.catch === "function") play.catch(() => {});
   }, []);
@@ -201,24 +208,46 @@ function LazyWorkVideo({
 
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        inViewRef.current = entry.isIntersecting && entry.intersectionRatio > 0;
+        if (inViewRef.current) {
           setShouldLoad(true);
-          // Defer play until after src is attached on next paint
+          // Keep src once loaded so loop resumes instantly when scrolling back.
           requestAnimationFrame(() => tryPlay());
         } else {
           el.pause();
         }
       },
-      { rootMargin: "200px 0px", threshold: 0.15 },
+      { rootMargin: "120px 0px", threshold: 0.2 },
     );
 
     io.observe(el);
-    return () => io.disconnect();
+
+    const onVisibility = () => {
+      if (document.hidden) el.pause();
+      else tryPlay();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
+    return () => {
+      io.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
   }, [tryPlay]);
 
   useEffect(() => {
     if (!shouldLoad) return;
+    const el = ref.current;
+    if (!el) return;
+    // Explicit loop for browsers that drop the attribute after src swap.
+    el.loop = true;
+    const onReady = () => tryPlay();
+    el.addEventListener("loadeddata", onReady);
+    el.addEventListener("canplay", onReady);
     tryPlay();
+    return () => {
+      el.removeEventListener("loadeddata", onReady);
+      el.removeEventListener("canplay", onReady);
+    };
   }, [shouldLoad, src, tryPlay]);
 
   return (
@@ -228,9 +257,11 @@ function LazyWorkVideo({
       muted
       loop
       playsInline
+      autoPlay
       preload="none"
+      disableRemotePlayback
       aria-label={title}
-      // Only attach src once near viewport — avoids eager download of all 6.
+      // Attach src only near viewport — avoids eager download of all 6.
       {...(shouldLoad ? { src } : {})}
     />
   );
@@ -313,20 +344,31 @@ function PortfolioCard({
 
 function Masonry6Card({
   item,
-  titleClassName,
   showCategory = false,
   categoryClassName,
 }: {
   item: Masonry6Item;
-  titleClassName?: string;
   showCategory?: boolean;
   categoryClassName?: string;
 }) {
-  const dims = SIZE_CONFIG_6[item.size];
+  const mediaH = item.cardH - MASONRY_TITLE_AREA_H - item.itemGap;
 
   return (
-    <article className="flex flex-col" style={{ width: dims.frameW }}>
-      <div>
+    <article
+      className="absolute flex flex-col overflow-hidden"
+      style={{
+        left: item.x,
+        top: item.y,
+        width: item.cardW,
+        height: item.cardH,
+        gap: item.itemGap,
+      }}
+    >
+      {/* Title band — 102px area, 32px / 39px text (Figma) */}
+      <div
+        className="flex shrink-0 flex-col justify-start"
+        style={{ height: MASONRY_TITLE_AREA_H }}
+      >
         {showCategory && (
           <p
             className={
@@ -338,18 +380,21 @@ function Masonry6Card({
           </p>
         )}
         <h3
-          className={
-            titleClassName ??
-            "type-vf-regular text-title-lg leading-[38.4px] text-[#141414] md:text-heading md:leading-[38.4px]"
-          }
+          className="type-sans-regular truncate text-[#141414]"
+          style={{
+            fontSize: MASONRY_TITLE_FONT,
+            height: MASONRY_TITLE_TEXT_H,
+            lineHeight: `${MASONRY_TITLE_TEXT_H}px`,
+          }}
         >
           {item.title}
         </h3>
       </div>
 
+      {/* Media — clipped; source may be wider than the card (object-cover crop) */}
       <div
-        className="relative mt-4 overflow-hidden rounded-xl bg-[#EDEAE4]"
-        style={{ width: dims.imgW, height: dims.imgH }}
+        className="relative shrink-0 overflow-hidden rounded-xl bg-[#EDEAE4]"
+        style={{ width: item.cardW, height: mediaH }}
       >
         {item.mediaType === "video" ? (
           <LazyWorkVideo
@@ -363,13 +408,118 @@ function Masonry6Card({
             alt={item.title}
             fill
             className="object-cover"
-            sizes={`${dims.imgW}px`}
+            sizes={`${item.cardW}px`}
             quality={85}
             loading="lazy"
           />
         )}
       </div>
     </article>
+  );
+}
+
+/** Pixel-exact Figma masonry, scaled to the section width on desktop. */
+function Masonry6Desktop({
+  items,
+  showCategory,
+  categoryClassName,
+}: {
+  items: Masonry6Item[];
+  showCategory: boolean;
+  categoryClassName: string;
+}) {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+
+    const update = () => {
+      const w = el.clientWidth;
+      if (w > 0) setScale(w / MASONRY_FRAME_W);
+    };
+
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={wrapRef}
+      className="relative mx-auto hidden w-full md:block"
+      style={{ height: MASONRY_FRAME_H * scale }}
+    >
+      <div
+        className="absolute left-0 top-0 origin-top-left"
+        style={{
+          width: MASONRY_FRAME_W,
+          height: MASONRY_FRAME_H,
+          transform: `scale(${scale})`,
+        }}
+      >
+        {items.map((item) => (
+          <Masonry6Card
+            key={item.id}
+            item={item}
+            showCategory={showCategory}
+            categoryClassName={categoryClassName}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** Mobile stack — same 6 projects, full-width cards with lazy looping video. */
+function Masonry6Mobile({
+  items,
+  showCategory,
+  categoryClassName,
+  titleClassName,
+}: {
+  items: Masonry6Item[];
+  showCategory: boolean;
+  categoryClassName: string;
+  titleClassName: string;
+}) {
+  return (
+    <div className="flex flex-col gap-10 md:hidden">
+      {items.map((item) => (
+        <article key={item.id} className="mx-auto flex w-[95%] flex-col">
+          <div>
+            {showCategory && (
+              <p className={categoryClassName}>{item.industry}</p>
+            )}
+            <h3 className={titleClassName}>{item.title}</h3>
+          </div>
+          <div
+            className="relative mt-4 mb-6 overflow-hidden rounded-xl bg-[#EDEAE4]"
+            style={{ width: "100%", aspectRatio: `${item.cardW} / ${item.imgH}` }}
+          >
+            {item.mediaType === "video" ? (
+              <LazyWorkVideo
+                src={item.mediaSrc}
+                title={item.title}
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            ) : (
+              <Image
+                src={item.mediaSrc}
+                alt={item.title}
+                fill
+                className="object-cover"
+                sizes="95vw"
+                quality={85}
+                loading="lazy"
+              />
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
   );
 }
 
@@ -479,14 +629,8 @@ export function PortfolioFilterGrid({
   const cardTitleClassName = isWork
     ? "type-sans-medium truncate text-title leading-normal text-[#141414] md:text-heading md:leading-[38.4px]"
     : "type-vf-regular truncate text-title-lg leading-[38.4px] text-[#141414] md:text-heading md:leading-[38.4px]";
-  const cardTaglineClassName = isWork
-    ? "type-sans-regular mt-2 line-clamp-2 text-body-sm leading-[140%] text-[#212121]"
-    : "type-sans-regular mt-2 line-clamp-2 text-body-sm leading-[19.6px] text-[#212121]/60";
   const cardCategoryClassName =
     "type-sans-regular mb-1 text-eyebrow tracking-[1px] uppercase text-[#212121]/60";
-  const masonryTitleClassName = isWork
-    ? "type-sans-medium text-title leading-normal text-[#141414] md:text-heading md:leading-[38.4px]"
-    : "type-vf-regular text-title-lg leading-[38.4px] text-[#141414] md:text-heading md:leading-[38.4px]";
 
   // null = "All" is active; each dropdown holds its own selection independently
   const [selections, setSelections] = useState<
@@ -520,22 +664,12 @@ export function PortfolioFilterGrid({
     [selections],
   );
 
-  // Mobile: original 8-grid filtering
-  const filteredMobileItems = useMemo(() => {
-    return ALL_ITEMS.filter(matchesFilters);
+  // Shared 6-project set for desktop masonry + mobile stack
+  const filteredMasonry6 = useMemo(() => {
+    return MASONRY_6_ITEMS.filter(matchesFilters);
   }, [matchesFilters]);
 
-  // Desktop: 6-grid masonry filtering (column order preserved)
-  const { left6, right6 } = useMemo(() => {
-    const filtered = MASONRY_6_ITEMS.filter(matchesFilters);
-    return {
-      left6: filtered.filter((i) => i.column === "left"),
-      right6: filtered.filter((i) => i.column === "right"),
-    };
-  }, [matchesFilters]);
-
-  const hasDesktopResults = left6.length + right6.length > 0;
-  const hasMobileResults = filteredMobileItems.length > 0;
+  const hasResults = filteredMasonry6.length > 0;
 
   return (
     <section
@@ -592,67 +726,28 @@ export function PortfolioFilterGrid({
           ))}
         </div>
 
-        {/* ── DESKTOP: 6-grid masonry
-            Pattern: big|small · medium|medium (right raised) · small|big
-            Right column is items-end so smaller cards sit flush right.
-            Mild negative margin fits two 642 tracks in the section shell
-            without covering the left big card (Soli is small = 427). */}
-        {hasDesktopResults ? (
-          <div className="hidden md:flex md:items-start md:justify-between">
-            <div
-              className="flex shrink-0 flex-col items-start gap-16"
-              style={{ width: SIZE_CONFIG_6.big.frameW }}
-            >
-              {left6.map((item) => (
-                <Masonry6Card
-                  key={item.id}
-                  item={item}
-                  titleClassName={masonryTitleClassName}
-                  showCategory={isWork}
-                  categoryClassName={cardCategoryClassName}
-                />
-              ))}
-            </div>
-
-            <div
-              className="flex shrink-0 flex-col items-end gap-16 -ml-[84px] -mt-10"
-              style={{ width: SIZE_CONFIG_6.big.frameW }}
-            >
-              {right6.map((item) => (
-                <Masonry6Card
-                  key={item.id}
-                  item={item}
-                  titleClassName={masonryTitleClassName}
-                  showCategory={isWork}
-                  categoryClassName={cardCategoryClassName}
-                />
-              ))}
-            </div>
-          </div>
+        {/* ── DESKTOP: hand-placed Figma masonry (1193 × 1927), scaled to shell ── */}
+        {hasResults ? (
+          <Masonry6Desktop
+            items={filteredMasonry6}
+            showCategory={isWork}
+            categoryClassName={cardCategoryClassName}
+          />
         ) : (
           <p className="hidden py-20 text-center text-muted-foreground md:block">
             No items found
           </p>
         )}
 
-        {/* ── MOBILE: original behaviour (8-item image cards) ── */}
-        {hasMobileResults ? (
+        {/* ── MOBILE: same 6 projects, stacked full-width ── */}
+        {hasResults ? (
           <>
-            <div className="flex flex-col gap-10 md:hidden">
-              {filteredMobileItems.slice(0, 4).map((item) => (
-                <PortfolioCard
-                  key={item.id}
-                  item={item}
-                  dims={MOBILE_SIZE}
-                  showBottomPadding
-                  centered
-                  titleClassName={cardTitleClassName}
-                  taglineClassName={cardTaglineClassName}
-                  showCategory={isWork}
-                  categoryClassName={cardCategoryClassName}
-                />
-              ))}
-            </div>
+            <Masonry6Mobile
+              items={filteredMasonry6}
+              showCategory={isWork}
+              categoryClassName={cardCategoryClassName}
+              titleClassName={cardTitleClassName}
+            />
             <SeeAllWorkCTA />
           </>
         ) : (
