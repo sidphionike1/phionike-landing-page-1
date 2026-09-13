@@ -39,6 +39,19 @@ const POINT_GAP = 22         // px between list rows (→ ~42px row pitch at 14p
  */
 const ACTIVATE_EARLY_PX = STEP_TOP + 80
 
+/** Mobile sticky stack: each card sticks 30px below the one above. */
+const MOBILE_NUM_STICKY_TOP = 62
+const MOBILE_PEEK = 70
+/** Sticky top of the first card (clears navbar + sticky number). */
+const MOBILE_CARD_STICKY_BASE = 168
+const MOBILE_CARD_H = 340
+/**
+ * Document gap between cards (before collapse). Larger than PEEK so cards
+ * arrive one-by-one while scrolling; visual stick offset stays at PEEK.
+ */
+const MOBILE_SCROLL_STEP = 350
+const MOBILE_ACTIVATE_EARLY = MOBILE_PEEK + 40
+
 /** Ring positions, clockwise from the top. */
 const DOT_POSITIONS = [
   { cx: 12, cy: 4.4 },  // top
@@ -107,13 +120,55 @@ function DoubleTick({ className }: { className?: string }) {
   )
 }
 
-export function ProcessStepCounter({ content, disciplines }: Props) {
-  const sectionRef = useRef<HTMLElement>(null)
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([])
+function StepCardBody({
+  step,
+  index,
+}: {
+  step: HomePage["processSteps"]["steps"][number]
+  index: number
+}) {
+  return (
+    <>
+      <div className="flex items-center gap-3 md:gap-4">
+        <FourDots activeIndex={index} className="shrink-0 text-white" />
+        <h3 className="type-sans-regular text-title-lg leading-[31.76px] md:text-heading md:leading-[53.76px]">
+          {step.subheading}
+        </h3>
+      </div>
+
+      {step.cardSubheading && (
+        <p className="type-sans-regular mt-5 max-w-md text-eyebrow leading-[18px] tracking-[1.95px] uppercase md:mt-7">
+          {step.cardSubheading}
+        </p>
+      )}
+
+      {step.points && step.points.length > 0 && (
+        <ul className="mt-6 flex flex-col md:mt-8" style={{ gap: POINT_GAP }}>
+          {step.points.map((point) => (
+            <li
+              key={point}
+              className="type-sans-regular flex items-center gap-3 text-eyebrow leading-[18.91px]"
+            >
+              <DoubleTick className="shrink-0" />
+              {point}
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
+  )
+}
+
+export function ProcessStepCounter({ content, disciplines: _disciplines }: Props) {
+  const desktopCardRefs = useRef<(HTMLDivElement | null)[]>([])
+  const mobileCardRefs = useRef<(HTMLDivElement | null)[]>([])
   const [active, setActive] = useState(0)
   const [hovered, setHovered] = useState<number | null>(null)
 
-  const topOffsets = content.steps.map((_, i) => BASE_TOP + i * STEP_TOP)
+  const desktopTopOffsets = content.steps.map((_, i) => BASE_TOP + i * STEP_TOP)
+  const mobileTopOffsets = content.steps.map(
+    (_, i) => MOBILE_CARD_STICKY_BASE + i * MOBILE_PEEK,
+  )
 
   // Total height of the pinned card stack: the last card's peek offset plus one
   // full card. Used so the left column can track the active card's top edge.
@@ -121,83 +176,106 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
 
   useEffect(() => {
     let raf = 0
+    const mq = window.matchMedia("(min-width: 768px)")
+
     const measure = () => {
+      const isDesktop = mq.matches
+      const refs = isDesktop ? desktopCardRefs.current : mobileCardRefs.current
+      const offsets = isDesktop ? desktopTopOffsets : mobileTopOffsets
+      const early = isDesktop ? ACTIVATE_EARLY_PX : MOBILE_ACTIVATE_EARLY
+
       let current = 0
-      cardRefs.current.forEach((el, i) => {
+      refs.forEach((el, i) => {
         if (!el) return
         const top = el.getBoundingClientRect().top
-        // Fire as soon as the card is approaching its sticky slot — not only
-        // after it has locked to topOffsets[i].
-        if (top <= topOffsets[i] + ACTIVATE_EARLY_PX) current = i
+        if (top <= offsets[i] + early) current = i
       })
       setActive(current)
     }
+
     const onScroll = () => {
       cancelAnimationFrame(raf)
       raf = requestAnimationFrame(measure)
     }
+
     measure()
     window.addEventListener("scroll", onScroll, { passive: true })
+    mq.addEventListener("change", measure)
     return () => {
       window.removeEventListener("scroll", onScroll)
+      mq.removeEventListener("change", measure)
       cancelAnimationFrame(raf)
     }
-    // topOffsets is stable across renders for a given content.steps.length
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content.steps.length])
 
   const displayIndex = hovered ?? active
+  const activeStep = content.steps[displayIndex]
+
+  // Mobile track height: exactly enough for each card to stick in turn, then stop.
+  // = first card + (n-1) scroll steps — no leftover runway after 04.
+  const mobileTrackH =
+    MOBILE_CARD_H + Math.max(0, content.steps.length - 1) * MOBILE_SCROLL_STEP
 
   return (
-    <section ref={sectionRef} className="bg-background py-20 md:py-28">
+    <section className="bg-background py-20 md:py-28">
       <div className="section-shell">
+        {/* ── MOBILE: sticky number + sticky cards (30px peek under the card above) ── */}
         <div className="md:hidden">
-          <p className="type-sans-regular text-numeral-sm leading-none text-[#212121] md:text-numeral">
-            {content.mobileEyebrowNumber}
-          </p>
-          <h2 className="type-sans-regular mt-4 max-w-sm text-title leading-[120%] text-[#212121]/60 md:text-display-xs md:leading-[53.76px]">
-            {content.mobileHeading}
-          </h2>
-          <div className="mt-10 flex flex-col">
-            {disciplines.map((item, index) => (
-              <article
-                key={item.id}
-                className={cn(
-                  "min-h-28 rounded-[2rem] p-8",
-                  index > 0 && "-mt-5",
-                  index === 0 && "bg-primary text-primary-foreground",
-                  index === 1 && "bg-lavender text-foreground",
-                  index === 2 && "bg-accent text-accent-foreground",
-                  index === 3 && "bg-mustard text-foreground",
-                )}
+          <div
+            className="sticky z-30 bg-background pb-5 pt-5"
+            style={{ top: MOBILE_NUM_STICKY_TOP, margin: '-2px' }}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={displayIndex}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
               >
-                <h3 className="type-sans-regular flex items-center gap-3 text-title-lg leading-[31.76px]">
-                  <FourDots activeIndex={index} className="shrink-0 text-white" />
-                  {item.mobileLabel}
-                </h3>
-                {index === 3 && (
-                  <div className="mt-4">
-                    <p className="type-sans-regular text-eyebrow leading-[18px] tracking-[1.95px] uppercase">
-                      {content.mobileHeading}
-                    </p>
-                    <ul className="mt-4 flex flex-col gap-2">
-                      {content.steps.map((step) => (
-                        <li
-                          key={step.id}
-                          className="type-sans-regular flex items-center gap-2 text-eyebrow leading-[18.91px]"
-                        >
-                          <DoubleTick className="shrink-0" />
-                          {step.subheading}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </article>
+                <p className="type-sans-regular text-numeral-sm leading-none text-[#212121]">
+                  {activeStep?.number}
+                </p>
+                <h2 className="type-sans-regular mt-3 max-w-sm text-title leading-[120%] text-[#212121]/60">
+                  {activeStep?.heading}
+                </h2>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          <div className="relative flex flex-col" style={{ height: mobileTrackH }}>
+            {content.steps.map((step, i) => (
+              <div
+                key={step.id}
+                ref={(el) => {
+                  mobileCardRefs.current[i] = el
+                }}
+                className="sticky"
+                style={{
+                  top: mobileTopOffsets[i],
+                  zIndex: i + 1,
+                  height: MOBILE_CARD_H,
+                  // Pull the next card up so track height stays at mobileTrackH
+                  // (visual stick gap is PEEK; scroll gap is SCROLL_STEP).
+                  marginTop:
+                    i === 0 ? 0 : -(MOBILE_CARD_H - MOBILE_SCROLL_STEP),
+                }}
+              >
+                <article
+                  className={cn(
+                    "relative h-full overflow-hidden rounded-[2rem] p-7 shadow-lg sm:p-8",
+                    CARD_STYLES[i % CARD_STYLES.length],
+                  )}
+                >
+                  <StepCardBody step={step} index={i} />
+                </article>
+              </div>
             ))}
           </div>
         </div>
 
+        {/* ── DESKTOP (unchanged behaviour) ── */}
         <div
           className="hidden grid-cols-12 gap-12 md:grid"
           style={{ minHeight: `${Math.max(150, content.steps.length * 70)}vh` }}
@@ -230,11 +308,11 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
               <div
                 key={step.id}
                 ref={(el) => {
-                  cardRefs.current[i] = el
+                  desktopCardRefs.current[i] = el
                 }}
                 className="sticky"
                 style={{
-                  top: topOffsets[i],
+                  top: desktopTopOffsets[i],
                   zIndex: hovered === i ? content.steps.length + 10 : i + 1,
                 }}
               >
@@ -258,33 +336,7 @@ export function ProcessStepCounter({ content, disciplines }: Props) {
                     paddingBottom: CARD_PAD_BOTTOM,
                   }}
                 >
-                  {/* Dot icon + heading — the only row revealed in a stacked card's peek */}
-                  <div className="flex items-center gap-4">
-                    <FourDots activeIndex={i} className="shrink-0 text-white" />
-                    <h3 className="type-sans-regular text-title-lg leading-[31.76px] md:text-heading md:leading-[53.76px]">
-                      {step.subheading}
-                    </h3>
-                  </div>
-
-                  {step.cardSubheading && (
-                    <p className="type-sans-regular mt-7 max-w-md text-eyebrow leading-[18px] tracking-[1.95px] uppercase">
-                      {step.cardSubheading}
-                    </p>
-                  )}
-
-                  {step.points && step.points.length > 0 && (
-                    <ul className="mt-8 flex flex-col" style={{ gap: POINT_GAP }}>
-                      {step.points.map((point) => (
-                        <li
-                          key={point}
-                          className="type-sans-regular flex items-center gap-3 text-eyebrow leading-[18.91px]"
-                        >
-                          <DoubleTick className="shrink-0" />
-                          {point}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+                  <StepCardBody step={step} index={i} />
                 </motion.article>
               </div>
             ))}
