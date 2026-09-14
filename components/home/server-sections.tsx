@@ -88,6 +88,7 @@ export function Hero({ content }: { content: HomePage["hero"] }) {
               arrowClassName="text-[#3A39FF]"
             />
           </div>
+          {/* Previous mobile geometric placeholders — replaced by HeroVisual Lottie
           <div className="mt-8 grid grid-cols-2 gap-2 md:hidden">
             <div className="h-32 rounded-2xl bg-accent" />
             <div className="row-span-2 rounded-2xl bg-mustard" />
@@ -96,10 +97,11 @@ export function Hero({ content }: { content: HomePage["hero"] }) {
               <div className="h-24 rounded-xl bg-primary" />
             </div>
           </div>
+          */}
         </div>
 
-        {/* Shapes — larger Lottie, behind copy when overlapping */}
-        <div className="relative -z-10 hidden lg:col-start-2 lg:row-start-2 lg:-ml-16 lg:mt-0 lg:block xl:-ml-24">
+        {/* Lottie cards — mobile stacks below copy; desktop sits in right column */}
+        <div className="relative z-0 mt-10 lg:col-start-2 lg:row-start-2 lg:z-[-1] lg:-ml-16 lg:mt-0 xl:-ml-24">
           <HeroVisual />
         </div>
       </div>
