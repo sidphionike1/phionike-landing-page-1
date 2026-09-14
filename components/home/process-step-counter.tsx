@@ -137,7 +137,7 @@ function StepCardBody({
       </div>
 
       {step.cardSubheading && (
-        <p className="type-sans-regular mt-5 max-w-md text-eyebrow leading-[18px] tracking-[1.95px] uppercase md:mt-7">
+        <p className="type-sans-regular mt-5 max-w-md text-body-sm leading-[18px] tracking-[1.95px] uppercase md:mt-7">
           {step.cardSubheading}
         </p>
       )}
@@ -147,7 +147,7 @@ function StepCardBody({
           {step.points.map((point) => (
             <li
               key={point}
-              className="type-sans-regular flex items-center gap-3 text-eyebrow leading-[18.91px]"
+              className="type-sans-regular flex items-center gap-3 text-body-sm leading-[18.91px]"
             >
               <DoubleTick className="shrink-0" />
               {point}
@@ -317,8 +317,8 @@ export function ProcessStepCounter({ content, disciplines: _disciplines }: Props
                 }}
               >
                 <motion.article
-                  onMouseEnter={() => setHovered(i)}
-                  onMouseLeave={() => setHovered(null)}
+                  // onMouseEnter={() => setHovered(i)}
+                  // onMouseLeave={() => setHovered(null)}
                   animate={{
                     y: hovered === i ? -28 : 0,
                     scale: hovered === i ? 1.02 : 1,

@@ -58,14 +58,14 @@ export function FloatingNavbar({ content }: { content: HomePage["nav"] }) {
 export function Hero({ content }: { content: HomePage["hero"] }) {
   return (
     <section className="bg-background">
-      <div className="section-shell grid grid-cols-1 pb-16 pt-32 lg:grid-cols-[minmax(0,1fr)_auto] lg:grid-rows-[auto_auto] lg:items-start lg:gap-x-1 lg:pb-24 lg:pt-40">
+      <div className="section-shell relative isolate grid grid-cols-1 overflow-x-clip pb-16 pt-32 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:grid-rows-[auto_auto] lg:items-start lg:gap-x-0 lg:pb-24 lg:pt-40">
         {/* Eyebrow sits above the aligned headline ↔ shapes row */}
         <p className="type-sans-medium text-caption leading-[16.5px] tracking-[3.3px] uppercase text-[#212121]/60 lg:col-start-1 lg:row-start-1">
           {content.eyebrow}
         </p>
 
         {/* Headline → CTAs: top aligns with shapes, CTAs pin to shape bottoms */}
-        <div className="mt-5 flex flex-col lg:col-start-1 lg:row-start-2 lg:h-[487px]">
+        <div className="relative z-10 mt-5 flex flex-col lg:col-start-1 lg:row-start-2 lg:h-[560px]">
           <div>
             <h1 className="type-sans-medium whitespace-pre-line text-heading leading-normal text-[#212121] md:text-hero md:leading-[80px]">
               {content.headlineDark}
@@ -98,8 +98,8 @@ export function Hero({ content }: { content: HomePage["hero"] }) {
           </div>
         </div>
 
-        {/* Shapes start on the same row as the headline (not the eyebrow) */}
-        <div className="hidden lg:col-start-2 lg:row-start-2 lg:mt-5 lg:block">
+        {/* Shapes — larger Lottie, behind copy when overlapping */}
+        <div className="relative -z-10 hidden lg:col-start-2 lg:row-start-2 lg:-ml-16 lg:mt-0 lg:block xl:-ml-24">
           <HeroVisual />
         </div>
       </div>

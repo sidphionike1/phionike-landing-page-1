@@ -161,36 +161,45 @@ function ProcessBand({
         />
       </div>    
 
-      <div className="section-shell relative grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+      <div className="section-shell relative grid items-start gap-10 lg:grid-cols-[65fr_35fr] lg:gap-16">
         <div>
+          {/* Step label — desktop: Sans Medium 20 / 4px tracking */}
           <span
             className={cn(
-              "type-vf-regular text-body-sm leading-normal tracking-[0.28em] md:text-title md:tracking-[0.32em]",
-              light ? "text-[#121212]/80" : "text-white/80",
+              "type-sans-medium block text-[14px] leading-normal tracking-[2.5px] md:text-[20px] md:tracking-[4px]",
+              light ? "text-[#121212]" : "text-white",
             )}
+            style={{ fontWeight: 550 }}
           >
             {stageLabel(step)}
           </span>
+          {/* Heading — desktop: VF Medium 52 / 120% / -2px */}
           <h3
             className={cn(
-              "type-sans-medium mt-8 max-w-xl text-[22px] leading-[145%] tracking-[-0.3px] md:text-[34px] md:leading-[150%] md:tracking-[-0.4px]",
+              "type-vf-medium mt-5 max-w-xl text-[22px] leading-[120%] tracking-[-0.5px] md:mt-8 md:text-[52px] md:tracking-[-2px]",
               light ? "text-[#121212]" : "text-white",
             )}
+            style={{
+              fontWeight: 550,
+              fontVariationSettings: '"wght" 550, "SERF" 0, "slnt" 0',
+            }}
           >
             {formatProcessHeading(step.heading)}
           </h3>
+          {/* Body — desktop: Sans Regular 20 / 140% */}
           <p
             className={cn(
-              "type-vf-regular mt-6 max-w-xl text-body leading-[150%]",
+              "type-sans-regular mt-4 max-w-xl text-[14px] leading-[140%] md:mt-6 md:text-[20px]",
               light ? "text-[#121212]/90" : "text-white/90",
             )}
+            style={{ fontWeight: 400, letterSpacing: 0 }}
           >
             {step.longDescription}
           </p>
         </div>
 
-        {/* Align list titles with the process heading (below the stage label) */}
-        <div className="flex flex-col gap-10 lg:pt-[3.25rem]">
+        {/* Align list titles with the process heading on desktop */}
+        <div className="flex flex-col gap-8 md:gap-10 lg:pt-[3.25rem]">
           <List title="What We Do" items={step.whatWeDo} light={light} />
           <List title="Client Outcomes" items={step.clientOutcomes} light={light} />
         </div>
@@ -202,10 +211,10 @@ function ProcessBand({
 /** Soft line break for long process headings so line-height reads clearly. */
 function formatProcessHeading(heading: string) {
   const patterns = [
-    /^(Understand the right problem)\s+(before building the solution\.?)$/i,
-    /^(Turn insights into experiences)\s+(people can understand and use\.?)$/i,
+    /^(Understand the right )\s+(problem before building the solution\.?)$/i,
+    /^(Turn insights into )\s+(experiences people can understand and use\.?)$/i,
     /^(Design, refine and improve)\s+(through continuous learning\.?)$/i,
-    /^(Create systems that support)\s+(long[- ]term growth\.?)$/i,
+    /^(Create systems that )\s+(support long[- ]term growth\.?)$/i,
   ]
 
   for (const re of patterns) {
@@ -235,22 +244,25 @@ function List({
 }) {
   return (
     <div>
+      {/* Section heading — desktop: Sans Bold 20 / -0.5px */}
       <h4
         className={cn(
-          "type-vf-medium text-body-lg leading-normal tracking-[-0.5px]",
+          "type-sans-bold text-[16px] leading-normal tracking-[-0.5px] md:text-[20px]",
           light ? "text-[#121212]" : "text-white",
         )}
+        style={{ fontWeight: 750 }}
       >
         {title}
       </h4>
-      <ul className="mt-4 flex flex-col gap-2.5">
+      <ul className="mt-3 flex flex-col gap-2 md:mt-4 md:gap-2.5">
         {items.map((i) => (
           <li
             key={i}
             className={cn(
-              "type-vf-regular flex items-center gap-3 text-body-sm leading-[140%]",
+              "type-sans-regular flex items-center gap-3 text-[14px] leading-[140%] md:text-[18px]",
               light ? "text-[#121212]/90" : "text-white/90",
             )}
+            style={{ fontWeight: 400, letterSpacing: 0 }}
           >
             <span
               aria-hidden
