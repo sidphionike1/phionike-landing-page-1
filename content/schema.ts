@@ -58,7 +58,8 @@ export const processAndAiSchema = z.object({
   frameworkSection: z.object({ 
     badge: z.string(), 
     headlineMain: z.string(), 
-    headlineAccent: z.string(), 
+    headlineAccent: z.string(),
+    headlineEnd: z.string().optional(),
     subheadline: z.string(),
     resultStatement: z.string(),
     prototypeA: z.object({ 

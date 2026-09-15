@@ -37,7 +37,7 @@ export function ProcessAiHero({ hero }: { hero: ProcessAndAi['hero'] }) {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="type-sans-regular text-caption uppercase tracking-[0.12em] text-[#121212]/60 md:text-body-sm"
+          className="type-sans-regular text-caption uppercase tracking-[0.12em] text-[#121212]/60 md:text-body-sm md:leading-normal md:tracking-[3px]"
         >
           {hero.badge}
         </motion.p>
@@ -47,7 +47,7 @@ export function ProcessAiHero({ hero }: { hero: ProcessAndAi['hero'] }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="type-sans-medium mt-6 max-w-[820px] text-[36px] leading-[44px] tracking-[-0.5px] text-[#121212] md:text-hero md:leading-[80px]"
+          className="type-sans-medium mt-6 max-w-[820px] text-[36px] leading-[44px] tracking-[-0.5px] text-[#121212] md:text-hero md:leading-[80px] md:tracking-[-0.8px]"
         >
           {headlineLines.map((line) => (
             <span key={line} className="block">
@@ -61,7 +61,7 @@ export function ProcessAiHero({ hero }: { hero: ProcessAndAi['hero'] }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="type-sans-regular mt-4 max-w-[600px] text-body-lg leading-[24px] text-[#121212]/80 md:text-title"
+          className="type-sans-regular mt-4 max-w-[600px] text-body-lg leading-[24px] text-[#121212]/80 md:max-w-[520px] md:text-title md:leading-[160%]"
         >
           {hero.subheadline}
         </motion.p>
@@ -74,13 +74,13 @@ export function ProcessAiHero({ hero }: { hero: ProcessAndAi['hero'] }) {
         >
           <Link
             href="/work"
-            className="type-sans-regular inline-flex items-center rounded-full bg-ink px-7 py-4 text-body-sm text-white"
+            className="type-sans-semibold inline-flex items-center rounded-full bg-ink px-7 py-4 text-body-sm leading-normal text-white md:text-body"
           >
             {hero.primaryCta}
           </Link>
           <Link
             href="/contact"
-            className="type-sans-regular inline-flex items-center rounded-full border border-[#111111] bg-transparent px-7 py-4 text-body-sm text-[#111111] transition-colors hover:bg-[#111111] hover:text-white"
+            className="type-sans-semibold inline-flex items-center rounded-full border border-[#111111] bg-transparent px-7 py-4 text-body-sm leading-normal text-[#111111] transition-colors hover:bg-[#111111] hover:text-white md:text-body"
           >
             {hero.secondaryCta}
           </Link>
@@ -118,8 +118,9 @@ function ProcessColumn({
 }) {
   const isBlue = variant === 'blue'
   const lastRowIdx = rows.length - 1
+  // Desktop: keep each flow row on one line (Validation must sit with Brief → … → Prototype A).
   const pill =
-    'type-sans-regular inline-flex items-center gap-1.5 rounded-full px-5 py-3 text-eyebrow whitespace-nowrap'
+    'type-sans-semibold inline-flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2.5 text-eyebrow whitespace-nowrap md:px-3.5 md:py-2 md:text-label md:leading-normal'
 
   return (
     <motion.div
@@ -127,7 +128,7 @@ function ProcessColumn({
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay }}
-      className={`flex flex-col rounded-2xl p-7 ${
+      className={`flex min-w-0 flex-col rounded-2xl p-7 ${
         isBlue
           ? ''
           : 'border border-[#EDE7DF] bg-white shadow-[0_1px_3px_rgba(17,17,17,0.04)]'
@@ -136,12 +137,12 @@ function ProcessColumn({
     >
       <div className="flex items-baseline justify-between gap-4">
         <h3
-          className={`type-sans-bold text-title-md md:text-title-lg ${isBlue ? 'text-white' : 'text-[#121212]'}`}
+          className={`type-sans-semibold text-title-md leading-normal md:text-title-sm md:uppercase ${isBlue ? 'text-white' : 'text-[#121212]'}`}
         >
           {title}
         </h3>
         <span
-          className={`type-sans-semibold whitespace-nowrap ${
+          className={`type-sans-semibold whitespace-nowrap leading-normal ${
             isBlue ? 'text-micro text-white' : 'text-eyebrow text-[#666666]'
           }`}
         >
@@ -149,10 +150,10 @@ function ProcessColumn({
         </span>
       </div>
 
-      {/* Flow rows */}
-      <div className="mt-8 flex flex-col gap-4">
+      {/* Flow rows — nowrap from md so first-row items (incl. Validation) never wrap */}
+      <div className="mt-8 flex flex-col gap-4 overflow-x-auto">
         {rows.map((row, rowIdx) => (
-          <div key={rowIdx} className="flex flex-wrap items-center gap-3">
+          <div key={rowIdx} className="flex flex-wrap items-center gap-2 md:flex-nowrap md:gap-2.5">
             {row.map((item, itemIdx) => {
               // The flow continues past every step, so a wrapped row normally ends
               // on a connector leading into the next one. When the next row already
@@ -170,7 +171,7 @@ function ProcessColumn({
                   : undefined
 
               return (
-                <div key={itemIdx} className="flex items-center gap-3">
+                <div key={itemIdx} className="flex shrink-0 items-center gap-2 md:gap-2.5">
                   {item.text &&
                     (isBlue ? (
                       accentFill ? (
@@ -231,13 +232,13 @@ export function ComparisonSection({ section }: { section: ProcessAndAi['comparis
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <p className="type-sans-regular text-caption leading-[16.5px] tracking-[3.3px] text-[#212121]">
+        <p className="type-sans-medium text-caption leading-[16.5px] tracking-[3.3px] uppercase text-[#212121] md:text-eyebrow">
           {section.badge}
         </p>
-        {/* Mobile lead 28/36; desktop 40/52; italic clause takes its own line from md up. */}
-        <h2 className="type-sans-regular mt-8 max-w-[900px] text-lead leading-[36px] tracking-[-0.5px] text-[#121212] md:text-display-xs md:leading-[52px]">
+        {/* Mobile lead 28/36; desktop Sans Regular/Light Italic 40/52. */}
+        <h2 className="type-sans-regular mt-8 max-w-[900px] text-lead leading-[36px] tracking-[-0.5px] text-[#121212] md:text-display-xs md:leading-[52px] md:tracking-normal">
           {section.titleMain}{' '}
-          <span className="type-sans-light-italic text-lead text-[#121212]/40 md:block md:text-display-xs">
+          <span className="type-sans-light-italic text-lead text-[#121212]/40 md:block md:text-display-xs md:leading-[52px]">
             {section.titleSub}
           </span>
         </h2>
@@ -287,9 +288,9 @@ function PhaseCardTile({ card, fixedSize }: { card: PhaseCard; fixedSize: boolea
         <Icon className="h-5 w-5" style={{ color: card.bg }} strokeWidth={2} aria-hidden="true" />
       </div>
       <div>
-        <p className="type-sans-medium text-eyebrow text-white opacity-70">{card.id}</p>
-        <h3 className="type-sans-regular mt-1 text-body-lg leading-tight text-white">{card.title}</h3>
-        <p className="type-sans-regular mt-1.5 text-label leading-[18px] text-white/90">{card.description}</p>
+        <p className="type-sans-medium text-eyebrow text-white opacity-70 md:text-eyebrow md:leading-normal">{card.id}</p>
+        <h3 className="type-sans-bold mt-1 text-body-lg leading-tight text-white md:text-body-lg md:leading-normal">{card.title}</h3>
+        <p className="type-sans-regular mt-1.5 text-label leading-[18px] text-white/90 md:text-eyebrow md:leading-normal">{card.description}</p>
       </div>
     </div>
   )
@@ -300,14 +301,14 @@ function PhasesFooterNote({ note }: { note: ProcessAndAi['phasesSection']['foote
     <div className="mt-10 grid grid-cols-2 gap-10">
       <div>
         <div className="h-px bg-[#3A39FF]" />
-        <div className="mt-2.5 flex items-center gap-1.5 type-sans-bold text-caption uppercase tracking-[0.15em] text-[#3A39FF]">
+        <div className="mt-2.5 flex items-center gap-1.5 type-sans-bold text-caption uppercase tracking-[0.15em] text-[#3A39FF] md:text-[11px] md:leading-normal">
           <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-current" aria-hidden="true" />
           {note.startLabel}
         </div>
       </div>
       <div>
         <div className="h-px bg-[#FF5B23]" />
-        <div className="mt-2.5 flex items-center justify-end gap-1.5 type-sans-bold text-caption uppercase tracking-[0.15em] text-[#FF5B23]">
+        <div className="mt-2.5 flex items-center justify-end gap-1.5 type-sans-bold text-caption uppercase tracking-[0.15em] text-[#FF5B23] md:text-[11px] md:leading-normal">
           {note.endLabel}
           <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-current" aria-hidden="true" />
         </div>
@@ -379,9 +380,9 @@ export function PhasesGrid({ section }: { section: ProcessAndAi['phasesSection']
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="type-sans-regular text-lead leading-[36px] tracking-[-0.5px] text-[#121212] md:text-display-md md:leading-[64px]">
+          <h2 className="type-sans-regular text-lead leading-[36px] tracking-[-0.5px] text-[#121212] md:text-display-md md:leading-[64px] md:tracking-normal">
             {section.headlineMain}{' '}
-            <span className="type-sans-regular text-lead text-[#FF5B23] md:text-display-md">{section.headlineAccent}</span>
+            <span className="type-sans-regular text-lead text-[#FF5B23] md:text-display-md md:leading-[64px]">{section.headlineAccent}</span>
           </h2>
         </motion.div>
 
@@ -410,14 +411,18 @@ export function DualPrototypeFramework({ framework }: { framework: ProcessAndAi[
         transition={{ duration: 0.6 }}
         className="text-center mb-10 md:mb-16"
       >
-        <span className="type-sans-regular text-caption uppercase tracking-[0.2em] text-[#121212]/60">
+        <span className="type-sans-semibold text-caption uppercase tracking-[0.2em] text-[#121212]/60 md:text-[11px] md:leading-normal md:tracking-normal">
           {framework.badge}
         </span>
-        <h2 className="type-sans-regular mt-4 mx-auto max-w-3xl text-lead leading-[36px] tracking-[-0.5px] text-[#111625] md:text-display md:leading-[1.15]">
+        {/* Desktop: single-line title — "Dual Prototype" accent only, per Figma */}
+        <h2 className="type-sans-regular mt-4 mx-auto max-w-3xl text-lead leading-[36px] tracking-[-0.5px] text-[#111625] md:max-w-none md:whitespace-nowrap md:text-display md:leading-normal md:tracking-normal">
           {framework.headlineMain}{' '}
-          <span className="type-sans-regular text-lead text-[#FF5B23] md:text-display">{framework.headlineAccent}</span>
+          <span className="type-sans-regular text-lead text-[#FF5B23] md:text-display md:leading-normal">
+            {framework.headlineAccent}
+          </span>
+          {framework.headlineEnd ? <> {framework.headlineEnd}</> : null}
         </h2>
-        <p className="type-sans-regular mx-auto mt-4 max-w-2xl text-body-sm leading-[20px] text-[#606673] md:mt-6 md:text-body">
+        <p className="type-sans-medium mx-auto mt-4 max-w-2xl whitespace-pre-line text-body-sm leading-[20px] text-[#606673] md:mt-6 md:text-body md:leading-[150%]">
           {framework.subheadline}
         </p>
       </motion.div>
@@ -433,13 +438,13 @@ export function DualPrototypeFramework({ framework }: { framework: ProcessAndAi[
           className="border border-neutral-300/60 rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8"
           style={{ backgroundColor: framework.prototypeA.cardBg }}
         >
-          <h3 className="type-sans-regular text-title-lg text-[#111625] md:text-lead">
+          <h3 className="type-sans-medium text-title-lg text-[#111625] md:text-lead md:leading-normal">
             {framework.prototypeA.title}
           </h3>
-          <p className="type-sans-semibold mt-1 text-title md:text-title-lg" style={{ color: framework.prototypeA.taglineColor }}>
+          <p className="type-sans-bold mt-1 text-title leading-normal md:text-title" style={{ color: framework.prototypeA.taglineColor }}>
             {framework.prototypeA.tagline}
           </p>
-          <p className="type-sans-regular mt-3 text-body-sm leading-[22px] text-[#606673] md:text-body md:leading-[24px]">
+          <p className="type-sans-regular mt-3 whitespace-pre-line text-body-sm leading-[22px] text-[#606673] md:text-body-sm md:leading-[140%]">
             {framework.prototypeA.description}
           </p>
 
@@ -474,13 +479,13 @@ export function DualPrototypeFramework({ framework }: { framework: ProcessAndAi[
           <div className="hidden lg:grid grid-cols-2 gap-8 mt-8 pt-8 border-t border-neutral-200/50">
             {/* What Happens */}
             <div>
-              <h4 className="type-sans-bold text-body-sm" style={{ color: framework.prototypeA.taglineColor }}>
+              <h4 className="type-sans-bold text-body-sm md:text-body-sm md:leading-normal" style={{ color: framework.prototypeA.taglineColor }}>
                 What Happens
               </h4>
               <ul className="mt-4 space-y-2">
                 {framework.prototypeA.whatHappens.map((item, idx) => (
-                  <li key={idx} className="type-sans-medium flex items-start gap-2 text-label text-[#111625]">
-                    <span className="font-bold mt-0.5" style={{ color: framework.prototypeA.taglineColor }}>›</span>
+                  <li key={idx} className="type-sans-medium flex items-center gap-2 text-label leading-normal text-[#111625]">
+                    <span className="type-sans-bold mb-0.5 leading-none" style={{ color: framework.prototypeA.taglineColor }}>›</span>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -489,13 +494,13 @@ export function DualPrototypeFramework({ framework }: { framework: ProcessAndAi[
 
             {/* What You Gain */}
             <div>
-              <h4 className="type-sans-bold text-body-sm" style={{ color: framework.prototypeA.taglineColor }}>
+              <h4 className="type-sans-bold text-body-sm md:text-body-sm md:leading-normal" style={{ color: framework.prototypeA.taglineColor }}>
                 What You Gain
               </h4>
               <ul className="mt-4 space-y-2">
                 {framework.prototypeA.whatYouGain.map((item, idx) => (
-                  <li key={idx} className="type-sans-medium flex items-start gap-2 text-label text-[#111625]">
-                    <span className="font-bold mt-0.5" style={{ color: framework.prototypeA.taglineColor }}>›</span>
+                  <li key={idx} className="type-sans-medium flex items-center gap-2 text-label leading-normal text-[#111625]">
+                    <span className="type-sans-bold mb-0.5 leading-none" style={{ color: framework.prototypeA.taglineColor }}>›</span>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -513,13 +518,13 @@ export function DualPrototypeFramework({ framework }: { framework: ProcessAndAi[
           className="border border-neutral-300/60 rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8"
           style={{ backgroundColor: framework.prototypeB.cardBg }}
         >
-          <h3 className="type-sans-regular text-title-lg text-[#111625] md:text-lead">
+          <h3 className="type-sans-medium text-title-lg text-[#111625] md:text-lead md:leading-normal">
             {framework.prototypeB.title}
           </h3>
-          <p className="type-sans-semibold mt-1 text-title md:text-title-lg" style={{ color: framework.prototypeB.taglineColor }}>
+          <p className="type-sans-bold mt-1 text-title leading-normal md:text-title" style={{ color: framework.prototypeB.taglineColor }}>
             {framework.prototypeB.tagline}
           </p>
-          <p className="type-sans-regular mt-3 text-body-sm leading-[22px] text-[#606673] md:text-body md:leading-[24px]">
+          <p className="type-sans-regular mt-3 whitespace-pre-line text-body-sm leading-[22px] text-[#606673] md:text-body-sm md:leading-[140%]">
             {framework.prototypeB.description}
           </p>
 
@@ -539,13 +544,13 @@ export function DualPrototypeFramework({ framework }: { framework: ProcessAndAi[
           <div className="hidden lg:grid grid-cols-2 gap-8 mt-8 pt-8 border-t border-neutral-200/50">
             {/* What Happens */}
             <div>
-              <h4 className="type-sans-bold text-body-sm" style={{ color: framework.prototypeB.taglineColor }}>
+              <h4 className="type-sans-bold text-body-sm md:text-body-sm md:leading-normal" style={{ color: framework.prototypeB.taglineColor }}>
                 What Happens
               </h4>
               <ul className="mt-4 space-y-2">
                 {framework.prototypeB.whatHappens.map((item, idx) => (
-                  <li key={idx} className="type-sans-medium flex items-start gap-2 text-label text-[#111625]">
-                    <span className="font-bold mt-0.5" style={{ color: framework.prototypeB.taglineColor }}>›</span>
+                  <li key={idx} className="type-sans-medium flex items-center gap-2 text-label leading-normal text-[#111625]">
+                    <span className="type-sans-bold mb-0.5 leading-none" style={{ color: framework.prototypeB.taglineColor }}>›</span>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -554,13 +559,13 @@ export function DualPrototypeFramework({ framework }: { framework: ProcessAndAi[
 
             {/* What You Gain */}
             <div>
-              <h4 className="type-sans-bold text-body-sm" style={{ color: framework.prototypeB.taglineColor }}>
+              <h4 className="type-sans-bold text-body-sm md:text-body-sm md:leading-normal" style={{ color: framework.prototypeB.taglineColor }}>
                 What You Gain
               </h4>
               <ul className="mt-4 space-y-2">
                 {framework.prototypeB.whatYouGain.map((item, idx) => (
-                  <li key={idx} className="type-sans-medium flex items-start gap-2 text-label text-[#111625]">
-                    <span className="font-bold mt-0.5" style={{ color: framework.prototypeB.taglineColor }}>›</span>
+                  <li key={idx} className="type-sans-medium flex items-center gap-2 text-label leading-normal text-[#111625]">
+                    <span className="type-sans-bold mb-0.5 leading-none" style={{ color: framework.prototypeB.taglineColor }}>›</span>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -581,7 +586,7 @@ export function DualPrototypeFramework({ framework }: { framework: ProcessAndAi[
         <svg className="w-5 h-5 text-[#2538F5] flex-shrink-0 mt-0.5 md:mt-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
         </svg>
-        <p className="text-sm md:text-base leading-relaxed">
+        <p className="text-sm md:text-body-sm md:leading-normal">
           <span className="type-sans-bold text-body-sm text-[#111625]">{resultLead}:</span>{' '}
           <span className="type-sans-medium text-body-sm text-[#606673]">{resultRest}</span>
         </p>
@@ -598,10 +603,10 @@ export function DualPrototypeFramework({ framework }: { framework: ProcessAndAi[
             transition={{ duration: 0.6, delay: idx * 0.1 }}
             className="text-left bg-[#EEF0FE] rounded-2xl p-5 md:p-6"
           >
-            <div className="type-sans-bold text-lead text-[#3F3DFA]">
+            <div className="type-sans-bold text-lead leading-normal text-[#3F3DFA] md:text-title-lg">
               {metric.value}
             </div>
-            <div className="type-sans-semibold mt-2 text-eyebrow uppercase tracking-wider text-[#606673]">
+            <div className="type-sans-semibold mt-2 text-eyebrow leading-normal tracking-wider text-[#606673] md:text-[11px] md:tracking-normal">
               {metric.label}
             </div>
           </motion.div>
@@ -694,12 +699,12 @@ function FrameworkHeader({ badge, headlineMain, headlineItalic }: Omit<Framework
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
     >
-      <span className="type-sans-regular text-caption leading-[16.5px] tracking-[3.3px] uppercase text-[#212121]">
+      <span className="type-sans-medium text-caption leading-[16.5px] tracking-[3.3px] uppercase text-[#212121] md:text-eyebrow">
         {badge}
       </span>
-      <h2 className="type-sans-regular mt-4 text-lead leading-[36px] text-[#121212] md:whitespace-nowrap md:text-[40px] md:leading-[58px]">
+      <h2 className="type-sans-regular mt-4 text-lead leading-[36px] text-[#121212] md:whitespace-nowrap md:text-display-xs md:leading-[58px]">
         {headlineMain}{' '}
-        <span className="type-sans-light-italic text-lead text-[#121212]/40 md:text-[40px]">{headlineItalic}</span>
+        <span className="type-sans-light-italic text-lead text-[#121212]/40 md:text-display-xs md:leading-[58px]">{headlineItalic}</span>
       </h2>
     </motion.div>
   )
@@ -741,14 +746,14 @@ function FrameworkCard({ step, index }: { step: FrameworkStep; index: number }) 
         </div>
 
         <div className="md:pr-28">
-          <p className="type-sans-semibold text-body-sm uppercase tracking-[2px] md:text-title-lg">
+          <p className="type-sans-regular text-body-sm uppercase tracking-[2px] md:text-title-lg md:leading-normal md:tracking-[4px]">
             {step.eyebrow}
           </p>
           <h3 className="type-sans-regular mt-2 text-title-lg leading-[30px] md:mt-3 md:whitespace-nowrap md:text-display-xs md:leading-[48px]">
             {step.title}
           </h3>
           <p
-            className="type-sans-regular mt-3 max-w-2xl text-body-sm leading-[22px] opacity-80 md:mt-4 md:max-w-[650px] md:text-title md:leading-[26px]"
+            className="type-sans-regular mt-3 max-w-2xl text-body-sm leading-[22px] opacity-80 md:mt-4 md:max-w-[650px] md:text-body-lg md:leading-[22px]"
           >
             {step.description}
           </p>
@@ -804,7 +809,7 @@ function SynergyColumn({
   const bulleted = (items: string[], textClass: string) => (
     <ul className="mt-3 space-y-1.5">
       {items.map((item, i) => (
-        <li key={i} className={`type-sans-regular flex items-start gap-2 text-eyebrow leading-[16px] ${textClass}`}>
+        <li key={i} className={`type-sans-regular flex items-start gap-2 text-eyebrow leading-[16px] md:text-body-sm md:leading-[20px] ${textClass}`}>
           <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-current" aria-hidden="true" />
           <span>{item}</span>
         </li>
@@ -821,14 +826,14 @@ function SynergyColumn({
       className="flex flex-col"
     >
       <div className="pb-3 border-b border-[#E4DED6]">
-        <h3 className="type-sans-bold text-body-lg text-[#121212] md:text-title-lg">{column.step}</h3>
+        <h3 className="type-sans-semibold text-body-lg text-[#121212] md:text-title-lg md:leading-normal">{column.step}</h3>
       </div>
 
       {/* AI Tasks — filled card */}
       <div className={`mt-6 rounded-2xl p-6 ${fillText}`} style={{ backgroundColor: fill }}>
         <div className={`flex items-center gap-2 ${fillMuted}`}>
           <Sparkles className="h-4 w-4" aria-hidden="true" />
-          <span className="type-sans-regular text-caption">AI TASKS</span>
+          <span className="type-sans-semibold text-caption md:text-eyebrow md:leading-normal">AI TASKS</span>
         </div>
         {bulleted(column.aiTasks, fillMuted)}
       </div>
@@ -840,7 +845,7 @@ function SynergyColumn({
       >
         <div className="flex items-center gap-2" style={{ color: darkOnFill ? '#111111' : fill }}>
           <User className="h-4 w-4" aria-hidden="true" />
-          <span className="type-sans-regular text-caption">HUMAN ROLE</span>
+          <span className="type-sans-bold text-caption md:text-eyebrow md:leading-normal">HUMAN ROLE</span>
         </div>
         {bulleted(column.humanRole, 'text-ink')}
       </div>
@@ -857,13 +862,13 @@ export function AiSynergyGrid({ synergy }: { synergy: ProcessAndAi['aiAccelerate
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <p className="type-sans-regular text-caption leading-[16.5px] tracking-[3.3px] text-[#212121]">
+        <p className="type-sans-medium text-caption leading-[16.5px] tracking-[3.3px] uppercase text-[#212121] md:text-eyebrow">
           {synergy.badge}
         </p>
         <h2 className="type-sans-regular mt-4 max-w-none text-lead leading-[36px] tracking-[-0.5px] text-[#121212] md:whitespace-nowrap md:text-display md:leading-[58px] md:tracking-[-1.5px]">
           {synergy.headline}
         </h2>
-        <p className="type-sans-regular mt-4 max-w-2xl text-body-sm leading-[20px] text-[#36454f]">
+        <p className="type-sans-regular mt-4 max-w-2xl text-body-sm leading-[20px] text-[#36454f] md:text-body-lg md:leading-[24px]">
           {synergy.subheadline}
         </p>
       </motion.div>
@@ -901,7 +906,7 @@ export function OutcomesGrid({ outcomes }: { outcomes: ProcessAndAi['outcomesSec
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <span className="type-sans-regular text-caption leading-[16.5px] tracking-[3.3px] uppercase text-[#212121]">
+        <span className="type-sans-medium text-caption leading-[16.5px] tracking-[3.3px] uppercase text-[#212121] md:text-eyebrow">
           {outcomes.badge}
         </span>
         <h2 className="type-sans-regular mt-4 text-lead leading-[36px] tracking-[-0.5px] text-[#121212] md:text-display md:leading-[58px] md:tracking-[-1.5px]">
@@ -927,8 +932,8 @@ export function OutcomesGrid({ outcomes }: { outcomes: ProcessAndAi['outcomesSec
                     <IconComponent className="w-5 h-5" />
                   </div>
                 )}
-                <h3 className="type-sans-semibold text-title-md text-[#121212]">{item.title}</h3>
-                <p className="type-sans-regular mt-2 text-body-sm leading-[22px] text-[#6b6b6b]">
+                <h3 className="type-sans-semibold text-title-md leading-normal text-[#121212] md:text-title-md">{item.title}</h3>
+                <p className="type-sans-regular mt-2 text-body-sm leading-[22px] text-[#6b6b6b] md:text-body-sm md:leading-[22px]">
                   {item.description}
                 </p>
               </div>
@@ -971,14 +976,14 @@ export function CtaClosureBlock({ cta }: { cta: ProcessAndAi['ctaSection'] }) {
         <div className="flex flex-col items-center md:items-end gap-4 relative z-10">
           <Link
             href="/contact"
-            className="type-sans-medium inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-[#111111] px-7 py-3 text-body-sm leading-[21px] text-white shadow-sm transition-all duration-300 hover:bg-neutral-800"
+            className="type-sans-regular inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-[#111111] px-7 py-3 text-body-sm leading-[21px] text-white shadow-sm transition-all duration-300 hover:bg-neutral-800"
           >
             {cta.buttonText}
             <ArrowUpRight className="w-4 h-4" />
           </Link>
           <a
             href={`tel:${cta.phone}`}
-            className="type-sans-medium text-body-sm leading-[21px] text-[#212121] transition-colors hover:text-[#2538F5]"
+            className="type-sans-regular text-body-sm leading-[21px] text-[#212121] transition-colors hover:text-[#2538F5]"
           >
             {cta.phone}
           </a>

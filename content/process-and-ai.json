@@ -108,15 +108,16 @@
   "frameworkSection": {
     "badge": "THE PHIONIKE FRAMEWORK",
     "headlineMain": "The Phionike",
-    "headlineAccent": "Dual Prototype Framework",
-    "subheadline": "We use AI to explore possibilities and validate direction quickly. Once the path is clear, we refine every detail to craft meaningful, scalable experiences.",
+    "headlineAccent": "Dual Prototype",
+    "headlineEnd": "Framework",
+    "subheadline": "We use AI to explore possibilities and validate direction quickly. Once the path is clear, we refine\nevery detail to craft meaningful, scalable experiences.",
     "resultStatement": "The result: Less uncertainty. Less rework. Better outcomes.",
     "prototypeA": {
       "badge": "RAPID UX",
       "title": "Prototype A",
       "tagline": "Explore. Validate. Align.",
       "taglineColor": "#2538F5",
-      "description": "We rapidly map the problem, synthesize insights, and create interactive concepts to validate the right direction early.",
+      "description": "We rapidly map the problem, synthesize insights, and create interactive concepts to\nvalidate the right direction early.",
       "image": "/process-and-ai/playground-p1.svg",
       "cardBg": "#EAE8FC",
       "whatHappens": [
@@ -130,10 +131,8 @@
       "whatYouGain": [
         "Faster stakeholder alignment",
         "Early & continuous feedback",
-        "Drastically reduced decision risk",
-        "Solid business viability map",
-        "Proven interaction patterns",
-        "Clear direction forward"
+        "Drastically reduced direction risk",
+        "Solid business viability map"
       ]
     },
     "prototypeB": {
@@ -141,7 +140,7 @@
       "title": "Prototype B",
       "tagline": "Refine. Systemize. Deliver.",
       "taglineColor": "#E65124",
-      "description": "Once the solution is validated, we craft high-fidelity experiences, build scalable systems and prepare everything for seamless handoff.",
+      "description": "Once the solution is validated, we craft high-fidelity experiences, build scalable systems\nand prepare everything for seamless handoff.",
       "image": "/process-and-ai/playground-p2.svg",
       "cardBg": "#FEF3ED",
       "whatHappens": [
@@ -156,9 +155,7 @@
         "Production-ready designs",
         "Consistent experience scale",
         "Faster engineering velocity",
-        "Scalable product foundations",
-        "Zero technical debt",
-        "Seamless launch readiness"
+        "Scalable product foundations"
       ]
     },
     "metrics": [
