@@ -23,10 +23,10 @@
   "footer": {
     "description": "Research-led, multi-industry, and values-driven. We design products, brands,\nand experiences that move people forward.",
     "copyright": "© 2026 Phionike Studio Ltd. Registered in India.",
-    "location": "OBEROI GARDENS, WeWork Oberoi Commerz II, 1st floor, CTS No. 95, 4 B 3 & 4 590 Off W. E. Highway, D2, City, Goregaon, Mumbai, Maharashtra 400063",
+    "location": "WeWork - Nesco IT Park, Goregaon, Mumbai, India.",
     "copyrightSeparator": "·",
     "contact": {
-      "email": "hello@phionike.studio",
+      "email": "info@phionike.com",
       "phone": "+91 97699 04435"
     },
     "navLinks": [
@@ -61,9 +61,8 @@
       "bandColor": "cobalt",
       "textColor": "white",
       "images": [
-        "https://placehold.co/328x180/E8EAFF/3A39FF?text=Finding+Leaders",
-        "https://placehold.co/110x176/DDE6C8/2F4F1F?text=Soli+Alt",
-        "https://placehold.co/330x180/F2F7E8/2F4F1F?text=Soli"
+        "/disciplines_list/Work Page/Wavelength.png",
+        "/disciplines_list/Work Page/Soli.png"
       ]
     },
     {
@@ -80,8 +79,8 @@
       "bandColor": "lavender",
       "textColor": "charcoal",
       "images": [
-        "https://placehold.co/330x180/141432/FFFFFF?text=ReSolv",
-        "https://placehold.co/328x182/2B3A8F/FFFFFF?text=ReSolv+Mobile"
+        "/disciplines_list/Work Page/ResAI.png",
+        "/disciplines_list/Work Page/Brandintelle.png"
       ]
     },
     {
@@ -98,8 +97,8 @@
       "bandColor": "terracotta",
       "textColor": "white",
       "images": [
-        "https://placehold.co/326x180/7B2D5E/FFFFFF?text=Redesign+Hero",
-        "https://placehold.co/328x150/CCF244/1A1A1A?text=ICP"
+        "/disciplines_list/Work Page/Vetbuddy.png",
+        "/disciplines_list/Work Page/ICP.png"
       ]
     },
     {
@@ -116,8 +115,8 @@
       "bandColor": "mustard",
       "textColor": "charcoal",
       "images": [
-        "https://placehold.co/328x180/F9BD00/1A1A1A?text=Scale+One",
-        "https://placehold.co/328x180/1A1A1A/F9BD00?text=Scale+Two"
+        "/disciplines_list/Work Page/ICP.png",
+        "/disciplines_list/Work Page/Oren.png"
       ]
     }
   ]

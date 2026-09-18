@@ -234,12 +234,6 @@
 @media(min-width:768px){.hero-heading{font-size:var(--fs-hero);line-height:80px}.hero-subhead{font-size:var(--fs-title)}}
 @media(min-width:900px) and (max-width:1249.98px){.hero-heading{line-height:62px}}
 
-.contact-artwork span{position:absolute;display:block;border-radius:2rem;opacity:.55;transform:rotate(-16deg)}
-.contact-artwork span:nth-child(1){right:8%;top:8%;height:15rem;width:15rem;background:var(--peach);transform:rotate(42deg)}
-.contact-artwork span:nth-child(2){right:25%;top:4%;height:14rem;width:14rem;background:var(--lavender);transform:rotate(-10deg)}
-.contact-artwork span:nth-child(3){left:8%;bottom:0;height:16rem;width:16rem;background:#f9e9a9;transform:rotate(-18deg)}
-.contact-artwork span:nth-child(4){right:22%;bottom:7%;height:13rem;width:13rem;background:#ead6ed;transform:rotate(38deg)}
-@media(max-width:767px){.contact-artwork span:nth-child(1){right:2%;height:10rem;width:10rem}.contact-artwork span:nth-child(2){right:26%;height:9rem;width:9rem}.contact-artwork span:nth-child(3){left:5%;height:11rem;width:11rem}.contact-artwork span:nth-child(4){right:18%;height:9rem;width:9rem}}
 
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}

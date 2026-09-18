@@ -155,13 +155,13 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
           <span className="type-sans-regular block text-heading leading-[120%] text-[#212121] md:text-display-xs md:leading-[47.84px]">
             {content.heading}
           </span>
-          <em className="type-sans-light-italic block text-heading leading-[120%] text-[#212121]/60 md:text-display-xs md:leading-[47.84px]">
+          <em className="type-sans-light-italic block whitespace-pre-line text-heading leading-[120%] text-[#212121]/60 md:whitespace-normal md:text-display-xs md:leading-[47.84px]">
             {content.subheading}
           </em>
         </h2>
 
         {/* 6:4 Grid */}
-        <div className="mt-8 grid gap-6 md:mt-14 md:grid-cols-[6fr_4fr] md:items-stretch md:gap-8">
+        <div className="mt-6 grid gap-6 md:mt-14 md:grid-cols-[6fr_4fr] md:items-stretch md:gap-8">
           {/* LEFT — Venn Diagram
               Mobile: size to the stage aspect ratio so we don't leave empty
               whitespace under the ovals (min-h-[420px] was the culprit). */}
@@ -221,16 +221,16 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
 
                 const offsetClass =
                   index === 1
-                    ? "relative right-[50px] md:right-[100px]"
+                    ? "relative md:right-[100px]"
                     : index === 2
-                      ? "relative left-[50px] md:left-[100px]"
+                      ? "relative md:left-[100px]"
                       : "";
 
                 return (
                   <button
                     key={d.id}
                     onClick={() => select("discipline", d.id)}
-                    className={`type-sans-medium rounded-full px-3.5 py-1.5 text-[11px] leading-[16px] transition-all duration-300 md:px-7 md:py-3 md:text-body-sm md:leading-[19.5px] ${offsetClass} ${
+                    className={`type-sans-medium whitespace-nowrap rounded-full px-3.5 py-1.5 text-[11px] leading-[16px] transition-all duration-300 md:px-7 md:py-3 md:text-body-sm md:leading-[19.5px] ${offsetClass} ${
                       isDefault
                         ? "bg-foreground text-white hover:scale-105"
                         : isActive
@@ -256,11 +256,11 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
           >
             {isDefault ? (
               /* Default state — original implementation */
-              <div className="flex h-full flex-col justify-center px-2 py-6 md:px-6 md:py-8">
+              <div className="flex h-full flex-col justify-center px-0 py-0 md:px-6 md:py-8">
                 <p className="type-sans-medium max-w-lg text-title leading-normal text-[#444242]">
                   {content.supportCopy}
                 </p>
-                <div className="mt-8 border-t border-border pt-6 md:mt-10 md:pt-8">
+                <div className="mt-6 border-t border-border pt-6 md:mt-10 md:pt-8">
                   {content.stats.map((stat, i) => (
                     <div
                       key={stat.label}
@@ -283,7 +283,7 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
                 </div>
                 <a
                   href={content.cta.href}
-                  className="type-sans-medium mt-10 inline-flex items-center gap-2 border-b border-[#111111] pb-1 text-label leading-[19.5px] text-[#111111] transition-opacity hover:opacity-70"
+                  className="type-sans-medium mt-6 inline-flex w-fit self-center items-center gap-2 border-b border-[#111111] pb-1 text-label leading-[19.5px] text-[#111111] transition-opacity hover:opacity-70 md:mt-10 md:w-full md:self-auto"
                 >
                   {content.cta.label}
                   {/* <ArrowUpRight size={14} /> */}

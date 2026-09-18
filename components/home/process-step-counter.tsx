@@ -43,7 +43,7 @@ const ACTIVATE_EARLY_PX = STEP_TOP + 80
 const MOBILE_NUM_STICKY_TOP = 62
 const MOBILE_PEEK = 70
 /** Sticky top of the first card (clears navbar + sticky number). */
-const MOBILE_CARD_STICKY_BASE = 192
+const MOBILE_CARD_STICKY_BASE = 198
 const MOBILE_CARD_H = 340
 /**
  * Document gap between cards (before collapse). Larger than PEEK so cards
@@ -224,7 +224,7 @@ export function ProcessStepCounter({ content, disciplines: _disciplines }: Props
         <div className="md:hidden">
           <div
             className="sticky z-30 bg-background pb-5 pt-5"
-            style={{ top: MOBILE_NUM_STICKY_TOP, margin: '-2px' }}
+            style={{ top: MOBILE_NUM_STICKY_TOP, margin: '-2px', marginBottom: '-3px' }}
           >
             <AnimatePresence mode="wait">
               <motion.div
@@ -244,7 +244,7 @@ export function ProcessStepCounter({ content, disciplines: _disciplines }: Props
             </AnimatePresence>
           </div>
 
-          <div className="relative flex flex-col" style={{ height: mobileTrackH }}>
+          <div className="relative flex flex-col mt-[4px]" style={{ height: mobileTrackH }}>
             {content.steps.map((step, i) => (
               <div
                 key={step.id}
@@ -264,7 +264,7 @@ export function ProcessStepCounter({ content, disciplines: _disciplines }: Props
               >
                 <article
                   className={cn(
-                    "relative h-full overflow-hidden rounded-[2rem] p-7 shadow-lg sm:p-8",
+                    "relative h-full overflow-hidden rounded-[2rem] p-7 md:shadow-lg sm:p-8 sm:mt-[4px]",
                     CARD_STYLES[i % CARD_STYLES.length],
                   )}
                 >

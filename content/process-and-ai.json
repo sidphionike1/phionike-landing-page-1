@@ -3,7 +3,7 @@
     "badge": "Our Process with AI",
     "headlineMain": "Where Human\nThinking Meets",
     "headlineAccent": "Intelligent Execution",
-    "subheadline": "A bespoke framework that brings technology and human-centred thinking together to create meaningful experiences.",
+    "subheadline": "Introduce our philosophy of combining AI with human-\ncentered design.",
     "primaryCta": "Explore Case Studies",
     "secondaryCta": "Start a Project"
   },
@@ -228,38 +228,38 @@
     ]
   },
   "outcomesSection": {
-    "badge": "OUTCOMES",
-    "headline": "Value & Deliverables",
+    "badge": "MEASURABLE MATRICS",
+    "headline": "Better outcomes, not just faster delivery.",
     "grid": [
       {
-        "title": "Unmatched Speed",
-        "description": "Go from concept to interactive prototype in days rather than months.",
+        "title": "Faster Validation",
+        "description": "Test deep qualitative concepts in days instead of months, minimizing downstream project risk.",
         "icon": "Zap"
       },
       {
-        "title": "Data-Informed UX",
-        "description": "Every design decision backed by synthesized user research.",
-        "icon": "BarChart3"
-      },
-      {
-        "title": "Pixel-Perfect Precision",
-        "description": "Strict token-based design systems that ensure 100% visual fidelity.",
+        "title": "Earlier Alignment",
+        "description": "Keep internal stakeholders and engineering completely synchronized through tactical prototypes.",
         "icon": "Target"
       },
       {
-        "title": "Future-Proof Tech Stack",
-        "description": "Modern frontend code built using Next.js, Tailwind CSS, and Framer Motion.",
-        "icon": "Code2"
+        "title": "Reduced Design Rework",
+        "description": "Solve UX friction before writing UI layout code, removing costly changes from active engineering sprints.",
+        "icon": "CheckCircle2"
       },
       {
-        "title": "Transparent Workflows",
-        "description": "Real-time visibility into every phase of the design and dev cycle.",
-        "icon": "Eye"
-      },
-      {
-        "title": "Human Craftsmanship",
-        "description": "AI provides velocity, but expert senior designers refine every detail.",
+        "title": "Higher Design Quality",
+        "description": "Maximize visual fidelity and interface delight by separating exploration speed from detail polish.",
         "icon": "Sparkles"
+      },
+      {
+        "title": "Scalable Design Systems",
+        "description": "Establish systematic token ecosystems that seamlessly evolve alongside growing product libraries.",
+        "icon": "Layers"
+      },
+      {
+        "title": "Better Collaboration",
+        "description": "Bridge the language gap between engineers and visual designers through direct, componentized handoffs.",
+        "icon": "User"
       }
     ]
   },

@@ -56,6 +56,7 @@ export function FooterCTA({
   typography?: "home" | "about" | "work" | "services"
 }) {
   const isAbout = typography === "about" || typography === "services"
+  const isWork = typography === "work"
 
   return (
     <section className="relative overflow-hidden bg-white py-24 md:py-32">
@@ -80,8 +81,8 @@ export function FooterCTA({
       />
 
       <div className="relative z-10 section-shell [--section-pad-x:1.25rem] md:[--section-pad-x:1.5rem]">
-        {/* Mobile: centered + full-width buttons; desktop: shrink-wrapped left-aligned group */}
-        <div className="mx-auto w-full max-w-full text-center md:w-fit md:text-left">
+        {/* Work mobile: centered headings; other pages / desktop stay left-aligned */}
+        <div className={`mx-auto w-full max-w-full md:w-fit ${isWork ? "text-center md:text-left" : "text-left"}`}>
           <p className="type-sans-regular text-caption leading-[16.5px] tracking-[2.75px] uppercase text-[#212121]/60">
             {cta.eyebrow}
           </p>
@@ -90,8 +91,8 @@ export function FooterCTA({
             <h2
               className={
                 isAbout
-                  ? "type-sans-regular text-lead leading-[120%] text-[#212121] md:text-display md:leading-[62px] md:tracking-[-1px]"
-                  : "type-sans-regular text-lead leading-[120%] text-[#212121] md:text-display-sm md:leading-[51.52px]"
+                  ? "type-sans-regular text-lead leading-[120%] text-[#212121] md:text-[48px] md:leading-[62px] md:tracking-[-1px]"
+                  : "type-sans-regular text-lead leading-[120%] text-[#212121] md:text-[44.8px] md:leading-[51.52px]"
               }
             >
               {cta.headingLine1}
@@ -99,8 +100,8 @@ export function FooterCTA({
             <h3
               className={
                 isAbout
-                  ? "type-sans-italic mt-2 text-lead leading-[120%] text-[#FF5B23] md:text-display md:leading-[62px] md:tracking-[-1px]"
-                  : "type-sans-italic mt-2 text-lead leading-[120%] text-[#FF5B23] md:text-display-sm md:leading-[51.52px]"
+                  ? "type-sans-italic mt-2 text-lead leading-[120%] text-[#FF5B23] md:text-[48px] md:leading-[62px] md:tracking-[-1px]"
+                  : "type-sans-italic mt-2 text-lead leading-[120%] text-[#FF5B23] md:text-[44.8px] md:leading-[51.52px]"
               }
             >
               {cta.italicHeadingLine}

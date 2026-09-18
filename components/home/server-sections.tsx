@@ -58,36 +58,39 @@ export function FloatingNavbar({ content }: { content: HomePage["nav"] }) {
 export function Hero({ content }: { content: HomePage["hero"] }) {
   return (
     <section className="bg-background">
-      <div className="section-shell relative isolate grid grid-cols-1 overflow-x-clip pb-16 pt-32 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-start lg:gap-x-0 lg:pb-24 lg:pt-40">
+      <div className="section-shell relative isolate grid grid-cols-1 overflow-x-clip pb-8 pt-24 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-start lg:gap-x-0 lg:pb-24 lg:pt-40">
         {/* Left: eyebrow flush to headline → body → CTAs */}
-        <div className="relative z-10 order-3 mt-5 flex flex-col lg:order-none lg:col-start-1 lg:mt-[60px]">
-          <p className="type-sans-medium text-caption leading-[16.5px] tracking-[3.3px] uppercase text-[#212121]/60">
+        <div className="relative z-10 order-3 mt-4 flex flex-col gap-4 md:gap-0 lg:order-none lg:col-start-1 lg:mt-[60px]">
+          <p className="type-sans-medium text-[11px] leading-[16.5px] tracking-[3.3px] uppercase text-[#212121]/60 max-md:!font-[550] md:text-caption">
             {content.eyebrow}
           </p>
-          <h1 className="type-sans-medium whitespace-pre-line text-heading leading-normal text-[#212121] md:text-hero md:leading-[80px] md:tracking-[-0.8px]">
-            {content.headlineDark}
-          </h1>
-          <h2 className="type-sans-medium mt-3 mb-10 text-heading leading-normal text-[#FF5B23] md:text-display-md md:leading-[62px] md:tracking-[-0.8px] lg:whitespace-nowrap">
-            {content.headlineAccent}
-          </h2>
-          <p className="type-sans-regular max-w-[370px] text-body-lg leading-[20px] text-[#36454F]">
+          <div>
+            <h1 className="type-sans-medium whitespace-pre-line text-[32px] leading-[normal] tracking-[-0.8px] text-[#212121] max-md:!font-[550] md:text-hero md:leading-[74px]">
+              <span className="md:hidden">{"We design Products,\nBrands and Experiences"}</span>
+              <span className="hidden md:inline">{content.headlineDark}</span>
+            </h1>
+            <h2 className="type-sans-medium text-[32px] leading-[normal] tracking-[-0.8px] text-[#FF5B23] max-md:!font-[550] md:mt-3 md:mb-10 md:text-display-md md:leading-[62px] lg:whitespace-nowrap">
+              {content.headlineAccent}
+            </h2>
+          </div>
+          <p className="type-sans-regular max-w-[370px] text-[16px] leading-[160%] text-[#36454F] max-md:!font-[400] md:text-body-lg md:leading-[20px]">
             {content.body}
           </p>
-          <div className="flex flex-wrap items-center gap-6 pt-8">
+          <div className="mt-2 flex flex-wrap items-center gap-3 md:mt-0 md:gap-6 md:pt-8">
             <ArrowLink
               {...content.primaryCta}
-              className="type-sans-medium rounded-full bg-foreground px-7 py-4 text-body-sm leading-[21px] text-white md:tracking-[0px]"
+              className="type-sans-medium h-[49px] w-[182px] rounded-full bg-foreground pl-7 pr-9 text-[14px] leading-[21px] text-white max-md:!font-[550] md:h-auto md:w-auto md:px-7 md:py-4 md:text-body-sm md:tracking-[0px]"
             />
             <ArrowLink
               {...content.secondaryCta}
-              className="type-sans-medium text-body-sm leading-[21px] text-[#262728]"
+              className="type-sans-medium h-[49px] w-[119px] pl-1 pr-2 text-[14px] leading-[21px] text-[#262728] max-md:!font-[550] md:h-auto md:w-auto md:px-0 md:text-body-sm"
               arrowClassName="text-[#3A39FF]"
             />
           </div>
         </div>
 
-        {/* Lottie cards — mobile stacks above copy; desktop sits in right column */}
-        <div className="relative z-0 order-2 mt-6 lg:order-none lg:col-start-2 lg:mt-0 lg:z-[-1] lg:-ml-16 xl:-ml-24">
+        {/* Hero cards — mobile stacks above copy; desktop sits in right column */}
+        <div className="relative z-0 order-2 lg:order-none lg:col-start-2 lg:z-[-1] lg:-ml-16 xl:-ml-24">
           <HeroVisual />
         </div>
       </div>
@@ -102,29 +105,31 @@ export function ValuePropBand({
 }) {
   return (
     <section
-      className="bg-primary py-14 text-primary-foreground md:py-20"
+      className="bg-[#3A39FF] py-12 text-primary-foreground md:bg-primary md:py-20"
       style={{
         backgroundImage: "url('/pattern-binary-blue.png')",
         backgroundRepeat: "repeat",
         backgroundSize: "1440px 414px",
       }}
     >
-      <div className="section-shell grid gap-10 [--section-pad-x:3.5rem] md:grid-cols-[4fr_2fr] md:items-start md:[--section-pad-x:5rem]">
-        <h2 className="type-sans-regular text-heading leading-normal text-white md:whitespace-pre-line md:text-display-sm md:leading-[53.76px]">
-          {content.heading}
+      <div className="section-shell flex flex-col gap-4 [--section-pad-x:1.25rem] md:grid md:grid-cols-[4fr_2fr] md:items-start md:gap-10 md:[--section-pad-x:5rem]">
+        <h2 className="type-sans-regular text-[32px] leading-[normal] text-white max-md:!font-[400] md:whitespace-pre-line md:text-display-sm md:leading-[53.76px]">
+          {content.heading}{" "}
           {content.headingItalic && (
-            <> <em className="type-sans-italic text-white md:whitespace-pre-line">{content.headingItalic}</em></>
+            <em className="type-sans-italic text-[32px] leading-[normal] text-white md:whitespace-pre-line md:text-display-sm md:leading-[53.76px]">
+              {content.headingItalic}
+            </em>
           )}
         </h2>
 
-        <div>
-          <p className="type-sans-regular max-w-xl text-body-lg leading-[160%] text-white/90 md:whitespace-pre-line md:text-justify">
+        <div className="flex flex-col gap-4 md:block">
+          <p className="type-sans-regular max-w-xl whitespace-normal text-[14px] leading-[160%] text-white max-md:!font-[400] md:text-body-lg md:text-white/90 min-[1200px]:whitespace-pre-line min-[1200px]:text-justify">
             {content.body}
           </p>
 
           <ArrowLink
             {...content.cta}
-            className="type-sans-medium mt-6 inline-block border-b pb-1 text-body-sm leading-normal text-white"
+            className="type-sans-medium w-fit border-b border-white pb-0.5 text-[14px] leading-[normal] text-white max-md:!font-[550] md:mt-6 md:inline-block md:pb-1 md:text-body-sm"
           />
         </div>
       </div>
@@ -437,7 +442,7 @@ export function AwardsSection() {
   return (
     <section className="section-shell py-16 font-sans">
       {/* Header Section */}
-      <div className="mb-12">
+      <div className="mb-8 md:mb-12">
         <span className="type-sans-medium mb-3 block text-caption leading-[16.5px] tracking-[3.3px] text-[#AAAAAA]">
           AWARDS
         </span>

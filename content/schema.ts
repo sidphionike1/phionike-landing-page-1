@@ -27,7 +27,7 @@ export const servicesSchema = z.object({ hero:z.object({eyebrow:z.string(),headl
 const decorativeTag = z.object({ label: z.string(), color: z.enum(["terracotta","mustard","cobalt","lavender"]) })
 const testimonialItem = z.object({ id: z.string(), quote: z.string(), name: z.string(), role: z.string(), company: z.string(), photoSrc: z.string(), accentColor: z.string() })
 export const workPageSchema = z.object({
-  hero: z.object({ eyebrow: z.string(), headline: z.string(), primaryCta: link, secondaryCta: link, subhead: z.string(), subheadItalic: z.string(), body: z.string(), decorativeTags: z.array(decorativeTag) }),
+  hero: z.object({ eyebrow: z.string(), headline: z.string(), headlineMobile: z.string().optional(), primaryCta: link, secondaryCta: link, subhead: z.string(), subheadItalic: z.string(), body: z.string(), decorativeTags: z.array(decorativeTag) }),
   portfolio: portfolioSectionSchema,
   outcomesStatement: z.object({ heading: z.string(), body: z.string() }),
   testimonials: z.object({ heading: z.string(), subheading: z.string(), items: z.array(testimonialItem) }),

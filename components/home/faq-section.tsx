@@ -48,7 +48,7 @@ export function FAQSection() {
   };
 
   return (
-    <section className="bg-[#faf8f5] py-20 md:py-28">
+    <section className="bg-[#faf8f5] py-16 md:py-28">
       <div className="section-shell">
         {/* Eyebrow — Sans Regular 11 / 16.5 / 2px tracking / uppercase */}
         <p className="type-sans-regular text-caption leading-[16.5px] tracking-[2px] uppercase text-[#212121]/60">
@@ -56,12 +56,12 @@ export function FAQSection() {
         </p>
 
         {/* Heading — Sans Regular 44.8 / 53.76 / #3A39FF */}
-        <h2 className="type-sans-regular mt-4 text-faq leading-[53.76px] text-[#3A39FF] md:text-display-sm md:leading-[53.76px]">
+        <h2 className="type-sans-regular mt-3 text-faq leading-[40px] text-[#3A39FF] md:mt-4 md:text-display-sm md:leading-[53.76px]">
           We have you covered
         </h2>
 
         {/* Accordion */}
-        <div className="mt-16">
+        <div className="mt-8 md:mt-16">
           {faqs.map((faq, i) => {
             const isOpen = openIndex === i;
 

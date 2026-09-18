@@ -95,8 +95,9 @@ export function WorkHero({ content }: { content: WorkPage["hero"] }) {
         <p className="type-sans-medium text-eyebrow leading-normal tracking-[3.3px] uppercase text-[#212121]/60">
           {content.eyebrow}
         </p>
-        <h1 className="type-sans-medium mt-5 w-[60%] whitespace-pre-line text-display-xs leading-normal tracking-[-0.8px] text-[#212121] md:w-full md:text-hero md:leading-[105%] md:tracking-[-3px]">
-          {content.headline}
+        <h1 className="type-sans-medium mt-5 w-full whitespace-pre-line text-display-xs leading-none tracking-[-0.8px] text-[#212121] md:text-hero md:leading-[105%] md:tracking-[-3px]">
+          <span className="md:hidden">{content.headlineMobile ?? content.headline}</span>
+          <span className="hidden md:inline">{content.headline}</span>
         </h1>
 
         <div className="mt-12 flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-center md:gap-5">

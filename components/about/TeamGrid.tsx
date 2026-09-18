@@ -302,10 +302,10 @@ function HoverOverlay({
       className={`pointer-events-none absolute inset-0 flex flex-col items-center justify-center px-8 text-center opacity-0 transition-all duration-300 ease-out group-hover:opacity-100 ${ACCENT_TEXT[accent]}`}
       style={{ backgroundColor: `${ACCENT_HEX[accent]}E6` }} // ~90% opacity accent wash
     >
-      <div className="translate-y-2 transition-transform duration-300 ease-out group-hover:translate-y-0">
+      <div className="max-h-full w-full overflow-y-auto px-5 py-6 translate-y-2 transition-transform duration-300 ease-out group-hover:translate-y-0">
         <h3 className="type-vf-medium text-lead leading-tight">{name}</h3>
         <p className="type-vf-regular mt-1 text-title-sm opacity-80">{role}</p>
-        <p className="type-vf-regular mx-auto mt-3 max-w-[85%] text-title-sm leading-[23.4px] line-clamp-3">
+        <p className="type-vf-regular mx-auto mt-3 max-w-[85%] text-body-sm leading-[150%]">
           {bio}
         </p>
       </div>
@@ -324,7 +324,7 @@ function StripNoDataView({ card }: { card: StripNoDataCard }) {
         src={card.photoSrc}
         alt=""
         fill
-        className="object-cover"
+        className="object-cover object-top"
         sizes={`${card.width}px`}
         quality={85}
       />
@@ -355,7 +355,7 @@ function OnlyTitleView({ card }: { card: OnlyTitleCard }) {
         src={card.photoSrc}
         alt={card.name}
         fill
-        className="object-cover"
+        className="object-cover object-top"
         sizes={`${card.width}px`}
         quality={85}
       />
@@ -395,7 +395,7 @@ function FullDataView({ card }: { card: FullDataCard }) {
           src={card.photoSrc}
           alt={card.name}
           fill
-          className="object-cover"
+          className="object-cover object-top"
           sizes={`${photoSize.width}px`}
           quality={85}
         />
@@ -406,7 +406,7 @@ function FullDataView({ card }: { card: FullDataCard }) {
       >
         <h3 className="type-vf-medium text-lead leading-tight">{card.name}</h3>
         <p className={`type-vf-regular mt-1 text-title-sm ${card.accent === "blue" ? "opacity-80" : "opacity-60"}`}>{card.role}</p>
-        <p className="type-vf-regular mt-3 text-title-sm leading-[23.4px] line-clamp-6">{card.bio}</p>
+        <p className="type-vf-regular mt-3 overflow-y-auto text-title-sm leading-[23.4px]">{card.bio}</p>
       </div>
     </div>
   );
