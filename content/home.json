@@ -66,9 +66,9 @@
     "microTag": "Design & Strategy Studio"
   },
   "valueProp": {
-    "heading": "We help brands and products grow through",
-    "headingItalic": "thoughtful design and digital experiences.",
-    "body": "Our approach blends research, branding, product thinking, and AI-assisted workflows to help teams move from ambiguity to scalable experiences — creating products and systems that are thoughtful, adaptable, and built for long-term growth.",
+    "heading": "We help brands and products grow\nthrough",
+    "headingItalic": "thoughtful design and digital\nexperiences.",
+    "body": "Our approach blends research, branding, product\nthinking, and AI-assisted workflows to help teams\nmove from ambiguity to scalable experiences —\ncreating products and systems that are thoughtful,\nadaptable, and built for long-term growth.",
     "cta": {
       "label": "View our approach",
       "href": "/approach"
@@ -176,9 +176,9 @@
   "aiBand": {
     "eyebrow": "PROCESS & AI",
     "heading": "AI that serves the work,",
-    "headingItalic": "not the other way around.",
+    "headingItalic": "\nnot the other way around.",
     "supportLine": "Turn assumptions into insights",
-    "body": "We use AI deliberately — as a research accelerator, a synthesis tool, and a pressure-test for ideas. Never as a replacement for the human judgement that makes design worth doing.",
+    "body": "We use AI deliberately — as a research accelerator, a\nsynthesis tool, and a pressure-test for ideas. Never\nas a replacement for the human judgement that makes\ndesign worth doing.",
     "cta": {
       "label": "Explore our Process & AI",
       "href": "/process-and-ai"

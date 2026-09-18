@@ -43,7 +43,7 @@ const ACTIVATE_EARLY_PX = STEP_TOP + 80
 const MOBILE_NUM_STICKY_TOP = 62
 const MOBILE_PEEK = 70
 /** Sticky top of the first card (clears navbar + sticky number). */
-const MOBILE_CARD_STICKY_BASE = 168
+const MOBILE_CARD_STICKY_BASE = 192
 const MOBILE_CARD_H = 340
 /**
  * Document gap between cards (before collapse). Larger than PEEK so cards

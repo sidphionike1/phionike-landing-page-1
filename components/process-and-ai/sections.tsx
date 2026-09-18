@@ -80,9 +80,10 @@ export function ProcessAiHero({ hero }: { hero: ProcessAndAi['hero'] }) {
           </Link>
           <Link
             href="/contact"
-            className="type-sans-semibold inline-flex items-center rounded-full border border-[#111111] bg-transparent px-7 py-4 text-body-sm leading-normal text-[#111111] transition-colors hover:bg-[#111111] hover:text-white md:text-body"
+            className="type-sans-medium inline-flex items-center gap-2 text-body-sm leading-[21px] text-[#121212]"
           >
             {hero.secondaryCta}
+            <ArrowUpRight size={15} className="text-[#3A39FF]" />
           </Link>
         </motion.div>
       </div>
@@ -419,8 +420,8 @@ export function DualPrototypeFramework({ framework }: { framework: ProcessAndAi[
           {framework.headlineMain}{' '}
           <span className="type-sans-regular text-lead text-[#FF5B23] md:text-display md:leading-normal">
             {framework.headlineAccent}
+            {framework.headlineEnd ? <> {framework.headlineEnd}</> : null}
           </span>
-          {framework.headlineEnd ? <> {framework.headlineEnd}</> : null}
         </h2>
         <p className="type-sans-medium mx-auto mt-4 max-w-2xl whitespace-pre-line text-body-sm leading-[20px] text-[#606673] md:mt-6 md:text-body md:leading-[150%]">
           {framework.subheadline}

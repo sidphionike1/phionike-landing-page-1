@@ -427,7 +427,7 @@ function GridCardView({ card }: { card: GridCard }) {
 
 export function TeamGrid() {
   return (
-    <section className="bg-white px-0 py-14 md:px-0 md:-ml-[30px] md:py-20">
+    <section className="bg-[#FDF8F0] px-0 py-14 md:px-0 md:-ml-[30px] md:py-20">
       <div
         className="relative mx-auto hidden md:block"
         style={{ width: CONTAINER_WIDTH, height: CONTAINER_HEIGHT }}

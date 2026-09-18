@@ -7,7 +7,7 @@
       { "text": "\nWe build for ", "accent": false },
       { "text": "impact.", "accent": true }
     ],
-    "body": "We partner with ambitious businesses to create products, brands and experiences that solve meaningful problems through strategy, design and technology.",
+    "body": "We partner with ambitious businesses to create products, brands and experiences that solve meaningful problems\nthrough strategy, design and technology.",
     "primaryCta": { "label": "Let's Talk", "href": "/contact" },
     "secondaryCta": { "label": "View Our Work", "href": "/work" },
     "stripImage": {
@@ -88,7 +88,7 @@
     ]
   },
   "team": {
-    "eyebrow": "Meet the Team",
+    "eyebrow": "MEET THE TEAM",
     "headingDark": "The people behind",
     "headingMuted": "the products you love",
     "introPhotoSrc": "/about/team-photo.png",

@@ -624,7 +624,7 @@ export function PortfolioFilterGrid({
 }) {
   const isWork = typography === "work";
   const chipClassName = isWork
-    ? "type-sans-regular text-eyebrow"
+    ? "type-sans-regular text-body-sm"
     : "type-vf-regular text-eyebrow";
   const cardTitleClassName = isWork
     ? "type-sans-medium truncate text-title leading-normal text-[#141414] md:text-heading md:leading-[38.4px]"

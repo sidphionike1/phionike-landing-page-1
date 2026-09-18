@@ -56,7 +56,6 @@ export function FooterCTA({
   typography?: "home" | "about" | "work" | "services"
 }) {
   const isAbout = typography === "about" || typography === "services"
-  const isWork = typography === "work"
 
   return (
     <section className="relative overflow-hidden bg-white py-24 md:py-32">
@@ -80,15 +79,10 @@ export function FooterCTA({
         className="hidden object-cover md:block"
       />
 
-      <div className="relative z-10 section-shell">
-        <div className="mx-auto max-w-3xl text-center">
-          <p
-            className={
-              isAbout || isWork
-                ? "type-sans-regular text-caption leading-[16.5px] tracking-[2px] uppercase text-[#212121]/60"
-                : "type-sans-regular text-caption leading-[16.5px] text-[#212121]/60"
-            }
-          >
+      <div className="relative z-10 section-shell [--section-pad-x:1.25rem] md:[--section-pad-x:1.5rem]">
+        {/* Mobile: centered + full-width buttons; desktop: shrink-wrapped left-aligned group */}
+        <div className="mx-auto w-full max-w-full text-center md:w-fit md:text-left">
+          <p className="type-sans-regular text-caption leading-[16.5px] tracking-[2.75px] uppercase text-[#212121]/60">
             {cta.eyebrow}
           </p>
 
@@ -113,10 +107,10 @@ export function FooterCTA({
             </h3>
           </div>
 
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <div className="mt-10 flex w-full flex-col items-stretch gap-3 md:w-auto md:flex-row md:items-start md:gap-4">
             <Link
               href={cta.primaryCta.href}
-              className="group type-sans-medium inline-flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 text-body-sm leading-[21px] text-white transition-opacity hover:opacity-80"
+              className="group type-sans-medium inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink px-5 py-3.5 text-body-sm leading-[21px] text-white transition-opacity hover:opacity-80 md:w-auto md:justify-start md:px-7"
             >
               {cta.primaryCta.label}
               <ArrowUpRight className="h-4 w-4" />
@@ -124,10 +118,10 @@ export function FooterCTA({
 
             <Link
               href={cta.secondaryCta.href}
-              className="group type-sans-medium inline-flex items-center gap-2 rounded-full border border-border bg-card px-7 py-3.5 text-body-sm leading-[21px] text-[#212121] transition-opacity hover:opacity-80"
+              className="group type-sans-medium inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#212121] bg-transparent px-5 py-3.5 text-body-sm leading-[21px] text-[#212121] transition-opacity hover:opacity-80 md:w-auto md:justify-start md:border-border md:bg-card md:px-7"
             >
               <span>{cta.secondaryCta.label}</span>
-              <ArrowUpRight className="h-4 w-4 text-primary" />
+              <ArrowUpRight className="h-4 w-4 text-[#212121] md:text-primary" />
             </Link>
           </div>
         </div>
@@ -142,42 +136,42 @@ export function Footer({
   content: GlobalContent['footer']
 }) {
   return (
-    <footer className="border-t border-border bg-card py-16">
-      <div className="section-shell">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
-          {/* Left column */}
+    <footer className="border-t border-border bg-white">
+      {/* Desktop 5.5/4.5 split; mobile: content only, no photo */}
+      <div className="grid lg:grid-cols-[5.5fr_4.5fr] lg:items-stretch">
+        {/* Left — content, padded to align with section-shell left edge */}
+        <div
+          className="flex flex-col justify-between px-5 py-12 md:py-16 md:pr-12 lg:pr-16 lg:pl-[max(var(--section-pad-x),calc((100vw-var(--section-max))/2))]"
+        >
           <div>
-            {/* Logo */}
             <PhionikieLogo />
 
-            {/* Tagline */}
-            <p className="type-sans-regular mt-6 max-w-sm text-label leading-[150%] text-[#212121]/60 md:text-body-sm md:leading-[23.8px] md:text-[#212121]">
+            {/* Tagline — mobile 13/150% muted; desktop 14/23.8 */}
+            <p className="type-sans-regular mt-5 max-w-[560px] text-label leading-[150%] text-[#212121]/60 md:mt-6 md:whitespace-pre-line md:text-body-sm md:leading-[23.8px] md:text-[#212121]">
               {content.description}
             </p>
 
-            {/* Contact and Navigation sub-grid */}
-            <div className="mt-10 grid grid-cols-2 gap-8">
-              {/* Contact Column */}
+            {/* Contact | Navigation — nav hidden on mobile */}
+            <div className="mt-10 grid grid-cols-1 md:mt-14 md:grid-cols-2 md:gap-20 lg:gap-24">
               <div>
-                <p className="type-sans-bold text-caption leading-[16.5px] tracking-[1.65px] uppercase text-[#212121]">
+                <p className="type-sans-bold text-caption leading-normal tracking-[1px] uppercase text-[#121212] md:!font-[400] md:tracking-[1.65px] md:text-[#212121]">
                   Contact
                 </p>
-                <div className="mt-3 space-y-2">
+                <div className="mt-3 space-y-1.5 md:mt-4 md:space-y-2">
                   <a
                     href={`mailto:${content.contact.email}`}
-                    className="type-sans-regular block text-body-sm leading-[21px] text-[#212121] transition-opacity hover:opacity-70 md:text-body-lg"
+                    className="type-sans-regular block text-body-sm leading-normal text-[#121212] transition-opacity hover:opacity-70 md:text-body-lg md:leading-[21px] md:text-[#212121]"
                   >
                     {content.contact.email}
                   </a>
                   <a
                     href={`tel:${content.contact.phone.replace(/\s/g, "")}`}
-                    className="type-sans-regular block text-body-sm leading-[21px] text-[#212121] transition-opacity hover:opacity-70 md:text-body-lg"
+                    className="type-sans-regular block text-body-sm leading-normal text-[#121212] transition-opacity hover:opacity-70 md:text-body-lg md:leading-[21px] md:text-[#212121]"
                   >
                     {content.contact.phone}
                   </a>
                 </div>
-                {/* Social Links */}
-                <div className="mt-4 flex flex-wrap items-center gap-4">
+                <div className="mt-5 flex flex-wrap items-center gap-4">
                   {content.social.map((s) => (
                     <a
                       key={s.platform}
@@ -185,7 +179,7 @@ export function Footer({
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={s.platform}
-                      className="inline-flex text-[#212121] transition-opacity hover:opacity-70"
+                      className="inline-flex text-[#121212] transition-opacity hover:opacity-70 md:text-[#212121]"
                     >
                       <SocialIcon platform={s.platform} />
                     </a>
@@ -193,17 +187,16 @@ export function Footer({
                 </div>
               </div>
 
-              {/* Navigation Column */}
-              <div>
-                <p className="type-sans-bold text-caption leading-[16.5px] tracking-[1.65px] uppercase text-[#212121]">
+              <div className="hidden md:block">
+                <p className="type-sans-regular text-caption leading-[16.5px] tracking-[1.65px] uppercase text-[#212121]">
                   Navigation
                 </p>
-                <div className="mt-3 space-y-2">
+                <div className="mt-4 space-y-3">
                   {content.navLinks.map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
-                      className="type-sans-regular block text-body-sm leading-[21px] text-[#212121] transition-opacity hover:opacity-70 md:text-body-lg"
+                      className="type-sans-regular block text-body-sm leading-[21px] text-[#212121] transition-opacity hover:opacity-70 md:text-body-lg md:leading-[21px]"
                     >
                       {link.label}
                     </Link>
@@ -211,36 +204,36 @@ export function Footer({
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Divider */}
-            <div className="mt-10 border-t border-border" />
-
-            {/* Copyright and Location */}
-            <div className="mt-8 flex flex-wrap items-center gap-2">
-              <span className="type-sans-regular text-caption leading-[18px] text-[#212121]/60">
+          <div>
+            <div className="mt-12 hidden border-t border-border md:mt-14 md:block" />
+            <div className="mt-10 flex flex-col gap-1 md:mt-6 md:flex-row md:flex-wrap md:items-center md:gap-x-1.5 md:gap-y-1">
+              <span className="type-sans-regular text-caption leading-normal text-[#212121]/60 md:text-eyebrow md:leading-[18px]">
                 {content.copyright}
               </span>
               {content.copyrightSeparator && (
-                <span className="type-sans-regular text-caption leading-[18px] text-[#212121]/60">
+                <span className="hidden type-sans-regular text-caption leading-[18px] text-[#212121]/60 md:inline md:text-eyebrow">
                   {content.copyrightSeparator}
                 </span>
               )}
-              <span className="type-sans-semibold text-caption leading-[18px] text-[#212121]">
+              <span className="type-sans-semibold text-caption leading-normal text-[#121212] md:!font-[400] md:text-eyebrow md:leading-[18px] md:text-[#212121]">
                 {content.location}
               </span>
             </div>
           </div>
+        </div>
 
-          {/* Right column - Team photo */}
-          <div className="relative h-96 w-full overflow-hidden rounded-lg lg:h-full lg:min-h-[500px]">
-            <Image
-              src={content.teamPhotoSrc}
-              alt="Phionike team"
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
-          </div>
+        {/* Right — team photo desktop only, flush to edges */}
+        <div className="relative hidden overflow-hidden lg:block lg:min-h-[560px]">
+          <Image
+            src={content.teamPhotoSrc}
+            alt="Phionike team"
+            fill
+            className="object-cover"
+            sizes="45vw"
+            priority={false}
+          />
         </div>
       </div>
     </footer>

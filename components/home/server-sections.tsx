@@ -58,29 +58,25 @@ export function FloatingNavbar({ content }: { content: HomePage["nav"] }) {
 export function Hero({ content }: { content: HomePage["hero"] }) {
   return (
     <section className="bg-background">
-      <div className="section-shell relative isolate grid grid-cols-1 overflow-x-clip pb-16 pt-32 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:grid-rows-[auto_auto] lg:items-start lg:gap-x-0 lg:pb-24 lg:pt-40">
-        {/* Eyebrow sits above the aligned headline ↔ shapes row */}
-        <p className="type-sans-medium text-caption leading-[16.5px] tracking-[3.3px] uppercase text-[#212121]/60 lg:col-start-1 lg:row-start-1">
-          {content.eyebrow}
-        </p>
-
-        {/* Headline → CTAs: top aligns with shapes, CTAs pin to shape bottoms */}
-        <div className="relative z-10 mt-5 flex flex-col lg:col-start-1 lg:row-start-2 lg:h-[560px]">
-          <div>
-            <h1 className="type-sans-medium whitespace-pre-line text-heading leading-normal text-[#212121] md:text-hero md:leading-[80px]">
-              {content.headlineDark}
-            </h1>
-            <h2 className="type-sans-medium mt-3 text-heading leading-normal text-[#FF5B23] md:text-display-md md:leading-[62px] lg:whitespace-nowrap">
-              {content.headlineAccent}
-            </h2>
-            <p className="type-sans-regular mt-7 max-w-[370px] text-body-sm leading-[20px] text-[#36454F]">
-              {content.body}
-            </p>
-          </div>
-          <div className="flex flex-wrap items-center gap-6 pt-8 lg:mt-auto">
+      <div className="section-shell relative isolate grid grid-cols-1 overflow-x-clip pb-16 pt-32 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-start lg:gap-x-0 lg:pb-24 lg:pt-40">
+        {/* Left: eyebrow flush to headline → body → CTAs */}
+        <div className="relative z-10 order-3 mt-5 flex flex-col lg:order-none lg:col-start-1 lg:mt-[60px]">
+          <p className="type-sans-medium text-caption leading-[16.5px] tracking-[3.3px] uppercase text-[#212121]/60">
+            {content.eyebrow}
+          </p>
+          <h1 className="type-sans-medium whitespace-pre-line text-heading leading-normal text-[#212121] md:text-hero md:leading-[80px] md:tracking-[-0.8px]">
+            {content.headlineDark}
+          </h1>
+          <h2 className="type-sans-medium mt-3 mb-10 text-heading leading-normal text-[#FF5B23] md:text-display-md md:leading-[62px] md:tracking-[-0.8px] lg:whitespace-nowrap">
+            {content.headlineAccent}
+          </h2>
+          <p className="type-sans-regular max-w-[370px] text-body-lg leading-[20px] text-[#36454F]">
+            {content.body}
+          </p>
+          <div className="flex flex-wrap items-center gap-6 pt-8">
             <ArrowLink
               {...content.primaryCta}
-              className="type-sans-medium rounded-full bg-foreground px-7 py-4 text-body-sm leading-[21px] text-white"
+              className="type-sans-medium rounded-full bg-foreground px-7 py-4 text-body-sm leading-[21px] text-white md:tracking-[0px]"
             />
             <ArrowLink
               {...content.secondaryCta}
@@ -88,20 +84,10 @@ export function Hero({ content }: { content: HomePage["hero"] }) {
               arrowClassName="text-[#3A39FF]"
             />
           </div>
-          {/* Previous mobile geometric placeholders — replaced by HeroVisual Lottie
-          <div className="mt-8 grid grid-cols-2 gap-2 md:hidden">
-            <div className="h-32 rounded-2xl bg-accent" />
-            <div className="row-span-2 rounded-2xl bg-mustard" />
-            <div className="grid grid-cols-2 gap-2">
-              <div className="h-24 rounded-xl bg-lavender" />
-              <div className="h-24 rounded-xl bg-primary" />
-            </div>
-          </div>
-          */}
         </div>
 
-        {/* Lottie cards — mobile stacks below copy; desktop sits in right column */}
-        <div className="relative z-0 mt-10 lg:col-start-2 lg:row-start-2 lg:z-[-1] lg:-ml-16 lg:mt-0 xl:-ml-24">
+        {/* Lottie cards — mobile stacks above copy; desktop sits in right column */}
+        <div className="relative z-0 order-2 mt-6 lg:order-none lg:col-start-2 lg:mt-0 lg:z-[-1] lg:-ml-16 xl:-ml-24">
           <HeroVisual />
         </div>
       </div>
@@ -123,16 +109,16 @@ export function ValuePropBand({
         backgroundSize: "1440px 414px",
       }}
     >
-      <div className="section-shell grid gap-10 [--section-pad-x:3.5rem] md:grid-cols-[3fr_2fr] md:items-start md:[--section-pad-x:5rem]">
-        <h2 className="type-sans-regular text-heading leading-normal text-white md:text-display-sm md:leading-[53.76px]">
+      <div className="section-shell grid gap-10 [--section-pad-x:3.5rem] md:grid-cols-[4fr_2fr] md:items-start md:[--section-pad-x:5rem]">
+        <h2 className="type-sans-regular text-heading leading-normal text-white md:whitespace-pre-line md:text-display-sm md:leading-[53.76px]">
           {content.heading}
           {content.headingItalic && (
-            <> <em className="type-sans-italic text-white">{content.headingItalic}</em></>
+            <> <em className="type-sans-italic text-white md:whitespace-pre-line">{content.headingItalic}</em></>
           )}
         </h2>
 
         <div>
-          <p className="type-sans-regular max-w-xl text-body-sm leading-[160%] text-white/90">
+          <p className="type-sans-regular max-w-xl text-body-lg leading-[160%] text-white/90 md:whitespace-pre-line md:text-justify">
             {content.body}
           </p>
 
@@ -285,34 +271,32 @@ export function TrustedByStrip({
 export function AIPhilosophyBand({ content }: { content: HomePage["aiBand"] }) {
   return (
     <section
-      className="bg-mustard py-20 text-foreground md:py-28"
+      className="bg-mustard py-14 text-foreground md:py-28"
       style={{
         backgroundImage: "url('/pattern-binary-mustard.png')",
         backgroundRepeat: "repeat",
         backgroundSize: "1440px 414px",
       }}
     >
-      <div className="section-shell">
-        <div className="grid gap-8 md:grid-cols-[6fr_4fr] md:gap-12">
+      {/* Mobile: tighter edge padding (1.25rem); desktop keeps 5rem */}
+      <div className="section-shell [--section-pad-x:1.25rem] md:[--section-pad-x:5rem]">
+        <div className="grid gap-8 md:grid-cols-[6fr_4fr] md:items-start md:gap-16">
           {/* Left: 6 — eyebrow + heading */}
           <div>
             <p className="type-sans-medium text-caption leading-[16.5px] tracking-[3.3px] text-[#212121]">
               {content.eyebrow}
             </p>
-            <h2 className="type-sans-regular mt-5 max-w-4xl text-heading leading-normal text-[#212121] md:text-display-lg md:leading-[59.84px]">
+            <h2 className="type-sans-regular mt-5 max-w-4xl whitespace-pre-line text-heading leading-normal text-[#212121] md:text-display-lg md:leading-[59.84px]">
               {content.heading}
               {content.headingItalic && (
-                <>
-                  {" "}
-                  <span className="type-sans-italic">{content.headingItalic}</span>
-                </>
+                <span className="type-sans-italic">{content.headingItalic}</span>
               )}
             </h2>
           </div>
 
-          {/* Right: 4 — body + CTA */}
-          <div className="md:pt-10">
-            <p className="type-sans-regular max-w-xl text-body-sm leading-[160%] text-[#212121]/90">
+          {/* Right: 4 — body + CTA, top-aligned with eyebrow */}
+          <div>
+            <p className="type-sans-regular max-w-xl text-body-lg leading-[160%] text-[#212121]/90 md:whitespace-pre-line md:text-justify">
               {content.body}
             </p>
             <ArrowLink

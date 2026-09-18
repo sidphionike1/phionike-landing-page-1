@@ -13,11 +13,11 @@ const LOTTIE_H = 669
  */
 export function HeroVisual() {
   return (
-    <div className="relative mx-auto w-full max-w-[820px] lg:mx-0 lg:w-[min(820px,52vw)]">
+    <div className="relative mx-auto w-full max-w-[790px] lg:mx-0 lg:w-[min(790px,52vw)]">
       {/* Viewport crops empty Lottie padding; inner layer scales the cards up */}
-      <div className="relative h-[300px] w-full overflow-hidden sm:h-[380px] lg:h-[560px]">
+      <div className="relative h-[270px] w-full overflow-hidden sm:h-[350px] lg:h-[530px]">
         <div
-          className="pointer-events-none absolute left-1/2 top-1/2 origin-center [--hero-lottie-scale:0.6] lg:[--hero-lottie-scale:1.15]"
+          className="pointer-events-none absolute left-1/2 top-1/2 origin-center [--hero-lottie-scale:0.6] lg:[--hero-lottie-scale:1.12]"
           style={{
             width: LOTTIE_W,
             height: LOTTIE_H,

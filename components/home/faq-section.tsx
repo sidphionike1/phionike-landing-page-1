@@ -50,12 +50,13 @@ export function FAQSection() {
   return (
     <section className="bg-[#faf8f5] py-20 md:py-28">
       <div className="section-shell">
-        {/* Eyebrow */}
-        <p className="type-vf-regular text-caption leading-[16.5px] tracking-[2px] text-[#212121]/60">
-          HAVE A QUESTION?
+        {/* Eyebrow — Sans Regular 11 / 16.5 / 2px tracking / uppercase */}
+        <p className="type-sans-regular text-caption leading-[16.5px] tracking-[2px] uppercase text-[#212121]/60">
+          have a Question?
         </p>
 
-        <h2 className="type-vf-regular mt-4 text-faq leading-[53.76px] text-[#3A39FF] md:text-display-sm md:leading-[53.76px]">
+        {/* Heading — Sans Regular 44.8 / 53.76 / #3A39FF */}
+        <h2 className="type-sans-regular mt-4 text-faq leading-[53.76px] text-[#3A39FF] md:text-display-sm md:leading-[53.76px]">
           We have you covered
         </h2>
 
@@ -99,13 +100,13 @@ export function FAQSection() {
                     )}
                   </span>
 
-                  {/* Question */}
-                  <span className="type-vf-regular text-body-lg leading-normal text-[#36454F]">
+                  {/* Question — Sans Regular 18 / #36454F */}
+                  <span className="type-sans-regular text-body-lg leading-normal text-[#36454F] md:text-title-sm">
                     {faq.question}
                   </span>
                 </button>
 
-                {/* Answer */}
+                {/* Answer — Sans Regular 16 / #36454F */}
                 <div
                   className={`grid transition-all duration-300 ease-out ${
                     isOpen
@@ -114,7 +115,7 @@ export function FAQSection() {
                   }`}
                 >
                   <div className="overflow-hidden">
-                    <p className="type-vf-regular pb-7 pl-10 pr-4 text-body-lg leading-normal text-[#36454F] md:pl-12">
+                    <p className="type-sans-regular pb-7 pl-10 pr-4 text-body-lg leading-normal text-[#36454F] md:pl-12">
                       {faq.answer}
                     </p>
                   </div>

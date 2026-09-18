@@ -54,7 +54,7 @@ export function AboutHero({ content }: AboutHeroProps) {
   ];
   const body =
     content?.body ??
-    'We partner with ambitious businesses to create products, brands and experiences that solve meaningful problems through strategy, design and technology.';
+    'We partner with ambitious businesses to create products, brands and experiences that solve meaningful problems\nthrough strategy, design and technology.';
   const secondaryCta = content?.primaryCta ?? {
     label: "Let's Talk",
     href: '/contact',
@@ -72,9 +72,9 @@ export function AboutHero({ content }: AboutHeroProps) {
   };
 
   return (
-    <section className="relative w-full overflow-x-hidden bg-white pt-20 md:pt-24 font-sans">
+    <section className="relative w-full overflow-x-hidden bg-[#FDF8F0] pt-32 font-sans md:pt-40">
       <div className="section-shell">
-        <p className="type-sans-regular pt-6 text-eyebrow leading-[16.5px] tracking-[3.3px] uppercase text-[#212121]/60 md:pt-10">
+        <p className="type-sans-regular text-eyebrow leading-[16.5px] tracking-[3.3px] uppercase text-[#212121]/60">
           {eyebrow}
         </p>
 
@@ -90,24 +90,25 @@ export function AboutHero({ content }: AboutHeroProps) {
           )}
         </h1>
 
-        <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between pb-12">
-          <p className="type-sans-regular max-w-xl text-body leading-[150%] text-[#36454F]">
+        {/* Body left + CTAs right — top-aligned to match Figma */}
+        <div className="mt-8 flex flex-col gap-6 pb-14 md:mt-10 md:flex-row md:items-start md:justify-between md:gap-10 md:pb-16">
+          <p className="type-sans-regular max-w-xl whitespace-pre-line text-body leading-[150%] text-[#36454F] md:max-w-[860px]">
             {body}
           </p>
 
           <div className="flex shrink-0 items-center gap-6">
             <a
               href={primaryCta.href}
-              className="type-sans-semibold inline-flex items-center justify-center gap-2 rounded-full bg-[#1e1e1e] px-7 py-3.5 text-body-sm leading-normal text-white transition-opacity hover:opacity-90"
+              className="type-sans-semibold inline-flex items-center justify-center gap-2 rounded-full bg-[#1e1e1e] px-7 py-4 text-body-sm leading-[21px] text-white transition-opacity hover:opacity-90"
             >
               {primaryCta.label}
             </a>
             <a
               href={secondaryCta.href}
-              className="type-sans-medium inline-flex items-center gap-1.5 text-body-sm leading-[21px] text-[#262728]"
+              className="type-sans-medium inline-flex items-center gap-2 text-body-sm leading-[21px] text-[#121212]"
             >
               {secondaryCta.label}
-              <ArrowUpRight size={16} className="text-[#FF5B23]" />
+              <ArrowUpRight size={15} className="text-[#FF5B23]" />
             </a>
           </div>
         </div>
@@ -173,7 +174,7 @@ export function MosaicStrip({ tiles }: { tiles: AboutPage["hero"]["mosaicTiles"]
 
 export function ValuesSection({ content }: { content: AboutPage["values"] }) {
   return (
-    <section className="bg-[#FDF8F0] py-24 md:py-32">
+    <section className="bg-[#FFFCF7] py-24 md:py-32">
       <div className="section-shell">
         {/* Centred heading block */}
         <div className="text-center">
@@ -316,7 +317,7 @@ function renderTile(tile: Tile) {
 
 export function TeamSection({ content }: { content: AboutPage["team"] }) {
   return (
-    <section className="bg-white py-20 md:py-28">
+    <section className="bg-[#FDF8F0] py-20 md:py-28">
       <div className="section-shell">
         {/* Intro: text block (40%) + group photo (60%) */}
         <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-[2fr_3fr] md:gap-12">
@@ -369,7 +370,7 @@ const PLACEHOLDER = (w: number, h: number, text: string) =>
 
 export function CultureSection({ content }: { content: AboutPage["culture"] }) {
   return (
-    <section className="bg-[#FDF8F0]">
+    <section className="bg-[#FFFCF7]">
       <div className="section-shell">
         {/* Heading */}
         <div className="py-16 md:py-20">

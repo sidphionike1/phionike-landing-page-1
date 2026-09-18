@@ -143,7 +143,7 @@ export function SiteNavbar({
             SVG chain was visually inert, leaving just a backdrop blur and a 2%
             white tint, both of which are plain CSS below. */}
         <div className="hidden min-[1100px]:block">
-          <div className="relative overflow-hidden rounded-xl border border-primary/25 bg-background/40 px-6 py-4 shadow-none backdrop-blur-[6px] min-[1100px]:px-8">
+          <div className="relative overflow-hidden rounded-xl border border-primary/25 bg-background/40 px-10 py-4 shadow-none backdrop-blur-[6px] min-[1100px]:px-12 min-[1280px]:px-14">
             <div className="flex items-center justify-between">
               <Link href="/" className="inline-flex items-center">
                 <Image src="/logo.svg" alt={content.logo} width={138} height={36} priority />
