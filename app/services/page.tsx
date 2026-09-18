@@ -3,7 +3,11 @@ import { getGlobalContent, getServicesPageContent } from "@/lib/content"
 import { SiteNavbar } from "@/components/shared/site-chrome"
 import { Capabilities, SectorGrid, ServicesHero } from "@/components/services/services-sections"
 import { FooterCTA, Footer } from "@/components/shared/footer"
-export const metadata:Metadata={title:"Services — Phionike",description:"Research, strategy, design and technology services for lasting product impact."}
+import { JsonLd } from "@/components/seo/json-ld"
+import { breadcrumbJsonLd, pageMetadata, webPageJsonLd } from "@/lib/seo"
+
+export const metadata: Metadata = pageMetadata("services")
+
 export default async function ServicesPage() {
   const [global, services] = await Promise.all([
     getGlobalContent(),
@@ -11,6 +15,8 @@ export default async function ServicesPage() {
   ])
   return (
     <main>
+      <JsonLd id="ld-services-webpage" data={webPageJsonLd("services")} />
+      <JsonLd id="ld-services-breadcrumb" data={breadcrumbJsonLd("services")} />
       <SiteNavbar content={global.nav} activePage="services" footer={global.footer} />
       <ServicesHero content={services.hero} steps={global.processSteps} />
       <Capabilities

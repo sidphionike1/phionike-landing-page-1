@@ -12,11 +12,10 @@ import {
   OutcomesGrid,
   CtaClosureBlock,
 } from "@/components/process-and-ai/sections"
+import { JsonLd } from "@/components/seo/json-ld"
+import { breadcrumbJsonLd, pageMetadata, webPageJsonLd } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "Process & AI — Phionike",
-  description: "Where human thinking meets intelligent execution. Our AI-powered design process delivers faster, smarter, and more human-centered products.",
-}
+export const metadata: Metadata = pageMetadata("processAndAi")
 
 export default async function ProcessAndAiPage() {
   const [global, content] = await Promise.all([
@@ -26,6 +25,8 @@ export default async function ProcessAndAiPage() {
 
   return (
     <main>
+      <JsonLd id="ld-process-webpage" data={webPageJsonLd("processAndAi")} />
+      <JsonLd id="ld-process-breadcrumb" data={breadcrumbJsonLd("processAndAi")} />
       <SiteNavbar content={global.nav} activePage="process-and-ai" footer={global.footer} />
       <ProcessAiHero hero={content.hero} />
       <ComparisonSection section={content.comparisonSection} />

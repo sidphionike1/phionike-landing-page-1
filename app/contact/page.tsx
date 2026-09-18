@@ -1,38 +1,54 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { getGlobalContent } from '@/lib/content'
 import { SiteNavbar } from '@/components/shared/site-chrome'
 import { FooterCTA, Footer } from '@/components/shared/footer'
-import { ContactArtwork, ContactForm } from '@/components/contact/contact-form'
+import { ContactForm } from '@/components/contact/contact-form'
+import { JsonLd } from '@/components/seo/json-ld'
+import { breadcrumbJsonLd, pageMetadata, webPageJsonLd } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Contact — Phionike',
-  description: 'Start a conversation with Phionike about your next product, brand, or experience.',
-}
+export const metadata: Metadata = pageMetadata('contact')
 
 export default async function ContactPage() {
   const global = await getGlobalContent()
   return (
     <main>
+      <JsonLd id="ld-contact-webpage" data={webPageJsonLd('contact')} />
+      <JsonLd id="ld-contact-breadcrumb" data={breadcrumbJsonLd('contact')} />
       <SiteNavbar content={global.nav} activePage="contact" footer={global.footer} />
-      <section className="bg-background pb-20 pt-44 md:pb-28 md:pt-56">
-        <div className="section-shell grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
-          <div>
-            <p className="eyebrow text-primary">Say hello</p>
-            <h1 className="mt-10 max-w-4xl text-display font-medium leading-[0.98] tracking-[-0.06em] md:text-hero-xl">Let&apos;s start a<br />conversation</h1>
-            <p className="mt-10 max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl">Have an idea, a question, or a business challenge you want to tackle? Reach out to our research-led team and let&apos;s build something exceptional together.</p>
+      <section className="bg-[url('/contact-us/hero-mob.png')] bg-[length:100%_auto] bg-center bg-no-repeat pb-10 pt-[104px] md:bg-none md:bg-background md:pb-28 md:pt-56">
+        <div className="section-shell grid items-start gap-10 [--section-pad-x:1.25rem] md:grid-cols-[1.15fr_0.85fr] md:items-stretch md:[--section-pad-x:1.5rem]">
+          <div className="relative isolate flex flex-col gap-4">
+            <Image
+              src="/contact-us/hero-desktop.png"
+              alt=""
+              fill
+              aria-hidden="true"
+              className="pointer-events-none hidden object-contain object-left md:block"
+              sizes="50vw"
+              priority
+            />
+            <p className="relative type-sans-regular text-[12px] leading-[normal] tracking-[3px] uppercase text-[#3A39FF] max-md:!font-[400] md:text-[12px] md:leading-[normal] md:tracking-[3px] md:text-[#3A39FF] md:!font-[400]">
+              Say hello
+            </p>
+            <h1 className="relative type-sans-regular max-w-4xl text-[44px] leading-[48px] tracking-[-1.5px] text-[#212121] max-md:!font-[400] md:text-[44px] md:leading-[48px] md:tracking-[-1.5px] md:text-[#212121] md:!font-[400]">
+              Based in Mumbai,<br />working globally.
+            </h1>
+            <p className="relative type-sans-regular max-w-3xl text-[15px] leading-[23px] text-[#212121]/60 max-md:!font-[400] md:text-[15px] md:leading-[23px] md:tracking-normal md:text-[#212121]/60">
+              We partner with ambitious founders and teams worldwide{' '}
+              <br className="hidden md:block" />
+              to design products that define industries.
+            </p>
           </div>
-          <ContactArtwork />
+          <div className="hidden md:block">
+            <ContactForm idPrefix="desktop-" />
+          </div>
         </div>
       </section>
 
-      <section className="bg-card py-20 md:py-28">
-        <div className="section-shell grid gap-20 lg:grid-cols-[1.2fr_0.8fr] lg:gap-28">
-          <ContactForm />
-          <aside className="flex flex-col gap-12">
-            <div><h2 className="text-heading leading-tight tracking-[-0.04em] md:text-display-xs">Based in Mumbai, working globally.</h2><p className="mt-5 text-lg leading-relaxed text-muted-foreground">We partner with ambitious founders and teams worldwide to design products that define industries.</p></div>
-            <div className="flex flex-col gap-10 text-base"><div><p className="text-sm uppercase tracking-[0.08em] text-muted-foreground">Email us</p><a className="mt-3 block text-xl text-primary" href={`mailto:${global.footer.contact.email}`}>{global.footer.contact.email}</a></div><div><p className="text-sm uppercase tracking-[0.08em] text-muted-foreground">Call us</p><a className="mt-3 block text-xl" href={`tel:${global.footer.contact.phone.replace(/\s/g, "")}`}>{global.footer.contact.phone}</a></div><div><p className="text-sm uppercase tracking-[0.08em] text-muted-foreground">Our studio</p><p className="mt-3 text-xl leading-relaxed">OBEROI GARDENS, WeWork Oberoi Commerz II<br />1st floor, CTS No. 95, 4 B 3 &amp; 4 590<br />Off W. E. Highway, D2, City<br />Goregaon, Mumbai, Maharashtra 400063</p></div></div>
-            <div className="flex gap-6" aria-label="Brand color placeholders"><span className="size-16 rounded-2xl bg-primary" /><span className="size-16 rounded-2xl bg-accent" /><span className="size-16 rounded-2xl bg-mustard" /><span className="size-16 rounded-2xl bg-lavender" /></div>
-          </aside>
+      <section className="bg-white pt-10 pb-12 md:hidden">
+        <div className="section-shell [--section-pad-x:1.25rem]">
+          <ContactForm idPrefix="mobile-" />
         </div>
       </section>
       <FooterCTA cta={global.footerCta} />

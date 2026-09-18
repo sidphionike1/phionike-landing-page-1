@@ -2,6 +2,7 @@
   "hero": {
     "eyebrow": "Our Work",
     "headline": "Every Project Begins\nWith a Challenge",
+    "headlineMobile": "Every project\nbegins with a\nchallenge.",
     "primaryCta": { "label": "Explore Case Studies", "href": "#portfolio" },
     "secondaryCta": { "label": "Start a Project", "href": "/contact" },
     "subhead": "Find work that's relevant to you.",

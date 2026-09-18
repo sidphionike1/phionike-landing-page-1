@@ -93,7 +93,7 @@ const GRID_CARDS: GridCard[] = [
     type: "person_with_strip_no_data",
     id: "box1-roopam",
     accent: "orange",
-    photoSrc: "/about/team/roopam-mishra.png",
+    photoSrc: "/about/team/roopam-new.png",
     name: "Roopam Mishra",
     role: "Founder & Studio Head",
     bio: "Roopam loves design and is often found observing books, products and services to understand what makes them work. With a background in Engineering & Design, he enjoys bringing technology and human-centred thinking together to create meaningful experiences. Curious about how design will evolve with emerging technologies, he believes in questioning conventions and exploring new possibilities. For Roopam, good design is not just useful—it is liberating.",
@@ -121,7 +121,7 @@ const GRID_CARDS: GridCard[] = [
     type: "person_with_full_data",
     id: "box3-prerna",
     accent: "blue",
-    photoSrc: "/about/team/prerna-dwivedi.jpg",
+    photoSrc: "/about/team/prerna-dwivedi-new.png",
     name: "Prerna Dwivedi",
     role: "UI / UX Designer",
     bio: "Prerna is a UX Designer who enjoys turning complex workflows into simple, intuitive experiences. With experience across data-heavy platforms, dashboards and design systems, she likes finding clarity in products that can often feel overwhelming.",
@@ -145,7 +145,7 @@ const GRID_CARDS: GridCard[] = [
     type: "person_with_only_title",
     id: "box5-aarya",
     accent: "orange",
-    photoSrc: "/about/team/aarya-trivedi.png",
+    photoSrc: "/about/team/Aarya-new.png",
     name: "Aarya Trivedi",
     role: "UI / UX Designer",
     bio: "Aarya is a UX & Product Designer who enjoys making complex products simpler and more intuitive. With a background in design, she brings curiosity and a thoughtful approach to solving problems. She enjoys exploring how people interact with technology and finding the balance between user needs, business goals and meaningful experiences. For her, good design starts with understanding, asking the right questions, and creating with purpose.",
@@ -158,7 +158,7 @@ const GRID_CARDS: GridCard[] = [
     type: "person_with_only_title",
     id: "box6-yash",
     accent: "yellow",
-    photoSrc: "/about/team/yash-chaurasia.jpeg",
+    photoSrc: "/about/team/Yash-new.png",
     name: "Yash Chourasia",
     role: "UI / UX Designer",
     bio: "Yash is a UX Designer who brings a unique perspective shaped by his earlier experience in business development and sales. He enjoys understanding people, their behaviours and the problems they face, then turning those insights into simple, meaningful digital experiences. Curious about emerging technologies and design trends, he believes good design should not only look good but also make products easier, more intuitive and satisfying to use.",
@@ -180,7 +180,7 @@ const GRID_CARDS: GridCard[] = [
     type: "person_with_full_data",
     id: "box8-vrishti",
     accent: "yellow",
-    photoSrc: "/about/team/vrishti-purohit.jpg",
+    photoSrc: "/about/team/Vrishti-new.png",
     name: "Vrishti Purohit",
     role: "UI / UX Designer",
     bio: "Vrishti is a Visual Designer who enjoys bringing ideas to life through thoughtful interfaces, visual details and playful interactions. Her curiosity for motion and interactive design often leads her to experiment with scroll animations, 3D elements and micro-interactions.",
@@ -195,7 +195,7 @@ const GRID_CARDS: GridCard[] = [
     type: "person_with_only_title",
     id: "box9-rohit",
     accent: "lavender",
-    photoSrc: "/about/team/rohit-potnis.jpg",
+    photoSrc: "/about/team/Rohit-new.png",
     name: "Rohit Potnis",
     role: "UI / UX Designer",
     bio: "Rohit is a Product Designer who enjoys exploring how systems, products and people come together. With a background spanning ergonomics, furniture and digital experiences, he brings a hands-on approach to understanding problems and shaping solutions. Naturally curious, he likes keeping up with emerging technologies and design thinking, often looking beyond the screen to understand the larger context in which products live, work and evolve.",
@@ -208,7 +208,7 @@ const GRID_CARDS: GridCard[] = [
     type: "person_with_strip_no_data",
     id: "box14-sudhanshu",
     accent: "orange",
-    photoSrc: "/about/team/sudhanshu-parihar.jpeg",
+    photoSrc: "/about/team/Sudhanshu-new.png",
     name: "Sudhanshu Parihar",
     role: "Business Development Associate",
     bio: "Sudhanshu is passionate about understanding businesses, the people behind them, and the ideas that drive them forward. He enjoys collaborating with founders and teams to uncover opportunities where design, technology, and strategy come together to create meaningful impact. With a naturally curious mindset, he is constantly exploring emerging products, industries, and innovations, believing that the best solutions begin with asking the right questions rather than offering immediate answers.",
@@ -224,8 +224,12 @@ const GRID_CARDS: GridCard[] = [
     top: 1671,
     left: 0,
     width: 702,
-    height: 103,
+    // Stretched to Sudhanshu’s baseline while Harleen / Marcus are hidden.
+    // Restore height: 103 when those cards come back.
+    height: 272,
   },
+  // Hidden for now — restore Harleen + Marcus (and box11) when ready
+  /*
   {
     type: "colorblock",
     id: "box11",
@@ -263,10 +267,11 @@ const GRID_CARDS: GridCard[] = [
     width: 758,
     height: 451,
   },
+  */
 ];
 
 const CONTAINER_WIDTH = 1243;
-const CONTAINER_HEIGHT = 2454;
+const CONTAINER_HEIGHT = Math.max(...GRID_CARDS.map((card) => card.top + card.height));
 
 // ── TYPE 1 ──────────────────────────────────────────────────────────
 function ColorBlockView({ card }: { card: ColorBlockCard }) {
@@ -302,10 +307,10 @@ function HoverOverlay({
       className={`pointer-events-none absolute inset-0 flex flex-col items-center justify-center px-8 text-center opacity-0 transition-all duration-300 ease-out group-hover:opacity-100 ${ACCENT_TEXT[accent]}`}
       style={{ backgroundColor: `${ACCENT_HEX[accent]}E6` }} // ~90% opacity accent wash
     >
-      <div className="translate-y-2 transition-transform duration-300 ease-out group-hover:translate-y-0">
+      <div className="max-h-full w-full overflow-y-auto px-5 py-6 translate-y-2 transition-transform duration-300 ease-out group-hover:translate-y-0">
         <h3 className="type-vf-medium text-lead leading-tight">{name}</h3>
         <p className="type-vf-regular mt-1 text-title-sm opacity-80">{role}</p>
-        <p className="type-vf-regular mx-auto mt-3 max-w-[85%] text-title-sm leading-[23.4px] line-clamp-3">
+        <p className="type-vf-regular mx-auto mt-3 max-w-[85%] text-body-sm leading-[150%]">
           {bio}
         </p>
       </div>
@@ -322,9 +327,9 @@ function StripNoDataView({ card }: { card: StripNoDataCard }) {
     >
       <Image
         src={card.photoSrc}
-        alt=""
+        alt={card.name}
         fill
-        className="object-cover"
+        className="object-cover object-top"
         sizes={`${card.width}px`}
         quality={85}
       />
@@ -355,7 +360,7 @@ function OnlyTitleView({ card }: { card: OnlyTitleCard }) {
         src={card.photoSrc}
         alt={card.name}
         fill
-        className="object-cover"
+        className="object-cover object-top"
         sizes={`${card.width}px`}
         quality={85}
       />
@@ -395,7 +400,7 @@ function FullDataView({ card }: { card: FullDataCard }) {
           src={card.photoSrc}
           alt={card.name}
           fill
-          className="object-cover"
+          className="object-cover object-top"
           sizes={`${photoSize.width}px`}
           quality={85}
         />
@@ -406,7 +411,7 @@ function FullDataView({ card }: { card: FullDataCard }) {
       >
         <h3 className="type-vf-medium text-lead leading-tight">{card.name}</h3>
         <p className={`type-vf-regular mt-1 text-title-sm ${card.accent === "blue" ? "opacity-80" : "opacity-60"}`}>{card.role}</p>
-        <p className="type-vf-regular mt-3 text-title-sm leading-[23.4px] line-clamp-6">{card.bio}</p>
+        <p className="type-vf-regular mt-3 overflow-y-auto text-title-sm leading-[23.4px]">{card.bio}</p>
       </div>
     </div>
   );
@@ -427,7 +432,7 @@ function GridCardView({ card }: { card: GridCard }) {
 
 export function TeamGrid() {
   return (
-    <section className="bg-[#FDF8F0] px-0 py-14 md:px-0 md:-ml-[30px] md:py-20">
+    <section className="bg-[#FDF8F0] px-0 pt-8 pb-0 md:px-0 md:-ml-[30px] md:pt-20 md:pb-0">
       <div
         className="relative mx-auto hidden md:block"
         style={{ width: CONTAINER_WIDTH, height: CONTAINER_HEIGHT }}

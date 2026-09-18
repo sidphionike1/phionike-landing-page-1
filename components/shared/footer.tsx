@@ -56,6 +56,7 @@ export function FooterCTA({
   typography?: "home" | "about" | "work" | "services"
 }) {
   const isAbout = typography === "about" || typography === "services"
+  const isWork = typography === "work"
 
   return (
     <section className="relative overflow-hidden bg-white py-24 md:py-32">
@@ -80,8 +81,8 @@ export function FooterCTA({
       />
 
       <div className="relative z-10 section-shell [--section-pad-x:1.25rem] md:[--section-pad-x:1.5rem]">
-        {/* Mobile: centered + full-width buttons; desktop: shrink-wrapped left-aligned group */}
-        <div className="mx-auto w-full max-w-full text-center md:w-fit md:text-left">
+        {/* Work mobile: centered headings; other pages / desktop stay left-aligned */}
+        <div className={`mx-auto w-full max-w-full md:w-fit ${isWork ? "text-center md:text-left" : "text-left"}`}>
           <p className="type-sans-regular text-caption leading-[16.5px] tracking-[2.75px] uppercase text-[#212121]/60">
             {cta.eyebrow}
           </p>
@@ -90,8 +91,8 @@ export function FooterCTA({
             <h2
               className={
                 isAbout
-                  ? "type-sans-regular text-lead leading-[120%] text-[#212121] md:text-display md:leading-[62px] md:tracking-[-1px]"
-                  : "type-sans-regular text-lead leading-[120%] text-[#212121] md:text-display-sm md:leading-[51.52px]"
+                  ? "type-sans-regular text-lead leading-[120%] text-[#212121] md:text-[48px] md:leading-[62px] md:tracking-[-1px]"
+                  : "type-sans-regular text-lead leading-[120%] text-[#212121] md:text-[44.8px] md:leading-[51.52px]"
               }
             >
               {cta.headingLine1}
@@ -99,8 +100,8 @@ export function FooterCTA({
             <h3
               className={
                 isAbout
-                  ? "type-sans-italic mt-2 text-lead leading-[120%] text-[#FF5B23] md:text-display md:leading-[62px] md:tracking-[-1px]"
-                  : "type-sans-italic mt-2 text-lead leading-[120%] text-[#FF5B23] md:text-display-sm md:leading-[51.52px]"
+                  ? "type-sans-italic mt-2 text-lead leading-[120%] text-[#FF5B23] md:text-[48px] md:leading-[62px] md:tracking-[-1px]"
+                  : "type-sans-italic mt-2 text-lead leading-[120%] text-[#FF5B23] md:text-[44.8px] md:leading-[51.52px]"
               }
             >
               {cta.italicHeadingLine}
@@ -137,11 +138,9 @@ export function Footer({
 }) {
   return (
     <footer className="border-t border-border bg-white">
-      {/* Desktop 5.5/4.5 split; mobile: content only, no photo */}
-      <div className="grid lg:grid-cols-[5.5fr_4.5fr] lg:items-stretch">
-        {/* Left — content, padded to align with section-shell left edge */}
+      <div className="relative">
         <div
-          className="flex flex-col justify-between px-5 py-12 md:py-16 md:pr-12 lg:pr-16 lg:pl-[max(var(--section-pad-x),calc((100vw-var(--section-max))/2))]"
+          className="flex flex-col justify-between px-5 py-12 md:py-16 md:pr-12 lg:w-[55%] lg:pr-16 lg:pl-[max(var(--section-pad-x),calc((100vw-var(--section-max))/2))]"
         >
           <div>
             <PhionikieLogo />
@@ -224,8 +223,7 @@ export function Footer({
           </div>
         </div>
 
-        {/* Right — team photo desktop only, flush to edges */}
-        <div className="relative hidden overflow-hidden lg:block lg:min-h-[560px]">
+        <div className="absolute inset-y-0 right-0 hidden overflow-hidden lg:block lg:w-[45%]">
           <Image
             src={content.teamPhotoSrc}
             alt="Phionike team"

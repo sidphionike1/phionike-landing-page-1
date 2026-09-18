@@ -3,7 +3,7 @@
     "badge": "Our Process with AI",
     "headlineMain": "Where Human\nThinking Meets",
     "headlineAccent": "Intelligent Execution",
-    "subheadline": "A bespoke framework that brings technology and human-centred thinking together to create meaningful experiences.",
+    "subheadline": "Introduce our philosophy of combining AI with human-\ncentered design.",
     "primaryCta": "Explore Case Studies",
     "secondaryCta": "Start a Project"
   },
@@ -228,38 +228,50 @@
     ]
   },
   "outcomesSection": {
-    "badge": "OUTCOMES",
-    "headline": "Value & Deliverables",
+    "badge": "MEASURABLE METRICS",
+    "headline": "Better outcomes, not just faster delivery.",
     "grid": [
       {
-        "title": "Unmatched Speed",
-        "description": "Go from concept to interactive prototype in days rather than months.",
-        "icon": "Zap"
+        "title": "Faster Validation",
+        "description": "Test deep qualitative concepts in days instead of months, minimizing downstream project risk.",
+        "icon": "zap",
+        "iconColor": "rgba(58, 57, 255, 1)",
+        "iconBg": "rgba(58, 57, 255, 0.0784)"
       },
       {
-        "title": "Data-Informed UX",
-        "description": "Every design decision backed by synthesized user research.",
-        "icon": "BarChart3"
+        "title": "Earlier Alignment",
+        "description": "Keep internal stakeholders and engineering completely synchronized through tactical prototypes.",
+        "icon": "crosshair",
+        "iconColor": "rgba(255, 91, 35, 1)",
+        "iconBg": "rgba(255, 91, 35, 0.0784)"
       },
       {
-        "title": "Pixel-Perfect Precision",
-        "description": "Strict token-based design systems that ensure 100% visual fidelity.",
-        "icon": "Target"
+        "title": "Reduced Design Rework",
+        "description": "Solve UX friction before writing UI layout code, removing costly changes from active engineering sprints.",
+        "icon": "shield",
+        "iconColor": "rgba(242, 187, 6, 1)",
+        "iconBg": "rgba(242, 187, 6, 0.102)"
       },
       {
-        "title": "Future-Proof Tech Stack",
-        "description": "Modern frontend code built using Next.js, Tailwind CSS, and Framer Motion.",
-        "icon": "Code2"
+        "title": "Higher Design Quality",
+        "description": "Maximize visual fidelity and interface delight by separating exploration speed from detail polish.",
+        "icon": "eye",
+        "iconColor": "rgba(59, 158, 255, 1)",
+        "iconBg": "rgba(59, 158, 255, 0.0784)"
       },
       {
-        "title": "Transparent Workflows",
-        "description": "Real-time visibility into every phase of the design and dev cycle.",
-        "icon": "Eye"
+        "title": "Scalable Design Systems",
+        "description": "Establish systematic token ecosystems that seamlessly evolve alongside growing product libraries.",
+        "icon": "layers",
+        "iconColor": "rgba(220, 184, 255, 1)",
+        "iconBg": "rgba(220, 184, 255, 0.149)"
       },
       {
-        "title": "Human Craftsmanship",
-        "description": "AI provides velocity, but expert senior designers refine every detail.",
-        "icon": "Sparkles"
+        "title": "Better Collaboration",
+        "description": "Bridge the language gap between engineers and visual designers through direct, componentized handoffs.",
+        "icon": "users",
+        "iconColor": "rgba(58, 57, 255, 1)",
+        "iconBg": "rgba(58, 57, 255, 0.0784)"
       }
     ]
   },

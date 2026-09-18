@@ -8,7 +8,9 @@
   "items": [
     {
       "id": "oren",
-      "title": "Oren - Smart Ring App",
+      "title": "Oren",
+      "tagline": "A smart ring and companion app designed to make everyday health insights more accessible.",
+      "services": "Product Design • Brand Design • Packaging Design",
       "x": 0,
       "y": 0,
       "cardW": 642,
@@ -25,6 +27,8 @@
     {
       "id": "oren-2",
       "title": "Soli",
+      "tagline": "A digital platform connecting farmers with trusted crop and dairy experts.",
+      "services": "UX Research • Product Design • Content Design",
       "x": 766,
       "y": 0,
       "cardW": 427,
@@ -35,12 +39,14 @@
       "mediaSrc": "/work_gifs/Soli.mp4",
       "mediaType": "video",
       "industry": "Healthcare",
-      "service": "Branding",
+      "service": "UX Research",
       "challenge": "Onboarding"
     },
     {
       "id": "take-2",
       "title": "Take 2 Films",
+      "tagline": "A contemporary digital presence for a creative film production studio.",
+      "services": "Website Design • Development • Visual Design",
       "x": 0,
       "y": 702,
       "cardW": 534,
@@ -56,7 +62,9 @@
     },
     {
       "id": "resai",
-      "title": "ResAI- Interactive Map",
+      "title": "Resilience AI",
+      "tagline": "A climate-tech platform that helps enterprises understand and act on asset-level risks.",
+      "services": "Product Strategy • Product Design • UI/UX • Design System",
       "x": 766,
       "y": 671,
       "cardW": 427,
@@ -73,6 +81,8 @@
     {
       "id": "wavelength",
       "title": "Wavelength",
+      "tagline": "A bold digital identity and experience for a new-age creative brand.",
+      "services": "Branding • Motion Design • Digital Experience",
       "x": 0,
       "y": 1365,
       "cardW": 427,
@@ -83,12 +93,14 @@
       "mediaSrc": "/work_gifs/Wavelength.webm",
       "mediaType": "video",
       "industry": "Recruitment",
-      "service": "UX Research",
+      "service": "Branding",
       "challenge": "Onboarding"
     },
     {
       "id": "brandintelle",
       "title": "Brandintelle",
+      "tagline": "A marketing intelligence platform that brings campaign planning, execution and measurement together.",
+      "services": "Product Design • UI/UX • Design System",
       "x": 550,
       "y": 1329,
       "cardW": 642,

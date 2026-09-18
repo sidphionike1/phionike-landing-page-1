@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { ArrowUpRight } from "lucide-react"
+import type { CSSProperties } from "react"
 import { cn } from "@/lib/utils"
 import type { AboutPage } from "@/content/schema"
 // import {TeamGrid} from "@/components/about/team-grid"
@@ -71,41 +72,57 @@ export function AboutHero({ content }: AboutHeroProps) {
     alt: 'The Phionike team collaborating',
   };
 
+  const firstLine = headlineParts.slice(0, 2)
+  const restLines = headlineParts.slice(2)
+
+  const renderPart = (
+    part: { text: string; accent?: boolean },
+    i: number,
+    className: string,
+  ) =>
+    part.accent ? (
+      <span key={i} className={className}>
+        {part.text}
+      </span>
+    ) : (
+      <span key={i}>{part.text}</span>
+    )
+
   return (
     <section className="relative w-full overflow-x-hidden bg-[#FDF8F0] pt-32 font-sans md:pt-40">
-      <div className="section-shell">
+      {/* Mobile: tighter gutters so “We design with purpose.” stays one line */}
+      <div className="section-shell [--section-pad-x:0.75rem] md:[--section-pad-x:1.5rem]">
         <p className="type-sans-regular text-eyebrow leading-[16.5px] tracking-[3.3px] uppercase text-[#212121]/60">
           {eyebrow}
         </p>
 
-        <h1 className="type-sans-regular mt-6 max-w-4xl whitespace-pre-line text-[36px] leading-[46.8px] tracking-[-2px] text-[#212121] md:text-hero md:leading-[105%] md:tracking-[-2px]">
-          {headlineParts.map((part, i) =>
-            part.accent ? (
-              <span key={i} className="type-sans-regular text-[#ff5b23]">
-                {part.text}
-              </span>
-            ) : (
-              <span key={i}>{part.text}</span>
-            )
+        <h1 className="mt-6 max-w-4xl whitespace-pre-line font-vf text-[36px] font-normal leading-[46.8px] tracking-[-2px] text-[#212121] md:font-sans md:text-hero md:leading-[105%] md:tracking-[-2px]">
+          <span className="whitespace-nowrap md:whitespace-normal">
+            {firstLine.map((part, i) =>
+              renderPart(part, i, "text-[#ff5b23]"),
+            )}
+          </span>
+          {restLines.map((part, i) =>
+            renderPart(part, i + firstLine.length, "text-[#ff5b23]"),
           )}
         </h1>
 
         {/* Body left + CTAs right — top-aligned to match Figma */}
-        <div className="mt-8 flex flex-col gap-6 pb-14 md:mt-10 md:flex-row md:items-start md:justify-between md:gap-10 md:pb-16">
-          <p className="type-sans-regular max-w-xl whitespace-pre-line text-body leading-[150%] text-[#36454F] md:max-w-[860px]">
+        <div className="mt-8 flex flex-col gap-8 pb-14 md:mt-10 md:flex-row md:items-start md:justify-between md:gap-10 md:pb-16">
+          <p className="max-w-xl whitespace-normal font-vf text-body font-normal leading-[150%] text-[#36454F] md:max-w-[860px] md:whitespace-pre-line md:font-sans">
             {body}
           </p>
 
           <div className="flex shrink-0 items-center gap-6">
             <a
               href={primaryCta.href}
-              className="type-sans-semibold inline-flex items-center justify-center gap-2 rounded-full bg-[#1e1e1e] px-7 py-4 text-body-sm leading-[21px] text-white transition-opacity hover:opacity-90"
+              className="type-sans-semibold inline-flex items-center justify-center gap-2 rounded-full bg-[#1e1e1e] px-7 py-4 text-body-sm leading-normal text-white transition-opacity hover:opacity-90"
             >
               {primaryCta.label}
             </a>
             <a
               href={secondaryCta.href}
-              className="type-sans-medium inline-flex items-center gap-2 text-body-sm leading-[21px] text-[#121212]"
+              className="type-sans-medium inline-flex items-center gap-2 text-body-sm leading-[21px] text-[#262728]"
             >
               {secondaryCta.label}
               <ArrowUpRight size={15} className="text-[#FF5B23]" />
@@ -174,33 +191,31 @@ export function MosaicStrip({ tiles }: { tiles: AboutPage["hero"]["mosaicTiles"]
 
 export function ValuesSection({ content }: { content: AboutPage["values"] }) {
   return (
-    <section className="bg-[#FFFCF7] py-24 md:py-32">
-      <div className="section-shell">
+    <section className="bg-[#FFFCF7] py-[60px] md:py-32">
+      <div className="section-shell [--section-pad-x:1.25rem] md:[--section-pad-x:1.5rem]">
         {/* Centred heading block */}
         <div className="text-center">
           <p className="type-sans-regular text-eyebrow leading-[16.5px] tracking-[3.3px] uppercase text-[#212121]/60">
             {content.eyebrow}
           </p>
-          <h2 className="type-sans-regular mt-8 text-faq leading-[42.9px] text-[#3A39FF] md:text-hero md:leading-[78px]">
-            {content.headingPlain}
-          </h2>
-          <h2 className="type-sans-regular mt-5 text-faq leading-[42.9px] text-[#212121]/60 md:text-hero md:leading-[78px]">
-            {content.headingAccent}
+          <h2 className="type-sans-regular mt-[18px] text-[33px] leading-[42.9px] md:mt-8 md:text-hero md:leading-[64px]">
+            <span className="text-[#3A39FF]">{content.headingPlain} </span>
+            <span className="block text-[#212121]/60">{content.headingAccent}</span>
           </h2>
         </div>
 
-        <div className="mt-20 grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-3">
+        <div className="mt-[60px] grid grid-cols-1 gap-x-8 gap-y-5 md:mt-20 md:grid-cols-3 md:gap-y-12">
           {content.items.map((item) => (
-            <div key={item.title} className="mt-4 flex flex-col">
-              <h3 className="type-vf-regular text-title leading-[28px] text-[#212121]">
+            <div key={item.title} className="flex flex-col md:mt-4">
+              <h3 className="type-sans-regular text-title leading-[28px] text-[#212121] md:font-vf">
                 {item.title}
               </h3>
-              <p className="type-vf-regular mt-3 flex-1 text-body leading-[22.5px] text-[#212121]/60">
+              <p className="type-sans-regular mt-3 flex-1 text-body leading-[22.5px] text-[#212121]/60 md:font-vf">
                 {item.body}
               </p>
               {/* Coloured accent bar beneath body */}
               <div
-                className="mt-4 h-[1px] w-full rounded-full"
+                className="mt-6 h-[1px] w-full rounded-full md:mt-4"
                 style={{
                   backgroundColor: ACCENT_HEX[item.accentColor],
                 }}
@@ -317,21 +332,28 @@ function renderTile(tile: Tile) {
 
 export function TeamSection({ content }: { content: AboutPage["team"] }) {
   return (
-    <section className="bg-[#FDF8F0] py-20 md:py-28">
+    <section className="bg-[#FDF8F0] py-16 md:pt-28 md:pb-16">
       <div className="section-shell">
         {/* Intro: text block (40%) + group photo (60%) */}
-        <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-[2fr_3fr] md:gap-12">
-          <div className="border-l border-border pl-6 md:pl-8">
-            <p className="type-sans-regular text-caption leading-[16.5px] tracking-[3.3px] text-[#FF5B23]">
-              {content.eyebrow}
-            </p>
-            <h2 className="type-sans-regular mt-4 text-faq leading-[53.76px] md:text-display-sm md:leading-[53.76px] text-[#212121]">
-              {content.headingDark}
-              <br />
-              <span className="opacity-60">{content.headingMuted}</span>
-            </h2>
+        <div className="grid grid-cols-1 items-center gap-7 md:grid-cols-[2fr_3fr] md:gap-12">
+          <div className="flex items-start gap-[30px] md:block md:border-l md:border-border md:pl-8">
+            <span
+              aria-hidden="true"
+              className="-translate-y-[10px] mt-1 h-[150px] w-px shrink-0 bg-border md:hidden"
+            />
+            <div>
+              <p className="type-sans-regular text-[11px] leading-[16.5px] tracking-[3.3px] uppercase text-[#FF5B23] md:text-caption">
+                {content.eyebrow}
+              </p>
+              <h2 className="type-sans-regular mt-5 text-[33px] leading-[40px] text-[#212121] md:mt-4 md:text-display-sm md:leading-[53.76px]">
+                <span className="block">{content.headingDark}</span>
+                <span className="mt-1.5 block opacity-60 md:mt-0">
+                  {content.headingMuted}
+                </span>
+              </h2>
+            </div>
           </div>
-          <div className="relative h-[200px] md:h-[345px] w-full overflow-hidden rounded-2xl bg-muted">
+          <div className="relative h-[175px] w-full overflow-hidden rounded-2xl bg-muted md:h-[345px]">
             <Image
               src={content.introPhotoSrc}
               alt="The Phionike team"
@@ -363,6 +385,18 @@ const BAND_TEXT: Record<string, string> = {
   cobalt:     "#fff",
   mustard:    "#111",
 }
+const MOBILE_BAND_BG: Record<string, string> = {
+  terracotta: "#FF5B23",
+  lavender:   "#DCB8FF",
+  cobalt:     "#3A39FF",
+  mustard:    "#F2BB06",
+}
+const MOBILE_BAND_TEXT: Record<string, string> = {
+  terracotta: "#fff",
+  lavender:   "#212121",
+  cobalt:     "#fff",
+  mustard:    "#212121",
+}
 
 const PLACEHOLDER = (w: number, h: number, text: string) =>
   `https://placehold.co/${w}x${h}/e5e5e5/666666?text=${encodeURIComponent(text)}`;
@@ -371,22 +405,27 @@ const PLACEHOLDER = (w: number, h: number, text: string) =>
 export function CultureSection({ content }: { content: AboutPage["culture"] }) {
   return (
     <section className="bg-[#FFFCF7]">
-      <div className="section-shell">
+      <div className="section-shell [--section-pad-x:1.25rem] md:[--section-pad-x:1.5rem]">
         {/* Heading */}
-        <div className="py-16 md:py-20">
-          <p className="type-sans-medium text-caption leading-[16.5px] tracking-[3.3px] text-[#212121]/60">
+        <div className="pt-16 pb-0 md:pt-16 md:pb-20">
+          <p className="type-sans-medium text-[11px] leading-[16.5px] tracking-[3.3px] uppercase text-[#212121]/60 md:text-caption">
             {content.eyebrow}
           </p>
-          <h2 className="type-vf-regular mt-4 text-display-sm leading-[53.76px] text-[#212121] md:text-display-sm md:leading-[53.76px]">
-            {content.headingPlain}{" "}
-            <em className="type-vf-italic">
-              {content.headingItalic}
+          <h2 className="type-vf-regular mt-5 text-[44.8px] leading-[53.76px] text-[#212121] md:mt-4 md:text-display-sm md:leading-[53.76px]">
+            <span className="max-md:block">{content.headingPlain}</span>
+            <em className="type-vf-italic max-md:mt-0 max-md:block">
+              <span className="md:hidden">
+                a balance of rigor
+                <br />
+                and play
+              </span>
+              <span className="hidden md:inline"> {content.headingItalic}</span>
             </em>
           </h2>
         </div>
 
         {/* Hero image — darken on hover; orange bar grows 0→20px (desktop) */}
-        <div className="group relative isolate aspect-[5/4] w-full overflow-hidden rounded-[1.75rem] bg-muted md:aspect-[21/8] md:rounded-2xl">
+        <div className="group relative isolate mt-8 h-[226px] w-full overflow-hidden rounded-[30px] bg-muted md:mt-0 md:aspect-[21/8] md:h-auto md:rounded-2xl">
           <Image
             src={content.introPhotoSrc || PLACEHOLDER(1200, 400, "Life at Phionike")}
             alt="Life at Phionike"
@@ -417,15 +456,13 @@ export function CultureSection({ content }: { content: AboutPage["culture"] }) {
           {/* Mobile: always-visible overlay + fixed orange accent bar */}
           <div
             aria-hidden
-            className="absolute inset-y-0 left-0 z-10 w-5 bg-[#FF5B24] md:hidden"
+            className="absolute inset-y-0 left-0 z-10 w-[15px] bg-[#FF5B23] md:hidden"
           />
-          <div className="absolute inset-0 flex flex-col justify-center bg-black/45 py-8 pl-10 pr-6 md:hidden">
-            <h3 className="type-sans-medium text-left text-title leading-normal text-white">
-              Where curiosity becomes
-              <br />
-              collaboration.
+          <div className="absolute inset-0 flex flex-col justify-start bg-black/[0.53] pt-[52px] pr-6 pl-[31px] md:hidden">
+            <h3 className="type-sans-medium text-left text-[20px] leading-[normal] text-white">
+              Where curiosity becomes collaboration.
             </h3>
-            <p className="type-sans-regular mt-3 max-w-md text-left text-eyebrow leading-[150%] text-white/90">
+            <p className="type-sans-medium mt-3 text-left text-[12px] leading-[normal] text-white">
               Every project is powered by people who question, explore and create
               together. We believe the best ideas emerge through open
               conversations, shared ownership and a culture of continuous
@@ -435,21 +472,24 @@ export function CultureSection({ content }: { content: AboutPage["culture"] }) {
         </div>
 
         {/* 4 alternating bands — mobile: 50/50 side-by-side; desktop unchanged */}
-        <div className="flex flex-col gap-5 pb-20 pt-10">
+        <div className="flex flex-col gap-4 pb-16 pt-8 md:gap-5 md:pb-20 md:pt-10">
           {content.bands.map((band, index) => {
             const photoLeftDesktop = band.photoSide === "left"
             // Mobile Figma: Learn/Grow = text|image; Build/Care = image|text
             const photoLeftMobile = index % 2 === 1
             const bg = BAND_BG[band.bgColor] ?? "#eee"
             const fg = BAND_TEXT[band.bgColor] ?? "#111"
+            const mobileBg = MOBILE_BAND_BG[band.bgColor] ?? bg
+            const mobileFg = MOBILE_BAND_TEXT[band.bgColor] ?? fg
 
             return (
               <div
                 key={band.id}
                 className={cn(
-                  "grid h-[200px] overflow-hidden rounded-[1.75rem] md:h-[246px] md:grid-rows-1 md:rounded-3xl",
-                  // Mobile: text panel 60% / photo 40% (sides flip with alternation)
-                  photoLeftMobile ? "grid-cols-[40fr_60fr]" : "grid-cols-[60fr_40fr]",
+                  "grid h-[176px] overflow-hidden rounded-[30px] md:h-[246px] md:grid-rows-1 md:rounded-3xl",
+                  photoLeftMobile
+                    ? "grid-cols-[minmax(0,140px)_minmax(220px,1fr)]"
+                    : "grid-cols-[minmax(220px,1fr)_minmax(0,140px)]",
                   photoLeftDesktop
                     ? "md:grid-cols-[44fr_56fr]"
                     : "md:grid-cols-[56fr_44fr]",
@@ -457,24 +497,30 @@ export function CultureSection({ content }: { content: AboutPage["culture"] }) {
               >
                 <div
                   className={cn(
-                    "flex items-center px-4 py-5 text-left md:px-16 md:py-[4.5rem]",
+                    "flex min-h-0 min-w-[220px] items-start overflow-hidden px-5 pt-[33px] text-left md:min-w-0 md:items-center md:px-16 md:py-[4.5rem]",
                     photoLeftMobile ? "order-2" : "order-1",
                     photoLeftDesktop ? "md:order-2" : "md:order-1",
+                    "[background-color:var(--band-bg)] [color:var(--band-fg)] md:[background-color:var(--band-bg-md)] md:[color:var(--band-fg-md)]",
                   )}
-                  style={{ backgroundColor: bg, color: fg }}
+                  style={{
+                    "--band-bg": mobileBg,
+                    "--band-fg": mobileFg,
+                    "--band-bg-md": bg,
+                    "--band-fg-md": fg,
+                  } as CSSProperties}
                 >
                   <div
                     className={cn(
-                      "w-full text-left",
+                      "w-full text-left md:max-w-none",
                       photoLeftDesktop ? "md:text-left" : "md:text-right",
                     )}
                   >
-                    <h3 className="type-sans-regular text-[15px] leading-tight md:text-display-sm md:leading-normal">
+                    <h3 className="type-sans-regular text-[20px] leading-[1.15] md:text-display-sm md:leading-normal">
                       {band.title}
                     </h3>
                     <p
                       className={cn(
-                        "type-sans-regular mt-2 text-[11px] leading-[145%] md:mt-3.5 md:max-w-sm md:text-body-sm md:leading-[150%]",
+                        "type-sans-regular mt-2.5 text-[12px] leading-[1.2] md:mt-3.5 md:max-w-sm md:text-body-sm md:leading-[150%]",
                         photoLeftDesktop && "md:mr-auto",
                         !photoLeftDesktop && "md:ml-[40px] md:inline-block",
                       )}
@@ -486,7 +532,7 @@ export function CultureSection({ content }: { content: AboutPage["culture"] }) {
 
                 <div
                   className={cn(
-                    "relative h-full overflow-hidden bg-muted",
+                    "relative h-full min-w-0 overflow-hidden bg-muted",
                     photoLeftMobile ? "order-1" : "order-2",
                     photoLeftDesktop ? "md:order-1" : "md:order-2",
                   )}

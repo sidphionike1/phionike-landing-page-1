@@ -68,7 +68,7 @@
   "valueProp": {
     "heading": "We help brands and products grow\nthrough",
     "headingItalic": "thoughtful design and digital\nexperiences.",
-    "body": "Our approach blends research, branding, product\nthinking, and AI-assisted workflows to help teams\nmove from ambiguity to scalable experiences —\ncreating products and systems that are thoughtful,\nadaptable, and built for long-term growth.",
+    "body": "Our approach blends research, branding, product\nthinking, and AI-assisted workflows to help teams\nmove from ambiguity to scalable experiences, creating products and systems that are thoughtful,\nadaptable, and built for long-term growth.",
     "cta": {
       "label": "View our approach",
       "href": "/approach"
@@ -133,7 +133,7 @@
   ],
   "processSteps": {
     "mobileEyebrowNumber": "04",
-    "mobileHeading": "Scale your projects to reach enterprise perfection",
+    "mobileHeading": "Scale to reach enterprise perfection",
     "steps": [
       {
         "id": "step-1",
@@ -165,7 +165,7 @@
       {
         "id": "step-4",
         "number": "04",
-        "heading": "Scale your projects to reach enterprise perfection",
+        "heading": "Scale to reach enterprise perfection",
         "caption": "Grow impact and expand to new markets",
         "subheading": "Scale & Partner",
         "cardSubheading": "Build systems and foundations that support long term growth",
@@ -187,7 +187,7 @@
   "venn": {
     "eyebrow": "WHERE WE CREATE IMPACT",
     "heading": "Not every product needs the same help",
-    "subheading": "we meet you where you are",
+    "subheading": "we meet you\nwhere you are",
     "supportCopy": "Explore the clients and projects behind each discipline.",
     "disciplines": [
       {
@@ -364,10 +364,10 @@
   },
   "footer": {
     "description": "Research-led, multi-industry, and values-driven. We design products, brands, and experiences that move people forward.",
-    "location": "OBEROI GARDENS, WeWork Oberoi Commerz II, 1st floor, CTS No. 95, 4 B 3 & 4 590 Off W. E. Highway, D2, City, Goregaon, Mumbai, Maharashtra 400063",
+    "location": "WeWork - Nesco IT Park, Goregaon, Mumbai, India.",
     "copyright": "© 2026 Phionike Studio Ltd. Registered in India.",
     "contact": {
-      "email": "hello@phionike.studio",
+      "email": "info@phionike.com",
       "phone": "+91 97699 04435"
     },
     "navLinks": [

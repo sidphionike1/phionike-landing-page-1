@@ -49,20 +49,28 @@
     "subheading": "We unite with big brands and startups in various industries to create award-winning work.",
     "sectors": [
       {
+        "sector": "Startups",
+        "clients": ["Resilience AI", "Alt Mobility", "SuperSnap", "Filesure", "Oren World"]
+      },
+      {
+        "sector": "B2B Enterprise",
+        "clients": ["Brandintelle", "Adintelle", "Burger King", "Phillips", "UltraTech Cements", "Ehlo", "TVF Play"]
+      },
+      {
+        "sector": "Energy & Earth",
+        "clients": ["Resilience AI", "FarmYields", "Innoterra Soli"]
+      },
+      {
         "sector": "Fintech",
-        "clients": ["Discover", "Stripe", "CreditKarma", "STC Bank", "MoneyLion", "Marqeta", "Quicken", "Lulo Bank", "Earnin", "Fundbox", "StreetBeat", "Q2"]
+        "clients": ["Al-Ramz", "India Quotient", "First Cheque", "IISLA Ventures", "ICP Credit"]
       },
       {
-        "sector": "B2B & Enterprise Software",
-        "clients": ["Slack", "ADP", "VMware", "Okta", "Splunk", "Nutanix", "Zenefits", "Comscore", "Papaya", "TeamViewer", "Cornerstone", "WorkBoard", "AppDynamics"]
+        "sector": "Healthcare",
+        "clients": ["Vetbuddy", "NHS", "Care 24"]
       },
       {
-        "sector": "Technology",
-        "clients": ["Google", "Amazon", "Snapchat", "Facebook", "Cisco", "Speedtest.net"]
-      },
-      {
-        "sector": "Healthcare & Life Sciences",
-        "clients": ["Medidata", "Medable", "Hint", "Endpoint", "Neurolign", "Quartzy"]
+        "sector": "Ecommerce",
+        "clients": ["Zeme Fresh", "Libratherm Instruments", "Ceolla", "Oren Fit"]
       }
     ],
     "cta": { "label": "See all Work", "href": "/work" }

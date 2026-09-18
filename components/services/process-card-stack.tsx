@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, type CSSProperties } from "react"
+import { useEffect, useRef, useState, type CSSProperties } from "react"
 import { Plus } from "lucide-react"
 import type { GlobalContent } from "@/content/schema"
 import { cn } from "@/lib/utils"
@@ -81,22 +81,50 @@ export function ProcessCardStack({
 }: {
   steps: GlobalContent["processSteps"]
 }) {
-  const [activeIndex, setActiveIndex] = useState(steps.length - 1)
+  const restIndex = steps.length - 1
+  const [activeIndex, setActiveIndex] = useState(restIndex)
+  const [elevated, setElevated] = useState(false)
+  const stackRef = useRef<HTMLDivElement>(null)
   const stackHeight = CARD_OFFSET * (steps.length - 1) + CARD_HEIGHT
+
+  useEffect(() => {
+    if (!elevated) return
+
+    const onPointerDown = (event: PointerEvent) => {
+      if (stackRef.current?.contains(event.target as Node)) return
+      setActiveIndex(restIndex)
+      setElevated(false)
+    }
+
+    document.addEventListener("pointerdown", onPointerDown)
+    return () => document.removeEventListener("pointerdown", onPointerDown)
+  }, [elevated, restIndex])
+
+  const selectCard = (i: number) => {
+    if (elevated && activeIndex === i) {
+      setActiveIndex(restIndex)
+      setElevated(false)
+      return
+    }
+    setActiveIndex(i)
+    setElevated(true)
+  }
 
   return (
     <div
+      ref={stackRef}
       className="relative mx-auto w-full max-w-[480px]"
       style={{ height: stackHeight }}
     >
       {steps.map((step, i) => {
         const light = isLightBand(step.bandColor)
         const isActive = i === activeIndex
+        const isFront = elevated && isActive
         const angle = CARD_ANGLES[i % CARD_ANGLES.length]
 
         const style: CSSProperties = {
           top: i * CARD_OFFSET,
-          zIndex: isActive ? 40 : (i + 1) * 10,
+          zIndex: isFront ? steps.length * 10 + 10 : (i + 1) * 10,
           width: `min(100%, ${CARD_WIDTH}px)`,
           height: CARD_HEIGHT,
           borderRadius: CARD_RADIUS,
@@ -110,10 +138,10 @@ export function ProcessCardStack({
           <button
             key={step.id}
             type="button"
-            onClick={() => setActiveIndex(i)}
+            onClick={() => selectCard(i)}
             aria-pressed={isActive}
             className={cn(
-              "absolute left-1/2 flex w-full max-w-[480px] cursor-pointer flex-col text-left shadow-[0_12px_40px_rgba(0,0,0,0.08)] transition-[z-index] duration-200",
+              "absolute left-1/2 flex w-full max-w-[480px] cursor-pointer flex-col text-left shadow-[0_12px_40px_rgba(0,0,0,0.08)]",
               colors[step.bandColor],
               light ? "text-[#121212]" : "text-white",
             )}

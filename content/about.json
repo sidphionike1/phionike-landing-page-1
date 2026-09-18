@@ -62,7 +62,7 @@
       },
       {
         "title": "Design with Integrity",
-        "body": "Integrity isn't a value we aspire to — it's the foundation of every decision. We communicate honestly, design responsibly and always do what's right for the user and our partners.",
+        "body": "Integrity isn't a value we aspire to. It's the foundation of every decision. We communicate honestly, design responsibly and always do what's right for the user and our partners.",
         "accentColor": "terracotta"
       },
       {
@@ -82,7 +82,7 @@
       },
       {
         "title": "Design for Everyone",
-        "body": "Accessibility and inclusivity are fundamental — not optional. We believe great design is usable, equitable and representative of the diverse people it serves.",
+        "body": "Accessibility and inclusivity are fundamental, not optional. We believe great design is usable, equitable and representative of the diverse people it serves.",
         "accentColor": "terracotta"
       }
     ]
@@ -142,7 +142,7 @@
       {
         "id": "care",
         "title": "We Care Deeply",
-        "body": "We care about our teammates, our partners and the people who use what we build. Empathy isn't just part of our process \n — it's part of our culture.",
+        "body": "We care about our teammates, our partners and the people who use what we build. Empathy isn't just part of our process, it's part of our culture.",
         "photoSrc": "/about/culture/care.png",
         "bgColor": "mustard",
         "textColor": "charcoal",

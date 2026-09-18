@@ -13,6 +13,68 @@ import type { ProcessStep } from "@/content/schema"
 const ACTIVE_PILL_BG = "#FCE1E7"
 const ACTIVE_PILL_BORDER = "#E2566F"
 const CONNECTOR_COLOR = "#E2566F"
+/** Figma vector corner radius on every hover connector turn. */
+const CONNECTOR_TURN_R = 21
+
+/** Round every 90° H/V corner in a connector with a circular arc of `radius`. */
+function roundedOrthogonalPath(d: string, radius = CONNECTOR_TURN_R): string {
+  const cmds = d.match(/[MHV][^MHV]*/g)
+  if (!cmds) return d
+
+  let x = 0
+  let y = 0
+  const pts: { x: number; y: number }[] = []
+  for (const cmd of cmds) {
+    const nums = cmd
+      .slice(1)
+      .trim()
+      .split(/[\s,]+/)
+      .filter(Boolean)
+      .map(Number)
+    if (cmd[0] === "M") {
+      x = nums[0]
+      y = nums[1]
+      pts.push({ x, y })
+    } else if (cmd[0] === "H") {
+      x = nums[0]
+      pts.push({ x, y })
+    } else if (cmd[0] === "V") {
+      y = nums[0]
+      pts.push({ x, y })
+    }
+  }
+  if (pts.length < 3) return d
+
+  let out = `M${pts[0].x} ${pts[0].y}`
+  for (let i = 1; i < pts.length; i++) {
+    const prev = pts[i - 1]
+    const curr = pts[i]
+    const next = pts[i + 1]
+    if (!next) {
+      out += curr.x === prev.x ? ` V${curr.y}` : ` H${curr.x}`
+      continue
+    }
+
+    const inLen = Math.hypot(curr.x - prev.x, curr.y - prev.y)
+    const outLen = Math.hypot(next.x - curr.x, next.y - curr.y)
+    const r = Math.min(radius, inLen / 2, outLen / 2)
+    if (r < 0.5) {
+      out += curr.x === prev.x ? ` V${curr.y}` : ` H${curr.x}`
+      continue
+    }
+
+    const ix = curr.x === prev.x ? curr.x : curr.x - Math.sign(curr.x - prev.x) * r
+    const iy = curr.y === prev.y ? curr.y : curr.y - Math.sign(curr.y - prev.y) * r
+    const ox = next.x === curr.x ? curr.x : curr.x + Math.sign(next.x - curr.x) * r
+    const oy = next.y === curr.y ? curr.y : curr.y + Math.sign(next.y - curr.y) * r
+    const cross = (curr.x - prev.x) * (next.y - curr.y) - (curr.y - prev.y) * (next.x - curr.x)
+    const sweep = cross > 0 ? 1 : 0
+
+    out += curr.x === prev.x ? ` V${iy}` : ` H${ix}`
+    out += ` A${r} ${r} 0 0 ${sweep} ${ox} ${oy}`
+  }
+  return out
+}
 
 /**
  * Design frame measured off the reference artboard, with the grid's top-left
@@ -35,6 +97,9 @@ type StageImage = {
   h: number
   /** paint order inside the stage; higher sits on top */
   z?: number
+  /** which `step.images` entry to paint; defaults to the box index */
+  srcIndex?: number
+  objectPosition?: string
 }
 
 /**
@@ -71,53 +136,61 @@ const STAGE_VISUALS: StageVisual[] = [
     divider: null,
     images: [
       { x: -62, y: 53, w: 164, h: 90 },
-      { x: 290, y: 22, w: 55, h: 90, z: 1 }, // sits behind the centre card, only its right sliver shows
       { x: 135, y: 20, w: 165, h: 90, z: 2 },
     ],
     connectors: [
       // left dashboard: down, then right into a drop shared with the next line
-      "M40 143 V190 Q40 200 50 200 H120 Q130 200 130 210 V240",
+      "M40 143 V200 H130 V240",
       // centre card: down, then left into that same drop
-      "M180 110 V190 Q180 200 170 200 H140 Q130 200 130 210 V240",
+      "M180 110 V200 H130 V240",
     ],
   },
   // ── Build from 0→1 ─ spans full column (both lines)
+  // Hover: ResAI above-left, Brandintelle below-right.
+  // Line 1: drop from ResAI, jog right onto the pill stem, drop into the pill.
+  // Line 2: same stem continues down into Brandintelle.
+  // Turns use a 21px circular radius (CONNECTOR_TURN_R).
   {
     pill: { y: 163, left: COL[1], right: COL[2], align: "stretch" },
     divider: COL[1],
     images: [
-      { x: 135, y: 20, w: 165, h: 90 },
-      { x: 266, y: 250, w: 164, h: 91 },
+      { x: 138, y: 15, w: 162, h: 88 },
+      { x: 267, y: 249, w: 164, h: 88 },
     ],
     connectors: [
-      "M190 110 V135 Q190 145 200 145 H205 Q215 145 215 155 V180",
-      "M250 180 V220 Q250 230 260 230 H290 Q300 230 300 240 V250",
+      "M219 103 V121 H308 V180",
+      "M308 200 V249",
     ],
   },
   // ── Redesign & Reposition ─ spans full column (both lines)
+  // Hover: Vetbuddy above-left, ICP below-right.
+  // Line 1: horizontal from Vetbuddy, then drop into the pill (------|).
+  // Line 2: drop from the pill, long run right, then drop into ICP.
   {
     pill: { y: 101, left: COL[2], right: COL[3], align: "stretch" },
     divider: COL[2],
     images: [
-      { x: 210, y: 20, w: 163, h: 90 },
-      { x: 453, y: 213, w: 164, h: 75 },
+      { x: 200, y: 16, w: 186, h: 101 },
+      { x: 453, y: 207, w: 186, h: 101 },
     ],
     connectors: [
-      "M373 55 H390 Q400 55 400 65 V118",
-      "M430 118 V170 Q430 180 440 180 H470 Q480 180 480 190 V213",
+      "M386 66 H455 V118",
+      "M455 118 V178 H546 V207",
     ],
   },
   // ── Scale & Partner ─ left edge flush to column line
+  // Hover: one stem from the pill, T-junction left into ICP, stem continues into Oren.
+  // Turns use a 21px circular radius (CONNECTOR_TURN_R).
   {
     pill: { y: 39, left: COL[3], right: COL[4], align: "left" },
     divider: COL[3],
     images: [
-      { x: 453, y: 110, w: 164, h: 90 },
-      { x: 640, y: 215, w: 164, h: 90 },
+      { x: 394, y: 198, w: 186, h: 101 },
+      { x: 612, y: 198, w: 186, h: 101 },
     ],
     connectors: [
-      "M650 57 V80 Q650 90 640 90 H570 Q560 90 560 100 V110",
-      "M700 57 V140 Q700 150 710 150 H712 Q720 150 720 160 V215",
+      "M705 55 V198",
+      "M705 163 H475 V198",
     ],
   },
 ]
@@ -127,6 +200,14 @@ const STAGE_VISUALS: StageVisual[] = [
 // change to the geometry or interaction logic below.
 const FALLBACK_IMAGE = "https://placehold.co/420x260?text=Project"
 
+// Mobile numbered markers from the Process Section frame (not the desktop bands).
+const MOBILE_MARKERS = [
+  { bg: "#F2BB06", fg: "#111111" },
+  { bg: "#FF5B23", fg: "#FFFFFF" },
+  { bg: "#DCB8FF", fg: "#111111" },
+  { bg: "#3A39FF", fg: "#FFFFFF" },
+] as const
+
 export function DisciplineList({ steps }: { steps: ProcessStep[] }) {
   // First stage is active on load; only hover/focus changes it.
   const [activeStep, setActiveStep] = useState(0)
@@ -135,20 +216,51 @@ export function DisciplineList({ steps }: { steps: ProcessStep[] }) {
   // overhangs the container on purpose (as it does in the reference) — clipping
   // keeps that overhang from ever introducing a horizontal scrollbar.
   return (
-    <section className="overflow-x-clip bg-background py-20 md:py-28">
-      <div className="section-shell">
+    <section className="overflow-x-clip bg-background py-12 md:py-28">
+      <div className="section-shell [--section-pad-x:1rem] md:[--section-pad-x:1.5rem]">
         {/* Heading block */}
-        <p className="type-sans-medium text-eyebrow leading-normal tracking-[3.3px] uppercase text-[#AAAAAA]">
-          Where We Create Impact
+        <p className="type-vf-medium text-center text-[12px] leading-[normal] tracking-[3.3px] uppercase text-[#212121] max-md:!font-[550] md:text-left md:![font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif] md:!font-[550] md:text-eyebrow md:leading-normal md:text-[#AAAAAA] md:[font-variation-settings:normal]">
+          <span className="md:hidden">Our Process</span>
+          <span className="hidden md:inline">Where We Create Impact</span>
         </p>
-        <h2 className="type-sans-regular mt-3 max-w-3xl text-lead leading-[125%] text-[#111111] md:text-display-xs md:leading-[47.84px]">
+        <h2 className="type-vf-regular mx-auto mt-3 max-w-3xl text-center text-[28px] leading-[125%] text-[#212121] max-md:!font-[400] md:mx-0 md:text-left md:![font-family:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif] md:!font-[400] md:text-display-xs md:leading-[47.84px] md:text-[#111111] md:[font-variation-settings:normal]">
           <span className="block">Not Every Product Needs the Same Help</span>
-          <span className="type-sans-light-italic mt-2 block text-[#666666]">
+          <span className="type-sans-light-italic mt-2 hidden text-[#666666] md:block">
             We Meet You Where You Are
           </span>
         </h2>
 
-        {/* Desktop-only staircase. Mobile behaviour is unchanged (hidden). */}
+        {/* Mobile numbered process list — desktop keeps the staircase. */}
+        <ol className="mt-8 flex flex-col pl-3 md:hidden">
+          {steps.map((step, i) => {
+            const marker = MOBILE_MARKERS[i] ?? MOBILE_MARKERS[0]
+            return (
+              <li key={step.id} className="flex gap-4 pb-5 last:pb-0">
+                <span
+                  className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full"
+                  style={{ backgroundColor: marker.bg, color: marker.fg }}
+                >
+                  <span
+                    className="type-vf-regular text-[12px] leading-[normal]"
+                    style={{ fontVariationSettings: '"wght" 700, "SERF" 0, "slnt" 0', fontWeight: 700 }}
+                  >
+                    {i + 1}
+                  </span>
+                </span>
+                <div className="flex flex-col gap-1">
+                  <p className="type-vf-medium text-[16px] leading-[normal] text-[#111111] max-md:!font-[550]">
+                    {step.vennLabel}
+                  </p>
+                  <p className="type-vf-regular text-[14px] leading-[140%] text-[#212121]/60 max-md:!font-[400]">
+                    {step.shortDescription}
+                  </p>
+                </div>
+              </li>
+            )
+          })}
+        </ol>
+
+        {/* Desktop-only staircase. */}
         <div
           className="relative mt-10 hidden border-t border-border md:block"
           style={{ aspectRatio: `${FRAME_W} / ${FRAME_H}` }}
@@ -189,9 +301,14 @@ export function DisciplineList({ steps }: { steps: ProcessStep[] }) {
                   }}
                 >
                   <img
-                    src={sources[imageIndex] ?? FALLBACK_IMAGE}
-                    alt=""
+                    src={sources[box.srcIndex ?? imageIndex] ?? FALLBACK_IMAGE}
+                    alt={`${step.heroLabel} project`}
                     className="h-full w-full object-cover"
+                    style={
+                      box.objectPosition
+                        ? { objectPosition: box.objectPosition }
+                        : undefined
+                    }
                   />
                 </div>
               ))
@@ -212,7 +329,7 @@ export function DisciplineList({ steps }: { steps: ProcessStep[] }) {
                 return visual.connectors.map((path, pathIndex) => (
                   <path
                     key={`connector-${step.id}-${pathIndex}`}
-                    d={path}
+                    d={roundedOrthogonalPath(path)}
                     pathLength={1}
                     stroke={CONNECTOR_COLOR}
                     strokeWidth={1.25}

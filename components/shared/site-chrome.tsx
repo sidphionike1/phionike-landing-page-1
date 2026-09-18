@@ -144,7 +144,7 @@ export function SiteNavbar({
             white tint, both of which are plain CSS below. */}
         <div className="hidden min-[1100px]:block">
           <div className="relative overflow-hidden rounded-xl border border-primary/25 bg-background/40 px-10 py-4 shadow-none backdrop-blur-[6px] min-[1100px]:px-12 min-[1280px]:px-14">
-            <div className="flex items-center justify-between">
+            <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between">
               <Link href="/" className="inline-flex items-center">
                 <Image src="/logo.svg" alt={content.logo} width={138} height={36} priority />
               </Link>
@@ -153,14 +153,11 @@ export function SiteNavbar({
                   const slug = linkSlug(l.href)
                   const isActive = activePage ? slug === activePage : false
                   const accent = NAV_ACCENTS[slug] ?? BRAND_BLUE
-                  const baseType =
-                    activePage === "about"
-                      ? "type-sans-medium text-label leading-[19.5px]"
-                      : isActive
-                        ? "type-sans-medium text-body leading-[19.5px]"
-                        : activePage === "process-and-ai" || activePage === "home"
-                          ? "type-vf-regular text-body-lg leading-[19.5px]"
-                          : "type-sans-regular text-body-lg leading-[19.5px]"
+                  const baseType = isActive
+                    ? "type-sans-medium text-body leading-[19.5px]"
+                    : activePage === "process-and-ai" || activePage === "home"
+                      ? "type-vf-regular text-body-lg leading-[19.5px]"
+                      : "type-sans-regular text-body-lg leading-[19.5px]"
 
                   return (
                     <Link
