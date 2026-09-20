@@ -192,6 +192,20 @@ const MOBILE_SIZE: {
 const DEFAULT_CARD_TAGLINE =
   "Great design isn't defined by the number of screens delivered. It's more about the impact it creates and the value it brings to businesses.";
 
+function formatServiceLine(services: string) {
+  return services
+    .split(/\s*•\s*|\s{2,}/)
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .join("    ");
+}
+
+const cardCaptionTaglineClassName =
+  "type-sans-regular mt-1 text-[14px] leading-[140%] text-[#212121] md:mt-0 md:text-[16px]";
+
+const cardCaptionServicesClassName =
+  "type-sans-regular mt-1 whitespace-pre-wrap text-[12px] leading-[140%] text-[#121212]/40 md:text-[14px]";
+
 /**
  * Lazy autoplaying video for the masonry.
  * - Attaches src only near the viewport (saves ~10MB upfront)
@@ -372,22 +386,20 @@ function Masonry6Card({
   workLayout?: boolean;
 }) {
   const mediaH = item.cardH - MASONRY_TITLE_AREA_H - item.itemGap;
-  const servicesClassName =
-    "type-sans-regular mt-1 text-[12px] leading-[140%] text-[#121212]/40";
 
   return (
     <article
-      className="absolute flex flex-col overflow-hidden"
+      className="absolute flex flex-col overflow-hidden gap-[var(--card-gap)] md:gap-4"
       style={{
         left: item.x,
         top: item.y,
         width: item.cardW,
         height: item.cardH,
-        gap: item.itemGap,
+        ["--card-gap" as string]: `${item.itemGap}px`,
       }}
     >
       <div
-        className="flex shrink-0 flex-col justify-start"
+        className="flex shrink-0 flex-col justify-start md:gap-4"
         style={workLayout ? undefined : { height: MASONRY_TITLE_AREA_H }}
       >
         {showCategory && !workLayout && (
@@ -410,18 +422,24 @@ function Masonry6Card({
         >
           {item.title}
         </h3>
-        {workLayout && item.tagline && (
-          <p className="type-sans-regular mt-1 text-[14px] leading-[140%] text-[#212121]">
-            {item.tagline}
-          </p>
-        )}
-        {workLayout && item.services && (
-          <p className={servicesClassName}>{item.services}</p>
+        {(item.tagline || item.services) && (
+          <div>
+            {item.tagline && (
+              <p className={cardCaptionTaglineClassName}>
+                {item.tagline}
+              </p>
+            )}
+            {item.services && (
+              <p className={cardCaptionServicesClassName}>
+                {formatServiceLine(item.services)}
+              </p>
+            )}
+          </div>
         )}
       </div>
 
       <div
-        className={`relative overflow-hidden rounded-xl bg-[#EDEAE4] ${workLayout ? "min-h-0 flex-1" : "shrink-0"}`}
+        className={`relative overflow-hidden rounded-xl bg-[#EDEAE4] ${workLayout ? "min-h-0 flex-1" : "shrink-0"} md:mt-1`}
         style={
           workLayout
             ? { width: item.cardW }
@@ -577,14 +595,14 @@ function Masonry6Mobile({
               <p className={categoryClassName}>{item.industry}</p>
             )}
             <h3 className={titleClassName}>{item.title}</h3>
-            {showTagline && (
-              <p className={taglineClassName}>
+            {(showTagline || item.tagline) && (
+              <p className={taglineClassName ?? cardCaptionTaglineClassName}>
                 {item.tagline ?? DEFAULT_CARD_TAGLINE}
               </p>
             )}
-            {workLayout && item.services && (
-              <p className="type-sans-regular text-left text-[12px] leading-[140%] text-[#121212]/40">
-                {item.services}
+            {item.services && (
+              <p className={cardCaptionServicesClassName}>
+                {formatServiceLine(item.services)}
               </p>
             )} 
           </div>
@@ -624,14 +642,12 @@ function FilterDropdown({
   selected,
   onSelect,
   chipClassName,
-  workMobile = false,
 }: {
   label: string;
   options: readonly string[];
   selected: string | null;
   onSelect: (value: string | null) => void;
   chipClassName: string;
-  workMobile?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -647,20 +663,15 @@ function FilterDropdown({
 
   const isActive = selected !== null;
 
-  const workChipClass = isActive
+  const chipStateClass = isActive
     ? "gap-2 bg-[#3A39FF] px-5 py-2.5 text-white md:gap-1.5 md:border md:border-primary md:bg-primary md:px-5 md:py-2"
     : "gap-2 bg-transparent py-2.5 pr-2 pl-4 text-[#111111] md:gap-1.5 md:border md:border-border md:bg-background md:px-5 md:py-2 md:hover:border-foreground/30";
-  const defaultChipClass = isActive
-    ? "gap-1.5 border border-primary bg-primary px-5 py-2 text-white"
-    : "gap-1.5 border border-border bg-background px-5 py-2 text-[#111111] hover:border-foreground/30";
 
   return (
     <div className="relative" ref={ref}>
       <button
         onClick={() => setOpen((o) => !o)}
-        className={`${chipClassName} inline-flex items-center rounded-full leading-normal transition-all duration-200 ${
-          workMobile ? workChipClass : defaultChipClass
-        }`}
+        className={`${chipClassName} inline-flex items-center rounded-full leading-normal transition-all duration-200 ${chipStateClass}`}
       >
         {selected ?? label}
         <ChevronDown
@@ -718,23 +729,15 @@ function SeeAllWorkCTA() {
   );
 }
 
-export function PortfolioFilterGrid({
-  typography = "home",
-}: {
-  typography?: "home" | "work";
-}) {
-  const isWork = typography === "work";
-  const chipClassName = isWork
-    ? "type-sans-regular text-eyebrow leading-normal md:text-body-sm"
-    : "type-vf-regular text-eyebrow";
-  const cardTitleClassName = isWork
-    ? "type-sans-medium text-left text-title leading-normal text-[#212121]"
-    : "type-vf-regular truncate text-title-lg leading-[38.4px] text-[#141414] md:text-heading md:leading-[38.4px]";
-  const cardCategoryClassName = isWork
-    ? "type-sans-regular text-eyebrow leading-normal tracking-normal uppercase text-[#212121]/60 md:mb-1 md:tracking-[1px]"
-    : "type-sans-regular mb-1 text-eyebrow tracking-[1px] uppercase text-[#212121]/60";
+export function PortfolioFilterGrid() {
+  const chipClassName =
+    "type-sans-regular text-eyebrow leading-normal md:text-body-sm";
+  const cardTitleClassName =
+    "type-sans-medium text-left text-title leading-normal text-[#212121]";
+  const cardCategoryClassName =
+    "type-sans-regular text-eyebrow leading-normal tracking-normal uppercase text-[#212121]/60 md:mb-1 md:tracking-[1px]";
   const cardTaglineClassName =
-    "type-sans-regular text-left text-body-sm leading-[140%] text-[#212121]";
+    "type-sans-regular text-left text-[14px] leading-[140%] text-[#212121] md:text-[16px]";
 
   // null = "All" is active; each dropdown holds its own selection independently
   const [selections, setSelections] = useState<
@@ -784,75 +787,33 @@ export function PortfolioFilterGrid({
 
   return (
     <section
-      className={`relative ${isWork ? "py-10 md:py-20" : "py-14 md:py-20"}`}
+      className="relative py-10 md:py-20"
       style={{ backgroundColor: "#FFFCF7" }}
     >
-      <div
-        className={
-          isWork
-            ? "section-shell flex min-w-0 flex-col gap-6 [--section-pad-x:1rem] md:block md:[--section-pad-x:1.5rem]"
-            : "section-shell"
-        }
-      >
-        <div
-          className={
-            isWork
-              ? "flex w-full min-w-0 flex-col items-center gap-3 text-center md:mb-10 md:block md:text-left"
-              : "mb-8 md:mb-10"
-          }
-        >
-          {isWork ? (
-            <>
-              <h2 className="type-sans-regular w-full text-center text-lead leading-[125%] text-[#212121] md:text-left md:text-display-xs md:leading-normal">
-                Find work that&rsquo;s{" "}
-                <span className="md:hidden">relevant</span>
-                <em className="type-sans-light-italic hidden md:inline">relevant</em>
-                <br className="md:hidden" />
-                <span className="hidden md:inline"> </span>in different context
-              </h2>
-              <p className="type-sans-regular w-full text-center text-[16px] leading-[160%] text-[#212121]/60 md:mt-2 md:text-left">
-                Browse projects by industry, service or the{" "}
-                <br className="md:hidden" />
-                challenge you&rsquo;re looking to solve.
-              </p>
-            </>
-          ) : (
-            <>
-              <h2 className="type-sans-regular text-heading leading-[120%] text-[#212121] md:text-display-xs md:leading-[47.84px]">
-                Find work that&rsquo;s relevant
-                <br className="md:hidden" />
-                <span className="hidden md:inline"> </span>in different context
-              </h2>
-              <p className="type-sans-regular mt-2 hidden text-[16px] leading-[160%] text-[#212121]/60 md:block">
-                Browse projects by industry or service
-              </p>
-              <p className="type-sans-regular mt-2 text-[16px] leading-[160%] text-[#212121]/60 md:hidden">
-                Browse projects by industry, service or the{" "}
-                <br />
-                challenge you&rsquo;re looking to solve.
-              </p>
-            </>
-          )}
+      <div className="section-shell flex min-w-0 flex-col gap-6 [--section-pad-x:1rem] md:block md:[--section-pad-x:1.5rem]">
+        <div className="flex w-full min-w-0 flex-col items-center gap-3 text-center md:mb-10 md:block md:text-left">
+          <h2 className="type-sans-regular w-full text-center text-lead leading-[125%] text-[#212121] md:text-left md:text-display-xs md:leading-normal">
+            Find work that&rsquo;s{" "}
+            <span className="md:hidden">relevant</span>
+            <em className="type-sans-light-italic hidden md:inline">relevant</em>
+            <br className="md:hidden" />
+            <span className="hidden md:inline"> </span>in different context
+          </h2>
+          <p className="type-sans-regular w-full text-center text-[16px] leading-[160%] text-[#212121]/60 md:mt-2 md:text-left">
+            Browse projects by industry, service or the{" "}
+            <br className="md:hidden" />
+            challenge you&rsquo;re looking to solve.
+          </p>
         </div>
 
         {/* Filters: All (single toggle) + 3 independent dropdowns */}
-        <div
-          className={
-            isWork
-              ? "flex w-full min-w-0 flex-wrap gap-3 md:mb-14 md:gap-2.5"
-              : "mb-10 flex flex-wrap gap-2.5 md:mb-14"
-          }
-        >
+        <div className="flex w-full min-w-0 flex-wrap gap-3 md:mb-14 md:gap-2.5">
           <button
             onClick={handleAllClick}
             className={`${chipClassName} inline-flex items-center rounded-full leading-normal transition-all duration-200 ${
-              isWork
-                ? isAllActive
-                  ? "bg-[#3A39FF] px-5 py-2.5 text-white md:border md:border-primary md:bg-primary md:py-2"
-                  : "bg-transparent px-5 py-2.5 text-[#111111] md:border md:border-border md:bg-background md:py-2 md:hover:border-foreground/30"
-                : isAllActive
-                  ? "border border-primary bg-primary px-5 py-2 text-white"
-                  : "border border-border bg-background px-5 py-2 text-[#111111] hover:border-foreground/30"
+              isAllActive
+                ? "bg-[#3A39FF] px-5 py-2.5 text-white md:border md:border-primary md:bg-primary md:py-2"
+                : "bg-transparent px-5 py-2.5 text-[#111111] md:border md:border-border md:bg-background md:py-2 md:hover:border-foreground/30"
             }`}
           >
             All
@@ -866,7 +827,6 @@ export function PortfolioFilterGrid({
               selected={selections[group]}
               onSelect={(value) => handleSelect(group, value)}
               chipClassName={chipClassName}
-              workMobile={isWork}
             />
           ))}
         </div>
@@ -874,7 +834,7 @@ export function PortfolioFilterGrid({
         {/* ── DESKTOP: hand-placed Figma masonry (1193 × 1927), scaled to shell ── */}
         <Masonry6Desktop
           items={displayedMasonry6}
-          showCategory={isWork}
+          showCategory={false}
           categoryClassName={cardCategoryClassName}
           workLayout={true}
         />
@@ -882,12 +842,12 @@ export function PortfolioFilterGrid({
         {/* ── MOBILE: same projects, stacked full-width ── */}
         <Masonry6Mobile
           items={displayedMasonry6}
-          showCategory={isWork}
+          showCategory={false}
           categoryClassName={cardCategoryClassName}
           titleClassName={cardTitleClassName}
           taglineClassName={cardTaglineClassName}
-          showTagline={isWork}
-          workLayout={isWork}
+          showTagline
+          workLayout
         />
         <SeeAllWorkCTA />
 

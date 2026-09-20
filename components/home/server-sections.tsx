@@ -129,7 +129,7 @@ export function ValuePropBand({
 
           <ArrowLink
             {...content.cta}
-            className="type-sans-medium w-fit border-b border-white pb-0.5 text-[14px] leading-[normal] text-white max-md:!font-[550] md:mt-6 md:inline-block md:pb-1 md:text-body-sm"
+            className="type-sans-medium w-fit whitespace-nowrap border-b border-white pb-0.5 text-[14px] leading-[normal] text-white max-md:!font-[550] md:mt-6 md:pb-1 md:text-body-sm"
           />
         </div>
       </div>

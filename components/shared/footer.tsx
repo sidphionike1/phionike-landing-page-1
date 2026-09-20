@@ -228,7 +228,7 @@ export function Footer({
             src={content.teamPhotoSrc}
             alt="Phionike team"
             fill
-            className="object-cover"
+            className="object-cover object-top"
             sizes="45vw"
             priority={false}
           />

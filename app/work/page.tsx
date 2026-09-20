@@ -23,7 +23,7 @@ export default async function WorkPage() {
       <SiteNavbar content={global.nav} activePage="work" footer={global.footer} />
       <WorkHero content={work.hero} />
       <Suspense>
-        <PortfolioFilterGrid typography="work" />
+        <PortfolioFilterGrid />
       </Suspense>
       <DisciplineList steps={global.processSteps} />
       <OutcomesStatement />

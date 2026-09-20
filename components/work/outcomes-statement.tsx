@@ -21,7 +21,7 @@ const stats = [
     label: "Monthly Active Users",
   },
   {
-    value: "8+",
+    value: "10+",
     label: "Years of Craft",
   },
 ];
@@ -113,7 +113,9 @@ export default function OutcomesStatement() {
               <div className="overflow-hidden">
                 <motion.p
                   variants={textRevealVariants}
-                  className="type-sans-regular text-caption uppercase tracking-[1px] text-[#212121]/60 md:text-body-lg md:text-[#212121]"
+                  className={`type-sans-regular text-caption uppercase tracking-[1px] text-[#212121]/60 md:text-body-lg md:text-[#212121] ${
+                    item.label === "Monthly Active Users" ? "whitespace-nowrap" : ""
+                  }`}
                 >
                   {item.label}
                 </motion.p>

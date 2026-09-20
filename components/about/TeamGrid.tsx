@@ -327,7 +327,7 @@ function StripNoDataView({ card }: { card: StripNoDataCard }) {
     >
       <Image
         src={card.photoSrc}
-        alt={card.name}
+        alt={card.name ?? PLACEHOLDER_NAME}
         fill
         className="object-cover object-top"
         sizes={`${card.width}px`}
