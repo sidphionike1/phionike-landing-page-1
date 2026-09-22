@@ -1,7 +1,7 @@
 import globalData   from "@/content/global.json"
 import homeData     from "@/content/home.json"
 import servicesData from "@/content/services.json"
-import workData     from "@/content/work.json"
+import workData from "@/content/work.json"
 import aboutData    from "@/content/about.json"
 import processAndAiData from "@/content/process-and-ai.json"
 import {

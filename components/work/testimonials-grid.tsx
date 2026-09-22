@@ -7,40 +7,40 @@ const PLACEHOLDER_ITEMS: TestimonialItem[] = [
   {
     id: "1",
     quote:
-      "Roopam loves design and is often found observing design books, products and services to learn from them. He comes from the background of Engineering & Design, so he understand well how to make a good blend of Form & Function.",
-    name: "Paulina Sabini",
+      "Working with the Phionike team for our product UIUX has been an amazing experience. The team is young, open to new ideas and definitely bring new design ideas for our product to the table. As their client for more the 2 years, I would definitely recommend you to try out their services.",
+    name: "Robin Das",
     role: "CEO",
-    company: "Take 2 Films",
+    company: "Brandintelle",
     photoSrc: "https://placehold.co/500x633/D5B2FF/333333?text=Photo",
     accentColor: "#3C3BFF",
   },
   {
     id: "2",
     quote:
-      "Maya enjoys exploring the intersection of art and technology. Her background in fine arts helps her craft visually stunning interfaces that are also user-friendly.",
-    name: "Peter Liu",
-    role: "Art Director",
-    company: "Creative Hub",
+      "Roopam and Phionike team have been very cooperative and it was great working with them. The skill sets are great and very professional approach.",
+    name: "Rajpreet Kaur",
+    role: "",
+    company: "Google Reviews",
     photoSrc: "https://placehold.co/500x633/F2B800/333333?text=Photo",
     accentColor: "#FF5B24",
   },
   {
     id: "3",
     quote:
-      "Alexander is a passionate UX researcher who thrives on understanding user behavior. With years of experience in both tech and design, he constantly bridges the gap between users and products.",
-    name: "Alexander Grant",
-    role: "UX Researcher",
-    company: "Innovate Tech",
+      "I recently had the pleasure of working with Phionike. From start to finish, they were incredibly communicative, responsive, and diligent in their work. Beyond being a design partner, they served as an invaluable thought partner, always willing to go above and beyond to help us identify strategic opportunities that could be leveraged through design.",
+    name: "Ian Carnahan",
+    role: "",
+    company: "Google Reviews",
     photoSrc: "https://placehold.co/500x633/FF5B24/333333?text=Photo",
     accentColor: "#D5B2FF",
   },
   {
     id: "4",
     quote:
-      "Liam is a front-end developer with a keen eye for aesthetics. His love for coding and design merge seamlessly, allowing him to create interactive experiences that delight users.",
-    name: "Lyra Johnson",
-    role: "Front-End Developer",
-    company: "Tech Solutions",
+      "Working With Roopam is a Delight ! Quick Prototyping and working with a talented team.",
+    name: "Saurabh Kabra",
+    role: "",
+    company: "Google Reviews",
     photoSrc: "https://placehold.co/500x633/3C3BFF/FFFFFF?text=Photo",
     accentColor: "#F2B800",
   },
@@ -60,7 +60,7 @@ function TestimonialCard({ item }: { item: TestimonialItem }) {
           {item.name}
         </p>
         <p className="type-sans-regular mt-0.5 text-eyebrow leading-normal text-[#212121]/60">
-          {item.role} / {item.company}
+          {[item.role, item.company].filter(Boolean).join(" / ")}
         </p>
       </footer>
     </article>

@@ -114,7 +114,7 @@
 }
 @theme inline{
   --font-sans:var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;
-  --font-serif:var(--font-cormorant);
+  --font-serif:var(--font-season-vf),var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;
   --font-vf:var(--font-season-vf),var(--font-season-sans),ui-sans-serif,system-ui,sans-serif;
   --font-weight-light:300;
   --font-weight-medium:550;

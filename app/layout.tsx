@@ -1,13 +1,10 @@
 import { Analytics } from "@vercel/analytics/next"
 import type { Metadata, Viewport } from "next"
-import { Cormorant_Garamond } from "next/font/google"
 import Script from "next/script"
 import { JsonLd } from "@/components/seo/json-ld"
 import { localBusinessJsonLd, organizationJsonLd, PAGE_SEO, SITE_NAME, SITE_URL, websiteJsonLd } from "@/lib/seo"
 import { seasonSans, seasonVf } from "./fonts"
 import "./globals.css"
-
-const serif = Cormorant_Garamond({ subsets: ["latin"], variable: "--font-cormorant", weight: ["500", "600"] })
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -54,7 +51,7 @@ export const viewport: Viewport = { colorScheme: "light", themeColor: "#faf6f0",
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-IN" data-scroll-behavior="smooth" className={`bg-background ${seasonSans.variable} ${seasonVf.variable} ${serif.variable}`}>
+    <html lang="en-IN" data-scroll-behavior="smooth" className={`bg-background ${seasonSans.variable} ${seasonVf.variable}`}>
       <body className="type-sans-regular antialiased">
         <JsonLd id="ld-organization" data={organizationJsonLd()} />
         <JsonLd id="ld-localbusiness" data={localBusinessJsonLd()} />

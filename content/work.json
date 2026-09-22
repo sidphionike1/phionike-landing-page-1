@@ -158,41 +158,40 @@
     "items": [
       {
         "id": "t1",
-        "quote": "Roopam loves design and is often found observing design books, products and services to learn from them. He comes from the background of Engineering & Design, so he understands well how to make a good blend of Form & Function. He believes in the power of good design because it is liberating.",
-        "name": "Paulina Sabini",
+        "quote": "Working with the Phionike team for our product UIUX has been an amazing experience. The team is young, open to new ideas and definitely bring new design ideas for our product to the table. As their client for more the 2 years, I would definitely recommend you to try out their services.",
+        "name": "Robin Das",
         "role": "CEO",
-        "company": "Take 2 Films",
+        "company": "Brandintelle",
         "photoSrc": "/testimonials/paulina-sabini.jpg",
         "accentColor": "#E65124"
       },
       {
         "id": "t2",
-        "quote": "Maya enjoys exploring the intersection of art and technology. Her background in fine arts helps her craft visually stunning interfaces that are also user-friendly, making her a valuable asset in any design team.",
-        "name": "Peter Liu",
-        "role": "Art Director",
-        "company": "Creative Hub",
+        "quote": "Roopam and Phionike team have been very cooperative and it was great working with them. The skill sets are great and very professional approach.",
+        "name": "Rajpreet Kaur",
+        "role": "",
+        "company": "Google Reviews",
         "photoSrc": "/testimonials/peter-liu.jpg",
         "accentColor": "#2538F5"
       },
       {
         "id": "t3",
-        "quote": "Alexander is a passionate UX researcher who thrives on understanding user behavior. With years of experience in both tech and design, he constantly bridges the gap between users and products, ensuring that every design decision is backed by real-world insights.",
-        "name": "Alexander Grant",
-        "role": "UX Researcher",
-        "company": "Innovate Tech",
+        "quote": "I recently had the pleasure of working with Phionike. From start to finish, they were incredibly communicative, responsive, and diligent in their work. Beyond being a design partner, they served as an invaluable thought partner, always willing to go above and beyond to help us identify strategic opportunities that could be leveraged through design.",
+        "name": "Ian Carnahan",
+        "role": "",
+        "company": "Google Reviews",
         "photoSrc": "/testimonials/alexander-grant.jpg",
         "accentColor": "#F2A93B"
       },
       {
         "id": "t4",
-        "quote": "Liam is a front-end developer with a keen eye for aesthetics. His love for coding and design merge seamlessly, allowing him to create interactive experiences that delight users and enhance engagement.",
-        "name": "Lyra Johnson",
-        "role": "Front-End Developer",
-        "company": "Tech Solutions",
+        "quote": "Working With Roopam is a Delight ! Quick Prototyping and working with a talented team.",
+        "name": "Saurabh Kabra",
+        "role": "",
+        "company": "Google Reviews",
         "photoSrc": "/testimonials/lyra-johnson.jpg",
         "accentColor": "#d6a7f5"
       }
-    ],
-    "_contentQA": "Quote bodies (Roopam/Maya/Alexander/Liam) don't match caption names (Paulina/Peter/Alexander Grant/Lyra) except item 3. Preserved as on-screen pairing for layout purposes — replace with real, internally-consistent testimonials before launch."
+    ]
   }
 }
