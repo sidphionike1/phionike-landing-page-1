@@ -18,7 +18,7 @@ export async function LegalShell({
     <main>
       <SiteNavbar content={global.nav} footer={global.footer} />
       <article className="bg-background pb-20 pt-[104px] md:pb-28 md:pt-40">
-        <div className="section-shell max-w-[760px]">
+        <div className="mx-auto w-full max-w-[1200px] px-[5%] md:px-0">
           <p className="type-sans-regular text-[12px] leading-normal tracking-[3px] uppercase text-[#3A39FF]">
             Legal
           </p>
