@@ -41,7 +41,7 @@ export function CookieConsent() {
   if (panel === "hidden") return null
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 p-4 md:p-6">
+    <div className="fixed inset-x-0 bottom-0 z-40 px-[5%] pb-4 md:px-0 md:pb-6">
       <section
         role="dialog"
         aria-modal="false"
