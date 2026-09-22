@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowUpRight } from 'lucide-react'
 import type { GlobalContent } from '@/content/schema'
+import { CookieSettingsButton } from '@/components/shared/cookie-consent'
 import { SocialIcon } from '@/components/shared/social-icon'
 
 // Phionike logo
@@ -219,6 +220,22 @@ export function Footer({
               <span className="type-sans-semibold text-caption leading-normal text-[#121212] md:!font-[400] md:text-eyebrow md:leading-[18px] md:text-[#212121]">
                 {content.location}
               </span>
+              <span className="hidden text-[#212121]/60 md:inline">·</span>
+              <nav aria-label="Legal" className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 md:mt-0">
+                <Link
+                  href="/privacy"
+                  className="type-sans-regular text-caption leading-normal text-[#212121]/60 transition-opacity hover:opacity-70 md:text-eyebrow md:leading-[18px]"
+                >
+                  Privacy Policy
+                </Link>
+                <Link
+                  href="/cookies"
+                  className="type-sans-regular text-caption leading-normal text-[#212121]/60 transition-opacity hover:opacity-70 md:text-eyebrow md:leading-[18px]"
+                >
+                  Cookie Policy
+                </Link>
+                <CookieSettingsButton className="type-sans-regular text-left text-caption leading-normal text-[#212121]/60 transition-opacity hover:opacity-70 md:text-eyebrow md:leading-[18px]" />
+              </nav>
             </div>
           </div>
         </div>

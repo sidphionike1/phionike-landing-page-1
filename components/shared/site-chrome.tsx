@@ -314,6 +314,22 @@ export function SiteNavbar({
                     <div className="mt-6 border-t border-white/10 pt-4">
                       <p className="type-sans-regular text-eyebrow leading-[18px] text-white/50">{footer.copyright}</p>
                       <p className="type-sans-regular mt-2 text-eyebrow leading-[18px] text-white">{footer.location}</p>
+                      <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1">
+                        <Link
+                          href="/privacy"
+                          onClick={closeMenu}
+                          className="type-sans-regular text-eyebrow leading-[18px] text-white/50"
+                        >
+                          Privacy Policy
+                        </Link>
+                        <Link
+                          href="/cookies"
+                          onClick={closeMenu}
+                          className="type-sans-regular text-eyebrow leading-[18px] text-white/50"
+                        >
+                          Cookie Policy
+                        </Link>
+                      </div>
                     </div>
                   </>
                 )}

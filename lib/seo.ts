@@ -56,6 +56,18 @@ export const PAGE_SEO = {
     description:
       "Based in Mumbai, working globally. Partner with Phionike to design products that define industries.",
   },
+  cookies: {
+    path: "/cookies",
+    title: "Cookie Policy — Phionike",
+    description:
+      "How Phionike uses cookies and similar technologies, and how to manage your consent.",
+  },
+  privacy: {
+    path: "/privacy",
+    title: "Privacy Policy — Phionike",
+    description:
+      "How Phionike Solutions LLP collects, uses and protects personal data.",
+  },
 } as const
 
 export function absoluteUrl(path = "/") {

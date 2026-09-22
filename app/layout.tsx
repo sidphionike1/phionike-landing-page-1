@@ -1,6 +1,6 @@
-import { Analytics } from "@vercel/analytics/next"
 import type { Metadata, Viewport } from "next"
-import Script from "next/script"
+import { ConsentAnalytics } from "@/components/shared/consent-analytics"
+import { CookieConsent } from "@/components/shared/cookie-consent"
 import { JsonLd } from "@/components/seo/json-ld"
 import { localBusinessJsonLd, organizationJsonLd, PAGE_SEO, SITE_NAME, SITE_URL, websiteJsonLd } from "@/lib/seo"
 import { seasonSans, seasonVf } from "./fonts"
@@ -57,20 +57,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <JsonLd id="ld-localbusiness" data={localBusinessJsonLd()} />
         <JsonLd id="ld-website" data={websiteJsonLd()} />
         {children}
-        {process.env.NODE_ENV === "production" && (
-          <>
-            <Analytics />
-            <Script id="microsoft-clarity" strategy="afterInteractive">
-              {`
-                (function(c,l,a,r,i,t,y){
-                  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-                })(window, document, "clarity", "script", "yl7tdp9kvy");
-              `}
-            </Script>
-          </>
-        )}
+        <CookieConsent />
+        <ConsentAnalytics />
       </body>
     </html>
   )
