@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/shared/cached-image";
 import { useEffect, useRef, useState } from "react";
 import { ACCENT_HEX, ACCENT_TEXT, TEAM_MEMBERS } from "./team-data";
 

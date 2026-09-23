@@ -1,6 +1,7 @@
-import Image from "next/image";
+import Image from "@/components/shared/cached-image";
 import { ArrowUpRight } from "lucide-react";
 import type { HomePage } from "@/content/schema";
+import { asset, cssUrl } from "@/lib/asset";
 import { HeroVisual } from "./hero-visual";
 
 const ArrowLink = ({
@@ -107,7 +108,7 @@ export function ValuePropBand({
     <section
       className="bg-[#3A39FF] py-12 text-primary-foreground md:bg-primary md:py-20"
       style={{
-        backgroundImage: "url('/pattern-binary-blue.png')",
+        backgroundImage: cssUrl("/pattern-binary-blue.png"),
         backgroundRepeat: "repeat",
         backgroundSize: "1440px 414px",
       }}
@@ -278,7 +279,7 @@ export function AIPhilosophyBand({ content }: { content: HomePage["aiBand"] }) {
     <section
       className="bg-mustard py-14 text-foreground md:py-28"
       style={{
-        backgroundImage: "url('/pattern-binary-mustard.png')",
+        backgroundImage: cssUrl("/pattern-binary-mustard.png"),
         backgroundRepeat: "repeat",
         backgroundSize: "1440px 414px",
       }}
@@ -489,7 +490,7 @@ export function AwardsSection() {
             {/* Card Content *\/}
             <div className="relative z-10 w-full flex-1 flex items-center justify-center pt-8">
               <img
-                src={award.logo}
+                src={asset(award.logo)}
                 alt={award.title}
                 className="max-h-24 w-auto object-contain"
               />

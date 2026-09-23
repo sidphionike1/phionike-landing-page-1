@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import type { HomePage } from "@/content/schema";
+import { asset } from "@/lib/asset";
 
 interface CaseStudyProject {
   title: string;
@@ -174,7 +175,7 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
               {VENN_LAYERS.map((src) => (
                 <img
                   key={src}
-                  src={src}
+                  src={asset(src)}
                   alt=""
                   aria-hidden="true"
                   className="absolute inset-0 h-full w-full object-contain transition-opacity duration-500"
@@ -306,7 +307,7 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
                 <div className="mt-5 flex min-h-0 flex-1 items-center justify-center md:mt-6">
                   <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-[1.25rem] bg-white p-3 md:rounded-[1.5rem] md:p-4">
                     <img
-                      src={activeProject.image}
+                      src={asset(activeProject.image)}
                       alt={activeProject.title}
                       className="h-auto max-h-[240px] w-full object-contain md:max-h-[320px]"
                     />

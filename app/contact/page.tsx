@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
+import Image from "@/components/shared/cached-image"
+import { cssUrl } from "@/lib/asset"
 import { getGlobalContent } from '@/lib/content'
 import { SiteNavbar } from '@/components/shared/site-chrome'
 import { FooterCTA, Footer } from '@/components/shared/footer'
@@ -16,7 +17,10 @@ export default async function ContactPage() {
       <JsonLd id="ld-contact-webpage" data={webPageJsonLd('contact')} />
       <JsonLd id="ld-contact-breadcrumb" data={breadcrumbJsonLd('contact')} />
       <SiteNavbar content={global.nav} activePage="contact" footer={global.footer} />
-      <section className="bg-[url('/contact-us/hero-mob.png')] bg-[length:100%_auto] bg-center bg-no-repeat pb-10 pt-[104px] md:bg-none md:bg-background md:pb-28 md:pt-56">
+      <section
+        className="bg-[image:var(--hero-mob)] bg-[length:100%_auto] bg-center bg-no-repeat pb-10 pt-[104px] md:bg-none md:bg-background md:pb-28 md:pt-56"
+        style={{ ["--hero-mob" as string]: cssUrl("/contact-us/hero-mob.png") }}
+      >
         <div className="section-shell grid items-start gap-10 [--section-pad-x:1.25rem] md:grid-cols-[1.15fr_0.85fr] md:items-stretch md:[--section-pad-x:1.5rem]">
           <div className="relative isolate flex flex-col gap-4 md:h-full md:justify-between md:pb-3">
             <Image

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/shared/cached-image";
 
 type AccentColor = "orange" | "yellow" | "lavender" | "blue";
 

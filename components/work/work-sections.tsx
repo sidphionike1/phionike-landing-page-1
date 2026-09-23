@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import type { ProcessStep } from "@/content/schema"
+import { asset } from "@/lib/asset"
 
 // ─── DisciplineList ──────────────────────────────────────────────────────────
 // Staircase diagonal badges within 4-column guide layout.
@@ -301,7 +302,7 @@ export function DisciplineList({ steps }: { steps: ProcessStep[] }) {
                   }}
                 >
                   <img
-                    src={sources[box.srcIndex ?? imageIndex] ?? FALLBACK_IMAGE}
+                    src={asset(sources[box.srcIndex ?? imageIndex] ?? FALLBACK_IMAGE)}
                     alt={`${step.heroLabel} project`}
                     className="h-full w-full object-cover"
                     style={

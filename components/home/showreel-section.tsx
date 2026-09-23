@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import Image from "next/image"
+import Image from "@/components/shared/cached-image"
 import { Play } from "lucide-react"
 import type { HomePage } from "@/content/schema"
 
