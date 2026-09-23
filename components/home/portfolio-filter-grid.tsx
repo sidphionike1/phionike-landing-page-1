@@ -729,7 +729,11 @@ function SeeAllWorkCTA() {
   );
 }
 
-export function PortfolioFilterGrid() {
+export function PortfolioFilterGrid({
+  showSeeAllWork = true,
+}: {
+  showSeeAllWork?: boolean
+}) {
   const chipClassName =
     "type-sans-regular text-eyebrow leading-normal md:text-body-sm";
   const cardTitleClassName =
@@ -849,7 +853,7 @@ export function PortfolioFilterGrid() {
           showTagline
           workLayout
         />
-        <SeeAllWorkCTA />
+        {showSeeAllWork && <SeeAllWorkCTA />}
 
         {/* ── OLD DESKTOP 8-GRID (commented out) ─────────────────────
         <div className="hidden gap-8 md:flex md:items-start">

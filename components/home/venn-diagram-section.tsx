@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import type { HomePage } from "@/content/schema";
 import { asset } from "@/lib/asset";
 
@@ -106,21 +104,11 @@ const ACTIVE_PILES: Record<string, CaseStudyPile> = {
 };
 
 export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
-  const router = useRouter();
-  const params = useSearchParams();
+  const [selectedDiscipline, setSelectedDiscipline] = useState<string | null>(null);
   const [projectIndex, setProjectIndex] = useState(0);
 
-  const selectedDiscipline = params.get("discipline");
-
-  const select = (kind: "discipline" | "sector", id: string) => {
-    const next = new URLSearchParams(params.toString());
-    const current = next.get(kind);
-    if (current === id) {
-      next.delete(kind);
-    } else {
-      next.set(kind, id);
-    }
-    router.replace(`?${next.toString()}#work`, { scroll: false });
+  const selectDiscipline = (id: string) => {
+    setSelectedDiscipline((current) => (current === id ? null : id));
   };
 
   const caseStudies: Record<string, CaseStudyPile> = ACTIVE_PILES;
@@ -230,7 +218,8 @@ export function VennDiagramSection({ content }: { content: HomePage["venn"] }) {
                 return (
                   <button
                     key={d.id}
-                    onClick={() => select("discipline", d.id)}
+                    type="button"
+                    onClick={() => selectDiscipline(d.id)}
                     className={`type-sans-medium whitespace-nowrap rounded-full px-3.5 py-1.5 text-[11px] leading-[16px] transition-all duration-300 md:px-7 md:py-3 md:text-body-sm md:leading-[19.5px] ${offsetClass} ${
                       isDefault
                         ? "bg-foreground text-white hover:scale-105"
