@@ -1,4 +1,4 @@
-import Image from "next/image"
+import Image from "@/components/shared/cached-image"
 
 const FOOTER_ICON: Record<string, string> = {
   linkedin: "/footer/linkedin.png",

@@ -1,4 +1,4 @@
-import Image from "next/image"
+import Image from "@/components/shared/cached-image"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import type { CSSProperties } from "react"

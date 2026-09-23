@@ -1,7 +1,7 @@
 'use client'
 
 import { Fragment, useState } from 'react'
-import Image from 'next/image'
+import Image from "@/components/shared/cached-image"
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowUpRight, ArrowRight, ArrowDown, ChevronDown, Code2, Sparkles, Search, Layers, CheckCircle2, Compass, Cpu, Activity, User, type LucideIcon } from 'lucide-react'

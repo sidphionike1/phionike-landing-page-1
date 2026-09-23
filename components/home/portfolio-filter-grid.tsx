@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/shared/cached-image";
 import Link from "next/link";
 import { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import { ArrowUpRight, ChevronDown } from "lucide-react";

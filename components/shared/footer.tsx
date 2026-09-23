@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
+import Image from "@/components/shared/cached-image"
 import { ArrowUpRight } from 'lucide-react'
 import type { GlobalContent } from '@/content/schema'
 import { CookieSettingsButton } from '@/components/shared/cookie-consent'

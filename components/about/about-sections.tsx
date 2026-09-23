@@ -1,6 +1,7 @@
-import Image from "next/image"
+import Image from "@/components/shared/cached-image"
 import { ArrowUpRight } from "lucide-react"
 import type { CSSProperties } from "react"
+import { asset } from "@/lib/asset"
 import { cn } from "@/lib/utils"
 import type { AboutPage } from "@/content/schema"
 // import {TeamGrid} from "@/components/about/team-grid"
@@ -135,10 +136,10 @@ export function AboutHero({ content }: AboutHeroProps) {
       <div className="w-screen relative left-1/2 -translate-x-1/2 h-[288px] overflow-hidden">
         <picture className="w-full h-full block">
           {/* Desktop Image */}
-          <source media="(min-width: 768px)" srcSet={stripImage.desktopSrc} />
+          <source media="(min-width: 768px)" srcSet={asset(stripImage.desktopSrc)} />
           {/* Mobile Fallback Image */}
           <img
-            src={stripImage.mobileSrc}
+            src={asset(stripImage.mobileSrc)}
             alt={stripImage.alt ?? 'Hero strip image'}
             className="w-full h-full object-cover object-center"
           />
